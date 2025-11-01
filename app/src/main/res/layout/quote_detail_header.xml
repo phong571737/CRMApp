@@ -34,32 +34,44 @@
 
         <ImageView
             android:id="@+id/left_Lead"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_margin="10dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_margin="@dimen/start_margin"
             android:src="@drawable/arrow_back"
+            android:padding="@dimen/margin_icon"
+            app:tint="@color/color_icon"
+            android:background="@drawable/bg_icon"
             android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/right_Lead"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:src="@drawable/ic_next"
+            android:padding="@dimen/margin_icon"
+            app:tint="@color/color_icon"
+            android:background="@drawable/bg_icon"
             android:layout_margin="@dimen/start_margin"
             android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/edit_detail"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:padding="@dimen/margin_icon"
+            android:background="@drawable/bg_icon"
+            app:tint="@color/color_icon"
             android:src="@drawable/ic_pencil"
             android:layout_margin="@dimen/start_margin"
             android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/choose_active"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:padding="@dimen/margin_icon"
+            android:background="@drawable/bg_icon"
+            app:tint="@color/color_icon"
             android:src="@drawable/ic_more"
             android:layout_margin="@dimen/start_margin"
             android:contentDescription="@null"/>
@@ -84,6 +96,7 @@
                 android:layout_height="20dp"
                 android:layout_margin="@dimen/start_margin"
                 android:src="@drawable/paper"
+                app:tint="@color/color_icon"
                 android:contentDescription="@null"/>
             <TextView
                 android:id="@+id/tv_user"

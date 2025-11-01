@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_lead"
-    tools:context=".detailLead">
+    tools:context=".leaddetail">
 
     <include
         android:id="@+id/header_detail"

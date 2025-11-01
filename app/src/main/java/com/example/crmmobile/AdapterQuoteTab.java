@@ -23,11 +23,18 @@ public class AdapterQuoteTab extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return null;
+        switch (position){
+            case 0:
+                return new QuoteOverView();
+            case 1:
+                return new DetailQuote();
+            default:
+                return new QuoteOverView();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 2;
     }
 }

@@ -31,7 +31,7 @@ public class ThongTinKhacActivity extends AppCompatActivity {
         thongTin.setOnClickListener(v -> {
             Intent intent = new Intent(ThongTinKhacActivity.this, HienThiNguoiLienHeActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         });
 
         // ---------------- SECTION 1: Thông tin địa chỉ ----------------

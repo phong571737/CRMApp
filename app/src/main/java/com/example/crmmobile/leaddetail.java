@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class detailLead extends Fragment {
+public class leaddetail extends Fragment {
     private String name, company, daycontact;
 
-    public detailLead() {
+    public leaddetail() {
         // Required empty public constructor
     }
-    public static detailLead newInstance(String name, String company, String daycontact) {
-        detailLead fragment = new detailLead();
+    public static leaddetail newInstance(String name, String company, String daycontact) {
+        leaddetail fragment = new leaddetail();
         Bundle args = new Bundle();
         args.putString("name", name);
         args.putString("company", company);

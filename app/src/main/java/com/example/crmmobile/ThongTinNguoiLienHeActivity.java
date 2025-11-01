@@ -22,7 +22,7 @@ public class ThongTinNguoiLienHeActivity extends AppCompatActivity {
         thongtinkhac.setOnClickListener(v -> {
             Intent intent = new Intent(ThongTinNguoiLienHeActivity.this, ThongTinKhacActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         });
     }
 }

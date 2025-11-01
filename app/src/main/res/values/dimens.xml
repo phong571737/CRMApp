@@ -17,4 +17,10 @@
     <dimen name="margin5">5dp</dimen>
     <dimen name="margin20">20dp</dimen>
     <dimen name="margin15">15dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding14">14dp</dimen>
+    <dimen name="padding28">28dp</dimen>
+    <dimen name="padding32">32dp</dimen>
+    <dimen name="padding34">34dp</dimen>
+    <dimen name="padding36">36dp</dimen>
 </resources>

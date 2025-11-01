@@ -15,7 +15,7 @@ public class DetailLeadActivity extends AppCompatActivity {
         String company = getIntent().getStringExtra("company");
         String daycontact = getIntent().getStringExtra("daycontact");
 
-        detailLead fragment = detailLead.newInstance(name, company, daycontact);
+        leaddetail fragment = leaddetail.newInstance(name, company, daycontact);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_detail_lead, fragment)
                 .commit();

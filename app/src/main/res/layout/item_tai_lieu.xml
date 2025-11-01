@@ -22,7 +22,7 @@
             android:layout_marginEnd="12dp"
             android:background="@drawable/bg_file_icon"
             android:scaleType="centerInside"
-            android:src="@drawable/pdf" />
+            android:src="@drawable/ic_pdf" />
 
         <!-- Nội dung -->
         <LinearLayout
@@ -70,23 +70,23 @@
 
             <ImageView
                 android:id="@+id/btnDownload"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="12dp"
-                android:src="@drawable/download" />
+                android:src="@drawable/ic_download" />
 
             <ImageView
                 android:id="@+id/btnShare"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginEnd="12dp"
-                android:src="@drawable/share" />
+                android:src="@drawable/ic_share" />
 
             <ImageView
                 android:id="@+id/btnDelete"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/delete" />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_garbage" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

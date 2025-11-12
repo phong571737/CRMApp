@@ -15,25 +15,26 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
 
     private List<Quote> listquote;
 
-    private onClickBackListener backListener;
+    private onClickDotsListener dotsListener;
     private onClickMenuListener onClickMenuListener;
 
-    public interface onClickBackListener{
-        void onBackListener(Quote quote);
+    public interface onClickDotsListener{
+        void onDotsListener(Quote quote, int position);
     }
 
     public interface onClickMenuListener{
         void onMenuListener(Quote quote);
     }
 
-    public AdapterQuote(List<Quote> listquote, onClickMenuListener onMenulistener){
+    public AdapterQuote(List<Quote> listquote,onClickDotsListener dotsListener, onClickMenuListener onMenulistener){
         this.listquote = listquote;
+        this.dotsListener = dotsListener;
         this.onClickMenuListener = onMenulistener;
     }
     public static class quoteViewHolder extends RecyclerView.ViewHolder{
 
         TextView tv_code, tv_company,tv_date;
-        ImageView iv_back;
+        ImageView iv_back, iv_dots;
         public quoteViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -41,6 +42,7 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
             tv_company = itemView.findViewById(R.id.tv_Company);
             tv_date = itemView.findViewById(R.id.tv_job);
             iv_back = itemView.findViewById(R.id.iv_back);
+            iv_dots = itemView.findViewById(R.id.iv_dots);
         }
     }
 
@@ -63,6 +65,11 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
         viewHolder.itemView.setOnClickListener(v -> {
             if(onClickMenuListener != null){
                 onClickMenuListener.onMenuListener(quote);
+            }
+        });
+        viewHolder.iv_dots.setOnClickListener(v -> {
+            if(dotsListener != null){
+                dotsListener.onDotsListener(quote, position);
             }
         });
     }

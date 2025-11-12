@@ -10,7 +10,7 @@
 
     <!-- Nút đóng -->
     <ImageView
-        android:id="@+id/btn_opportunity_action_close"
+        android:id="@+id/btn_action_close"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_escape"
@@ -21,7 +21,7 @@
 
     <!-- Tiêu đề -->
     <TextView
-        android:id="@+id/tv_opportunity_action_title"
+        android:id="@+id/tv_action_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Lựa chọn hành động"
@@ -29,16 +29,16 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:gravity="center"
-        app:layout_constraintTop_toTopOf="@id/btn_opportunity_action_close"
-        app:layout_constraintBottom_toBottomOf="@id/btn_opportunity_action_close"
+        app:layout_constraintTop_toTopOf="@id/btn_action_close"
+        app:layout_constraintBottom_toBottomOf="@id/btn_action_close"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_opportunity_action_close"
+        app:layout_constraintEnd_toStartOf="@id/btn_action_close"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp" />
 
     <!-- Container chứa các item_action -->
     <LinearLayout
-        android:id="@+id/lt_opportunity_more_actions"
+        android:id="@+id/lt_more_actions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -46,6 +46,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_opportunity_action_close" />
+        app:layout_constraintTop_toBottomOf="@id/btn_action_close" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

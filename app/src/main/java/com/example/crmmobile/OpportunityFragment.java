@@ -41,7 +41,6 @@ public class OpportunityFragment extends Fragment {
         initViews(view);
         setupRecyclerView();
         setupClickListeners();
-
         return view;
     }
 

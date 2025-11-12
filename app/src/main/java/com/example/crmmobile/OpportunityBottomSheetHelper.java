@@ -15,10 +15,10 @@ public class OpportunityBottomSheetHelper {
     // anchorView có thể dùng nếu bạn muốn neo popup; có thể truyền null
     public static void showBottomSheet(Context context, Opportunity item, int position, View anchorView) {
         BottomSheetDialog dialog = new BottomSheetDialog(context);
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_opportunity_more_actions, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_more_actions, null);
 
-        LinearLayout layoutActions = view.findViewById(R.id.lt_opportunity_more_actions);
-        ImageView btnClose = view.findViewById(R.id.btn_opportunity_action_close);
+        LinearLayout layoutActions = view.findViewById(R.id.lt_more_actions);
+        ImageView btnClose = view.findViewById(R.id.btn_action_close);
 
         btnClose.setOnClickListener(v -> dialog.dismiss());
 
@@ -56,10 +56,10 @@ public class OpportunityBottomSheetHelper {
     private static void addActionItem(Context context, LinearLayout parent, int iconRes,
                                       String text, Runnable onClick) {
         View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.item_opportunity_more_actions, parent, false);
+                .inflate(R.layout.item_action, parent, false);
 
-        ImageView icon = itemView.findViewById(R.id.img_opportunity_action_icon);
-        TextView label = itemView.findViewById(R.id.tv_opportunity_action);
+        ImageView icon = itemView.findViewById(R.id.img_action_icon);
+        TextView label = itemView.findViewById(R.id.tv_action);
 
         icon.setImageResource(iconRes);
         label.setText(text);

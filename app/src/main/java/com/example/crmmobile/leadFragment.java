@@ -60,22 +60,8 @@ public class leadFragment extends Fragment {
                     .commit();
         });
 
-        adapter = new AdapterLead(leadList, lead -> {
-            Fragment activefragment = new activate_choose();
-            //open active chose
-            BottomNavigationView navFooter = requireActivity().findViewById(R.id.nav_footer);
-            FrameLayout contain = requireActivity().findViewById(R.id.main_container);
-            ViewPager2 viewPager = requireActivity().findViewById(R.id.viewPager);
-
-            viewPager.setVisibility(View.GONE);
-            navFooter.setVisibility(View.GONE);
-            contain.setVisibility(View.VISIBLE);
-
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_container, activefragment)
-                    .addToBackStack(null)
-                    .commit();
+        adapter = new AdapterLead(leadList, (item, position) -> {
+            BottomSheetActionLead.ShowBottomSheetLead(requireContext(), item, position);
         }, lead -> {
             Intent intent = new Intent(getContext(), DetailLeadActivity.class);
             intent.putExtra("name", lead.getName());

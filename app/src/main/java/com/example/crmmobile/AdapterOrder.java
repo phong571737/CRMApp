@@ -78,10 +78,9 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
     public void showBottomSheet() {
         BottomSheetDialog dialog = new BottomSheetDialog(context);
 
-        //Sửa dòng này
-        View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_actions, null, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_more_actions, null, false);
 
-        LinearLayout layoutActions = view.findViewById(R.id.layoutActions);
+        LinearLayout layoutActions = view.findViewById(R.id.lt_more_actions);
 
         addActionItem(layoutActions, R.drawable.ic_pin, "Ghim", () ->
                 Toast.makeText(context, "Đã ghim đơn hàng", Toast.LENGTH_SHORT).show());
@@ -98,17 +97,17 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
         addActionItem(layoutActions, R.drawable.ic_cancel, "Hủy đơn hàng", () ->
                 Toast.makeText(context, "Đơn hàng đã bị hủy", Toast.LENGTH_SHORT).show());
 
-        view.findViewById(R.id.btnClose).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.btn_action_close).setOnClickListener(v -> dialog.dismiss());
 
         dialog.setContentView(view);
         dialog.show();
     }
 
-    // 🔹 Hàm tạo 1 item_action
+    //Hàm tạo 1 item_action
     private void addActionItem(LinearLayout parent, int iconRes, String text, Runnable onClick) {
         View itemView = LayoutInflater.from(context).inflate(R.layout.item_action, parent, false);
-        ImageView icon = itemView.findViewById(R.id.actionIcon);
-        TextView label = itemView.findViewById(R.id.actionText);
+        ImageView icon = itemView.findViewById(R.id.img_action_icon);
+        TextView label = itemView.findViewById(R.id.tv_action);
         icon.setImageResource(iconRes);
         label.setText(text);
 

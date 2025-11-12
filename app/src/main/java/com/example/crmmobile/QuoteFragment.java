@@ -1,5 +1,6 @@
 package com.example.crmmobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -52,7 +53,9 @@ public class QuoteFragment extends Fragment {
         listquote.add(new Quote("ABC1234", "Công ty Z", "19/10/2025"));
         listquote.add(new Quote("ABC1234", "Công ty Z", "19/10/2025"));
 
-        adapterQuote = new AdapterQuote(listquote, quote->{
+        adapterQuote = new AdapterQuote(listquote,(item, position) ->{
+            BottomSheetActionQuote.ShowBottomSheetQuote(getContext(), item, position);
+        }, quote->{
             Intent intent = new Intent(getContext(), QuoteDetailActivity.class);
             startActivity(intent);
         });

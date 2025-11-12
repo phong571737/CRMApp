@@ -12,20 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder> {
     private List<Lead> dataList;
-    private onItemDotsClickListener listener;
+    private onItemDotsClickListener dotsClickListener;
     private  onMenuClickListener menuClickListener;
 
     public interface onItemDotsClickListener {
-        void onDotsClick(Lead lead);
+        void onDotsClick(Lead item, int position);
     }
 
     public interface onMenuClickListener{
         void onMenuClick(Lead lead);
     }
 
-    public AdapterLead(List<Lead> dataList, onItemDotsClickListener listener, onMenuClickListener menuClickListener){
+    public AdapterLead(List<Lead> dataList, onItemDotsClickListener dotsClickListener, onMenuClickListener menuClickListener){
         this.dataList = dataList;
-        this.listener = listener;
+        this.dotsClickListener = dotsClickListener;
         this.menuClickListener = menuClickListener;
     }
 
@@ -60,8 +60,8 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
         viewHolder.tv_day.setText(lead.getDaycontact());
 
         viewHolder.ivDots.setOnClickListener(v -> {
-            if(listener != null){
-                listener.onDotsClick(lead);
+            if(dotsClickListener != null){
+                dotsClickListener.onDotsClick(lead, position);
             }
         });
 

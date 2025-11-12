@@ -18,9 +18,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class leaddetail extends Fragment {
     private String name, company, daycontact;
 
-    public leaddetail() {
-        // Required empty public constructor
-    }
+    public leaddetail() {}
+
     public static leaddetail newInstance(String name, String company, String daycontact) {
         leaddetail fragment = new leaddetail();
         Bundle args = new Bundle();
@@ -43,29 +42,28 @@ public class leaddetail extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        //get data from leadfragment
+        //lấy data từ lead fragment
         if(getArguments() != null){
             name = getArguments().getString("name");
             company = getArguments().getString("company");
             daycontact = getArguments().getString("daycontact");
         }
-        //header
+
         TextView tvUser = view.findViewById(R.id.tv_user);
         TextView tvcompany = view.findViewById(R.id.tv_company);
         ImageView im_back = view.findViewById(R.id.iv_back);
 
-        //back to lead page
+        //quay trở lại trang lead chính
         im_back.setOnClickListener(v->{
             requireActivity().finish();
         });
         tvUser.setText(name);
         tvcompany.setText(company);
 
-        //tablayout and viewpager2
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager2 viewPager2 = view.findViewById(R.id.vp_tab);
 
-        //adapter for viewpager2
+        //adapter
         AdapterTab adapterTab = new AdapterTab(this);
         viewPager2.setAdapter(adapterTab);
 
@@ -76,12 +74,6 @@ public class leaddetail extends Fragment {
                     break;
                 case 1:
                     tab.setText("Chi tiết");
-                    break;
-                case 2:
-                    tab.setText("Nhật ký");
-                    break;
-                case 3:
-                    tab.setText("Hoạt động");
                     break;
                 default:
                     break;

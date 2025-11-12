@@ -19,9 +19,7 @@ public class quote_detail extends Fragment {
     TabLayout tabLayout;
     ViewPager2 viewPager2;
 
-    public quote_detail() {
-        // Required empty public constructor
-    }
+    public quote_detail() {}
 
     public static quote_detail newInstance() {
         quote_detail fragment = new quote_detail();
@@ -48,10 +46,6 @@ public class quote_detail extends Fragment {
                 case 1:
                     tab.setText("Chi tiết");
                     break;
-                case 2:
-                    tab.setText("Nhật ký");
-                case 3:
-                    tab.setText("Đơn hàng");
                 default:
                     break;
             }

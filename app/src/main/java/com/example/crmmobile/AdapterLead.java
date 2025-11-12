@@ -47,7 +47,7 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
     @Override
     public LeadViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.lead_item, viewGroup, false);
+                .inflate(R.layout.item_lead, viewGroup, false);
         return new LeadViewHolder(view);
     }
 

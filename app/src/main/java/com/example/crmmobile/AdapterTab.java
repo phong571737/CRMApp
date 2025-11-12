@@ -26,14 +26,12 @@ public class AdapterTab extends FragmentStateAdapter {
         switch (position){
             case 0: return new OverViewFragment(); //overview
             case 1: return new DetailFragment(); //detail
-            case 2: return new DiaryFragment(); //diary
-            case 3: return new ActiveFragment(); //action
             default: return new OverViewFragment();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 2;
     }
 }

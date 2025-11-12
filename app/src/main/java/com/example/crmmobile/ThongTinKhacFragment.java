@@ -30,7 +30,7 @@ public class ThongTinKhacFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_thongtinkhac, container, false);
+        View view = inflater.inflate(R.layout.fragment_thongtindiachikhac, container, false);
 
         // Ánh xạ layout toggle
         layoutDiaChiContent = view.findViewById(R.id.layoutDiaChiContent);

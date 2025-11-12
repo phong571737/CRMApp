@@ -1,7 +1,5 @@
 package com.example.crmmobile;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -50,7 +47,7 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
     @NonNull
     @Override
     public quoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.quote_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quote, parent, false);
 
         return new quoteViewHolder(view);
     }

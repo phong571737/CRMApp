@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements main_screen.onMod
             navFooter.getMenu().findItem(R.id.nav_menu).setChecked(true);
         }
         if(moduleName.equals("Liên hệ")){
-            Intent intent = new Intent(MainActivity.this, ThongTinNguoiLienHeActivity.class);
+            Intent intent = new Intent(MainActivity.this, ThongTinLienHeActivity.class);
             startActivity(intent);
         }
 

@@ -17,91 +17,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- ✅ LinearLayout bọc toàn bộ nội dung -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Header với nút back -->
-            <LinearLayout
-                android:id="@+id/taonguoilienhe_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:id="@+id/ic_back"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/arrow_back" />
-
-                <TextView
-                    android:id="@+id/taonguoilienhe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/taonguoilienhe"
-                    android:textSize="@dimen/text_large"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
-
-            <!-- Tab thông tin -->
-            <LinearLayout
-                android:id="@+id/tabThongTin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin_basex2">
-
-                <TextView
-                    android:id="@+id/info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/thongtin"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/grey"
-                    android:paddingEnd="10dp" />
-
-                <TextView
-                    android:id="@+id/thongtinkhac"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/thongtinkhac"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/blue"
-                    android:background="@drawable/edittext_line"
-                    android:layout_marginStart="54dp" />
-            </LinearLayout>
-
             <!-- Thông tin địa chỉ -->
-
-            <LinearLayout
-                android:id="@+id/headerThongTinDiaChi"
+            <TextView
+                android:id="@+id/thongtindiachi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:text="@string/thongtindiachi"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="@dimen/margin_basex4">
-
-                <TextView
-                    android:id="@+id/thongtindiachi"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/thongtindiachi"
-                    android:textSize="@dimen/text_large"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/icon_arrow_diachi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_down"
-                    app:tint="@color/black" />
-            </LinearLayout>
+                android:layout_marginTop="@dimen/margin_basex2" />
 
         <LinearLayout
-            android:id="@+id/contentThongTin"
+            android:id="@+id/layoutThongTinDiaChiChiTiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -131,7 +66,7 @@
                     android:textSize="@dimen/text_small" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Các trường quận, tỉnh, quốc gia, mô tả, ghi chú ... -->
+            <!-- Các trường quận, tỉnh, quốc gia -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutquanhuyen"
                 android:layout_width="match_parent"
@@ -187,39 +122,26 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
+
             <!-- Mô tả -->
-            <LinearLayout
-                android:id="@+id/headerMoTa"
+            <TextView
+                android:id="@+id/thongtinmota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:text="@string/thongtinmota"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="@dimen/margin_basex4">
+                android:paddingEnd="8dp"
+                android:layout_marginTop="@dimen/margin_basex2" />
 
-                <TextView
-                    android:id="@+id/thongtinmota"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/thongtinmota"
-                    android:textSize="@dimen/text_large"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/icon_arrow_mota"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_down"
-                    app:tint="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/contentMota"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
-
+        <LinearLayout
+            android:id="@+id/layoutThongTinMoTaChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutttmota"
@@ -267,40 +189,27 @@
                     android:paddingBottom="@dimen/padding_vertical_small"
                     android:textSize="@dimen/text_small"/>
             </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+        </LinearLayout>
 
             <!-- Thông tin quản lý -->
-            <LinearLayout
-                android:id="@+id/headerThongTinQuanLy"
+            <TextView
+                android:id="@+id/thongtinquanly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:text="@string/thongtinquanly"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="@dimen/margin_basex4">
-
-                <TextView
-                    android:id="@+id/thongtinquanly"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/thongtinquanly"
-                    android:textSize="@dimen/text_large"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/icon_arrow_quanly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_down"
-                    app:tint="@color/black" />
-            </LinearLayout>
-
+                android:layout_marginTop="@dimen/margin_basex2"
+                 />
         <LinearLayout
-            android:id="@+id/contentQuanLy"
+            android:id="@+id/layoutThongTinQuanLyChiTiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible">
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutgiaocho"
                 android:layout_width="match_parent"
@@ -322,6 +231,7 @@
                     android:background="@android:color/transparent" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

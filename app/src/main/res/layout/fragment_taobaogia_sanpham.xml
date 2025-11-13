@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerPadding="8dp">
+
+        <!-- ==================== SẢN PHẨM  ==================== -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:text="@string/san_pham"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/btnToggleSanPham"
+                android:src="@drawable/ic_arrow_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/toggle_section" />
+        </LinearLayout>
+
+        <!-- ==================== SẢN PHẨM CONTENT ==================== -->
+        <LinearLayout
+            android:id="@+id/layoutSanPhamContent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="@string/vung_tinh_thue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/rounded_input_box"
+                app:endIconMode="dropdown_menu">
+                <AutoCompleteTextView
+                    android:id="@+id/actVungTinhThue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="@string/loai_tien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/rounded_input_box"
+                app:endIconMode="dropdown_menu">
+                <AutoCompleteTextView
+                    android:id="@+id/actLoaiTien"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="@string/cach_tinh_thue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginBottom="15dp"
+                app:endIconMode="dropdown_menu">
+                <AutoCompleteTextView
+                    android:id="@+id/actCachTinhThue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:background="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Nút Thêm sản phẩm -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnThemSP"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/them_sp"
+                android:textColor="@color/blue"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:cornerRadius="10dp"
+                app:icon="@drawable/ic_add"
+                app:iconTint="@color/blue"
+                app:strokeColor="@color/blue"
+                app:iconGravity="textStart"
+                android:textAllCaps="false"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- ==================== DIVIDER ==================== -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ==================== TỔNG KẾT ==================== -->
+        <LinearLayout
+            android:id="@+id/layoutTongKet"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <!-- Tạm tính -->
+            <LinearLayout style="@style/SummaryRow">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/tam_tinh" />
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvTamTinh"
+                    style="@style/SummaryValue"
+                    android:text="0 đ" />
+            </LinearLayout>
+
+            <!-- Giảm giá chung -->
+            <LinearLayout style="@style/SummaryRow">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/giam_gia_chung" />
+                <ImageView
+                    android:id="@+id/ivEditGiamGiaChung"
+                    style="@style/SummaryEditIcon"
+                    android:contentDescription="@string/sua_giam_gia" />
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvGiamGiaChung"
+                    style="@style/SummaryValue"
+                    android:text="0 đ" />
+            </LinearLayout>
+
+            <!-- Tổng giảm -->
+            <LinearLayout style="@style/SummaryRow">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/tong_giam" />
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvTongGiam"
+                    style="@style/SummaryValue"
+                    android:text="0 đ" />
+            </LinearLayout>
+
+            <!-- Tổng trước thuế -->
+            <LinearLayout style="@style/SummaryRow">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/tong_truoc_thue" />
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvTongTruocThue"
+                    style="@style/SummaryValue"
+                    android:text="0 đ" />
+            </LinearLayout>
+
+            <!-- Thuế -->
+            <LinearLayout style="@style/SummaryRow">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/thue" />
+                <ImageView
+                    android:id="@+id/ivEditThue"
+                    style="@style/SummaryEditIcon"
+                    android:contentDescription="@string/sua_thue" />
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvThue"
+                    style="@style/SummaryValue"
+                    android:text="0 đ" />
+            </LinearLayout>
+
+            <!-- Tổng thuế -->
+            <LinearLayout style="@style/SummaryRow">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/tong_thue" />
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvTongThue"
+                    style="@style/SummaryValue"
+                    android:text="0 đ" />
+            </LinearLayout>
+
+            <!-- Tổng cộng -->
+            <LinearLayout style="@style/SummaryRow" android:layout_marginTop="8dp">
+                <TextView
+                    style="@style/SummaryLabel"
+                    android:text="@string/tong_cong"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF000000"/>
+                <View style="@style/SummarySpacer" />
+                <TextView
+                    android:id="@+id/tvTongCong"
+                    style="@style/SummaryValue"
+                    android:text="0 đ"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:textColor="#CB2134" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

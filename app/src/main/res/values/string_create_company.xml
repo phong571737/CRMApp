@@ -63,4 +63,14 @@
     <string name="them_sp">Thêm SP</string>
     <string name="them_dv">Thêm DV</string>
     <string name="them_goi">Thêm Gói</string>
+    <string name="san_pham">Sản phẩm</string>
+    <string name="tam_tinh">Tạm tính</string>
+    <string name="giam_gia_chung">Giảm giá chung</string>
+    <string name="tong_giam">Tổng giảm</string>
+    <string name="tong_truoc_thue">Tổng trước thuế</string>
+    <string name="thue">Thuế</string>
+    <string name="tong_thue">Tổng thuế</string>
+    <string name="tong_cong">Tổng cộng</string>
+    <string name="sua_giam_gia">Sửa giảm giá</string>
+    <string name="sua_thue">Sửa thuế</string>
 </resources>

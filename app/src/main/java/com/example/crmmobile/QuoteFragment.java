@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class QuoteFragment extends Fragment {
     RecyclerView recyclerView;
     AdapterQuote adapterQuote;
     List<Quote> listquote;
+
+    FloatingActionButton btnaddQuote;
+
     public QuoteFragment() {
 
     }
@@ -44,6 +49,7 @@ public class QuoteFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_quote, container, false);
 
         recyclerView = view.findViewById(R.id.QuoteRecycler);
+        btnaddQuote = view.findViewById(R.id.btn_add_quote);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         listquote = new ArrayList<>();
@@ -60,6 +66,12 @@ public class QuoteFragment extends Fragment {
             startActivity(intent);
         });
         recyclerView.setAdapter(adapterQuote);
+
+        //tạo mới báo giá
+        btnaddQuote.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), TaoBaoGiaActivity.class);
+            startActivity(intent);
+        });
 
         ImageView iv_back = view.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(v -> {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+        <!-- Toolbar -->
+        <include layout="@layout/item_opportunity_detail_toolbar" />
+
+        <!-- Thông tin cơ hội -->
+        <include layout="@layout/item_opportunity_detail_info_header" />
+
+        <!-- Người tạo / phụ trách -->
+        <include layout="@layout/item_opportunity_detail_owner" />
+
+        <!-- Thanh tiến trình pipeline -->
+        <include layout="@layout/item_opportunity_detail_pipeline" />
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Màu nền xanh blue pastel -->
+    <solid android:color="@color/pastel_blue_light" />
+
+    <!-- Bo góc -->
+    <corners android:radius="6dp" />
+
+    <!-- Kích thước vuông (nếu muốn cố định cho icon nhỏ gọn) -->
+    <size
+        android:width="64dp"
+        android:height="64dp" />
+
+</shape>

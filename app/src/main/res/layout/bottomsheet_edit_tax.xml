@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Thanh kéo trên cùng -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp"
+        android:background="#E5E7EB" />
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tvTitleTax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Điều chỉnh thuế"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Label VAT -->
+    <TextView
+        android:id="@+id/tvVatLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VAT"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Hàng VAT: ô % bên trái + số tiền bên phải -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Ô phần trăm VAT -->
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_input"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="8dp">
+
+            <EditText
+                android:id="@+id/edtVatPercent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:text="10"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text=" %"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="1dp" />
+
+        <!-- Số tiền thuế -->
+        <TextView
+            android:id="@+id/tvTaxAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text="0 đ"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- khoảng trống -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+
+    <!-- Hàng nút Quay lại / Xác nhận -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <!-- Nút QUAY LẠI -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTaxCancel"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Quay lại"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#2563EB"
+            app:cornerRadius="999dp"
+            app:backgroundTint="@android:color/white"
+            app:strokeColor="#2563EB"
+            app:strokeWidth="1dp" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
+
+        <!-- Nút XÁC NHẬN -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTaxConfirm"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            app:cornerRadius="999dp"
+            app:backgroundTint="#2563EB" />
+    </LinearLayout>
+
+</LinearLayout>

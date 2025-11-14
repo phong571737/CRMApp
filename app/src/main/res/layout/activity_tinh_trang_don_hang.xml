@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔹 Tình trạng đơn hàng"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#CC00FF"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Khung danh sách trạng thái -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@drawable/dotted_border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã duyệt"
+                android:textColor="#FF5722"
+                android:textSize="16sp"
+                android:padding="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã giao hàng"
+                android:textColor="#00BCD4"
+                android:textSize="16sp"
+                android:padding="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã hủy"
+                android:textColor="#E91E63"
+                android:textSize="16sp"
+                android:padding="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang giao hàng"
+                android:textColor="#2196F3"
+                android:textSize="16sp"
+                android:padding="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Không phê duyệt"
+                android:textColor="#9C27B0"
+                android:textSize="16sp"
+                android:padding="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoàn thành"
+                android:textColor="#4CAF50"
+                android:textSize="16sp"
+                android:padding="6dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

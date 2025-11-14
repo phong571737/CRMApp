@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CRMMobile">
+
+        <activity
+            android:name=".DetailLeadActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".QuoteDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".OrderDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".TaoBaoGiaActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".TinhTrangDonHangActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".TinhTrangThanhToanActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".ThongTinLienHeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".TaoCongTyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".OpportunityDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".OpportunityFormActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".TongQuanCongTyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".ChiTietToChucActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <!-- Main CRM Activity -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.CRMMobile">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Các activity của Sales Order -->
+        <activity
+            android:name=".feature.salesorder.ui.list.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".feature.salesorder.ui.detail.OrderDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".feature.salesorder.ui.create.SOCreate1Activity"
+            android:exported="false"
+            android:parentActivityName=".feature.salesorder.ui.list.MainActivity"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".feature.salesorder.ui.productpick.ProductPickActivity"
+            android:exported="false"
+            android:parentActivityName=".feature.salesorder.ui.create.SOCreate1Activity"
+            android:theme="@style/Theme.CRMMobile" />
+
+    </application>
+
+</manifest>

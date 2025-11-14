@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- ScrollView chứa toàn bộ form -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rowbuttonhuyluu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- ✅ LinearLayout bọc toàn bộ nội dung -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Thông tin địa chỉ -->
+            <TextView
+                android:id="@+id/thongtindiachi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/thongtindiachi"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin_basex2" />
+
+        <LinearLayout
+            android:id="@+id/layoutThongTinDiaChiChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <!-- Các trường TextInput -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutttdiachi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/diachi"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginTop="@dimen/margin_basex2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtdiachi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:gravity="top|start"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:paddingTop="@dimen/padding_vertical_small"
+                    android:paddingBottom="@dimen/padding_vertical_small"
+                    android:textSize="@dimen/text_small" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Các trường quận, tỉnh, quốc gia -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutquanhuyen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/quan"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginTop="@dimen/margin_basex2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtquanhuyen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:textSize="@dimen/text_small"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layouttinhtp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tinh"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginTop="@dimen/margin_basex2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edttinhtp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:textSize="@dimen/text_small"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutquocgia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/quocgia"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginTop="@dimen/margin_basex2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtquocgia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:textSize="@dimen/text_small"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+            <!-- Mô tả -->
+            <TextView
+                android:id="@+id/thongtinmota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/thongtinmota"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:paddingEnd="8dp"
+                android:layout_marginTop="@dimen/margin_basex2" />
+
+        <LinearLayout
+            android:id="@+id/layoutThongTinMoTaChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutttmota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mota"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginTop="@dimen/margin_basex2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtmota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:gravity="top|start"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:paddingTop="@dimen/padding_vertical_small"
+                    android:paddingBottom="@dimen/padding_vertical_small"
+                    android:textSize="@dimen/text_small"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Ghi chú -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutghichu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ghichu"
+                android:background="@drawable/rounded_input_box"
+                android:layout_marginTop="@dimen/margin_basex2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtghichu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:gravity="top|start"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:paddingTop="@dimen/padding_vertical_small"
+                    android:paddingBottom="@dimen/padding_vertical_small"
+                    android:textSize="@dimen/text_small"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+            <!-- Thông tin quản lý -->
+            <TextView
+                android:id="@+id/thongtinquanly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/thongtinquanly"
+                android:textSize="@dimen/text_large"
+                android:textStyle="bold"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin_basex2"
+                 />
+        <LinearLayout
+            android:id="@+id/layoutThongTinQuanLyChiTiet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutgiaocho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/giaocho"
+                android:background="@drawable/rounded_input_box"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginTop="@dimen/margin_basex4">
+
+                <AutoCompleteTextView
+                    android:id="@+id/actgiaocho"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textSize="@dimen/text_small"
+                    android:paddingStart="@dimen/margin_base"
+                    android:paddingEnd="@dimen/margin_base"
+                    android:background="@android:color/transparent" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Button Hủy và Lưu -->
+    <LinearLayout
+        android:id="@+id/rowbuttonhuyluu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="@dimen/margin_basex4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btnHuy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/xamtrang"
+            android:textColor="@color/chuxanh"
+            android:text="@string/btnhuy"
+            android:paddingVertical="8dp"
+            android:textSize="@dimen/text_small"/>
+
+        <Button
+            android:id="@+id/btnLuu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/xanhbutton"
+            android:textColor="@android:color/white"
+            android:text="Lưu"
+            android:paddingVertical="8dp"
+            android:textSize="@dimen/text_small"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

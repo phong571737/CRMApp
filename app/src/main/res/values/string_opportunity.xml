@@ -1,0 +1,106 @@
+<resources>
+    <string name="menu_icon">Menu icon</string>
+    <string name="Lead">Lead</string>
+    <string name="Home">Trang chủ</string>
+    <string name="Order">Đơn hàng</string>
+    <string name="Calendar">Lịch</string>
+    <string name="Notify">Thông báo</string>
+    <string name="Menu">Thêm</string>
+
+    <string name="header_opportunity_title">Cơ hội</string>
+    <string name="hint_opportunity_search">Tìm kiếm cơ hội</string>
+    <string name="opportunity_filter">Filter icon</string>
+    <string name="tv_opportunity_chip1">Thăm dò</string>
+    <string name="tv_opportunity_chip2">Cơ hội mới hôm nay</string>
+    <string name="tv_opportunity_chip3">Cơ hội bán thành công</string>
+    <string name="tv_opportunity_chip4">Cơ hội thất bại</string>
+    <string name="tv_opportunity_chip5">Cơ hội thành công</string>
+    <string name="add_opportunity">Thêm cơ hội</string>
+
+
+    <!--    body opportunity cha -->
+    <string name="opportunity_body_title">Cơ hội tiềm năng</string>
+    <string name="opportunity_body_add">Thêm cơ hội</string>
+
+    <!-- start opportunity detail-->
+
+    <!-- Opportunity Screen -->
+    <string name="opportunity_detail_title">Cơ hội mua hàng</string>
+    <string name="label_opportunity_name">Cơ hội</string>
+    <string name="label_company_name">Công ty</string>
+    <string name="label_opportunity_value">Giá trị cơ hội</string>
+    <string name="label_creator">Người tạo</string>
+    <string name="label_responsible">Người phụ trách</string>
+    <string name="label_contact_person">Người liên hệ</string>
+    <string name="label_success_rate">Tỉ lệ thành công</string>
+    <string name="label_expected_close_date">Ngày chốt dự kiến</string>
+    <string name="label_actual_close_date">Ngày chốt thực tế</string>
+    <string name="label_source">Nguồn</string>
+    <string name="label_evaluation">Đánh giá</string>
+    <string name="label_result">Kết quả</string>
+
+    <!-- Sales Pipeline Steps -->
+    <string name="step_identify_decision_maker">Nhận diện người ra quyết định</string>
+    <string name="step_awareness_analysis">Phân tích nhận thức</string>
+    <string name="step_proposal_quotation">Đề xuất/Báo giá</string>
+    <string name="step_negotiation">Thương lượng đàm phán</string>
+    <string name="step_success">Thành công</string>
+
+    <!-- Tabs -->
+    <string name="tab_overview">Tổng quan</string>
+    <string name="tab_details">Chi tiết</string>
+    <string name="tab_logs">Nhật ký</string>
+    <string name="tab_activities">Hoạt động</string>
+
+    <!-- Overview Section -->
+    <string name="title_scheduled_activities">Hoạt động đã lên lịch</string>
+    <string name="text_no_activities">Không có nội dung</string>
+    <string name="hint_add_activities">Hãy bổ sung hoạt động liên quan!</string>
+    <string name="button_add_activity">+ Thêm hoạt động</string>
+    <string name="title_followers">Người theo dõi</string>
+    <string name="title_documents">Tài liệu</string>
+    <string name="button_select_document">Chọn tài liệu</string>
+    <string name="button_add_document">Thêm tài liệu</string>
+
+    <!-- Details Section -->
+    <string name="title_opportunity_info">Thông tin Cơ hội</string>
+    <string name="title_description_info">Thông tin mô tả</string>
+    <string name="title_management_info">Thông tin quản lý</string>
+    <string name="text_see_more">Xem thêm</string>
+
+    <!-- Status -->
+    <string name="status_hot">Hot</string>
+    <string name="status_negotiation">Thương lượng đàm phán</string>
+
+    <!-- Thêm vào strings.xml -->
+    <string name="label_sales_step">Bước bán hàng</string>
+    <string name="label_responsible_person">Người phụ trách</string>
+    <string name="label_created_date">Ngày tạo</string>
+    <string name="label_modified_date">Ngày sửa</string>
+    <string name="text_not_available">Chưa có</string>
+    <string name="text_processing">Đang xử lý</string>
+    <string name="source_phone_call">Gọi điện</string>
+
+    <!-- end opportunity detail-->
+
+
+    <string name="header_opportunity_title_create">Tạo Cơ hội</string>
+    <string name="section_opportunity_info">Thông tin liên hệ</string>
+    <string name="hint_opportunity_name">Cơ hội <font color='#FF0000'>*</font></string>
+    <string name="hint_company">Công ty</string>
+    <string name="hint_contact">Người liên hệ</string>
+    <string name="hint_value">Giá trị cơ hội</string>
+    <string name="hint_sales_stage">Bước bán hàng <font color='#FF0000'>*</font></string>
+    <string name="hint_success_rate">Tỷ lệ thành công <font color='#FF0000'>*</font></string>
+    <string name="hint_expected_date">Ngày chốt dự kiến <font color='#FF0000'>*</font></string>
+    <string name="hint_expected_date_2">Ngày chốt dự kiến </string>
+    <string name="hint_description">Mô tả</string>
+    <string name="section_opportunity_management">Thông tin quản lý</string>
+    <string name="hint_management">Giao cho<font color='#FF0000'>*</font></string>
+    <string name="auto_management">Ha Nguyen</string>
+
+    <string name="cancel">Hủy</string>
+    <string name="save">Lưu</string>
+
+
+</resources>

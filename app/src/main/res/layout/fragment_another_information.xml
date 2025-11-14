@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".another_lead_information">
+
+    <ScrollView
+        android:id="@+id/sv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_button">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--Company information-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/common_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/company_infor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/company_infor"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+                <ImageView
+                    android:id="@+id/add_company_infor"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@null"
+                    />
+
+                <TextView
+                    android:id="@+id/tax_infor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tax_code"
+                    app:layout_constraintTop_toBottomOf="@id/company_infor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/tax_infor"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/company_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name_company"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/information"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_information"
+                        app:layout_constraintEnd_toEndOf="@id/company_name"
+                        android:contentDescription="@null"
+                        android:layout_gravity="bottom"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/cl_company"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/job_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/job_infor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/information_job"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_arrow_down"
+                        app:layout_constraintEnd_toEndOf="@id/job_name"
+                        android:contentDescription="@null"
+                        android:layout_gravity="bottom"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/revenue_infor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/revenue_infor"
+                    app:layout_constraintTop_toBottomOf="@id/cl_job"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/number_of_employees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/number_employees"
+                    app:layout_constraintTop_toBottomOf="@id/revenue_infor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+                <EditText
+                    android:id="@+id/company_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/company_description"
+                    app:layout_constraintTop_toBottomOf="@id/number_of_employees"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:minLines="6"
+                    android:gravity="top|start"
+                    android:autofillHints="name"
+                    android:inputType="none"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--End Company Information-->
+
+            <!-- Address information-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/common_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:layout_constraintTop_toBottomOf="@id/common_company"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/address_infor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address_infor"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+                <ImageView
+                    android:id="@+id/add_address_infor"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@null"
+                    />
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/address"
+                    app:layout_constraintTop_toBottomOf="@id/add_address_infor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:minLines="6"
+                    android:gravity="top|start"
+                    android:autofillHints="name"
+                    android:inputType="none"
+                    />
+
+                <TextView
+                    android:id="@+id/district"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/district"
+                    app:layout_constraintTop_toBottomOf="@id/address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/province"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/province"
+                    app:layout_constraintTop_toBottomOf="@id/district"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/nation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nation"
+                    app:layout_constraintTop_toBottomOf="@id/province"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--End address information-->
+
+            <!-- description information-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/common_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                app:layout_constraintTop_toBottomOf="@id/common_address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/descriptive_infor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descrip_information"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <ImageView
+                    android:id="@+id/add_descriptive_infor"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@null"
+                    />
+
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    app:layout_constraintTop_toBottomOf="@id/descriptive_infor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:minLines="6"
+                    android:gravity="top|start"
+                    android:autofillHints="name"
+                    android:inputType="none"
+                    />
+
+                <EditText
+                    android:id="@+id/specal_notes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/special_notes"
+                    app:layout_constraintTop_toBottomOf="@id/et_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    android:textStyle="normal"
+                    android:textSize="14sp"
+                    android:minLines="6"
+                    android:gravity="top|start"
+                    android:autofillHints="name"
+                    android:inputType="none"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--End description information-->
+
+            <TextView
+                android:id="@+id/tv_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/image"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/common_note"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="20sp"
+                android:layout_margin="15dp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/abort_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/light_blue"
+            android:text="@string/abort"
+            android:textColor="@color/blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/save_button"
+            app:layout_constraintHorizontal_weight="1"/>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/blue2"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@id/abort_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

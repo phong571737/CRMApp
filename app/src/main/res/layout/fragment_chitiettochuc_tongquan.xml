@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- PHẦN 1: THỐNG KÊ (3 CỘT) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:background="@color/white"
+            android:paddingVertical="16dp"
+            android:elevation="1dp">
+
+            <!-- Cột 1: Cuộc gọi -->
+            <LinearLayout style="@style/StatItem">
+                <TextView style="@style/StatValue" android:text="36" />
+                <TextView style="@style/StatLabel" android:text="@string/cuoc_goi" />
+            </LinearLayout>
+            <View style="@style/VerticalDivider" />
+            <!-- Cột 2: Cuộc họp -->
+            <LinearLayout style="@style/StatItem">
+                <TextView style="@style/StatValue" android:text="21" />
+                <TextView style="@style/StatLabel" android:text="@string/cuoc_hop" />
+            </LinearLayout>
+            <View style="@style/VerticalDivider" />
+            <!-- Cột 3: Công việc -->
+            <LinearLayout style="@style/StatItem">
+                <TextView style="@style/StatValue" android:text="30" />
+                <TextView style="@style/StatLabel" android:text="@string/cong_viec" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- PHẦN 2: HOẠT ĐỘNG ĐÃ LÊN LỊCH -->
+        <LinearLayout style="@style/DetailSectionContainer">
+
+            <!-- Header  -->
+            <RelativeLayout
+                android:id="@+id/section_hoat_dong"
+                style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/hoat_dong_da_len_lich" />
+                <ImageView
+                    android:id="@+id/toggle_hoat_dong"
+                    style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+
+            <!-- Nội dung  -->
+            <LinearLayout
+                android:id="@+id/content_hoat_dong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Danh sách (Dùng RecyclerView) -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_hoat_dong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/list_item_hoatdong"
+                    tools:itemCount="1"/>
+
+                <!-- Nút Thêm hoạt động -->
+                <TextView
+                    android:id="@+id/btn_them_hoat_dong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/them_hoat_dong"
+                    android:textColor="#3B72F2"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center_horizontal"
+                    app:drawableStartCompat="@drawable/ic_add"
+                    app:drawableTint="#1B74E4"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- PHẦN 3: BÌNH LUẬN -->
+        <LinearLayout style="@style/DetailSectionContainer">
+
+            <!-- Header  -->
+            <RelativeLayout
+                android:id="@+id/section_binh_luan"
+                style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/binh_luan" />
+                <ImageView
+                    style="@style/DetailSectionToggleIcon"
+                    android:id="@+id/toggle_binh_luan"/>
+            </RelativeLayout>
+
+            <!-- Trạng thái trống  -->
+            <LinearLayout
+                android:id="@+id/content_binh_luan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_box"
+                    app:tint="#1F64E7"/>
+
+                <!-- Nút Thêm bình luận -->
+                <TextView
+                    android:id="@+id/btn_them_binh_luan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/them_binh_luan"
+                    android:textColor="#3B72F2"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="16dp"
+                    app:drawableStartCompat="@drawable/ic_add"
+                    app:drawableTint="#1B74E4"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

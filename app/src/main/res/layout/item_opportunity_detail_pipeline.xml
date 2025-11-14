@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Progress Line với các bước -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Bước 1: Đã hoàn thành -->
+        <View
+            android:id="@+id/v_pineline_step1_connector_start"
+            android:layout_width="20dp"
+            android:layout_height="2dp"
+            android:background="@color/blue" />
+        <ImageView
+            android:id="@+id/iv_pineline_step1_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_step_current" />
+        <View
+            android:id="@+id/v_pineline_step1_connector_end"
+            android:layout_width="40dp"
+            android:layout_height="2dp"
+            android:background="@color/blue" />
+
+        <!-- Bước 2: Đã hoàn thành -->
+        <ImageView
+            android:id="@+id/iv_pineline_step2_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_step_current" />
+        <View
+            android:id="@+id/v_pineline_step2_connector"
+            android:layout_width="60dp"
+            android:layout_height="2dp"
+            android:background="@color/blue" />
+
+        <!-- Bước 3: Đã hoàn thành -->
+        <ImageView
+            android:id="@+id/iv_pineline_step3_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_step_done" />
+        <View
+            android:id="@+id/v_pineline_step3_connector"
+            android:layout_width="60dp"
+            android:layout_height="2dp"
+            android:background="@color/blue" />
+
+        <!-- Bước 4: Hiện tại -->
+        <ImageView
+            android:id="@+id/iv_pineline_step4_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_step_done" />
+        <View
+            android:id="@+id/v_pineline_step4_connector"
+            android:layout_width="60dp"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+        <!-- Bước 5: Chưa làm -->
+        <ImageView
+            android:id="@+id/iv_pineline_step5_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_step_todo" />
+
+    </LinearLayout>
+
+    <!-- Labels cho các bước -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <!-- Bước 1 Label -->
+        <TextView
+            android:id="@+id/tv_pineline_step1_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nhận diện người ra quyết định"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Bước 2 Label -->
+        <TextView
+            android:id="@+id/tv_pineline_step2_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Phân tích nhận thức"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Bước 3 Label -->
+        <TextView
+            android:id="@+id/tv_pineline_step3_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Đề xuất/ Báo giá"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Bước 4 Label -->
+        <TextView
+            android:id="@+id/tv_pineline_step4_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thương lượng đàm phán"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+        <!-- Bước 5 Label -->
+        <TextView
+            android:id="@+id/tv_pineline_step5_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thành công"
+            android:textSize="10sp"
+            android:textColor="@color/black"
+            android:gravity="end"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+</LinearLayout>

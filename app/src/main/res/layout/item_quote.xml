@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/margin5"
+    android:background="@color/bg_lead"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@color/white">
+
+        <!--quote code-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/top_padding"
+            >
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:foregroundGravity="center"
+                android:src="@drawable/paper"
+                android:contentDescription="@null"
+                android:layout_margin="@dimen/margin_icon"
+                app:tint="@color/color_icon"/>
+
+            <TextView
+                android:id="@+id/quote_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/margin_action"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="QUO0241234"
+                android:layout_marginBottom="@dimen/margin_icon"/>
+
+            <ImageView
+                android:id="@+id/iv_dots"
+                android:contentDescription="@null"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/dots"
+                android:layout_margin="5dp"
+                android:foregroundGravity="center"
+                app:tint="@color/seemore_color"/>
+
+        </LinearLayout>
+        <!--end quote code-->
+
+        <!--Company-->
+        <LinearLayout
+            android:id="@+id/ll_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/top_padding">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_margin="@dimen/margin_icon"
+                android:src="@drawable/building"
+                app:tint="@color/color_icon" />
+
+            <TextView
+                android:id="@+id/tv_Company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_action"
+                android:layout_marginBottom="@dimen/margin_icon"
+                android:text="@string/cus_Company"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+        <!--End company-->
+
+        <!--Money and date-->
+        <LinearLayout
+            android:id="@+id/ll_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/top_padding">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:foregroundGravity="center"
+                android:src="@drawable/dollar_round"
+                android:contentDescription="@null"
+                android:layout_margin="@dimen/margin_icon"
+                app:tint="@color/color_icon"/>
+
+            <TextView
+                android:id="@+id/tv_job"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text"
+                android:textStyle="normal"
+                android:layout_marginStart="@dimen/margin_action"
+                android:text="@string/job_infor"
+                android:layout_marginBottom="@dimen/margin_icon"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/briefcase"
+                android:gravity="end"
+                android:layout_marginEnd="@dimen/margin_action"
+                android:text="19/10/2025"
+                android:layout_marginBottom="@dimen/margin_icon"/>
+
+        </LinearLayout>
+        <!-- End money and date-->
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

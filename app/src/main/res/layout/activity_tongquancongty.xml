@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:elevation="2dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_back"
+            android:contentDescription="Quay lại" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tong_quan_cong_ty"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_filter_chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/nam_nay"
+        android:textColor="#516D94"
+        android:background="@drawable/chip_bg_filter"
+        android:paddingStart="12dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp"
+        app:drawableEndCompat="@drawable/ic_sliders"
+        app:drawableTint="#516D94"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"/>
+
+    <!-- Thẻ (GridLayout) -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:layout_margin="12dp"
+        android:alignmentMode="alignMargins">
+
+        <!-- Hàng 1 -->
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Dark">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:textColor="@color/white" android:text="98.33Tr"/>
+                <TextView style="@style/OverviewCardLabel" android:textColor="@color/white" android:text="Doanh thu"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="25"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Hóa đơn"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="11"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Báo giá"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Hàng 2 -->
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="100"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Hoạt động"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="17"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Cơ hội"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="11"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Đơn hàng"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Hàng 3 -->
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="21"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Phiếu thu"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="4"/>
+                <TextView style="@style/OverviewCardLabel" android:text="Phiếu chi"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView style="@style/OverviewCard.Light">
+            <LinearLayout style="@style/OverviewCardContent">
+                <TextView style="@style/OverviewCardValue" android:text="28"/>
+                <TextView style="@style/OverviewCardLabel" android:text="SP/DV"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </GridLayout>
+</LinearLayout>

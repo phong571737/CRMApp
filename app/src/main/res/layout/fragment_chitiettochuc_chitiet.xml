@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F4F6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/DetailSectionContainer.NoTopMargin">
+            <RelativeLayout android:id="@+id/section_thong_tin_cong_ty" style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/thong_tin_cong_ty" />
+                <ImageView android:id="@+id/toggle_thong_tin_cong_ty" style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/content_thong_tin_cong_ty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/ten_cong_ty" />
+                    <TextView style="@style/DetailValue" android:text="Công ty TNHH Công nghệ CloudGO" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/trang_thai" />
+                    <TextView style="@style/DetailValue" android:text="Đang hoạt động" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/website" />
+                    <TextView style="@style/DetailValue.Blue" android:autoLink="web" android:text="https://cloudgo.vn/" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/dien_thoai" />
+                    <TextView style="@style/DetailValue" android:text="0123456789" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/email" />
+                    <TextView style="@style/DetailValue.Blue" android:autoLink="email" android:text="cloudgo@gmail.com" />
+                </RelativeLayout>
+
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView
+                        style="@style/DetailLabel"
+                        android:text="@string/nganh_nghe"
+                        android:drawablePadding="4dp"
+                        app:drawableEndCompat="@drawable/ic_information_small"
+                        app:drawableTint="#9E9E9E"/>
+                    <TextView style="@style/DetailValue" android:text="Công nghệ" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailSectionContainer">
+            <RelativeLayout android:id="@+id/section_dia_chi" style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/thong_tin_dia_chi" />
+                <ImageView android:id="@+id/toggle_dia_chi" style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/content_dia_chi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/DetailRowLayout.Vertical">
+                    <TextView
+                        style="@style/DetailLabel"
+                        android:text="@string/dia_chi"
+                        android:drawablePadding="4dp"
+                        app:drawableEndCompat="@drawable/ic_information_small"
+                        app:drawableTint="#9E9E9E"/>
+                    <TextView
+                        style="@style/DetailValue.FullWidth"
+                        android:text="13 Đường số 37 - Vạn Phúc City, P.Hiệp Bình Phước" />
+                </LinearLayout>
+
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/quan_huyen" />
+                    <TextView style="@style/DetailValue" android:text="TP. Thủ Đức" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/tinh_tp" />
+                    <TextView style="@style/DetailValue" android:text="TP. Hồ Chí Minh" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/quoc_gia" />
+                    <TextView style="@style/DetailValue" android:text="Việt Nam" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailSectionContainer">
+            <RelativeLayout android:id="@+id/section_mo_ta" style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/thong_tin_mo_ta" />
+                <ImageView android:id="@+id/toggle_mo_ta" style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/content_mo_ta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/DetailRowLayout.Vertical">
+                    <TextView style="@style/DetailLabel" android:text="@string/mo_ta" />
+                    <TextView
+                        style="@style/DetailValue.FullWidth"
+                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailSectionContainer">
+            <RelativeLayout android:id="@+id/section_mua_hang" style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/thong_tin_mua_hang" />
+                <ImageView android:id="@+id/toggle_mua_hang" style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/content_mua_hang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/tinh_trang_mua_hang" />
+                    <TextView style="@style/DetailValue" android:text="Đã mua" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/so_don_hang_da_mua" />
+                    <TextView style="@style/DetailValue" android:text="2" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/ngay_mua_hang_dau_tien" />
+                    <TextView style="@style/DetailValue" android:text="21/05/2024" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/ngay_mua_hang_gan_nhat" />
+                    <TextView style="@style/DetailValue" android:text="07/06/2024" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/tong_doanh_thu" />
+                    <TextView style="@style/DetailValue" android:text="2.250.000 đ" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailSectionContainer">
+            <RelativeLayout android:id="@+id/section_quan_ly" style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/thong_tin_quan_ly" />
+                <ImageView android:id="@+id/toggle_quan_ly" style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/content_quan_ly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/giao_cho" />
+                    <TextView style="@style/DetailValue" android:text="Nguyễn Minh Hà" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/DetailSectionContainer">
+            <RelativeLayout android:id="@+id/section_he_thong" style="@style/DetailSectionHeader">
+                <TextView style="@style/DetailSectionTitle" android:text="@string/thong_tin_he_thong" />
+                <ImageView android:id="@+id/toggle_he_thong" style="@style/DetailSectionToggleIcon" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/content_he_thong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/ngay_tao" />
+                    <TextView style="@style/DetailValue" android:text="30/07/2024 09:56" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/ngay_sua" />
+                    <TextView style="@style/DetailValue" android:text="30/07/2024 09:56" />
+                </RelativeLayout>
+                <RelativeLayout style="@style/DetailRowLayout">
+                    <TextView style="@style/DetailLabel" android:text="@string/tao_boi" />
+                    <TextView style="@style/DetailValue" android:text="Nguyễn Minh Hà" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

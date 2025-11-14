@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bottomsheet_tochuc_background">
+
+    <!-- Tay nắm (handle) -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bottomsheet_handle" />
+
+    <!-- Tiêu đề -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lua_chon_hanh_dong"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"/>
+        <ImageView
+            android:id="@+id/btn_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="4dp"/>
+    </RelativeLayout>
+
+    <!-- Danh sách hành động -->
+    <TextView
+        android:id="@+id/action_ghim"
+        android:text="@string/ghim"
+        app:drawableStartCompat="@drawable/ic_pushpin"
+        style="@style/BottomSheetActionItem" />
+
+    <TextView
+        android:id="@+id/action_xem_tong_quan"
+        android:text="@string/xem_tong_quan"
+        app:drawableStartCompat="@drawable/ic_overview"
+        style="@style/BottomSheetActionItem" />
+
+    <TextView
+        android:id="@+id/action_them_hoat_dong"
+        android:text="@string/them_hoat_dong"
+        app:drawableStartCompat="@drawable/ic_calendar"
+        style="@style/BottomSheetActionItem" />
+
+    <TextView
+        android:id="@+id/action_chinh_sua"
+        android:text="@string/chinh_sua"
+        app:drawableStartCompat="@drawable/ic_pencil"
+        style="@style/BottomSheetActionItem" />
+
+    <TextView
+        android:id="@+id/action_xoa"
+        android:text="@string/xoa"
+        app:drawableStartCompat="@drawable/ic_garbage"
+        style="@style/BottomSheetActionItem" />
+
+</LinearLayout>

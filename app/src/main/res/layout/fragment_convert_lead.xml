@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ConvertLead">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_margin="@dimen/margin_action"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/convert_lead"
+            android:textSize="@dimen/text"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/margin_action"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_back"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_convert"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/cl_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/footer_button">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white1">
+
+            <!--Add chance-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_chance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_action"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/white">
+
+                <CheckBox
+                    android:id="@+id/cb_chance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_new_chance"
+                    android:textSize="@dimen/text18"
+                    android:textStyle="bold"
+                    android:paddingStart="@dimen/start_padding"
+                    android:paddingEnd="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <EditText
+                    android:id="@+id/ed_chance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintTop_toBottomOf="@id/cb_chance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="@dimen/text18"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="10dp"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_sale_step"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/ed_chance"
+                    android:layout_margin="@dimen/margin_action">
+
+                    <EditText
+                        android:id="@+id/et_sale_step"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/sales_step"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:background="@android:color/transparent"
+                        android:textSize="@dimen/text18"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_sale_step"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_opportrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/cl_sale_step"
+                    android:layout_margin="@dimen/margin_action">
+
+                    <EditText
+                        android:id="@+id/ed_opportrate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/success_rate"
+                        android:background="@android:color/transparent"
+                        android:textSize="@dimen/text18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_opportrate"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintEnd_toEndOf="@id/ed_opportrate"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_predicted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cl_opportrate"
+                    android:layout_margin="@dimen/margin_action"
+                    android:background="@drawable/infor_bg">
+
+                    <EditText
+                        android:id="@+id/ed_predicted"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/predicted_date"
+                        android:textSize="@dimen/text18"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_predicted"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintEnd_toEndOf="@id/ed_predicted"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_opportvalue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/cl_predicted"
+                    android:layout_margin="@dimen/margin_action"
+                    android:background="@drawable/infor_bg">
+
+                    <EditText
+                        android:id="@+id/et_opportvalue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/opportunaty_value"
+                        android:textSize="@dimen/text18"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:background="@android:color/transparent"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_opportrvalue"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/dong"
+                        app:layout_constraintEnd_toEndOf="@id/et_opportvalue"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--End add chance-->
+
+            <!-- Add organization-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_organization"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_action"
+                app:layout_constraintTop_toBottomOf="@id/cl_chance"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/white"
+                >
+
+                <CheckBox
+                    android:id="@+id/cb_organization"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_new_organization"
+                    android:textSize="@dimen/text18"
+                    android:textStyle="bold"
+                    android:paddingStart="@dimen/start_padding"
+                    android:paddingEnd="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <EditText
+                    android:id="@+id/ed_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name_company"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="@dimen/margin_action"
+                    android:textSize="@dimen/text18"
+                    app:layout_constraintTop_toBottomOf="@id/cb_organization"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_job"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/ed_company"
+                    android:layout_margin="@dimen/margin_action">
+
+                    <EditText
+                        android:id="@+id/ed_job"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/job_infor"
+                        android:background="@android:color/transparent"
+                        android:textSize="@dimen/text18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_job"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintEnd_toEndOf="@id/ed_job"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/cl_job"
+                    android:layout_margin="@dimen/margin_action">
+
+                    <EditText
+                        android:id="@+id/ed_source"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/source"
+                        android:background="@android:color/transparent"
+                        android:textSize="@dimen/text18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_source"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintEnd_toEndOf="@id/ed_source"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--End organization-->
+
+            <!-- Add new personal-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_new_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_action"
+                app:layout_constraintTop_toBottomOf="@id/cl_organization"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/white"
+                >
+
+                <CheckBox
+                    android:id="@+id/cb_new_personal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_personal"
+                    android:textSize="@dimen/text18"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingStart="@dimen/start_padding"
+                    android:paddingEnd="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <EditText
+                    android:id="@+id/ed_first_lastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/firt_name"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="@dimen/margin_action"
+                    android:textSize="@dimen/text18"
+                    app:layout_constraintTop_toBottomOf="@id/cb_new_personal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <EditText
+                    android:id="@+id/ed_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_name"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="@dimen/margin_action"
+                    android:textSize="@dimen/text18"
+                    app:layout_constraintTop_toBottomOf="@id/ed_first_lastName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <EditText
+                    android:id="@+id/ed_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/Email"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="@dimen/margin_action"
+                    android:textSize="@dimen/text18"
+                    app:layout_constraintTop_toBottomOf="@id/ed_firstname"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <EditText
+                    android:id="@+id/ed_sdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/SDT"
+                    android:background="@drawable/infor_bg"
+                    android:layout_margin="@dimen/margin_action"
+                    android:textSize="@dimen/text18"
+                    app:layout_constraintTop_toBottomOf="@id/ed_email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_ship"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/infor_bg"
+                    app:layout_constraintTop_toBottomOf="@id/ed_sdt"
+                    android:layout_margin="@dimen/margin_action">
+
+                    <EditText
+                        android:id="@+id/ed_ship"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/shipto"
+                        android:background="@android:color/transparent"
+                        android:textSize="@dimen/text18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <ImageView
+                        android:id="@+id/iv_ship"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_arrow"
+                        app:layout_constraintEnd_toEndOf="@id/ed_ship"
+                        android:contentDescription="@null"
+                        app:tint="@color/icon_infor"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--End add new personal-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/footer_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scroll_convert"
+        android:layout_marginTop="@dimen/margin_action"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="8dp"
+        android:background="@color/white"
+        android:elevation="6dp">
+
+        <Button
+            android:id="@+id/abort_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_blue"
+            android:text="@string/abort"
+            android:textColor="@color/blue"
+            android:layout_marginEnd="@dimen/margin_action"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/save_button"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue2"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/abort_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginStart="@dimen/margin_action"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

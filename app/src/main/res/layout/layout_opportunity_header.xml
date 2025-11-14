@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_opportunity_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingBottom="8dp">
+
+    <!-- Nút quay lại -->
+    <ImageButton
+        android:id="@+id/btn_opportunity_back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tv_opportunity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/header_opportunity_title"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/btn_opportunity_back"
+        app:layout_constraintTop_toTopOf="@id/btn_opportunity_back"
+        app:layout_constraintBottom_toBottomOf="@id/btn_opportunity_back" />
+
+    <!-- Nút filter -->
+    <ImageView
+        android:id="@+id/img_filter_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_sliders"
+        app:tint="@color/icon_infor"
+        android:contentDescription="@string/opportunity_filter"
+        android:background="@drawable/bg_chip"
+        android:backgroundTint="@color/pastel_blue_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/search_bar_opportunity" />
+
+    <!-- Thanh tìm kiếm -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_bar_opportunity"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_chip"
+        android:backgroundTint="@color/pastel_blue_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_opportunity_title"
+        app:layout_constraintEnd_toStartOf="@id/img_filter_button">
+
+        <!-- Icon tìm kiếm -->
+        <ImageView
+            android:id="@+id/img_opportunity_search"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Ô nhập tìm kiếm -->
+        <EditText
+            android:id="@+id/et_opportunity_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:hint="@string/hint_opportunity_search"
+            android:paddingHorizontal="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/img_opportunity_search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Dãy chip -->
+    <HorizontalScrollView
+        android:id="@+id/opportunity_chip_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/search_bar_opportunity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_opportunity_chip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="@string/tv_opportunity_chip1"
+                android:textColor="@color/blue"
+                android:textSize="11sp"
+                android:background="@drawable/bg_chip"
+                android:backgroundTint="@color/pastel_blue_light" />
+
+
+            <TextView
+                android:id="@+id/tv_opportunity_chip2"
+                android:text="@string/tv_opportunity_chip2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="11sp"
+                android:background="@drawable/bg_chip"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tv_opportunity_chip3"
+                android:text="@string/tv_opportunity_chip3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="11sp"
+                android:background="@drawable/bg_chip"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tv_opportunity_chip4"
+                android:text="@string/tv_opportunity_chip4"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="11sp"
+                android:background="@drawable/bg_chip"
+                android:textColor="@android:color/black"/>
+
+            <TextView
+                android:id="@+id/tv_opportunity_chip5"
+                android:text="@string/tv_opportunity_chip5"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="11sp"
+                android:background="@drawable/bg_chip"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

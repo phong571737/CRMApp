@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/white"
+    android:paddingStart="@dimen/start_padding"
+    android:paddingEnd="@dimen/start_padding"
+    tools:context=".main_screen">
+
+    <!--header-->
+    <TextView
+        android:id="@+id/tv_main_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/title_app"
+        android:textColor="@color/blue"
+        android:paddingTop="@dimen/top_padding"
+        android:paddingBottom="@dimen/bottom_padding"
+        android:textStyle="bold"/>
+    <!--end header-->
+
+    <!--Module-->
+    <LinearLayout
+        android:id="@+id/ll_module"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/tv_main_header"
+        android:paddingTop="@dimen/top_padding"
+        android:paddingBottom="@dimen/bottom_padding">
+
+        <TextView
+            android:id="@+id/tv_name_module"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/module"
+            android:textSize="@dimen/title_app"
+            android:textStyle="bold"
+            android:paddingTop="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rl_module"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingTop="@dimen/top_padding"
+            android:paddingBottom="@dimen/bottom_padding"/>
+        <LinearLayout
+            android:id="@+id/ll_seemore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/top_padding"
+            android:paddingBottom="@dimen/bottom_padding">
+
+            <TextView
+                android:id="@+id/tv_seemore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_more"
+                android:textColor="@color/seemore_color"
+                android:textStyle="bold"
+                app:drawableEndCompat="@drawable/ic_arrow_down"
+                app:drawableTint="@color/seemore_color"
+                android:drawablePadding="6dp"
+                android:textSize="@dimen/text_seemore"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ll_current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ll_module"
+        android:paddingTop="@dimen/top_padding">
+
+        <TextView
+            android:id="@+id/tv_current"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/current_visit"
+            android:textSize="@dimen/title_app"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_seemore2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/see_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/text_seemore"
+            android:textStyle="normal"
+            android:textColor="@color/seemore_color"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--End module-->
+</androidx.constraintlayout.widget.ConstraintLayout>

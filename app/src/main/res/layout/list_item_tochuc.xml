@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    android:layout_marginTop="8dp"
+    app:cardBackgroundColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Icon Công ty -->
+        <ImageView
+            android:id="@+id/ivCompanyIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/office_building"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#516D94" />
+
+        <!-- Tên Công ty -->
+        <TextView
+            android:id="@+id/tvCompanyName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Công ty TNHH CloudGO"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/ivCompanyIcon"
+            app:layout_constraintTop_toTopOf="@id/ivCompanyIcon"
+            app:layout_constraintEnd_toStartOf="@id/ivStar" />
+
+        <!-- Icon Sao -->
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_star_filled"
+            app:layout_constraintEnd_toStartOf="@id/ivMoreOptions"
+            app:layout_constraintTop_toTopOf="@id/tvCompanyName"
+            app:layout_constraintBottom_toBottomOf="@id/tvCompanyName" />
+
+        <!-- Icon Thêm (3 chấm) -->
+        <ImageView
+            android:id="@+id/ivMoreOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_more_vert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvCompanyName"
+            app:layout_constraintBottom_toBottomOf="@id/tvCompanyName"
+            app:tint="#1B74E4" />
+
+        <!-- Ngành nghề -->
+        <ImageView
+            android:id="@+id/ivIndustryIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/categories"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvIndustry"
+            app:layout_constraintBottom_toBottomOf="@id/tvIndustry"
+            app:tint="#516D94" />
+
+        <TextView
+            android:id="@+id/tvIndustry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Công nghệ"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tvCompanyName"
+            app:layout_constraintTop_toBottomOf="@id/tvCompanyName" />
+
+        <!-- Ngày -->
+        <ImageView
+            android:id="@+id/ivDateIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvDate"
+            app:layout_constraintBottom_toBottomOf="@id/tvDate"
+            app:tint="#516D94" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="09/10/2025"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tvCompanyName"
+            app:layout_constraintTop_toBottomOf="@id/tvIndustry" />
+
+        <!-- Tag Trạng thái -->
+        <TextView
+            android:id="@+id/tvStatusTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvIndustry"
+            tools:text="Không quan tâm"
+            tools:textColor="@color/black"
+            tools:background="@drawable/tag_bg_blue" />
+
+        <!-- Số điện thoại  -->
+        <ImageView
+            android:id="@+id/ivPhoneIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_call"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPhoneCount"
+            app:layout_constraintBottom_toBottomOf="@id/tvPhoneCount"
+            app:tint="#1B74E4" />
+
+        <TextView
+            android:id="@+id/tvPhoneCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:text="2"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/ivPhoneIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvDate" />
+
+        <!-- Tin nhắn -->
+        <ImageView
+            android:id="@+id/ivMessageIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_message"
+            app:layout_constraintStart_toEndOf="@id/tvPhoneCount"
+            app:layout_constraintTop_toTopOf="@id/tvMessageCount"
+            app:layout_constraintBottom_toBottomOf="@id/tvMessageCount"
+            />
+
+        <TextView
+            android:id="@+id/tvMessageCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="2"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/ivMessageIcon"
+            app:layout_constraintTop_toTopOf="@id/tvPhoneCount" />
+
+        <!-- Nhóm Avatar -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar3"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/avatar_girl"
+            android:layout_marginEnd="-8dp"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvPhoneCount"
+            app:layout_constraintBottom_toBottomOf="@id/tvPhoneCount"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/avatar_man"
+            android:layout_marginEnd="-8dp"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp"
+            app:layout_constraintEnd_toStartOf="@id/avatar3"
+            app:layout_constraintTop_toTopOf="@id/avatar3"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/avt4jpg"
+            android:layout_marginEnd="-8dp"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="1dp"
+            app:layout_constraintEnd_toStartOf="@id/avatar2"
+            app:layout_constraintTop_toTopOf="@id/avatar2"/>
+
+        <!-- Đường kẻ ngang -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPhoneCount" />
+
+        <!-- Trao đổi -->
+        <TextView
+            android:id="@+id/tvTraoDoi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trao đổi (2)"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

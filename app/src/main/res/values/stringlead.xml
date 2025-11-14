@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_new_chance">Thêm mới cơ hội </string>
+    <string name="chance">Cơ hội </string>
+    <string name="sales_step">Bước bán hàng </string>
+    <string name="success_rate">Tỉ lệ thành công </string>
+    <string name="predicted_date">Ngày chốt dự kiến </string>
+    <string name="opportunaty_value">Giá trị cơ hội</string>
+    <string name="title_new_organization">Thêm mới tổ chức</string>
+    <string name="source">Nguồn</string>
+    <string name="new_personal">Thêm mới cá nhân</string>
+    <string name="Email">Email</string>
+    <string name="shipto">Giao cho </string>
+    <string name="convert_lead">Chuyển đổi lead</string>
+    <string name="quote_title">Báo giá</string>
+    <string name="search_quote">Tìm kiếm báo giá</string>
+    <string name="all">Tất cả</string>
+    <string name="yesterday_quote">Báo giá mới hôm qua</string>
+    <string name="send_quote">Báo giá đã gửi</string>
+    <string name="tipInfor">Thêm tên công ty cho Lead</string>
+    <string name="quote_detail">Chi tiết báo giá</string>
+    <string name="quote_information">Thông tin báo giá</string>
+    <string name="lead_creation">Tạo lead</string>
+    <string name="add_lead">Thêm lead</string>
+    <string name="add_quote">Thêm báo giá</string>
+</resources>

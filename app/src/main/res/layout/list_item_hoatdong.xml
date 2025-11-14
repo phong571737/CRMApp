@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:src="@drawable/ic_message"
+            app:tint="#516D94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Họp demo quy trình CTKM"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@id/ivIcon"
+            app:layout_constraintTop_toTopOf="@id/ivIcon"
+            app:layout_constraintEnd_toStartOf="@id/ivMore"/>
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert"
+            app:tint="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"/>
+
+        <ImageView
+            android:id="@+id/ivCalendar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_calendar"
+            app:tint="#516D94"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="@id/ivIcon"/>
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:30 - 11:30 19/08/2025"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/ivCalendar"
+            app:layout_constraintTop_toTopOf="@id/ivCalendar"
+            app:layout_constraintBottom_toBottomOf="@id/ivCalendar"/>
+
+        <TextView
+            android:id="@+id/tvTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lên kế hoạch"
+            android:textColor="@color/blue"
+            android:background="@drawable/tag_bg_superlightblue"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/ivCalendar"
+            app:layout_constraintStart_toStartOf="@id/ivIcon"/>
+
+        <ImageView
+            android:id="@+id/ivMessage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_comment"
+            app:tint="#2869E2"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/tvTag"
+            app:layout_constraintTop_toTopOf="@id/tvTag"
+            app:layout_constraintBottom_toBottomOf="@id/tvTag"/>
+
+        <TextView
+            android:id="@+id/tvMessageCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/ivMessage"
+            app:layout_constraintTop_toTopOf="@id/ivMessage"
+            app:layout_constraintBottom_toBottomOf="@id/ivMessage"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/avatar_man"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTag"
+            app:layout_constraintBottom_toBottomOf="@id/tvTag"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

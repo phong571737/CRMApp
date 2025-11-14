@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="blue">#0000FF</color>-->
+    <color name="grey">#D3D3D3</color>
+    <color name="red">#F44336</color>
+    <color name="lightblue">#87CEEB</color>
+    <color name="chuxanh">#1B74E4</color>
+    <color name="xamtrang">#EDF2FD</color>
+    <color name="xanhbutton">#1474E4</color>
+    <color name="nentrangthai">#EAF5FD</color>
+    <color name="icon_comment">#2869E2</color>
+    2869E2
+</resources>

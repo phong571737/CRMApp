@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <!-- Thanh kéo trên cùng -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#E5E7EB"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Title + nút đóng -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Điều chỉnh sản phẩm"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/btnClose"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_close" />
+    </RelativeLayout>
+
+    <!-- Tên sản phẩm -->
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Cam AI HA800"
+        android:textStyle="bold"
+        android:textSize="15sp" />
+
+    <!-- Hàng số lượng + giá -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="12dp">
+
+        <!-- Nhóm số lượng -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/btnMinus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_round_button"
+                android:src="@drawable/ic_minus"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_marginHorizontal="8dp"
+                android:gravity="center"
+                android:text="1"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:background="@drawable/bg_input" />
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_round_button"
+                android:src="@drawable/ic_plus"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+
+        <!-- Giá dòng sản phẩm -->
+        <TextView
+            android:id="@+id/tvLinePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:background="@drawable/bg_input"
+            android:text="4.200.000 đ"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- ================= GIẢM GIÁ ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Giảm giá"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvDiscountAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 đ"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Nhóm radio + ô nhập giống Figma -->
+    <RadioGroup
+        android:id="@+id/rgDiscountType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <!-- Hàng 1: Không có giảm giá -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <RadioButton
+                android:id="@+id/rbNoDiscount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Không có giảm giá"
+                android:paddingVertical="4dp" />
+        </LinearLayout>
+
+        <!-- Hàng 2: Giảm giá % + ô 5 % bên phải -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp">
+
+            <RadioButton
+                android:id="@+id/rbDiscountPercent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Giảm giá %"
+                android:paddingVertical="4dp" />
+
+            <!-- Ô nhỏ bên phải: 5 % -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_input"
+                android:paddingHorizontal="10dp">
+
+                <EditText
+                    android:id="@+id/edtDiscountPercent"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:text="5"
+                    android:gravity="center_vertical|end"
+                    android:paddingRight="4dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="%"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Hàng 3: Giảm giá trực tiếp + ô 0.00 đ bên phải -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp">
+
+            <RadioButton
+                android:id="@+id/rbDiscountDirect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Giảm giá trực tiếp"
+                android:paddingVertical="4dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_input"
+                android:paddingHorizontal="10dp">
+
+                <EditText
+                    android:id="@+id/edtDiscountDirect"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:inputType="numberDecimal"
+                    android:text="0.00 đ"
+                    android:gravity="center_vertical|end"
+                    android:paddingRight="4dp"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RadioGroup>
+
+
+    <!-- ================= THUẾ ================= -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thuế"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvTaxAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 đ"
+            android:textStyle="bold"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rgTax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/rbNoTax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không áp dụng thuế"
+            android:paddingVertical="4dp" />
+
+        <RadioButton
+            android:id="@+id/rbVAT10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VAT"
+            android:paddingTop="8dp" />
+    </RadioGroup>
+
+    <!-- Hàng VAT: 10 %   399.000 đ -->
+    <LinearLayout
+        android:id="@+id/layoutVatRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="32dp"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/tvVatPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:paddingHorizontal="12dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_input"
+            android:text="10 %"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvVatAmount"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical|end"
+            android:paddingHorizontal="8dp"
+            android:background="@drawable/bg_input"
+            android:text="399.000 đ"
+            android:textSize="13sp"
+            android:textColor="#6B7280" />
+    </LinearLayout>
+
+    <!-- ================= THÀNH TIỀN ================= -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Thành tiền"
+        android:textStyle="bold"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvFinalAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0 đ"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:gravity="end"
+        android:layout_marginTop="4dp" />
+
+    <!-- Nút dưới cùng -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp">
+
+        <!-- Nút QUAY LẠI: nền trắng, viền xanh -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Quay lại"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#2563EB"
+            app:cornerRadius="999dp"
+            app:backgroundTint="@android:color/white"
+            app:strokeColor="#2563EB"
+            app:strokeWidth="1dp" />
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
+
+        <!-- Nút XÁC NHẬN: nền xanh, chữ trắng -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirm"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            app:cornerRadius="999dp"
+            app:backgroundTint="#2563EB" />
+    </LinearLayout>
+
+
+</LinearLayout>

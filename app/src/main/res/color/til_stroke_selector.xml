@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Viền khi focus -->
+    <item android:state_focused="true" android:color="@color/stroke_focus"/>
+    <!-- Viền khi hover (tuỳ chọn) -->
+    <item android:state_hovered="true" android:color="@color/stroke_focus"/>
+    <!-- Mặc định -->
+    <item android:color="@color/stroke"/>
+</selector>

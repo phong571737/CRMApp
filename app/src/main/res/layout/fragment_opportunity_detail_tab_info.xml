@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <!-- 🔹 Thông tin Cơ hội -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@drawable/bg_card"
+            android:layout_marginBottom="16dp">
+
+            <!-- Header section với toggle -->
+            <LinearLayout
+                android:id="@+id/layout_opportunity_info_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tv_opportunity_info_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thông tin Cơ hội"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827" />
+
+                <ImageView
+                    android:id="@+id/iv_opportunity_info_toggle"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_arrow_up" />
+            </LinearLayout>
+
+            <!-- Content section (có thể collapse) -->
+            <LinearLayout
+                android:id="@+id/layout_opportunity_info_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Company description -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_company_description_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mô tả"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_company_description_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Công ty TNHH Vạn Phát - phần mềm CloudWork"
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Công ty -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_company_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Công ty"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_company_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Công ty TNHH Vạn Phát"
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Người liên hệ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_contact_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Người liên hệ"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_contact_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Trần Ngọc Diễm My"
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Giá trị cơ hội -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_opportunity_value_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Giá trị cơ hội"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_opportunity_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="14.875.000 đ"
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Bước bán hàng -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_sales_step_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bước bán hàng ①"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_opportunity_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thương lượng đàm phán"
+                        android:background="@drawable/bg_status_chip"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="5dp"
+                        android:textSize="12.5sp"
+                        android:textColor="@color/brown"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Ngày chốt -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_close_date_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày chốt"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_close_date_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Lý do thất bại -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="4dp">
+
+                    <TextView
+                        android:id="@+id/tv_failure_reason_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lý do thất bại ①"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_failure_reason_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E5E7EB"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- 🔹 Thông tin mô tả -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@drawable/bg_card"
+            android:layout_marginBottom="16dp">
+
+            <!-- Header section với toggle -->
+            <LinearLayout
+                android:id="@+id/layout_description_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tv_description_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thông tin mô tả"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827" />
+
+                <ImageView
+                    android:id="@+id/iv_description_toggle"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_arrow_up" />
+            </LinearLayout>
+
+            <!-- Content section (có thể collapse) -->
+            <LinearLayout
+                android:id="@+id/layout_description_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_description_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mô tả"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_description_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, qu... Xem thêm"
+                    android:textSize="14sp"
+                    android:textColor="#6B7280"
+                    android:lineSpacingExtra="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 🔹 Thông tin quản lý -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@drawable/bg_card"
+            android:layout_marginBottom="16dp">
+
+            <!-- Header section với toggle -->
+            <LinearLayout
+                android:id="@+id/layout_management_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tv_management_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thông tin quản lý"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827" />
+
+                <ImageView
+                    android:id="@+id/iv_management_toggle"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_arrow_up" />
+            </LinearLayout>
+
+            <!-- Content section (có thể collapse) -->
+            <LinearLayout
+                android:id="@+id/layout_management_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_assigned_to_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giao cho"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginEnd="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_assigned_to_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nguyễn Minh Hà"
+                    android:textSize="14sp"
+                    android:textColor="#111827"
+                    android:textStyle="bold"
+                    android:gravity="end"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 🔹 Thông tin hệ thống -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@drawable/bg_card">
+
+            <!-- Header section với toggle -->
+            <LinearLayout
+                android:id="@+id/layout_system_info_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tv_system_info_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thông tin hệ thống"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827" />
+
+                <ImageView
+                    android:id="@+id/iv_system_info_toggle"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_arrow_up" />
+            </LinearLayout>
+
+            <!-- Content section (có thể collapse) -->
+            <LinearLayout
+                android:id="@+id/layout_system_info_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Ngày tạo -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/tv_created_date_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày tạo"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_created_date_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="30/07/2024 09:56"
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+
+                <!-- Ngày sửa -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_modified_date_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày sửa"
+                        android:textSize="14sp"
+                        android:textColor="#374151"
+                        android:layout_marginEnd="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_modified_date_value"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="30/07/2024 09:56"
+                        android:textSize="14sp"
+                        android:textColor="#111827"
+                        android:textStyle="bold"
+                        android:gravity="end"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Thêm khoảng trống cuối cùng để đảm bảo scroll mượt -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

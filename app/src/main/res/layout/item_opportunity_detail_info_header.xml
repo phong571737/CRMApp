@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <!-- Phần chi tiết cơ hội -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Phần thông tin bên phải icon -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <!-- Tên cơ hội và giá trị -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Icon cơ hội -->
+                <ImageView
+                    android:id="@+id/iv_opportunity_detail_name"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_target" />
+
+                <TextView
+                    android:id="@+id/tv_opportunity_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cơ hội mua hàng"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_name"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
+            <!-- Tên công ty và trạng thái -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_company_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Công ty THHHN"
+                        android:textStyle="italic"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="0dp"/>
+                    <TextView
+                        android:id="@+id/tv_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14,875,000 ₫"
+                        android:textStyle="italic"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:layout_marginStart="8dp" />
+
+
+                </LinearLayout>
+
+                <!-- Chip trạng thái -->
+                <TextView
+                    android:id="@+id/tv_opportunity_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thương lượng đàm phán"
+                    android:background="@drawable/bg_status_chip"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="5dp"
+                    android:textSize="12.5sp"
+                    android:textColor="@color/brown"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

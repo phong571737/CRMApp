@@ -1,7 +1,6 @@
 package com.example.crmmobile;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -35,7 +34,7 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
         });
 
         thongTinKhacTab.setOnClickListener(v -> {
-            loadFragment(new ThongTinKhacFragment());
+            loadFragment(new TaoCongTyThongTinKhacFragment());
             setActiveTab(thongTinKhacTab, infoTab);
         });
 
@@ -50,7 +49,7 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment)
-                        .addToBackStack(null);
+                .addToBackStack(null);
         transaction.commit();
     }
 

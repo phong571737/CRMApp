@@ -45,6 +45,14 @@
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
 
+        <activity android:name=".TongQuanCongTyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile"/>
+
+        <activity android:name=".ChiTietToChucActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,4 +1,4 @@
-package com.example.crmmobile;
+package com.example.myapplication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +29,7 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         LinearLayout layoutChiTiet = view.findViewById(R.id.layoutThongTinNguoiLienHeChiTiet);
 
         // 👇 Đặt icon mặc định khi mới vào (hiện chi tiết → mũi tên lên)
-        thongTinNguoiLienHe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down, 0);
+        thongTinNguoiLienHe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down, 0);
 
         thongTinNguoiLienHe.setOnClickListener(v -> {
             if (layoutChiTiet.getVisibility() == View.VISIBLE) {
@@ -39,7 +39,7 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
             } else {
                 // Nếu đang ẩn → mở ra + đổi icon lên
                 layoutChiTiet.setVisibility(View.VISIBLE);
-                thongTinNguoiLienHe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down, 0);
+                thongTinNguoiLienHe.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down, 0);
             }
         });
     }

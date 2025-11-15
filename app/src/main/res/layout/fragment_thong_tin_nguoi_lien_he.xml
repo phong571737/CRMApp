@@ -10,13 +10,14 @@
 
     <!-- Scrollable form -->
     <ScrollView
-        android:id="@+id/scrollView_info"
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/rowbuttonhuyluu"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -221,40 +222,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Buttons fixed at bottom -->
-    <LinearLayout
-        android:id="@+id/rowbuttonhuyluu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btnHuy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:text="@string/btnhuy"
-            android:backgroundTint="@color/xamtrang"
-            android:textColor="@color/chuxanh"
-            android:textSize="@dimen/text_small"
-            android:paddingVertical="8dp" />
-
-        <Button
-            android:id="@+id/btnLuu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:text="Lưu"
-            android:backgroundTint="@color/xanhbutton"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_small"
-            android:paddingVertical="8dp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

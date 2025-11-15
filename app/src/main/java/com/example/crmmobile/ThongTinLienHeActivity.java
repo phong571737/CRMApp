@@ -1,7 +1,9 @@
-package com.example.crmmobile;
+package com.example.myapplication;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +17,8 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
     private TextView infoTab, thongTinKhacTab;
     private ImageView icBack;
 
+    private Button btnHuy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,7 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
         infoTab = findViewById(R.id.info);
         thongTinKhacTab = findViewById(R.id.thongtinkhac);
         icBack = findViewById(R.id.ic_back);
+        btnHuy = findViewById(R.id.btnHuy);
 
         // Hiển thị fragment mặc định là Thông tin
         loadFragment(new ThongTinNguoiLienHeFragment());
@@ -34,12 +39,18 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
         });
 
         thongTinKhacTab.setOnClickListener(v -> {
-            loadFragment(new TaoCongTyThongTinKhacFragment());
+            loadFragment(new ThongTinKhacFragment());
             setActiveTab(thongTinKhacTab, infoTab);
         });
 
         icBack.setOnClickListener(v -> {
-            Intent intent = new Intent(ThongTinLienHeActivity.this, TabActivity.class);
+            Intent intent = new Intent(ThongTinLienHeActivity.this, DanhSachCaNhanActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        btnHuy.setOnClickListener(v -> {
+            Intent intent = new Intent(ThongTinLienHeActivity.this, DanhSachCaNhanActivity.class);
             startActivity(intent);
             finish();
         });
@@ -48,8 +59,7 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, fragment)
-                .addToBackStack(null);
+        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }
 

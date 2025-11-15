@@ -1,4 +1,4 @@
-package com.example.crmmobile;
+package com.example.myapplication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -75,7 +75,7 @@ public class ChiTietFragment extends Fragment {
 
         // Ban đầu hiển thị chi tiết và mũi tên xuống
         detailLayout.setVisibility(View.VISIBLE);
-        titleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down, 0);
+        titleView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down, 0);
 
         // Khi click vào tiêu đề
         titleView.setOnClickListener(v -> {
@@ -87,7 +87,7 @@ public class ChiTietFragment extends Fragment {
             // Đổi mũi tên lên/xuống
             titleView.setCompoundDrawablesRelativeWithIntrinsicBounds(
                     0, 0,
-                    isVisible ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down,
+                    isVisible ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_drop_down,
                     0
             );
         });

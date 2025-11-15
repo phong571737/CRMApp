@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- ScrollView chứa nội dung cuộn -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnAdd">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header Cá nhân -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ic_back"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/arrow_back"
+                    android:tint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/canhan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cá nhân"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_large"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/ic_back"
+                    app:layout_constraintTop_toTopOf="@id/ic_back"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_back" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Thanh tìm kiếm -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_input_box"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <ImageView
+                    android:id="@+id/ic_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/grey"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <EditText
+                    android:id="@+id/edt_search"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Tìm kiếm cá nhân"
+                    android:textSize="@dimen/text_medium"
+                    android:inputType="text"
+                    app:layout_constraintStart_toEndOf="@id/ic_search"
+                    app:layout_constraintTop_toTopOf="@id/ic_search"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_search"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- CARD THÔNG TIN -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardthongtin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_basex3"
+                android:background="@drawable/rounded_input_box"
+                android:padding="16dp">
+
+                <!-- Icon Contact -->
+                <ImageView
+                    android:id="@+id/ic_contact"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_contact"
+                    android:tint="@color/black"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Tên -->
+                <TextView
+                    android:id="@+id/filltencuochop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Anh Trần Huy Tuấn"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toEndOf="@id/ic_contact"
+                    app:layout_constraintTop_toTopOf="@id/ic_contact"
+                    app:layout_constraintEnd_toStartOf="@id/ic_more" />
+
+                <!-- More -->
+                <ImageView
+                    android:id="@+id/ic_more"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_more"
+                    android:tint="@color/blue"
+                    app:layout_constraintTop_toTopOf="@id/ic_contact"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- Icon công ty -->
+                <ImageView
+                    android:id="@+id/ic_congty"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/margin_basex2"
+                    android:src="@drawable/ic_congty"
+                    android:tint="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/ic_contact"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Tên công ty -->
+                <TextView
+                    android:id="@+id/fillcongty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Công ty cổ phần thương mại Chiaki"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginStart="@dimen/margin_basex2"
+                    app:layout_constraintStart_toEndOf="@id/ic_congty"
+                    app:layout_constraintTop_toTopOf="@id/ic_congty" />
+
+                <!-- Icon Calendar -->
+                <ImageView
+                    android:id="@+id/ic_calendar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/margin_basex2"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/ic_congty"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Ngày -->
+                <TextView
+                    android:id="@+id/fillngay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19/08/2024"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginStart="@dimen/margin_basex2"
+                    app:layout_constraintStart_toEndOf="@id/ic_calendar"
+                    app:layout_constraintTop_toTopOf="@id/ic_calendar" />
+
+                <!-- Cuộc gọi -->
+                <ImageView
+                    android:id="@+id/ic_call"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_call"
+                    android:tint="@color/icon_comment"
+                    android:layout_marginTop="@dimen/margin_basex3"
+                    android:layout_marginStart="@dimen/margin_basex2"
+                    app:layout_constraintTop_toBottomOf="@id/ic_calendar"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/fill_cuocgoi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginStart="@dimen/margin_basex2"
+                    app:layout_constraintStart_toEndOf="@id/ic_call"
+                    app:layout_constraintTop_toTopOf="@id/ic_call"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_call" />
+
+                <!-- Meeting -->
+                <ImageView
+                    android:id="@+id/ic_meeting"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_comment"
+                    android:tint="@color/icon_comment"
+                    android:layout_marginStart="@dimen/margin_basex3"
+                    app:layout_constraintStart_toEndOf="@id/fill_cuocgoi"
+                    app:layout_constraintTop_toTopOf="@id/ic_call"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_call" />
+
+                <TextView
+                    android:id="@+id/fill_meeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="@dimen/text_medium"
+                    android:layout_marginStart="@dimen/margin_basex2"
+                    app:layout_constraintStart_toEndOf="@id/ic_meeting"
+                    app:layout_constraintTop_toTopOf="@id/ic_meeting"
+                    app:layout_constraintBottom_toBottomOf="@id/ic_meeting" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Button Lưu cố định cuối màn hình -->
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Thêm người liên hệ"
+        android:backgroundTint="@color/xanhbutton"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_small"
+        android:paddingVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

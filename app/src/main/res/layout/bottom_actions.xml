@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/bottomsheet"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="200dp"
+    android:orientation="vertical"
+    android:background="@drawable/bottomsheet_rounded_top"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Lựa chọn hành động"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/ic_cancel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_cancel"
+            android:contentDescription="Cancel"/>
+    </LinearLayout>
+
+
+    <!-- Ghim -->
+    <LinearLayout
+        android:id="@+id/ghim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/ic_pin"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_input_box_small"
+        android:src="@drawable/ic_pin"
+        android:scaleType="centerInside"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:id="@+id/action_ghim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ghim"
+        android:textSize="16sp"
+        android:padding="12dp" />
+    </LinearLayout>
+
+    <!-- Thêm hoạt động -->
+    <LinearLayout
+        android:id="@+id/themhoatdong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ic_hoatdong"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_input_box_small"
+            android:src="@drawable/ic_hoatdong"
+            android:scaleType="centerInside"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/action_hoatdong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thêm hoạt động"
+            android:textSize="16sp"
+            android:padding="12dp" />
+    </LinearLayout>
+
+    <!-- Chỉnh sửa -->
+    <LinearLayout
+        android:id="@+id/chinhsua"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ic_edit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_input_box_small"
+            android:src="@drawable/ic_edit"
+            android:scaleType="centerInside"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/action_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chỉnh sửa"
+            android:textSize="16sp"
+            android:padding="12dp" />
+    </LinearLayout>
+
+
+    <!-- Xóa -->
+    <LinearLayout
+        android:id="@+id/xoa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <ImageView
+            android:id="@+id/ic_xoa"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_input_box_small"
+            android:src="@drawable/ic_xoa"
+            android:scaleType="centerInside"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/mauxoa"
+            />   <!-- ĐỔ MÀU KHÁC Ở ĐÂY -->
+
+
+        <TextView
+            android:id="@+id/action_xoa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xóa"
+            android:textSize="16sp"
+            android:padding="12dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,67 +1,62 @@
 <resources>
-    <string name="UserIcon">Settings</string>
-    <string name="TextSearch">Tìm kiếm Lead</string>
-    <string name="desc_Search">Search icon</string>
-    <string name="newLead">Lead mới</string>
-    <string name="currentLead">Lead tạo hôm nay</string>
-    <string name="Lead15day">Lead vượt quá 15 ngày</string>
-    <string name="Lead30day">Lead vượt quá 30 ngày</string>
-    <string name="cus_name">Tên khách hàng</string>
-    <string name="cus_Company">Tên công ty</string>
-    <string name="cus_Day">29/9/2025</string>
-    <string name="cus_Contact">Trao đổi</string>
-    <string name="activate_choose">Lựa chọn hành động</string>
-    <string name="Pin">Ghim</string>
-    <string name="Call">Gọi điện</string>
-    <string name="Chat">Chat</string>
-    <string name="SMS">Gửi tin nhắn SMS</string>
-    <string name="sendEmail">Gửi Email</string>
-    <string name="activate_add">Thêm hoạt động</string>
-    <string name="convertLead"> Chuyển đổi Lead</string>
-    <string name="double_">Nhân đôi</string>
-    <string name="Edit_Lead">Chỉnh sửa</string>
-    <string name="remove_lead">Xóa</string>
-    <string name="num_calls">Số cuộc gọi</string>
-    <string name="num_meeting"> Cuộc họp</string>
-    <string name="num_job">Công việc</string>
-    <string name="DetailLead">Chi tiết Lead</string>
-    <string name="infor_lead">Thông tin Lead</string>
-    <string name="title_infor">Danh xưng</string>
-    <string name="firt_name">Họ và tên đệm</string>
-    <string name="last_name">Họ</string>
-    <string name="first_name">Tên </string>
-    <string name="phone_infor"> Số điện thoại di động</string>
-    <string name="sex_infor">Giới tính</string>
-    <string name="birthday">Ngày sinh</string>
-    <string name="state_infor">Tình trạng</string>
-    <string name="state_detail">Mô tả tình trạng</string>
-    <string name="another_email">Email khác</string>
-    <string name="another_phone">Số điện thoại khác</string>
-    <string name="abort">Hủy bỏ</string>
-    <string name="company_infor">Thông tin công ty</string>
-    <string name="tax_code">Mã số thuế</string>
-    <string name="name_company">Tên công ty</string>
-    <string name="job_infor">Ngành nghề</string>
-    <string name="revenue_infor">Doanh thu hằng năm</string>
-    <string name="number_employees">Số nhân viên</string>
-    <string name="company_description">Giới thiệu công ty</string>
-    <string name="address_infor">Thông tin địa chỉ</string>
-    <string name="address">Địa chỉ</string>
-    <string name="district">Quận/huyện</string>
-    <string name="province">Tỉnh/TP</string>
-    <string name="nation">Quốc gia</string>
-    <string name="descrip_information">Thông tin mô tả</string>
-    <string name="description">Mô tả</string>
-    <string name="special_notes">Ghi chú đặt biệt</string>
-    <string name="image">Hình ảnh</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="scheduled_action">Hoạt động đã lên lịch</string>
-    <string name="plan">Lên kế hoạch</string>
-    <string name="add_action">Thêm hoạt động</string>
-    <string name="comment">Bình luận</string>
-    <string name="module">Mô đun</string>
-    <string name="see_more">Xem thêm </string>
-    <string name="current_visit">Truy cập gần đây</string>
-    <string name="SDT"> SĐT</string>
-    <string name="find_order">Tìm kiếm đơn hàng</string>
+    <string name="app_name">CRM</string>
+    <string name="thongtinlienhe">Thông tin liên hệ</string>
+    <string name="taonguoilienhe">Tạo người liên hệ</string>
+    <string name="thongtin">Thông tin người liên hệ</string>
+    <string name="thongtinkhac">Thông tin khác</string>
+    <string name="danhxung">Danh xưng</string>
+    <string name="hovatendem">Họ và tên đệm</string>
+    <string name="ten">Tên <font color='#FF0000'>*</font></string>
+    <string name="congty">Công ty</string>
+    <string name="gioitinh">Giới tính</string>
+    <string name="didong">Di động <font color='#FF0000'>*</font></string>
+    <string name="email">Email</string>
+    <string name="ngaysinh">Ngày sinh</string>
+    <string name="loai">Loại</string>
+    <string name="nguon">Nguồn</string>
+    <string name="btnhuy">Hủy</string>
+    <string name="btnluu">Lưu</string>
+
+    <string name="thongtindiachi">Thông tin địa chỉ</string>
+    <string name="diachi">Địa chỉ</string>
+    <string name="quan">Quận/Huyện</string>
+    <string name="tinh">Tỉnh/TP</string>
+    <string name="quocgia">Quốc gia</string>
+
+    <string name="thongtinmota">Thông tin mô tả</string>
+    <string name="mota">Mô tả</string>
+    <string name="ghichu">Ghi chú đặc biệt</string>
+
+    <string name="thongtinquanly">Thông tin quản lý</string>
+    <string name="giaocho">Giao cho <font color='#FF0000'>*</font></string>
+    <string name="danhgia">Đánh giá</string>
+
+
+
+    <string name="chitietnguoilienhe">Chi tiết người liên hệ</string>
+    <string name="nguoitao">Người tạo</string>
+    <string name="nguoiphutrach">Người phụ trách</string>
+    <string name="tongquan">Tổng quan</string>
+    <string name="chitiet">Chi tiết</string>
+    <string name="nhatky">Nhật ký</string>
+    <string name="cohoi">Cơ hội</string>
+    <string name="thongtinchung">Thông tin chung</string>
+    <string name="thongtinmuahang">Thông tin mua hàng</string>
+    <string name="tinhtrangmuahang">Tình trạng mua hàng</string>
+    <string name="sodonhangdamua">Số đơn hàng đã mua</string>
+    <string name="tongdoanhthu">Tổng doanh thu</string>
+    <string name="thongtinhethong">Thông tin hệ thống</string>
+    <string name="ngaytao">Ngày tạo</string>
+    <string name="ngaysua">Ngày sửa</string>
+
+
+    <string name="cuocgoi">Cuộc gọi</string>
+    <string name="cuochop">Cuộc họp</string>
+    <string name="congviec">Công việc</string>
+    <string name="hoatdongdalenlich">Hoạt động đã lên lịch</string>
+
+    <string name="tieude">Tiêu đề <font color='#FF0000'>*</font></string>
+
+
+
 </resources>

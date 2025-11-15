@@ -1,26 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="margin_action">10dp</dimen>
-    <dimen name="title_app">20sp</dimen>
-    <dimen name="add_infor">5dp</dimen>
-    <dimen name="top_padding">10dp</dimen>
-    <dimen name="bottom_padding">10dp</dimen>
-    <dimen name="start_padding">20dp</dimen>
-    <dimen name="text18">18sp</dimen>
-    <dimen name="text_seemore">16sp</dimen>
-    <dimen name="margin_icon">3dp</dimen>
-    <dimen name="text">14sp</dimen>
-    <dimen name="start_margin">10dp</dimen>
-    <dimen name="text_name">20sp</dimen>
-    <dimen name="text16">16sp</dimen>
-    <dimen name="heigh_et">48dp</dimen>
-    <dimen name="margin5">5dp</dimen>
-    <dimen name="margin20">20dp</dimen>
-    <dimen name="margin15">15dp</dimen>
-    <dimen name="padding16">16dp</dimen>
-    <dimen name="padding14">14dp</dimen>
-    <dimen name="padding28">28dp</dimen>
-    <dimen name="padding32">32dp</dimen>
-    <dimen name="padding34">34dp</dimen>
-    <dimen name="padding36">36dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="margin_base">4dp</dimen>
+    <dimen name="margin_basex2">8dp</dimen>
+    <dimen name="margin_basex3">12dp</dimen>
+    <dimen name="margin_basex4">16dp</dimen>
+    <dimen name="margin_basex5">20dp</dimen>
+    <dimen name="margin_basex6">24dp</dimen>
+    <dimen name="text_small">16sp</dimen>
+    <dimen name="text_medium">18sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="padding_vertical_small">12dp</dimen>
+    <dimen name="icon_back_size">20dp</dimen>
+
 </resources>

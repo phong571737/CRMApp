@@ -1,18 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.CRMMobile" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/blue_gray</item>
+
+    <!-- Base application theme -->
+    <style name="Base.Theme.My_Application" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Bạn có thể tùy chỉnh màu chủ đạo ở đây -->
+        <!-- <item name="colorPrimary">@color/blue</item> -->
     </style>
 
-    <style name="Theme.CRMMobile" parent="Base.Theme.CRMMobile" />
-
-    <style name="NoRippleBottomNav" parent="@style/Widget.MaterialComponents.BottomNavigationView">
-        <item name="itemRippleColor">@android:color/transparent</item>
-        <item name="itemActiveIndicatorStyle">@style/NoIndicator</item>
-    </style>
-
-    <style name="NoIndicator">
-        <item name="android:color">@android:color/transparent</item>
-    </style>
+    <style name="Theme.My_Application" parent="Base.Theme.My_Application" />
 </resources>

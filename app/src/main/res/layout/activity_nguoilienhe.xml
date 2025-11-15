@@ -43,7 +43,52 @@
                     android:text="@string/chitietnguoilienhe"
                     android:textSize="@dimen/text_large"
                     android:layout_marginStart="8dp"/>
+
+                <!-- arrow_left -->
+                <ImageView
+                    android:id="@+id/ic_left"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/rounded_input_box_small"
+                    android:src="@drawable/ic_arrow_left"
+                    android:scaleType="centerInside"
+                    android:layout_marginStart="40dp"/>
+
+                <!-- arrow_right -->
+                <ImageView
+                    android:id="@+id/ic_right"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/rounded_input_box_small"
+                    android:src="@drawable/ic_arrow_right"
+                    android:scaleType="centerInside"
+                    android:layout_marginStart="8dp"/>
+
+                <!-- edit -->
+                <ImageView
+                    android:id="@+id/ic_edit"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/rounded_input_box_small"
+                    android:src="@drawable/ic_edit"
+                    android:scaleType="centerInside"
+                    android:layout_marginStart="8dp"/>
+
+                <!-- more -->
+                <ImageView
+                    android:id="@+id/ic_more"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/rounded_input_box_small"
+                    android:src="@drawable/ic_three_point"
+                    android:scaleType="centerInside"
+                    android:layout_marginStart="8dp"/>
+
+
+
             </LinearLayout>
+
+
 
             <!-- Contact -->
             <LinearLayout

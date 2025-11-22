@@ -27,6 +27,6 @@ public class TongQuanFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         // Gắn layout UI của tab Tổng quan
-        return inflater.inflate(R.layout.fragment_tong_quan, container, false);
+        return inflater.inflate(R.layout.frag_tong_quan, container, false);
     }
 }

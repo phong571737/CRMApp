@@ -64,5 +64,14 @@
     <string name="SDT"> SĐT</string>
     <string name="find_order">Tìm kiếm đơn hàng</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="untitled" />
+    <string name="hint_tieude">Tiêu đề <font color="#FF0000">*</font></string>
+    <string name="hint_cong_ty">Công ty <font color="#FF0000">*</font></string>
+    <string name="hint_ngay_dat_hang">Ngày đặt hàng <font color="#FF0000">*</font></string>
+    <string name="add">Thêm</string>
+    <string name="create_order">Tạo đơn hàng</string>
+    <string name="choose_product">Chọn sản phẩm</string>
+    <string name="search_products">Tìm kiếm sản phẩm</string>
+
 </resources>

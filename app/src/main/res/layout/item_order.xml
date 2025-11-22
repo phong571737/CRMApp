@@ -30,7 +30,7 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/ic_cart"
+                android:src="@drawable/shopping"
                 android:contentDescription="@null"
                 app:tint="@color/color_icon"/>
 
@@ -49,7 +49,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_star_filled" />
+                android:src="@drawable/star" />
 
             <TextView
                 android:id="@+id/tvTag"
@@ -72,7 +72,7 @@
                 android:clickable="true"
                 android:contentDescription="Tùy chọn"
                 android:focusable="true"
-                android:src="@drawable/ic_more_vert" />
+                android:src="@drawable/more_vert" />
 
         </LinearLayout>
 
@@ -123,7 +123,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_dollar"
+                    android:src="@drawable/paid"
                     app:tint="@color/color_icon"/>
 
                 <TextView
@@ -189,19 +189,17 @@
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginEnd="-8dp"
-                    android:background="@drawable/avt2"
                     android:clipToOutline="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/avt2" />
+                    android:src="@drawable/avatar_man" />
 
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginEnd="-8dp"
-                    android:background="@drawable/avt2"
                     android:clipToOutline="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/avt2" />
+                    android:src="@drawable/avatar_girl" />
 
                 <TextView
                     android:layout_width="28dp"

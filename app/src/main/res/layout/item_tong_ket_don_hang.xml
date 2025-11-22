@@ -6,7 +6,7 @@
     android:padding="12dp"
     android:background="#FFFFFF">
 
-    <!-- 🔹 Tạm tính -->
+    <!-- Tạm tính -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,20 +19,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tạm tính"
-            android:textColor="#777"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvTamTinh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6.020.000 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:text="0 đ"
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- 🔹 Giảm giá chung -->
+    <!-- Giảm giá chung + icon tooltip -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,32 +38,28 @@
         android:paddingVertical="4dp">
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Giảm giá chung"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvGiamGiaChung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giảm giá chung"
-            android:textColor="#777"
-            android:textSize="14sp" />
+            android:text="0 đ"
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/iconTooltipGiamGia"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginStart="4dp"
-            android:src="@drawable/ic_tooltip"
-             />
-
-        <TextView
-            android:id="@+id/tvGiamGiaChung"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="0 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:layout_marginStart="6dp"
+            android:src="@drawable/ic_info" />
     </LinearLayout>
 
-    <!-- 🔹 Tổng giảm -->
+    <!-- Tổng giảm -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,20 +72,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tổng giảm"
-            android:textColor="#777"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvTongGiam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- 🔹 Tổng trước thuế -->
+    <!-- Trước thuế -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -104,21 +94,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tổng trước thuế"
-            android:textColor="#777"
-            android:textSize="14sp" />
+            android:text="Trước thuế"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvTruocThue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6.020.000 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:text="0 đ"
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- 🔹 Thuế -->
+    <!-- Thuế + icon tooltip -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,32 +114,28 @@
         android:paddingVertical="4dp">
 
         <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Thuế"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvThue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thuế"
-            android:textColor="#777"
-            android:textSize="14sp" />
+            android:text="0 đ"
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/iconTooltipThue"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:layout_marginStart="4dp"
-            android:src="@drawable/ic_tooltip"
-             />
-
-        <TextView
-            android:id="@+id/tvThue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="602.000 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:layout_marginStart="6dp"
+            android:src="@drawable/ic_info" />
     </LinearLayout>
 
-    <!-- 🔹 Tổng thuế -->
+    <!-- Tổng thuế -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -165,48 +148,50 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tổng thuế"
-            android:textColor="#777"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvTongThue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6.020.000 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:text="0 đ"
+            android:textSize="13sp" />
     </LinearLayout>
 
-    <!-- 🔹 Tổng cộng -->
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#EEEEEE" />
+
+    <!-- Tổng cộng -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingVertical="8dp"
-        android:layout_marginTop="6dp">
+        android:paddingVertical="6dp"
+        android:layout_marginTop="4dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tổng cộng"
             android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvTongCong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="0 đ"
+            android:textStyle="bold"
+            android:textSize="14sp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
-            android:background="@drawable/bg_total_yellow"
-            android:text="6.622.000 đ"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="15sp" />
+            android:background="@drawable/bg_badge" />
     </LinearLayout>
-</LinearLayout>
 
+</LinearLayout>

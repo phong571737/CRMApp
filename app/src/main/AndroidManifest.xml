@@ -64,12 +64,12 @@
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".DanhSachCaNhanActivity"
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
 
         <activity
-            android:name=".DanhSachCaNhanActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CRMMobile">
             <intent-filter>
@@ -77,6 +77,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!-- Các activity của Sales Order -->
+        <activity
+            android:name=".feature.salesorder.ui.list.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".feature.salesorder.ui.detail.OrderDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".feature.salesorder.ui.create.SOCreate1Activity"
+            android:exported="false"
+            android:parentActivityName=".feature.salesorder.ui.list.MainActivity"
+            android:theme="@style/Theme.CRMMobile" />
+
+        <activity
+            android:name=".feature.salesorder.ui.productpick.ProductPickActivity"
+            android:exported="false"
+            android:parentActivityName=".feature.salesorder.ui.create.SOCreate1Activity"
+            android:theme="@style/Theme.CRMMobile" />
+
     </application>
 
 </manifest>

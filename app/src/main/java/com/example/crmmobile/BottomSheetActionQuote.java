@@ -13,8 +13,8 @@ public class BottomSheetActionQuote {
     private static void addActionItemQuote(Context context, LinearLayout parent, int iconRes, String text){
         View view = LayoutInflater.from(context).inflate(R.layout.item_action, parent, false);
 
-        ImageView icon_action = view.findViewById(R.id.img_action_icon);
-        TextView text_action = view.findViewById(R.id.tv_action);
+        ImageView icon_action = view.findViewById(R.id.actionIcon);
+        TextView text_action = view.findViewById(R.id.actionText);
 
         icon_action.setImageResource(iconRes);
         text_action.setText(text);

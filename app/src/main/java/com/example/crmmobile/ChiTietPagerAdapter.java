@@ -4,6 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.crmmobile.feature.salesorder.ui.common.EmptyFragment;
+import com.example.crmmobile.feature.salesorder.ui.detail.FragmentKhac;
+import com.example.crmmobile.feature.salesorder.ui.detail.FragmentSPDV;
+import com.example.crmmobile.feature.salesorder.ui.detail.FragmentThanhToanVanChuyen;
+
 import java.util.List;
 
 public class ChiTietPagerAdapter extends FragmentStateAdapter {

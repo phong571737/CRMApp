@@ -58,8 +58,8 @@ public class OpportunityBottomSheetHelper {
         View itemView = LayoutInflater.from(context)
                 .inflate(R.layout.item_action, parent, false);
 
-        ImageView icon = itemView.findViewById(R.id.img_action_icon);
-        TextView label = itemView.findViewById(R.id.tv_action);
+        ImageView icon = itemView.findViewById(R.id.actionIcon);
+        TextView label = itemView.findViewById(R.id.actionText);
 
         icon.setImageResource(iconRes);
         label.setText(text);

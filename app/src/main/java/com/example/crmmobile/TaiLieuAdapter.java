@@ -69,7 +69,7 @@ public class TaiLieuAdapter extends RecyclerView.Adapter<TaiLieuAdapter.ViewHold
         return danhSachTaiLieu.size();
     }
 
-    // ViewHolder ánh xạ đúng ID trong item_tai_lieu.xml
+    // ViewHolder ánh xạ đúng ID trong
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFileType, btnDownload, btnShare, btnDelete;
         TextView tvFileName, tvFileTime, tvFileOwner;

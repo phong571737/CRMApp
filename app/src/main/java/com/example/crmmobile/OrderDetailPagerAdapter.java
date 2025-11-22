@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.crmmobile.feature.salesorder.ui.common.EmptyFragment;
+import com.example.crmmobile.feature.salesorder.ui.detail.FragmentChiTiet;
+
 import java.util.List;
 
 public class OrderDetailPagerAdapter extends FragmentStateAdapter {

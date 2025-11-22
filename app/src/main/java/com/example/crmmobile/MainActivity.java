@@ -33,29 +33,53 @@ public class MainActivity extends AppCompatActivity implements main_screen.onMod
         AdapterViewPager adapter = new AdapterViewPager(this);
         viewPager2.setAdapter(adapter);
 
-        navFooter.setOnItemSelectedListener(item->{
+        navFooter.setOnItemSelectedListener(item -> {
             int itemID = item.getItemId();
 
-            //return home
-            if(container.getVisibility() == View.VISIBLE){
-                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            // Nếu đang mở fragment trong container thì pop về viewPager
+            if (container.getVisibility() == View.VISIBLE) {
+                getSupportFragmentManager().popBackStack(
+                        null,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                );
                 container.setVisibility(View.GONE);
                 viewPager2.setVisibility(View.VISIBLE);
             }
 
-            if(item.getItemId() == R.id.nav_home){
+            if (itemID == R.id.nav_home) {
+                // 🏠 Trang chủ -> vẫn dùng ViewPager tab 0
                 viewPager2.setCurrentItem(0);
                 return true;
-            } else if (item.getItemId() == R.id.nav_lead) {
+
+            } else if (itemID == R.id.nav_lead) {
+                // Lead -> vẫn dùng ViewPager tab 1
                 viewPager2.setCurrentItem(1);
                 return true;
-            }
-            else if (item.getItemId() == R.id.nav_order){
-                viewPager2.setCurrentItem(2);
+
+            } else if (itemID == R.id.nav_order) {
+                // 🧾 ĐƠN HÀNG -> MỞ ACTIVITY MỚI
+                Intent intent = new Intent(
+                        MainActivity.this,
+                        com.example.crmmobile.feature.salesorder.ui.list.MainActivity.class
+                );
+                startActivity(intent);
+                // các tab khác KHÔNG bị ảnh hưởng
+                return true;
+
+            } else if (itemID == R.id.nav_calendar) {
+                // ví dụ: tab Lịch (nếu có)
+                viewPager2.setCurrentItem(3);
+                return true;
+
+            } else if (itemID == R.id.nav_menu) {
+                // tab Thêm / Menu
+                viewPager2.setCurrentItem(4);
                 return true;
             }
+
             return false;
         });
+
 
         //back to main screen
         getSupportFragmentManager().addOnBackStackChangedListener(()->{
@@ -75,15 +99,15 @@ public class MainActivity extends AppCompatActivity implements main_screen.onMod
             Fragment quoteFragment = new QuoteFragment();
 
             getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, quoteFragment)
-                .addToBackStack(null)
-                .commit();
+                    .beginTransaction()
+                    .replace(R.id.main_container, quoteFragment)
+                    .addToBackStack(null)
+                    .commit();
             findViewById(R.id.viewPager).setVisibility(View.GONE); //hide viewpager2
             findViewById(R.id.main_container).setVisibility(View.VISIBLE);
 
             navFooter.getMenu().findItem(R.id.nav_menu).setChecked(true);
-            }
+        }
         if(moduleName.equals("Cơ hội")){
             Fragment opportunityFragment = new OpportunityFragment();
 
@@ -98,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements main_screen.onMod
 
             navFooter.getMenu().findItem(R.id.nav_menu).setChecked(true);
         }
-        if(moduleName.equals("Cá nhân")){
-            Intent intent = new Intent(MainActivity.this, DanhSachCaNhanActivity.class);
+        if(moduleName.equals("Liên hệ")){
+            Intent intent = new Intent(MainActivity.this, ThongTinLienHeActivity.class);
             startActivity(intent);
         }
 

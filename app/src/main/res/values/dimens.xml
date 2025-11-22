@@ -4,6 +4,7 @@
     <dimen name="title_app">20sp</dimen>
     <dimen name="add_infor">5dp</dimen>
     <dimen name="margin7">7dp</dimen>
+    <dimen name="margin25">25dp</dimen>
     <dimen name="top_padding">10dp</dimen>
     <dimen name="bottom_padding">10dp</dimen>
     <dimen name="start_padding">20dp</dimen>

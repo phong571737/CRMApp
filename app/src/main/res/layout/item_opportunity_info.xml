@@ -9,7 +9,6 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:padding="@dimen/margin_basex2">
-
     <!-- Header section (title + collapse icon) -->
     <LinearLayout
         android:id="@+id/layout_section_header"
@@ -17,7 +16,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="@dimen/margin_basex2">
+        android:layout_marginBottom="@dimen/margin_basex2"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
             android:id="@+id/tv_section_opportunity_info"
@@ -30,7 +31,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/icon_arrow_detail"
+            android:id="@+id/iv_arrow_detail_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_up"
@@ -187,33 +188,43 @@
                 android:gravity="top"
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
-        <!-- Management -->
-        <!-- Header: tiêu đề + icon collapse -->
-        <LinearLayout
-            android:id="@+id/layout_management_header"
-            android:layout_width="match_parent"
+    <!-- 🔹 Thông tin quản lý -->
+    <!-- Header: tiêu đề + icon collapse -->
+    <LinearLayout
+        android:id="@+id/layout_management_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/margin_basex2"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tv_section_opportunity_management"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="@dimen/margin_basex2">
+            android:layout_weight="1"
+            android:text="@string/section_opportunity_management"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/iv_arrow_management_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_up"
+            app:tint="@color/black" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_section_opportunity_management"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/section_opportunity_management"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_large"
-                android:textStyle="bold" />
-            <ImageView
-                android:id="@+id/icon_arrow_management"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_up"
-                app:tint="@color/black" />
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_management_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

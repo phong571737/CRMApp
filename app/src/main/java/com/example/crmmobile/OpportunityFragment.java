@@ -23,7 +23,6 @@ public class OpportunityFragment extends Fragment {
 
     private View layoutOpportunityForm;
     private View btnAddOpportunity;
-    private View btnAddOpportunityBody;
     private RecyclerView rvOpportunityBody;
     private OpportunityAdapter opportunityAdapter;
     private BottomNavigationView bottomNav;
@@ -47,7 +46,6 @@ public class OpportunityFragment extends Fragment {
     private void initViews(View view) {
         layoutOpportunityForm = view.findViewById(R.id.layout_opportunity_form);
         btnAddOpportunity = view.findViewById(R.id.btn_add_opportunity);
-        btnAddOpportunityBody = view.findViewById(R.id.btn_opportunity_body_add);
         rvOpportunityBody = view.findViewById(R.id.rv_opportunity_body);
         bottomNav = requireActivity().findViewById(R.id.nav_footer);
         bodyscroll = view.findViewById(R.id.scroll_body);
@@ -78,7 +76,6 @@ public class OpportunityFragment extends Fragment {
         View.OnClickListener openFormListener = v -> showOpportunityForm();
 
         if (btnAddOpportunity != null) btnAddOpportunity.setOnClickListener(openFormListener);
-        if (btnAddOpportunityBody != null) btnAddOpportunityBody.setOnClickListener(openFormListener);
 
         // Nút back trong form (nếu layout_opportunity_form nằm cùng fragment)
         if (layoutOpportunityForm != null) {

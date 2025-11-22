@@ -84,28 +84,38 @@ public class OpportunityFormFragment extends Fragment {
         etDescription = view.findViewById(R.id.et_description);
         etManagement = view.findViewById(R.id.et_management);
 
-        // Collapse groups
-        // lấy view include
-        itemInfoInclude = view.findViewById(R.id.item_opportunity_info);
-        if (itemInfoInclude != null) {
-            // toggle 1: chi tiết cơ hội
-            layoutSectionHeader = itemInfoInclude.findViewById(R.id.layout_section_header);
-            layoutBody = itemInfoInclude.findViewById(R.id.layout_body);
-            iconArrowDetail = itemInfoInclude.findViewById(R.id.icon_arrow_detail);
-
-            // toggle 2: quản lý
-            layoutManagementHeader = itemInfoInclude.findViewById(R.id.layout_management_header);
-            iconArrowManagement = itemInfoInclude.findViewById(R.id.icon_arrow_management);
-            managementFieldContainer = findParentTextInput(itemInfoInclude.findViewById(R.id.et_management));
-
-            setupToggle(layoutSectionHeader, layoutBody, iconArrowDetail);
-            setupToggle(layoutManagementHeader, managementFieldContainer, iconArrowManagement);
-        }
-
         // Footer
         btnSave = view.findViewById(R.id.btn_save);
         btnCancel = view.findViewById(R.id.btn_cancel);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // 🔹 Thông tin cơ hội
+        setupToggle(view.findViewById(R.id.layout_section_header),
+                view.findViewById(R.id.iv_arrow_detail_toggle),
+                view.findViewById(R.id.layout_body));
+
+        // 🔹 Thông tin quản lý
+        setupToggle(view.findViewById(R.id.layout_management_header),
+                view.findViewById(R.id.iv_arrow_management_toggle),
+                view.findViewById(R.id.layout_management_content));
+
+
+    }
+    private void setupToggle(View header, ImageView toggleIcon, LinearLayout contentLayout) {
+        View.OnClickListener listener = v -> {
+            boolean isVisible = contentLayout.getVisibility() == View.VISIBLE;
+            contentLayout.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+            toggleIcon.setImageResource(isVisible ? R.drawable.ic_arrow_down : R.drawable.ic_arrow_up);
+        };
+
+        header.setOnClickListener(listener);
+        toggleIcon.setOnClickListener(listener);
+    }
+
 
     private void setupDropdowns() {
         String[] companies = {"Google", "Microsoft", "Apple", "Meta"};
@@ -183,34 +193,4 @@ public class OpportunityFormFragment extends Fragment {
     }
 
 
-    /**
-     * Toggle ẩn/hiện nội dung và đổi icon
-     */
-    private void setupToggle(View header, final View content, final ImageView icon) {
-        if (header == null || content == null || icon == null) return;
-
-        header.setOnClickListener(v -> {
-            boolean expanded = content.getVisibility() == View.VISIBLE;
-            content.setVisibility(expanded ? View.GONE : View.VISIBLE);
-            icon.setImageResource(expanded ? R.drawable.ic_arrow_down : R.drawable.ic_arrow_up);
-        });
-    }
-
-    /**
-     * Tìm TextInputLayout cha của EditText (để toggle đúng container)
-     */
-    private View findParentTextInput(View child) {
-        if (child == null) return null;
-        View parent = (View) child.getParent();
-        if (parent != null && parent.getClass().getSimpleName().contains("TextInputLayout")) {
-            return parent;
-        }
-        if (parent != null && parent.getParent() instanceof View) {
-            View grandParent = (View) parent.getParent();
-            if (grandParent.getClass().getSimpleName().contains("TextInputLayout")) {
-                return grandParent;
-            }
-        }
-        return parent; // fallback nếu không tìm thấy
-    }
 }

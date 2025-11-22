@@ -28,9 +28,9 @@
     <string name="infor_lead">Thông tin Lead</string>
     <string name="title_infor">Danh xưng</string>
     <string name="firt_name">Họ và tên đệm</string>
-    <string name="last_name">Họ</string>
+    <string name="last_name">Họ <font color='#FF0000'>*</font></string>
     <string name="first_name">Tên </string>
-    <string name="phone_infor"> Số điện thoại di động</string>
+    <string name="phone_infor"> Di động <font color='#FF0000'>*</font></string>
     <string name="sex_infor">Giới tính</string>
     <string name="birthday">Ngày sinh</string>
     <string name="state_infor">Tình trạng</string>

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,32 +38,39 @@ public class OpportunityDetailTabOverviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_opportunity_detail_tab_overview, container, false);
-
-        // Ánh xạ các view - QUAN TRỌNG: BỎ COMMENT
-        tvTitle = view.findViewById(R.id.tv_opportunity_title);
-        tvPrice = view.findViewById(R.id.tv_opportunity_price);
-        tvDate = view.findViewById(R.id.tv_opportunity_date);
-        tvStatus = view.findViewById(R.id.tv_opportunity_status);
-        tvCallCount = view.findViewById(R.id.tv_call_count);
-        tvMessageCount = view.findViewById(R.id.tv_message_count);
-        tvExchange = view.findViewById(R.id.tv_opportunity_exchange);
-
-        // Hiển thị dữ liệu
-        if (opportunity != null) {
-            displayOpportunityData();
-        }
-
-        return view;
+        return inflater.inflate(R.layout.fragment_opportunity_detail_tab_overview, container, false);
     }
 
-    private void displayOpportunityData() {
-        if (tvTitle != null) tvTitle.setText(opportunity.getTitle());
-        if (tvPrice != null) tvPrice.setText(opportunity.getPrice());
-        if (tvDate != null) tvDate.setText(opportunity.getDate());
-        if (tvStatus != null) tvStatus.setText(opportunity.getStatus());
-        if (tvCallCount != null) tvCallCount.setText(opportunity.getCallCount() + " cuộc gọi");
-        if (tvMessageCount != null) tvMessageCount.setText(opportunity.getMessageCount() + " tin nhắn");
-        if (tvExchange != null) tvExchange.setText(opportunity.getExchangeText());
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        // 🔹 Hoạt động đã lên lịch
+        ImageView ivOpportunity = view.findViewById(R.id.iv_scheduled_activities_toggle);
+        LinearLayout layoutOpportunity = view.findViewById(R.id.layout_empty_activities);
+        setupToggle(ivOpportunity, layoutOpportunity);
+
+        // 🔹 Comment
+        ImageView ivOpportunity2 = view.findViewById(R.id.iv_comment_toggle);
+        LinearLayout layoutOpportunity2 = view.findViewById(R.id.layout_comment_content);
+        setupToggle(ivOpportunity2, layoutOpportunity2);
+
+
     }
+
+    private void setupToggle(ImageView toggleIcon, LinearLayout contentLayout) {
+        if (toggleIcon == null || contentLayout == null) return;
+
+        // Ban đầu hiển thị
+        contentLayout.setVisibility(View.VISIBLE);
+        toggleIcon.setImageResource(R.drawable.ic_arrow_up);
+
+        toggleIcon.setOnClickListener(v -> {
+            boolean isVisible = contentLayout.getVisibility() == View.VISIBLE;
+            contentLayout.setVisibility(isVisible ? View.GONE : View.VISIBLE);
+            toggleIcon.setImageResource(isVisible ? R.drawable.ic_arrow_down : R.drawable.ic_arrow_up);
+        });
+    }
+
 }

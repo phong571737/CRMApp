@@ -60,12 +60,16 @@
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".EditLeadActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile"/>
+
+        <activity android:name=".DanhSachCaNhanActivity"
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
 
         <activity
-            android:name=".DanhSachCaNhanActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CRMMobile">
             <intent-filter>

@@ -13,7 +13,7 @@
         android:id="@+id/ic_contact"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_contact"
+        android:src="@drawable/ic_user"
         android:tint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/ic_congty"
+        android:src="@drawable/ic_company"
         android:tint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ic_contact" />

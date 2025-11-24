@@ -19,7 +19,7 @@
     <string name="activate_add">Thêm hoạt động</string>
     <string name="convertLead"> Chuyển đổi Lead</string>
     <string name="double_">Nhân đôi</string>
-    <string name="Edit_Lead">Chỉnh sửa</string>
+    <string name="Edit">Chỉnh sửa</string>
     <string name="remove_lead">Xóa</string>
     <string name="num_calls">Cuộc gọi</string>
     <string name="num_meeting"> Cuộc họp</string>
@@ -28,9 +28,9 @@
     <string name="infor_lead">Thông tin Lead</string>
     <string name="title_infor">Danh xưng</string>
     <string name="firt_name">Họ và tên đệm</string>
-    <string name="last_name">Họ</string>
+    <string name="last_name">Họ <font color='#FF0000'>*</font></string>
     <string name="first_name">Tên </string>
-    <string name="phone_infor"> Số điện thoại di động</string>
+    <string name="phone_infor"> Di động <font color='#FF0000'>*</font></string>
     <string name="sex_infor">Giới tính</string>
     <string name="birthday">Ngày sinh</string>
     <string name="state_infor">Tình trạng</string>
@@ -63,4 +63,6 @@
     <string name="current_visit">Truy cập gần đây</string>
     <string name="SDT"> SĐT</string>
     <string name="find_order">Tìm kiếm đơn hàng</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

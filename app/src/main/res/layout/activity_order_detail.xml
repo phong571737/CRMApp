@@ -49,13 +49,13 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_arrow_left" />
+                android:src="@drawable/ic_arrow_back_ios" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_arrow_right" />
+                android:src="@drawable/ic_next" />
 
             <ImageView
                 android:id="@+id/btnEdit"

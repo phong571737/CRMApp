@@ -83,7 +83,7 @@
     <!-- end opportunity detail-->
 
     <string name="header_opportunity_title_create">Tạo Cơ hội</string>
-    <string name="section_opportunity_info">Thông tin liên hệ</string>
+    <string name="section_opportunity_info">Thông tin cơ hội</string>
     <string name="hint_opportunity_name">Cơ hội <font color='#FF0000'>*</font></string>
     <string name="hint_company">Công ty</string>
     <string name="hint_contact">Người liên hệ</string>

@@ -1,6 +1,8 @@
 package com.example.crmmobile;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,6 +11,7 @@ import com.google.android.material.tabs.TabLayout;
 public class TaoBaoGiaActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
+    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,9 +19,13 @@ public class TaoBaoGiaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_taobaogia);
 
         tabLayout = findViewById(R.id.tabLayout);
+        btnBack = findViewById(R.id.btnBack);
 
         // Hiển thị fragment đầu tiên (Thông tin chung) mặc định
         replaceFragment(new TaoBaoGiaThongTinChungFragment());
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
 
         // Lắng nghe khi người dùng chuyển tab
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

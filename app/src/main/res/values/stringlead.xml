@@ -23,4 +23,6 @@
     <string name="lead_creation">Tạo lead</string>
     <string name="add_lead">Thêm lead</string>
     <string name="add_quote">Thêm báo giá</string>
+    <string name="edit_lead">Chỉnh sửa Lead</string>
+    <string name="potential">Mức độ tiềm năng</string>
 </resources>

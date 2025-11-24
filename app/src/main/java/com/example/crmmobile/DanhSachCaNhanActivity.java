@@ -43,26 +43,18 @@ public class DanhSachCaNhanActivity extends AppCompatActivity {
         rvCaNhan.setLayoutManager(new LinearLayoutManager(this));
         rvCaNhan.setAdapter(adapter);
 
-
         // ====== Nút thêm ======
         btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(DanhSachCaNhanActivity.this, ThongTinLienHeActivity.class);
             startActivityForResult(intent, 100);
         });
 
-
         icBack.setOnClickListener(v -> {
             Intent intent = new Intent(DanhSachCaNhanActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
-        // ====== Click item ======
         adapter.setOnItemClickListener(new CaNhanAdapter.OnItemClickListener() {
-//             startActivity(intent);
-            //finish();
-        });
-
-//         icMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onMoreClick(CaNhan cn) {
                 BottomActionFragment bottomSheet = new BottomActionFragment();

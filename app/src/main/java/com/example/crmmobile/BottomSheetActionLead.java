@@ -51,7 +51,11 @@ public class BottomSheetActionLead {
             context.startActivity(intent);
             dialog.dismiss();
         });
-        addActionItemLead(context, layoutAction, R.drawable.ic_pencil, "Chỉnh sửa", null);
+        addActionItemLead(context, layoutAction, R.drawable.ic_pencil, "Chỉnh sửa", ()->{
+            Intent intent = new Intent(context, EditLeadActivity.class);
+            context.startActivity(intent);
+            dialog.dismiss();
+        });
         addActionItemLead(context, layoutAction, R.drawable.ic_garbage, "Xóa", () ->{
             item.remove(position);
             reload.run();

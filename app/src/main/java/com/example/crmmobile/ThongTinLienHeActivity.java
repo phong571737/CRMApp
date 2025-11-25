@@ -1,19 +1,15 @@
 package com.example.crmmobile;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class ThongTinLienHeActivity extends AppCompatActivity {
 
@@ -53,28 +49,30 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
             setActiveTab(thongTinKhacTab, infoTab);
         });
 
-//        // --- Mặc định ngày = hôm nay ---
-//        Calendar calendar = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-//        String today = sdf.format(calendar.getTime());
-//        infoFragment.setNgaySinhDefault(today);
-
-        // --- Sự kiện lưu dữ liệu ---
-        btnLuu.setOnClickListener(v -> saveData());
+        // Nút quay lại và Hủy
         icBack.setOnClickListener(v -> finish());
         btnHuy.setOnClickListener(v -> finish());
+
+        // Nút Lưu
+        btnLuu.setOnClickListener(v -> {
+            // Kiểm tra dữ liệu cơ bản
+            if (infoFragment.getHoVaTenDem().isEmpty() || infoFragment.getTen().isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập họ tên!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            saveData();
+        });
     }
 
     private void saveData() {
         // Lấy dữ liệu từ fragment
         String hoTen = infoFragment.getHoVaTenDem();
+        String ten = infoFragment.getTen();
         String congTy = infoFragment.getCongTy();
-        String ngay = infoFragment.getNgaySinh();
 
         Intent result = new Intent();
         result.putExtra("hoTen", hoTen);
         result.putExtra("congTy", congTy);
-        result.putExtra("ngay", ngay);
 
         setResult(RESULT_OK, result);
         finish();
@@ -87,14 +85,12 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
     }
 
     private void setActiveTab(TextView active, TextView inactive) {
-        // Reset tất cả tab
         infoTab.setTextColor(getResources().getColor(R.color.grey));
         infoTab.setBackgroundResource(android.R.color.transparent);
 
         thongTinKhacTab.setTextColor(getResources().getColor(R.color.grey));
         thongTinKhacTab.setBackgroundResource(android.R.color.transparent);
 
-        // Tab đang active
         active.setTextColor(getResources().getColor(R.color.blue));
         active.setBackgroundResource(R.drawable.edittext_line);
     }

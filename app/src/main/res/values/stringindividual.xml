@@ -6,18 +6,13 @@
     <string name="danhxung">Danh xưng</string>
     <string name="ten">Tên<font color="#FF0000">*</font></string>
     <string name="congty">Công ty</string>
-    <string name="didong">
-Di động
-<font color="#FF0000">*</font>
+    <string name="didong">Di động<font color="#FF0000">*</font>
 </string>
     <string name="ngaysinh">Ngày sinh</string>
     <string name="loai">Loại</string>
     <string name="ghichu">Ghi chú đặc biệt</string>
     <string name="thongtinquanly">Thông tin quản lý</string>
-    <string name="giaocho">
-Giao cho
-<font color="#FF0000">*</font>
-</string>
+    <string name="giaocho">Giao cho<font color="#FF0000">*</font></string>
     <string name="danhgia">Đánh giá</string>
     <string name="chitietnguoilienhe">Chi tiết người liên hệ</string>
     <string name="nguoitao">Người tạo</string>
@@ -33,4 +28,12 @@ Giao cho
     <string name="tongdoanhthu">Tổng doanh thu</string>
     <string name="thongtinhethong">Thông tin hệ thống</string>
     <string name="hoatdongdalenlich">Hoạt động đã lên lịch</string>
+
+    <string name="thongtindiachi">Thông tin địa chỉ</string>
+    <string name="diachi">Địa chỉ</string>
+    <string name="quan">Quận/Huyện</string>
+    <string name="tinh">Tỉnh/TP</string>
+    <string name="quocgia">Quốc gia</string>
+    <string name="thongtinmota">Thông tin mô tả</string>
+    <string name="mota">Mô tả</string>
 </resources>

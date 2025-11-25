@@ -31,9 +31,6 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // =============================
-        // 1. ÁNH XẠ VIEW
-        // =============================
         TextView tvHeader = view.findViewById(R.id.thongtinnguoilienhe);
         LinearLayout layoutDetail = view.findViewById(R.id.layoutThongTinNguoiLienHeChiTiet);
 
@@ -48,9 +45,6 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         edtEmail = view.findViewById(R.id.edtemail);
         edtNgaySinh = view.findViewById(R.id.edtngaysinh);
 
-        // =============================
-        // 2. DROPDOWN CÔNG TY
-        // =============================
         ArrayAdapter<String> adapterCongTy = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
@@ -59,9 +53,6 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         actCongTy.setAdapter(adapterCongTy);
 
 
-        // =============================
-        // 2. DROPDOWN DANH XƯNG
-        // =============================
         ArrayAdapter<String> adapterDanhXung = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
@@ -69,9 +60,6 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         );
         actDanhXung.setAdapter(adapterDanhXung);
 
-        // =============================
-        // 3. DROPDOWN GIỚI TÍNH
-        // =============================
         ArrayAdapter<String> adapterGioiTinh = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
@@ -79,9 +67,7 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         );
         actGioiTinh.setAdapter(adapterGioiTinh);
 
-        // =============================
-        // 4. Toggle mở/đóng form
-        // =============================
+
         tvHeader.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_down, 0);
 
         tvHeader.setOnClickListener(v -> {
@@ -95,9 +81,6 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         });
     }
 
-    // =============================
-    // 5. GETTER LẤY DỮ LIỆU
-    // =============================
     public String getDanhXung() { return actDanhXung.getText().toString(); }
     public String getHoVaTenDem() { return edtHoVaTenDem.getText().toString(); }
     public String getTen() { return edtTen.getText().toString(); }

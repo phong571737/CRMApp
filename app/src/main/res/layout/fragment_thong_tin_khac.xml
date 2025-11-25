@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!--LinearLayout bọc toàn bộ nội dung -->
+        <!-- ✅ LinearLayout bọc toàn bộ nội dung -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,99 +29,107 @@
                 android:id="@+id/thongtindiachi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/address_infor"
+                android:text="@string/thongtindiachi"
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/margin_basex2" />
 
-        <LinearLayout
-            android:id="@+id/layoutThongTinDiaChiChiTiet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <!-- Các trường TextInput -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutttdiachi"
+            <LinearLayout
+                android:id="@+id/layoutThongTinDiaChiChiTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/address"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginTop="@dimen/margin_basex2">
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtdiachi"
+                <!-- Các trường TextInput -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutttdiachi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:gravity="top|start"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:paddingTop="@dimen/padding_vertical_small"
-                    android:paddingBottom="@dimen/padding_vertical_small"
-                    android:textSize="@dimen/text_small" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/diachi"
+                    android:background="@drawable/rounded_input_box"
+                    android:layout_marginTop="@dimen/margin_basex2">
 
-            <!-- Các trường quận, tỉnh, quốc gia -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutquanhuyen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/district"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginTop="@dimen/margin_basex2">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtdiachi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:gravity="top|start"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:paddingTop="@dimen/padding_vertical_small"
+                        android:paddingBottom="@dimen/padding_vertical_small"
+                        android:textSize="@dimen/text_small" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtquanhuyen"
+
+                <!-- Các trường quận, tỉnh, quốc gia -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutquanhuyen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:textSize="@dimen/text_small"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/quan"
+                    android:background="@drawable/rounded_input_box"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:endIconMode="dropdown_menu"
+                    android:layout_marginTop="@dimen/margin_basex2">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layouttinhtp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/province"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginTop="@dimen/margin_basex2">
+                    <AutoCompleteTextView
+                        android:id="@+id/actQuanHuyen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:background="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edttinhtp"
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layouttinhtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:textSize="@dimen/text_small"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/tinh"
+                    android:background="@drawable/rounded_input_box"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:endIconMode="dropdown_menu"
+                    android:layout_marginTop="@dimen/margin_basex2">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutquocgia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/nation"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginTop="@dimen/margin_basex2">
+                    <AutoCompleteTextView
+                        android:id="@+id/actTinhTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:background="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtquocgia"
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutquocgia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:textSize="@dimen/text_small"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:hint="@string/quocgia"
+                    android:background="@drawable/rounded_input_box"
+                    android:layout_marginTop="@dimen/margin_basex2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtquocgia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:textSize="@dimen/text_small"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
 
             <!-- Mô tả -->
@@ -129,7 +137,7 @@
                 android:id="@+id/thongtinmota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/descrip_information"
+                android:text="@string/thongtinmota"
                 android:textSize="@dimen/text_large"
                 android:textStyle="bold"
                 android:drawablePadding="8dp"
@@ -137,60 +145,60 @@
                 android:paddingEnd="8dp"
                 android:layout_marginTop="@dimen/margin_basex2" />
 
-        <LinearLayout
-            android:id="@+id/layoutThongTinMoTaChiTiet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutttmota"
+            <LinearLayout
+                android:id="@+id/layoutThongTinMoTaChiTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/description"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginTop="@dimen/margin_basex2">
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtmota"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutttmota"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:gravity="top|start"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:paddingTop="@dimen/padding_vertical_small"
-                    android:paddingBottom="@dimen/padding_vertical_small"
-                    android:textSize="@dimen/text_small"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:hint="@string/mota"
+                    android:background="@drawable/rounded_input_box"
+                    android:layout_marginTop="@dimen/margin_basex2">
 
-            <!-- Ghi chú -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutghichu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/ghichu"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginTop="@dimen/margin_basex2">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtmota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:gravity="top|start"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:paddingTop="@dimen/padding_vertical_small"
+                        android:paddingBottom="@dimen/padding_vertical_small"
+                        android:textSize="@dimen/text_small"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtghichu"
+                <!-- Ghi chú -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutghichu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:gravity="top|start"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:paddingTop="@dimen/padding_vertical_small"
-                    android:paddingBottom="@dimen/padding_vertical_small"
-                    android:textSize="@dimen/text_small"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:hint="@string/ghichu"
+                    android:background="@drawable/rounded_input_box"
+                    android:layout_marginTop="@dimen/margin_basex2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtghichu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:gravity="top|start"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:paddingTop="@dimen/padding_vertical_small"
+                        android:paddingBottom="@dimen/padding_vertical_small"
+                        android:textSize="@dimen/text_small"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <!-- Thông tin quản lý -->
             <TextView
@@ -203,35 +211,35 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/margin_basex2"
-                 />
-        <LinearLayout
-            android:id="@+id/layoutThongTinQuanLyChiTiet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutgiaocho"
+                />
+            <LinearLayout
+                android:id="@+id/layoutThongTinQuanLyChiTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/giaocho"
-                android:background="@drawable/rounded_input_box"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                app:endIconMode="dropdown_menu"
-                android:layout_marginTop="@dimen/margin_basex4">
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <AutoCompleteTextView
-                    android:id="@+id/actgiaocho"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutgiaocho"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:textSize="@dimen/text_small"
-                    android:paddingStart="@dimen/margin_base"
-                    android:paddingEnd="@dimen/margin_base"
-                    android:background="@android:color/transparent" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                    android:hint="@string/giaocho"
+                    android:background="@drawable/rounded_input_box"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:endIconMode="dropdown_menu"
+                    android:layout_marginTop="@dimen/margin_basex4">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/actgiaocho"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textSize="@dimen/text_small"
+                        android:paddingStart="@dimen/margin_base"
+                        android:paddingEnd="@dimen/margin_base"
+                        android:background="@android:color/transparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

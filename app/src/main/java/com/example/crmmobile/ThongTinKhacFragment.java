@@ -1,5 +1,7 @@
 package com.example.crmmobile;
 
+
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import androidx.fragment.app.Fragment;
 public class ThongTinKhacFragment extends Fragment {
     private AutoCompleteTextView actQuanHuyen, actTinhTP, actGiaoCho;
     private EditText edtQuocGia, edtDiaChi, edtGhiChu, edtMota;
+
+    private CaNhan caNhan; // để populate khi edit
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -104,7 +108,35 @@ public class ThongTinKhacFragment extends Fragment {
         actGiaoCho.setFocusable(false);
         actGiaoCho.setClickable(true);
         actGiaoCho.setOnClickListener(v -> actGiaoCho.showDropDown());
+
+        // Nếu đã có CaNhan được set -> populate
+        if (caNhan != null) {
+            populateFromCaNhan();
+        }
     }
+
+    private void populateFromCaNhan() {
+        if (caNhan == null) return;
+        actQuanHuyen.setText(nullToEmpty(caNhan.getQuanHuyen()));
+        actTinhTP.setText(nullToEmpty(caNhan.getTinhTP()));
+        actGiaoCho.setText(nullToEmpty(caNhan.getGiaoCho()));
+        edtQuocGia.setText(nullToEmpty(caNhan.getQuocGia()));
+        edtDiaChi.setText(nullToEmpty(caNhan.getDiaChi()));
+        edtGhiChu.setText(nullToEmpty(caNhan.getGhiChu()));
+        edtMota.setText(nullToEmpty(caNhan.getMoTa()));
+    }
+
+    private String nullToEmpty(String s) {
+        return s == null ? "" : s;
+    }
+
+    public void setCaNhan(CaNhan cn) {
+        this.caNhan = cn;
+        if (getView() != null) {
+            populateFromCaNhan();
+        }
+    }
+
 
     /**
      * Hàm gắn sự kiện mở rộng / thu gọn cho 1 tiêu đề và layout chi tiết.

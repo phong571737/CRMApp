@@ -1,6 +1,8 @@
 package com.example.crmmobile;
 
-public class CaNhan {
+import java.io.Serializable;
+
+public class CaNhan implements Serializable {
     private int id;
     private String hoVaTen;
     private String danhXung;
@@ -27,6 +29,16 @@ public class CaNhan {
     // Constructor đơn giản để khởi tạo mặc định
     public CaNhan(String hoVaTen, String congTy, String ngayTao, int soCuocGoi, int soCuocHop) {
         this.hoVaTen = hoVaTen;
+        this.congTy = congTy;
+        this.ngayTao = ngayTao;
+        this.soCuocGoi = soCuocGoi;
+        this.soCuocHop = soCuocHop;
+    }
+
+    public CaNhan(String danhXung, String hoVaTen, String ten, String congTy, String ngayTao, int soCuocGoi, int soCuocHop) {
+        this.danhXung = danhXung;
+        this.hoVaTen = hoVaTen;
+        this.ten = ten;
         this.congTy = congTy;
         this.ngayTao = ngayTao;
         this.soCuocGoi = soCuocGoi;

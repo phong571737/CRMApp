@@ -1,5 +1,6 @@
 package com.example.crmmobile;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -47,8 +48,9 @@ public class CaNhanAdapter extends RecyclerView.Adapter<CaNhanAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CaNhan cn = caNhanList.get(position);
-
+        holder.tvDanhXung.setText(cn.getDanhXung());
         holder.tvHoTen.setText(cn.getHoVaTen());
+        holder.tvTen.setText(cn.getTen());
         holder.tvCongTy.setText(cn.getCongTy());
         holder.tvNgay.setText(cn.getNgayTao());
         holder.tvCuocGoi.setText(String.valueOf(cn.getSoCuocGoi()));
@@ -77,12 +79,14 @@ public class CaNhanAdapter extends RecyclerView.Adapter<CaNhanAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvHoTen, tvCongTy, tvNgay, tvCuocGoi, tvMeeting;
+        TextView tvDanhXung, tvHoTen, tvTen, tvCongTy, tvNgay, tvCuocGoi, tvMeeting;
         ImageView icMore;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvDanhXung = itemView.findViewById(R.id.tvDanhXung);
             tvHoTen = itemView.findViewById(R.id.tvHoTen);
+            tvTen = itemView.findViewById(R.id.tvTen);
             tvCongTy = itemView.findViewById(R.id.tvCongTy);
             tvNgay = itemView.findViewById(R.id.tvNgay);
             tvCuocGoi = itemView.findViewById(R.id.fill_cuocgoi);

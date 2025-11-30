@@ -1,5 +1,6 @@
 package com.example.crmmobile;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class TabActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nguoilienhe);
+        setContentView(R.layout.activity_nguoilienhe); // Đây là file XML bạn vừa gửi
 
         // --- Ánh xạ view ---
         tabTongQuan = findViewById(R.id.tab_tongquan);
@@ -57,12 +58,18 @@ public class TabActivity extends AppCompatActivity {
 //        });
     }
 
+    /**
+     * Hàm hiển thị fragment mới trong container
+     */
     private void setFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }
 
+    /**
+     * Hàm đổi màu tab được chọn + đổi viền
+     */
     private void setActiveTab(TextView selectedTab) {
         // Reset màu và background tất cả tab về mặc định
         tabTongQuan.setTextColor(getResources().getColor(R.color.grey));
@@ -79,6 +86,6 @@ public class TabActivity extends AppCompatActivity {
 
         // Tab được chọn hiển thị màu xanh + viền dưới
         selectedTab.setTextColor(getResources().getColor(R.color.blue));
-        selectedTab.setBackgroundResource(R.drawable.edittext_line); // ✅ Dòng bạn muốn thêm
+        selectedTab.setBackgroundResource(R.drawable.edittext_line);
     }
 }

@@ -12,8 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.crmmobile.R;
-
+/**
+ * CHỈNH SỬA CLASS ChiTietFragment
+ */
 public class ChiTietFragment extends Fragment {
+
+    private CaNhan caNhan;
+    private TextView tvFillHoVaTenDem, tvFillTen, tvFillNgaySinh, tvFillCongTy,
+            tvFillDienThoai, tvFillEmail,
+            tvFillDiaChi, tvFillQuanHuyen, tvFillTinhTP,
+            tvFillMoTa, tvFillGhiChu,
+            tvFillGiaoCho, tvFillNguoiPhuTrach, tvFillNgayTao, tvFillNgaySua;
 
     public ChiTietFragment() {
         // Bắt buộc constructor rỗng
@@ -33,40 +42,95 @@ public class ChiTietFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // === THÔNG TIN CHUNG ===
-        setupToggle(
-                view.findViewById(R.id.thongtinchung),
-                view.findViewById(R.id.layoutThongTinChung)
-        );
+        if (getArguments() != null) {
+            caNhan = (CaNhan) getArguments().getSerializable("CANHAN_DATA");
+        }
 
-        // === THÔNG TIN ĐỊA CHỈ ===
-        setupToggle(
-                view.findViewById(R.id.thongtindiachi),
-                view.findViewById(R.id.layoutThongTinDiaChi)
-        );
+        // 2. Ánh xạ các View
+        initViews(view);
 
-        // === THÔNG TIN MÔ TẢ ===
-        setupToggle(
-                view.findViewById(R.id.thongtinmota),
-                view.findViewById(R.id.layoutThongTinMoTa)
-        );
+        // 3. Setup các nút đóng mở (Toggle)
+        setupToggles(view);
 
-//        // === THÔNG TIN MUA HÀNG ===
-//        setupToggle(
-//                view.findViewById(R.id.thongtinmuahang),
-//                view.findViewById(R.id.layoutThongTinMuaHang)
-//        );
-//
-//        // === THÔNG TIN QUẢN LÝ ===
-//        setupToggle(
-//                view.findViewById(R.id.thongtinquanly),
-//                view.findViewById(R.id.layoutThongTinQuanLy)
-//        );
-//
-//        // === THÔNG TIN HỆ THỐNG ===
-//        setupToggle(
-//                view.findViewById(R.id.thongtinhethong),
-//                view.findViewById(R.id.layoutThongTinHeThong)
-//        );
+        // 4. Hiển thị dữ liệu
+        fillData();
+    }
+
+    private void initViews(View view) {
+        // Thông tin chung
+        tvFillHoVaTenDem = view.findViewById(R.id.fillhovatendem);
+        tvFillTen = view.findViewById(R.id.fillten);
+        tvFillNgaySinh = view.findViewById(R.id.fillngaysinh);
+        tvFillCongTy = view.findViewById(R.id.fillcongty);
+        tvFillDienThoai = view.findViewById(R.id.filldienthoai);
+        tvFillEmail = view.findViewById(R.id.fillemail);
+
+        // Thông tin địa chỉ
+        tvFillDiaChi = view.findViewById(R.id.filldiachi);
+        tvFillQuanHuyen = view.findViewById(R.id.fillquanhuyen);
+        tvFillTinhTP = view.findViewById(R.id.filltinhtp);
+
+        // Thông tin mô tả
+        tvFillMoTa = view.findViewById(R.id.fillmota);
+        tvFillGhiChu = view.findViewById(R.id.fillghichu);
+
+        // Thông tin quản lý (nếu có trong layout XML)
+        tvFillGiaoCho = view.findViewById(R.id.fillgiaocho);
+        tvFillNguoiPhuTrach = view.findViewById(R.id.fillnguoiphutrach);
+
+        // Thông tin hệ thống
+        tvFillNgayTao = view.findViewById(R.id.fillngaytao);
+        tvFillNgaySua = view.findViewById(R.id.fillngaysua);
+    }
+
+    private void fillData() {
+        if (caNhan == null) return;
+
+        // Điền dữ liệu, dùng hàm checkNull để tránh lỗi nếu dữ liệu null
+        setTextOrEmpty(tvFillHoVaTenDem, caNhan.getHoVaTen()); // Tạm dùng họ tên cho trường này
+        setTextOrEmpty(tvFillTen, caNhan.getTen());
+        setTextOrEmpty(tvFillNgaySinh, caNhan.getNgaySinh());
+        setTextOrEmpty(tvFillCongTy, caNhan.getCongTy());
+        setTextOrEmpty(tvFillDienThoai, caNhan.getDiDong());
+        setTextOrEmpty(tvFillEmail, caNhan.getEmail());
+
+        setTextOrEmpty(tvFillDiaChi, caNhan.getDiaChi());
+        setTextOrEmpty(tvFillQuanHuyen, caNhan.getQuanHuyen());
+        setTextOrEmpty(tvFillTinhTP, caNhan.getTinhTP());
+
+        setTextOrEmpty(tvFillMoTa, caNhan.getMoTa());
+        setTextOrEmpty(tvFillGhiChu, caNhan.getGhiChu());
+
+        setTextOrEmpty(tvFillGiaoCho, caNhan.getGiaoCho());
+        setTextOrEmpty(tvFillNguoiPhuTrach, caNhan.getGiaoCho()); // Giả sử người phụ trách giống giao cho
+
+        setTextOrEmpty(tvFillNgayTao, caNhan.getNgayTao());
+        setTextOrEmpty(tvFillNgaySua, caNhan.getNgaySua()); // Cần thêm field này vào model CaNhan nếu muốn
+    }
+
+    private void setupToggles(View view) {
+        // === THÔNG TIN CHUNG ===
+        // Lưu ý: Layout container trong XML của bạn không có ID cho các khối LinearLayout cha
+        // Bạn cần thêm ID vào các LinearLayout chứa nội dung bên dưới các TextView tiêu đề trong file XML
+        // Ví dụ: android:id="@+id/layoutThongTinChung" cho LinearLayout chứa họ tên, ngày sinh...
+
+        // Code cũ của bạn giả định đã có ID, hãy đảm bảo file XML có các ID này:
+        // layoutThongTinChung, layoutThongTinDiaChi, layoutThongTinMoTa, ...
+
+        /*
+         Ví dụ trong XML cần sửa:
+         <LinearLayout
+             android:id="@+id/layoutThongTinChung" ...>
+             ... Các row thông tin ...
+         </LinearLayout>
+        */
+
+        setupToggle(view.findViewById(R.id.thongtinchung), view.findViewById(R.id.layoutThongTinChung)); // Cần thêm ID vào XML
+        setupToggle(view.findViewById(R.id.thongtindiachi), view.findViewById(R.id.layoutThongTinDiaChi)); // Cần thêm ID vào XML
+        setupToggle(view.findViewById(R.id.thongtinmota), view.findViewById(R.id.layoutThongTinMoTa)); // Cần thêm ID vào XML
+
+        // Nếu XML chưa có ID cho layout container, chức năng toggle sẽ bị null pointer exception.
+        // Bạn có thể tạm comment lại hàm setupToggle nếu chưa kịp sửa XML.
     }
 
     private void setupToggle(TextView titleView, LinearLayout detailLayout) {
@@ -90,5 +154,11 @@ public class ChiTietFragment extends Fragment {
                     0
             );
         });
+    }
+
+    private void setTextOrEmpty(TextView textView, String text) {
+        if (textView != null) {
+            textView.setText(text != null ? text : "---");
+        }
     }
 }

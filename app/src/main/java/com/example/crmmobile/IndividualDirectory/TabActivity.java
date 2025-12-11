@@ -11,22 +11,33 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.crmmobile.R;
 
+/**
+ * CHỈNH SỬA CLASS TabActivity
+ */
+
 public class TabActivity extends AppCompatActivity {
 
     private TextView tabTongQuan, tabChiTiet, tabHoatDong, tabCoHoi;
     private ImageView icBack;
 
+    private TextView tvHeaderTen, tvHeaderSdt, tvHeaderEmail, tvHeaderCongTy, tvHeaderNguoiTao, tvHeaderNguoiPhuTrach;
+
+    private CaNhan currentCaNhan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nguoilienhe); // Đây là file XML bạn vừa gửi
+        setContentView(R.layout.activity_nguoilienhe);
 
-        // --- Ánh xạ view ---
-        tabTongQuan = findViewById(R.id.tab_tongquan);
-        tabChiTiet = findViewById(R.id.tab_chitiet);
-        tabHoatDong = findViewById(R.id.tab_hoatdong);
-        tabCoHoi = findViewById(R.id.tab_cohoi);
-        icBack = findViewById(R.id.ic_back);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("CANHAN_OBJECT")) {
+            currentCaNhan = (CaNhan) intent.getSerializableExtra("CANHAN_OBJECT");
+        }
+
+        initViews();
+
+        fillHeaderData();
+
         // --- Mặc định hiển thị tab Tổng quan ---
         setFragment(new TongQuanFragment());
         setActiveTab(tabTongQuan);
@@ -38,15 +49,17 @@ public class TabActivity extends AppCompatActivity {
         });
 
         tabChiTiet.setOnClickListener(v -> {
-            setFragment(new ChiTietFragment());
+            ChiTietFragment fragment = new ChiTietFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("CANHAN_DATA", currentCaNhan);
+            fragment.setArguments(bundle);
+
+            setFragment(fragment);
             setActiveTab(tabChiTiet);
         });
 
         icBack.setOnClickListener(v -> {
-            Intent intent = new Intent(TabActivity.this, DanhSachCaNhanActivity.class);
-            startActivity(intent);
-            // Nếu muốn giữ lại màn hình danh sách, bỏ dòng finish()
-            //finish();
+            finish();
         });
 //        tabHoatDong.setOnClickListener(v -> {
 //            setFragment(new HoatDongFragment());
@@ -62,6 +75,34 @@ public class TabActivity extends AppCompatActivity {
     /**
      * Hàm hiển thị fragment mới trong container
      */
+    private void initViews() {
+        tabTongQuan = findViewById(R.id.tab_tongquan);
+        tabChiTiet = findViewById(R.id.tab_chitiet);
+        tabHoatDong = findViewById(R.id.tab_hoatdong);
+        tabCoHoi = findViewById(R.id.tab_cohoi);
+        icBack = findViewById(R.id.ic_back);
+
+        // Header Views
+        tvHeaderTen = findViewById(R.id.tennguoilienhe);
+        tvHeaderSdt = findViewById(R.id.sodienthoai);
+        tvHeaderEmail = findViewById(R.id.email);
+        tvHeaderCongTy = findViewById(R.id.rowcongty);
+        tvHeaderNguoiTao = findViewById(R.id.tennguoitao);
+        tvHeaderNguoiPhuTrach = findViewById(R.id.tennguoiphutrach);
+    }
+
+    private void fillHeaderData() {
+        if (currentCaNhan != null) {
+            tvHeaderTen.setText(checkNull(currentCaNhan.getHoVaTen()+ " " +currentCaNhan.getTen()));
+            tvHeaderSdt.setText(checkNull(currentCaNhan.getDiDong()));
+            tvHeaderEmail.setText(checkNull(currentCaNhan.getEmail()));
+            tvHeaderCongTy.setText(checkNull(currentCaNhan.getCongTy()));
+            // Giả sử tên người tạo lấy từ User đăng nhập, ở đây tạm thời set cứng hoặc lấy từ DB nếu có field
+            // tvHeaderNguoiTao.setText(...);
+            tvHeaderNguoiPhuTrach.setText(checkNull(currentCaNhan.getGiaoCho()));
+        }
+    }
+
     private void setFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
@@ -90,4 +131,7 @@ public class TabActivity extends AppCompatActivity {
         selectedTab.setBackgroundResource(R.drawable.edittext_line);
     }
 
+    private String checkNull(String text) {
+        return text == null ? "" : text;
+    }
 }

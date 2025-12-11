@@ -3,6 +3,7 @@ package com.example.crmmobile.LeadDirectory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.crmmobile.Adapter.AdapterCreateLead;
+import com.example.crmmobile.DataBase.LeadReposity;
 import com.example.crmmobile.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
@@ -27,6 +30,7 @@ public class create_Lead extends Fragment {
     private ViewPager2 viewPager2;
 
     private MaterialButton btnSave, btnAbort;
+    private ViewModelLead viewModelLead;
     
     public create_Lead() {
         // Required empty public constructor
@@ -57,14 +61,14 @@ public class create_Lead extends Fragment {
         AdapterCreateLead adapterCreate = new AdapterCreateLead(this);
         viewPager2.setAdapter(adapterCreate);
 
+        viewModelLead = new ViewModelProvider(requireActivity()).get(ViewModelLead.class);
+
         new TabLayoutMediator(tabLayout, viewPager2,((tab, i) -> {
             if(i == 0) tab.setText("Thông tin lead");
             else tab.setText("Thông tin khác");
         })).attach();
 
-        btnSave.setOnClickListener(v -> {
-            
-        });
+        btnSave.setOnClickListener(v -> saveCreateLead());
 
         back_btn.setOnClickListener(v -> {
             ViewPager2 viewPager = requireActivity().findViewById(R.id.viewPager);
@@ -81,5 +85,26 @@ public class create_Lead extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
         return view;
+    }
+
+    private void saveCreateLead() {
+        String name = viewModelLead.name;
+        String company = viewModelLead.company;
+        String title = viewModelLead.title;
+
+        LeadReposity db = new LeadReposity(requireContext());
+
+        Lead lead = new Lead();
+        lead.setHoten(viewModelLead.name);
+        lead.setCongty(viewModelLead.company);
+
+        db.addLead(lead);
+        //Thông báo cho fragment refresh dữ liệu
+        Bundle result = new Bundle();
+        result.putBoolean("refresh", true);
+        getParentFragmentManager().setFragmentResult("createleadkey", result);
+
+        Toast.makeText(getContext(), "Lưu Lead thành công", Toast.LENGTH_SHORT).show();
+        requireActivity().getSupportFragmentManager().popBackStack();
     }
 }

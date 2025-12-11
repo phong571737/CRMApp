@@ -30,6 +30,7 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
         this.dataList = dataList;
         this.dotsClickListener = dotsClickListener;
         this.menuClickListener = menuClickListener;
+//        notifyDataSetChanged();
     }
 
     public static class LeadViewHolder extends RecyclerView.ViewHolder{

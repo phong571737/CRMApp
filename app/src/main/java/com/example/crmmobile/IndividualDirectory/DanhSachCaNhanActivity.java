@@ -129,7 +129,9 @@ public class DanhSachCaNhanActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(CaNhan cn) {
+                // THÊM CÁI NÀY VÀO
                 Intent intent = new Intent(DanhSachCaNhanActivity.this, TabActivity.class);
+                intent.putExtra("CANHAN_OBJECT", cn); // selectedCaNhan là object CaNhan tại vị trí click
                 startActivity(intent);
             }
         });
@@ -165,7 +167,7 @@ public class DanhSachCaNhanActivity extends AppCompatActivity {
                 cn.setNgayTao(data.getStringExtra("ngayTao"));
             } else {
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                 cn.setNgayTao(sdf.format(calendar.getTime()));
             }
 
@@ -216,6 +218,13 @@ public class DanhSachCaNhanActivity extends AppCompatActivity {
                     cn.setGiaoCho(data.getStringExtra("giaoCho"));
                     cn.setSoCuocGoi(data.getIntExtra("soCuocGoi", cn.getSoCuocGoi()));
                     cn.setSoCuocHop(data.getIntExtra("soCuocHop", cn.getSoCuocHop()));
+
+                    // THÊM CÁI NÀY VÀO
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                    String ngaySuaHienTai = sdf.format(calendar.getTime());
+
+                    cn.setNgaySua(ngaySuaHienTai);
 
                     // Cập nhật DB
                     db.update(cn);

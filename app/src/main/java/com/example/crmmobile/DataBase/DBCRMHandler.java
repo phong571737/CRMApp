@@ -91,6 +91,7 @@ public class DBCRMHandler extends SQLiteOpenHelper {
                 "GHICHU TEXT," +
                 "GIAOCHO TEXT," +
                 "NGAYTAO TEXT," +
+                "NGAYSUA TEXT," + // THÊM CÁI NÀY VÀO
                 "CUOCGOI INTEGER," +
                 "CUOCHOP INTEGER," +
                 "FOREIGN KEY(GIAOCHO) REFERENCES NHANVIEN(ID) ON DELETE SET NULL" +
@@ -226,6 +227,9 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         values.put("EMAIL", cn.getEmail());
         values.put("NGAYSINH", cn.getNgaySinh());
         values.put("NGAYTAO", cn.getNgayTao());
+        // THÊM CÁI NÀY VÀO
+        values.put("NGAYSUA", cn.getNgaySua());
+
         values.put("DIACHI", cn.getDiaChi());
         values.put("QUANHUYEN", cn.getQuanHuyen());
         values.put("TINHTP", cn.getTinhTP());
@@ -260,6 +264,9 @@ public class DBCRMHandler extends SQLiteOpenHelper {
                 cn.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")));
                 cn.setNgaySinh(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSINH")));
                 cn.setNgayTao(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
+                // THÊM CÁI NÀY VÀO
+                cn.setNgaySua(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSUA")));
+
                 cn.setDiaChi(cursor.getString(cursor.getColumnIndexOrThrow("DIACHI")));
                 cn.setQuanHuyen(cursor.getString(cursor.getColumnIndexOrThrow("QUANHUYEN")));
                 cn.setTinhTP(cursor.getString(cursor.getColumnIndexOrThrow("TINHTP")));
@@ -297,6 +304,9 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         values.put("EMAIL", cn.getEmail());
         values.put("NGAYSINH", cn.getNgaySinh());
         values.put("NGAYTAO", cn.getNgayTao());
+        // THÊM CÁI NÀY VÀO
+        values.put("NGAYSUA", cn.getNgaySua());
+
         values.put("DIACHI", cn.getDiaChi());
         values.put("QUANHUYEN", cn.getQuanHuyen());
         values.put("TINHTP", cn.getTinhTP());

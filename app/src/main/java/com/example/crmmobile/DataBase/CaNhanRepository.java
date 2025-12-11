@@ -1,9 +1,10 @@
 package com.example.crmmobile.DataBase;
-import com.example.crmmobile.IndividualDirectory.CaNhan;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.crmmobile.IndividualDirectory.CaNhan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,7 @@ public class CaNhanRepository {
         values.put("EMAIL", cn.getEmail());
         values.put("NGAYSINH", cn.getNgaySinh());
         values.put("NGAYTAO", cn.getNgayTao());
+        values.put("NGAYSUA", cn.getNgaySua()); // THÊM CÁI NÀY VÀO
         values.put("DIACHI", cn.getDiaChi());
         values.put("QUANHUYEN", cn.getQuanHuyen());
         values.put("TINHTP", cn.getTinhTP());
@@ -89,6 +91,9 @@ public class CaNhanRepository {
                 cn.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")));
                 cn.setNgaySinh(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSINH")));
                 cn.setNgayTao(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
+                // THÊM CÁI NÀY VÀO
+                cn.setNgaySua(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSUA")));
+
                 cn.setDiaChi(cursor.getString(cursor.getColumnIndexOrThrow("DIACHI")));
                 cn.setQuanHuyen(cursor.getString(cursor.getColumnIndexOrThrow("QUANHUYEN")));
                 cn.setTinhTP(cursor.getString(cursor.getColumnIndexOrThrow("TINHTP")));
@@ -126,6 +131,7 @@ public class CaNhanRepository {
         values.put("EMAIL", cn.getEmail());
         values.put("NGAYSINH", cn.getNgaySinh());
         values.put("NGAYTAO", cn.getNgayTao());
+        values.put("NGAYSUA", cn.getNgaySua()); // THÊM CÁI NÀY VÀO
         values.put("DIACHI", cn.getDiaChi());
         values.put("QUANHUYEN", cn.getQuanHuyen());
         values.put("TINHTP", cn.getTinhTP());

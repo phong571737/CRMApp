@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.crmmobile.DataBase.CaNhanRepository;
+import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 

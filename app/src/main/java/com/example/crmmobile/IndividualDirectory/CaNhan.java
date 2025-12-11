@@ -13,6 +13,7 @@ public class CaNhan implements Serializable {
     private String email;
     private String ngaySinh;
     private String ngayTao;
+    private String ngaySua;
     private String diaChi;
     private String quanHuyen;
     private String tinhTP;
@@ -75,6 +76,9 @@ public class CaNhan implements Serializable {
 
     public String getNgayTao() { return ngayTao; }
     public void setNgayTao(String ngayTao) { this.ngayTao = ngayTao; }
+
+    public String getNgaySua() { return ngaySua; }
+    public void setNgaySua(String ngaySua) { this.ngaySua = ngaySua; }
 
     public String getDiaChi() { return diaChi; }
     public void setDiaChi(String diaChi) { this.diaChi = diaChi; }

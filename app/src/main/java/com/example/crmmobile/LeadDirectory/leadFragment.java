@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +74,6 @@ public class leadFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-
         adapter = new AdapterLead(leadList, (item, position) -> {
             BottomSheetActionLead.ShowBottomSheetLead(requireContext(), leadList, position, ()->{
                 adapter.notifyItemChanged(position);
@@ -86,5 +87,29 @@ public class leadFragment extends Fragment {
         });
         recyclerLead.setAdapter(adapter);
         return view;
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        LeadReposity db = new LeadReposity(requireContext());
+//        leadList.clear();
+//        leadList.addAll(db.getAllLead());//lấy tất cả lead từ database và thêm vào danh sách
+//        adapter.notifyDataSetChanged();// cập nhật Recyclerview
+//    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getParentFragmentManager().setFragmentResultListener("createleadkey", this, (requestKey, bundle) -> {
+            boolean refresh = bundle.getBoolean("refresh", false);
+            if(refresh){
+                LeadReposity db = new LeadReposity(requireContext());
+                leadList.clear();
+                leadList.addAll(db.getAllLead());
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

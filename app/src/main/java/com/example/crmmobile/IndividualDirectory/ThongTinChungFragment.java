@@ -40,4 +40,3 @@ public class ThongTinChungFragment extends Fragment {
         ((TextView) row.findViewById(R.id.tvValue)).setText(value);
     }
 }
-

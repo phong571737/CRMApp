@@ -15,14 +15,14 @@ import androidx.fragment.app.Fragment;
 import com.example.crmmobile.R;
 
 public class HoatDongFragment extends Fragment {
+
     private CaNhan caNhan;
+    private int nguoiLienHeId = 0; //
 
     private EditText edtTieuDe, edtMoTa;
-    private AutoCompleteTextView actNguoiDung,actCongTy, actCaNhan, actCoHoi;
+    private AutoCompleteTextView actNguoiDung, actCongTy, actCaNhan, actCoHoi;
 
-    public HoatDongFragment() {
-        // Constructor rỗng là bắt buộc
-    }
+    public HoatDongFragment() {}
 
     @Nullable
     @Override
@@ -39,47 +39,53 @@ public class HoatDongFragment extends Fragment {
         edtTieuDe = view.findViewById(R.id.edttieude);
         edtMoTa = view.findViewById(R.id.edtmota);
         actNguoiDung = view.findViewById(R.id.actnguoidung);
-
         actCongTy = view.findViewById(R.id.actcongty);
         actCaNhan = view.findViewById(R.id.actcanhan);
         actCoHoi = view.findViewById(R.id.actcohoi);
 
-        ArrayAdapter<String> adapterCongTy = new ArrayAdapter<>(
+        actCongTy.setAdapter(new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 new String[]{"Cty TNHH ABC", "Cty TNHH Hỷ Lâm Môn"}
-        );
-        actCongTy.setAdapter(adapterCongTy);
+        ));
 
-        ArrayAdapter<String> adapterNguoiDung = new ArrayAdapter<>(
+        actNguoiDung.setAdapter(new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 new String[]{"Phan Vi", "Tường Vi", "Phan Thị Tường Vi"}
-        );
-        actNguoiDung.setAdapter(adapterNguoiDung);
+        ));
 
-        ArrayAdapter<String> adapterGioiTinh = new ArrayAdapter<>(
+        actCoHoi.setAdapter(new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 new String[]{"Cơ hội 100 tỷ", "Cơ hội 50 triệu"}
-        );
-        actCoHoi.setAdapter(adapterGioiTinh);
+        ));
 
         if (caNhan != null) {
-            actCaNhan.setText(caNhan.getHoVaTen() + caNhan.getTen() , false); // <-- Tự động điền tên
+            actCaNhan.setText(
+                    caNhan.getHoVaTen() + " " + caNhan.getTen(),
+                    false
+            );
         }
-
     }
 
+    // SET CaNhan + ID
     public void setCaNhan(CaNhan cn) {
         this.caNhan = cn;
+        if (cn != null) {
+            this.nguoiLienHeId = cn.getId();
+        }
     }
 
+    // Getter dữ liệu
     public String getTieuDe() { return edtTieuDe.getText().toString(); }
     public String getMoTa() { return edtMoTa.getText().toString(); }
     public String getNguoiDung() { return actNguoiDung.getText().toString(); }
     public String getCongTy() { return actCongTy.getText().toString(); }
-    public String getCaNhan() { return actCaNhan.getText().toString(); }
     public String getCoHoi() { return actCoHoi.getText().toString(); }
 
+    // ✅ TRẢ ID NGƯỜI LIÊN HỆ
+    public int getNguoiLienHeId() {
+        return nguoiLienHeId;
+    }
 }

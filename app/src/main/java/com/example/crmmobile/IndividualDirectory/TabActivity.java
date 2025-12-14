@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.R;
 
@@ -39,7 +40,12 @@ public class TabActivity extends AppCompatActivity {
         fillHeaderData();
 
         // --- Mặc định hiển thị tab Tổng quan ---
-        setFragment(new TongQuanFragment());
+        TongQuanFragment tongQuanFragment = new TongQuanFragment();
+        Bundle bundleTongQuan = new Bundle();
+        bundleTongQuan.putSerializable("CANHAN_DATA", currentCaNhan);
+        tongQuanFragment.setArguments(bundleTongQuan);
+        setFragment(tongQuanFragment);
+
         setActiveTab(tabTongQuan);
 
         // --- Xử lý sự kiện click các tab ---
@@ -93,7 +99,7 @@ public class TabActivity extends AppCompatActivity {
 
     private void fillHeaderData() {
         if (currentCaNhan != null) {
-            tvHeaderTen.setText(checkNull(currentCaNhan.getHoVaTen()));
+            tvHeaderTen.setText(checkNull(currentCaNhan.getHoVaTen() + " " + currentCaNhan.getTen()));
             tvHeaderSdt.setText(checkNull(currentCaNhan.getDiDong()));
             tvHeaderEmail.setText(checkNull(currentCaNhan.getEmail()));
             tvHeaderCongTy.setText(checkNull(currentCaNhan.getCongTy()));

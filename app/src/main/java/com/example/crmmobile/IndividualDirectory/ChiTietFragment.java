@@ -109,28 +109,11 @@ public class ChiTietFragment extends Fragment {
     }
 
     private void setupToggles(View view) {
-        // === THÔNG TIN CHUNG ===
-        // Lưu ý: Layout container trong XML của bạn không có ID cho các khối LinearLayout cha
-        // Bạn cần thêm ID vào các LinearLayout chứa nội dung bên dưới các TextView tiêu đề trong file XML
-        // Ví dụ: android:id="@+id/layoutThongTinChung" cho LinearLayout chứa họ tên, ngày sinh...
-
-        // Code cũ của bạn giả định đã có ID, hãy đảm bảo file XML có các ID này:
-        // layoutThongTinChung, layoutThongTinDiaChi, layoutThongTinMoTa, ...
-
-        /*
-         Ví dụ trong XML cần sửa:
-         <LinearLayout
-             android:id="@+id/layoutThongTinChung" ...>
-             ... Các row thông tin ...
-         </LinearLayout>
-        */
 
         setupToggle(view.findViewById(R.id.thongtinchung), view.findViewById(R.id.layoutThongTinChung)); // Cần thêm ID vào XML
         setupToggle(view.findViewById(R.id.thongtindiachi), view.findViewById(R.id.layoutThongTinDiaChi)); // Cần thêm ID vào XML
         setupToggle(view.findViewById(R.id.thongtinmota), view.findViewById(R.id.layoutThongTinMoTa)); // Cần thêm ID vào XML
 
-        // Nếu XML chưa có ID cho layout container, chức năng toggle sẽ bị null pointer exception.
-        // Bạn có thể tạm comment lại hàm setupToggle nếu chưa kịp sửa XML.
     }
 
     private void setupToggle(TextView titleView, LinearLayout detailLayout) {

@@ -44,9 +44,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
     private TextView tvNgayKetThuc, tvGioKetThuc;
 
     private String currentType = "call";
-
-
-
+    private int LeadID = -1;
 
     private AutoCompleteTextView actTrangThai, actNguoiPhuTrach;
 
@@ -122,7 +120,6 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
         btnLuu = view.findViewById(R.id.btnLuu);
         btnLuu.setOnClickListener(v -> saveHoatDong());
-
 
         return view;
 

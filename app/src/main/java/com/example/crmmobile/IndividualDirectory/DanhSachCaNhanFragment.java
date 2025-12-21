@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class DanhSachCaNhanFragment extends Fragment {
-
+    private static final String TAG = "DANHSACHCANHAN";
     private ImageView icBack;
     private RecyclerView rvCaNhan;
     private AdapterCaNhan adapter;
@@ -374,7 +375,10 @@ public class DanhSachCaNhanFragment extends Fragment {
             // Filter theo tên (hoVaTen + ten)
             String searchQuery = query.toLowerCase().trim();
             for (CaNhan cn : allCaNhanList) {
-                String fullName = (cn.getHoVaTen() + " " + cn.getTen()).toLowerCase();
+                String ten = (cn.getTen() != null) ? cn.getTen().toLowerCase() : "";
+                String hovatendem = (cn.getHoVaTen() != null) ? cn.getHoVaTen().toLowerCase() : "";
+                String fullName = hovatendem + " " + ten;
+                Log.e(TAG, "fullname: " + fullName);
                 if (fullName.contains(searchQuery)) {
                     caNhanList.add(cn);
                 }

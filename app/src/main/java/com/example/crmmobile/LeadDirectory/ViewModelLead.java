@@ -1,9 +1,11 @@
 package com.example.crmmobile.LeadDirectory;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class ViewModelLead extends ViewModel {
+    public MutableLiveData<Integer> leadId = new MutableLiveData<>();
     public MutableLiveData<String> title = new MutableLiveData<>();
     public MutableLiveData<String> first_name = new MutableLiveData<>();
     public MutableLiveData<String> hovatendem = new MutableLiveData<>();

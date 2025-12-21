@@ -76,15 +76,6 @@ public class TabActivity extends AppCompatActivity {
         icBack.setOnClickListener(v -> {
             finish();
         });
-//        tabHoatDong.setOnClickListener(v -> {
-//            setFragment(new HoatDongFragment());
-//            setActiveTab(tabHoatDong);
-//        });
-//
-//        tabCoHoi.setOnClickListener(v -> {
-//            setFragment(new CoHoiFragment());
-//            setActiveTab(tabCoHoi);
-//        });
     }
 
     private void SetRecentCanhan() {

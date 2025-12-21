@@ -37,7 +37,6 @@ public class DetailFragment extends Fragment {
             tv_email, tv_state, tv_revenue, tv_tax, tv_job_name,tv_address,
             tv_district, tv_province, tv_nation, tv_description, tv_company,
             tv_number_of_employees, tv_special_notes;
-    private Lead lead;
 
     public DetailFragment() {
         // Required empty public constructor

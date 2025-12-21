@@ -84,7 +84,7 @@ public class HoatDongFragment extends Fragment {
     public String getCongTy() { return actCongTy.getText().toString(); }
     public String getCoHoi() { return actCoHoi.getText().toString(); }
 
-    // ✅ TRẢ ID NGƯỜI LIÊN HỆ
+    //TRẢ ID NGƯỜI LIÊN HỆ
     public int getNguoiLienHeId() {
         return nguoiLienHeId;
     }

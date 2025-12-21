@@ -57,7 +57,7 @@ public class TongQuanFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        // 🔥 DÒNG BẠN BỊ THIẾU
+        //DÒNG BẠN BỊ THIẾU
         return inflater.inflate(R.layout.fragment_tong_quan, container, false);
     }
     //    public interface OnActionListener {

@@ -141,6 +141,7 @@ public class DetailLeadActivity extends AppCompatActivity {
     }
 
     private void setValues() {
+        viewModelLead.leadId.setValue(lead.getID());
         viewModelLead.title.setValue(lead.getTitle());
         viewModelLead.hovatendem.setValue(lead.getHovaTendem());
         viewModelLead.first_name.setValue(lead.getTen());

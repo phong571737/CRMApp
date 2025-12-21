@@ -30,12 +30,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.crmmobile.DataBase.DonHangRepository;
 
 import java.util.List;
+import android.widget.Toast;
+import android.widget.EditText;
+import android.text.Editable;
+import android.text.TextWatcher;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class OrderFragment extends Fragment {
 
     private DonHangRepository donHangRepository;
+    private List<Order> allOrders;
     private List<Order> orderList;
     private OrderAdapter orderAdapter;
+    private EditText edtSearch;
 
     // giữ RecyclerView/FAB để onResume reload không cần find lại (không bắt buộc nhưng sạch)
     private RecyclerView recyclerView;
@@ -71,6 +81,8 @@ public class OrderFragment extends Fragment {
         // Lấy dữ liệu từ DB qua DonHangRepository
         donHangRepository = new DonHangRepository(ctx);
         orderList = donHangRepository.getOrdersForList();
+        // ✅ allOrders: toàn bộ dữ liệu
+        allOrders = donHangRepository.getOrdersForList();
 
         // ✅ adapter: nếu constructor của bạn đang là (List<Order>, Context) thì truyền ctx
         // (tránh truyền this(Fragment) gây lỗi)
@@ -78,6 +90,22 @@ public class OrderFragment extends Fragment {
 
 
         recyclerView.setAdapter(orderAdapter);
+        // ===== Tìm kiếm đơn hàng =====
+        edtSearch = view.findViewById(R.id.editTextText);
+        if (edtSearch != null) {
+            edtSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    filterOrders(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) { }
+            });
+        }
 
         // ===== FAB dấu cộng: mở SOCreate1Activity =====
         FloatingActionButton fab = view.findViewById(R.id.fabAddOrder);
@@ -99,15 +127,21 @@ public class OrderFragment extends Fragment {
     }
 
     @Override
-    public void onResume() { // ✅ phải public
+    public void onResume() {
         super.onResume();
-        // Mỗi lần quay lại màn hình, reload lại danh sách đơn hàng từ DB
         if (donHangRepository != null && orderList != null && orderAdapter != null) {
+            List<Order> fresh = donHangRepository.getOrdersForList();
+
+            allOrders.clear();
+            allOrders.addAll(fresh);
+
             orderList.clear();
-            orderList.addAll(donHangRepository.getOrdersForList());
+            orderList.addAll(fresh);
+
             orderAdapter.notifyDataSetChanged();
         }
     }
+
 
     // ===== BottomSheet hành động cho từng đơn =====
     public void showBottomSheet(Order order) {
@@ -152,6 +186,27 @@ public class OrderFragment extends Fragment {
         dialog.setContentView(view);
         dialog.show();
     }
+    private void filterOrders(String query) {
+        if (allOrders == null || orderList == null || orderAdapter == null) return;
+
+        String key = query.toLowerCase().trim();
+
+        orderList.clear();
+        if (key.isEmpty()) {
+            // Không nhập gì -> hiện lại tất cả
+            orderList.addAll(allOrders);
+        } else {
+            for (Order o : allOrders) {
+                if (o.getOrderCode().toLowerCase().contains(key)
+                        || o.getCompany().toLowerCase().contains(key)
+                        || o.getPaymentStatus().toLowerCase().contains(key)) {
+                    orderList.add(o);
+                }
+            }
+        }
+        orderAdapter.notifyDataSetChanged();
+    }
+
 
     private void addActionItem(LinearLayout parent, int iconRes, String text, Runnable onClick) {
         // ✅ LayoutInflater cần Context (không dùng LayoutInflater.from(this))

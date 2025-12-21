@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/bottomhoatdong"
+<LinearLayout android:id="@+id/bottomhoatdong"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:maxHeight="2000dp"
     android:orientation="vertical"
     android:background="@drawable/bottomsheet_rounded_top"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Header: Tên hoạt động + Cancel -->
     <LinearLayout
@@ -15,7 +14,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="12dp">
+        android:paddingTop="12dp"
+        android:paddingBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp">
 
         <TextView
             android:id="@+id/tv_title"
@@ -31,7 +33,7 @@
             android:id="@+id/ic_cancel"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_cancel"
+            android:src="@drawable/ic_escape"
             android:contentDescription="Cancel"/>
     </LinearLayout>
 
@@ -42,7 +44,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:padding="30dp">
+        android:padding="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp">
 
         <ImageView
             android:id="@+id/ic_call"
@@ -85,7 +89,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
             android:padding="8dp">
 
             <!-- Người phụ trách -->
@@ -94,32 +97,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <ImageView
                     android:id="@+id/ic_face2"
-                    android:layout_width="20dp"
+                    android:layout_width="15dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_face2" />
+                    android:src="@drawable/nhanvienlist"
+                    android:visibility="gone"/>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp">
 
                     <TextView
                         android:id="@+id/nguoiphutrach"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/nguoiphutrach"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_input_box">
 
@@ -128,8 +134,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="none"
-                            android:text="Phan Thị Tường Vi"
-                            android:textSize="@dimen/text_small"
+                            android:textSize="@dimen/text14"
                             android:paddingStart="@dimen/margin_base"
                             android:background="@android:color/transparent"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bắt đầu - Kết thúc"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/gray1"
                     android:textSize="@dimen/text_small" />
 
                 <!-- Thời gian bắt đầu -->
@@ -157,21 +162,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/margin15">
 
                     <TextView
                         android:id="@+id/ngaybatdau"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15-11-2025"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/giobatdau"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/margin7"
                         android:text="13:15"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <!-- Thời gian kết thúc -->
@@ -186,14 +193,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15-11-2025"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/gioketthuc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="13:30"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="12sp"
+                        android:layout_marginStart="@dimen/margin7"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -204,35 +212,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
+            android:layout_marginStart="@dimen/margin15"
+            android:layout_marginEnd="@dimen/margin15"
             android:padding="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_input_box">
 
                 <AutoCompleteTextView
                     android:id="@+id/acttrangthai"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:inputType="none"
                     android:text="Lên kế hoạch"
-                    android:textSize="@dimen/text_small"
+                    android:textSize="@dimen/text14"
                     android:paddingStart="@dimen/margin_base"
                     android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLuu"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="50dp"
-                android:text="Lưu"
-                android:backgroundTint="@color/xanhbutton"
+                android:text="@string/save"
+                android:backgroundTint="@color/blue2"
+                app:cornerRadius="@dimen/bottom_padding"
                 android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>

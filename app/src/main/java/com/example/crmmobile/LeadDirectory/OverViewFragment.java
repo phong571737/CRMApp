@@ -93,6 +93,7 @@ public class OverViewFragment extends Fragment {
                 hoatDongList.addAll(list);
             }
             adapter.notifyDataSetChanged();
+            updateActivityStats();
         });
 
         //refresh
@@ -119,11 +120,48 @@ public class OverViewFragment extends Fragment {
 
     private void showBottomSheetHoatDong() {
         BottomHoatDongFragment bottom = new BottomHoatDongFragment();
+        Integer currentID = viewModelLead.leadId.getValue();
+        if (currentID != null){
+            bottom.setLead(currentID);
+        }
         bottom.show(getParentFragmentManager(), "hoatdong");
+    }
+
+    private void updateActivityStats() {
+        if (viewModelLead.leadId.getValue() <= 0) {
+            if (fillslcuocgoi != null) fillslcuocgoi.setText("0");
+            if (fillscuochop != null) fillscuochop.setText("0");
+            return;
+        }
+
+        if (hoatDongRepository == null) {
+            hoatDongRepository = new HoatDongRepository(requireContext());
+        }
+
+        int callCount = 0;
+        int meetingCount = 0;
+
+        List<HoatDong> listFromDB = hoatDongRepository.getHoatDongByNguoiLienHe(viewModelLead.leadId.getValue());
+        for (HoatDong hd : listFromDB) {
+            String type = hd.getType();
+            if ("call".equalsIgnoreCase(type)) {
+                callCount++;
+            } else if ("meeting".equalsIgnoreCase(type)) {
+                meetingCount++;
+            }
+        }
+
+        if (fillslcuocgoi != null) {
+            fillslcuocgoi.setText("" + callCount);
+        }
+        if (fillscuochop != null) {
+            fillscuochop.setText("" + meetingCount);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        updateActivityStats();
     }
 }

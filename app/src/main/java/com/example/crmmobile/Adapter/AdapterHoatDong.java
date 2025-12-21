@@ -91,9 +91,6 @@ public class AdapterHoatDong extends RecyclerView.Adapter<AdapterHoatDong.ViewHo
             filltrangthai = itemView.findViewById(R.id.filltrangthai);
             fillbinhluan = itemView.findViewById(R.id.fillbinhluan);
             icType = itemView.findViewById(R.id.ic_type);
-
-
-
         }
     }
 }

@@ -67,18 +67,11 @@ public class TongQuanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        initViews(view);
         // Lấy CaNhan từ Bundle
         if (getArguments() != null && getArguments().containsKey("CANHAN_DATA")) {
             caNhan = (CaNhan) getArguments().getSerializable("CANHAN_DATA");
         }
-
-        rvHoatDong = view.findViewById(R.id.rvHoatDong);
-        groupThemHoatDong = view.findViewById(R.id.group_themhoatdong);
-        btnThemHoatDong = view.findViewById(R.id.btnthemhoatdong);
-        tvCallCount = view.findViewById(R.id.fillslcuocgoi);
-        tvMeetingCount = view.findViewById(R.id.fillslcuochop);
-
         db = new HoatDongRepository(requireContext());
 
         loadHoatDong();
@@ -103,6 +96,14 @@ public class TongQuanFragment extends Fragment {
                 refreshHoatDongList();
             }
         });
+    }
+
+    private void initViews(View view) {
+        rvHoatDong = view.findViewById(R.id.rvHoatDong);
+        groupThemHoatDong = view.findViewById(R.id.group_themhoatdong);
+        btnThemHoatDong = view.findViewById(R.id.btnthemhoatdong);
+        tvCallCount = view.findViewById(R.id.fillslcuocgoi);
+        tvMeetingCount = view.findViewById(R.id.fillslcuochop);
     }
 
     private void updateActivityStats() {

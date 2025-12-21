@@ -18,7 +18,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.crmmobile.DataBase.HoatDongRepository;
+import com.example.crmmobile.HoatDongDirectory.HoatDong;
 import com.example.crmmobile.LeadDirectory.Lead;
+import com.example.crmmobile.LeadDirectory.ViewModelLead;
+import com.example.crmmobile.MainDirectory.InitClass;
 import com.example.crmmobile.R;
 import com.google.android.material.chip.Chip;
 
@@ -27,7 +31,7 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
     private List<Lead> dataList;
     private onItemClickListener listener;
     private Map<String, Integer> stateColor;
-    private Lead lead;
+    private HoatDongRepository hoatDongRepository;
 
     public interface onItemClickListener {
         void onDotsClick(Lead item, int position);
@@ -37,6 +41,7 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
     public AdapterLead(Context context, List<Lead> dataList, onItemClickListener listener){
         this.dataList = dataList;
         this.listener = listener;
+        this.hoatDongRepository = new HoatDongRepository(context);
 
         stateColor = new HashMap<>();
         stateColor.put("Mới", Color.parseColor("#BBE2EC"));
@@ -49,7 +54,7 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
     }
 
     public static class LeadViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_name, tv_Company, tv_day, tv_job;
+        TextView tv_name, tv_Company, tv_day, tv_job, tv_number_calls, tv_meeting;
         ImageView iv_created_by, iv_sendto;
         ImageButton ivDots;
         Chip chip_status;
@@ -64,8 +69,9 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
             tv_job = itemView.findViewById(R.id.tv_job);
             iv_sendto = itemView.findViewById(R.id.iv_sendto);
             iv_created_by = itemView.findViewById(R.id.iv_created_by);
+            tv_number_calls = itemView.findViewById(R.id.tv_number_calls);
+            tv_meeting = itemView.findViewById(R.id.tv_meeting);
         }
-
     }
 
     //Crete new view
@@ -97,12 +103,31 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
         viewHolder.tv_Company.setText(lead.getCongty());
         viewHolder.tv_day.setText(lead.getNgayLienHe());
         viewHolder.tv_job.setText(lead.getNganhnghe());
-        int level = getIconNhanVien(lead.getGiaochoID());
+        int level = InitClass.getIconNhanVien(lead.getGiaochoID());
         viewHolder.iv_sendto.setImageLevel(level);
-        int create_by_level = getIconNhanVien(lead.getNguoitaoID());
+        int create_by_level = InitClass.getIconNhanVien(lead.getNguoitaoID());
         viewHolder.iv_created_by.setImageLevel(create_by_level);
         Log.e(TAG, "ID Giao cho: " + lead.getGiaochoID());
         Log.e(TAG, "ID Người tạo: " + lead.getNguoitaoID());
+
+        // Đếm số cuộc gọi và cuộc họp từ database
+        int callCount = 0;
+        int meetingCount = 0;
+
+        if (lead.getID() > 0 && hoatDongRepository != null) {
+            List<HoatDong> hoatDongList = hoatDongRepository.getHoatDongByNguoiLienHe(lead.getID());
+            for (HoatDong hd : hoatDongList) {
+                String type = hd.getType();
+                if ("call".equalsIgnoreCase(type)) {
+                    callCount++;
+                } else if ("meeting".equalsIgnoreCase(type)) {
+                    meetingCount++;
+                }
+            }
+        }
+
+        viewHolder.tv_number_calls.setText(String.valueOf(callCount));
+        viewHolder.tv_meeting.setText(String.valueOf(meetingCount));
 
         viewHolder.ivDots.setOnClickListener(v -> {
             if(listener != null){
@@ -120,25 +145,5 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
     @Override
     public int getItemCount(){
         return dataList.size();
-    }
-
-    private int getIconNhanVien(int nhanvien){
-        int result;
-        if(nhanvien == 1){
-            result = 0;
-        }
-        else if (nhanvien == 2){
-            result  = 1;
-        }
-        else if (nhanvien == 3){
-            result  = 2;
-        }
-        else if (nhanvien == 4){
-            result  = 3;
-        }
-        else {
-            result = 4;
-        }
-        return result;
     }
 }

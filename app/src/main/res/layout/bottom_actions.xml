@@ -29,7 +29,7 @@
             android:id="@+id/ic_cancel"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_cancel"
+            android:src="@drawable/ic_escape"
             android:contentDescription="Cancel"/>
     </LinearLayout>
 

@@ -1,6 +1,8 @@
 package com.example.crmmobile.IndividualDirectory;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
 import com.example.crmmobile.R;
 
-public class HoatDongFragment extends Fragment {
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
+public class HoatDongFragment extends Fragment {
     private CaNhan caNhan;
-    private int nguoiLienHeId = 0; //
+    private int nguoiLienHeId = 0;
 
     private EditText edtTieuDe, edtMoTa;
     private AutoCompleteTextView actNguoiDung, actCongTy, actCaNhan, actCoHoi;
@@ -35,13 +42,7 @@ public class HoatDongFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        edtTieuDe = view.findViewById(R.id.edttieude);
-        edtMoTa = view.findViewById(R.id.edtmota);
-        actNguoiDung = view.findViewById(R.id.actnguoidung);
-        actCongTy = view.findViewById(R.id.actcongty);
-        actCaNhan = view.findViewById(R.id.actcanhan);
-        actCoHoi = view.findViewById(R.id.actcohoi);
+        initViews(view);
 
         actCongTy.setAdapter(new ArrayAdapter<>(
                 requireContext(),
@@ -69,6 +70,15 @@ public class HoatDongFragment extends Fragment {
         }
     }
 
+    private void initViews(View view) {
+        edtTieuDe = view.findViewById(R.id.edttieude);
+        edtMoTa = view.findViewById(R.id.edtmota);
+        actNguoiDung = view.findViewById(R.id.actnguoidung);
+        actCongTy = view.findViewById(R.id.actcongty);
+        actCaNhan = view.findViewById(R.id.actcanhan);
+        actCoHoi = view.findViewById(R.id.actcohoi);
+    }
+
     // SET CaNhan + ID
     public void setCaNhan(CaNhan cn) {
         this.caNhan = cn;
@@ -87,5 +97,11 @@ public class HoatDongFragment extends Fragment {
     //TRẢ ID NGƯỜI LIÊN HỆ
     public int getNguoiLienHeId() {
         return nguoiLienHeId;
+    }
+
+    public void setLead(int leadID) {
+        if (leadID > 0){
+            this.nguoiLienHeId = leadID;
+        }
     }
 }

@@ -187,6 +187,7 @@
                 app:tint="@color/blue_primary"/>
 
             <TextView
+                android:id="@+id/tv_number_calls"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
@@ -194,23 +195,24 @@
                 android:layout_marginStart="6dp"/>
             <!--End call-->
 
-            <!--Comment-->
+            <!--Meeting-->
             <ImageView
-                android:id="@+id/comments"
+                android:id="@+id/iv_meeting"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/ic_comment_mess"
+                android:src="@drawable/ic_meeting"
                 android:layout_marginStart="16dp"
                 app:tint="@color/blue_primary"
                 android:contentDescription="@null" />
 
             <TextView
+                android:id="@+id/tv_meeting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textColor="@color/black"
                 android:layout_marginStart="6dp"/>
-            <!--End comment-->
+            <!--End Meeting-->
 
         </LinearLayout>
         <!--end called and comments-->

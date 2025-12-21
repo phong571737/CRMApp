@@ -2,6 +2,8 @@ package com.example.crmmobile.BottomSheet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +20,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.crmmobile.DataBase.HoatDongRepository;
+import com.example.crmmobile.DataBase.NhanVienRepository;
 import com.example.crmmobile.HoatDongDirectory.HoatDong;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
 
 import com.example.crmmobile.IndividualDirectory.HoatDongFragment;
 import com.example.crmmobile.IndividualDirectory.ThongTinLienHeActivity;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
+import com.example.crmmobile.MainDirectory.InitClass;
 import com.example.crmmobile.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -31,11 +36,14 @@ import android.app.TimePickerDialog;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
 public class BottomHoatDongFragment extends BottomSheetDialogFragment {
     private CaNhan caNhan;
-    private ImageView iccall, icmeeting;
+    private ImageView iccall, icmeeting, icCancel, ic_face2;
     private TextView tv_title;
     private Button btnLuu;
     private HoatDongFragment hoatdongFragment;
@@ -45,6 +53,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
     private String currentType = "call";
     private int LeadID = -1;
+    private HoatDong hoatDong;
 
     private AutoCompleteTextView actTrangThai, actNguoiPhuTrach;
 
@@ -55,35 +64,17 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_hoatdong, container, false);
+        initViews(view);
 
         // --- Nút đóng ---
-        ImageView icCancel = view.findViewById(R.id.ic_cancel);
         icCancel.setOnClickListener(v -> dismiss());
 
-        tv_title = view.findViewById(R.id.tv_title);
-        //hoatdongFragment = new HoatDongFragment();
-
-        actNguoiPhuTrach = view.findViewById(R.id.actnguoiphutrach);
-        ArrayAdapter<String> adapterPhuTrach = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_list_item_1,
-                new String[]{"Phan Thị Tường Vi", "Lê Thị Ánh Xuân","Nguyễn Hữu Thiện" }
-        );
-        actNguoiPhuTrach.setAdapter(adapterPhuTrach);
-
-        actTrangThai = view.findViewById(R.id.acttrangthai);
         ArrayAdapter<String> adapterTrangThai = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 new String[]{"Lên kế hoạch", "Đang diễn ra","Đã kết thúc" }
         );
         actTrangThai.setAdapter(adapterTrangThai);
-
-        tvNgayBatDau = view.findViewById(R.id.ngaybatdau);
-        tvGioBatDau = view.findViewById(R.id.giobatdau);
-
-        tvNgayKetThuc = view.findViewById(R.id.ngayketthuc);
-        tvGioKetThuc = view.findViewById(R.id.gioketthuc);
 
         tvNgayBatDau.setOnClickListener(v ->
                 pickDateTime(tvNgayBatDau, tvGioBatDau)
@@ -94,10 +85,6 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         );
 
         java.util.Calendar calendar = java.util.Calendar.getInstance();
-
-        // --- Tab ---
-        iccall = view.findViewById(R.id.ic_call);
-        icmeeting = view.findViewById(R.id.ic_meeting);
 
         // --- Mặc định hiển thị tab Tổng quan ---
         setFragment(new HoatDongFragment());
@@ -118,15 +105,56 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
             tv_title.setText("Cuộc họp");
         });
 
-        btnLuu = view.findViewById(R.id.btnLuu);
         btnLuu.setOnClickListener(v -> saveHoatDong());
 
         return view;
 
     }
 
-    private void saveHoatDong() {
+    private void initViews(View view) {
+        icCancel = view.findViewById(R.id.ic_cancel);
+        tv_title = view.findViewById(R.id.tv_title);
+        actNguoiPhuTrach = view.findViewById(R.id.actnguoiphutrach);
+        //ánh xạ tên
+        initPerson_in_Charge();
+        tvNgayBatDau = view.findViewById(R.id.ngaybatdau);
+        tvGioBatDau = view.findViewById(R.id.giobatdau);
+        tvNgayKetThuc = view.findViewById(R.id.ngayketthuc);
+        tvGioKetThuc = view.findViewById(R.id.gioketthuc);
+        btnLuu = view.findViewById(R.id.btnLuu);
+        iccall = view.findViewById(R.id.ic_call);
+        icmeeting = view.findViewById(R.id.ic_meeting);
+        actTrangThai = view.findViewById(R.id.acttrangthai);
+        ic_face2 = view.findViewById(R.id.ic_face2);
 
+    }
+
+    private void initPerson_in_Charge() {
+        Executor executor = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        executor.execute(()->{
+            NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
+            nhanVienRepository.AddNhanVien();
+            List<Nhanvien> Employees_list = nhanVienRepository.getAllNhanVien();
+            mainHandler.post(()->{
+                ArrayAdapter<Nhanvien> AdapterEmployer =
+                        new ArrayAdapter<>(requireContext(),
+                                android.R.layout.simple_list_item_1,
+                                Employees_list);
+                actNguoiPhuTrach.setAdapter(AdapterEmployer);
+                actNguoiPhuTrach.setOnItemClickListener(((parent, view1, position, id) -> {
+                    Nhanvien nv = (Nhanvien) parent.getItemAtPosition(position);
+                    if (nv != null){
+                        ic_face2.setVisibility(View.VISIBLE);
+                        int level = InitClass.getIconNhanVien(nv.getId());
+                        ic_face2.setImageLevel(level);
+                    }
+                }));
+            });
+        });
+    }
+
+    private void saveHoatDong() {
         Fragment currentFragment = getChildFragmentManager().findFragmentById(R.id.fragmentContainer);
         if (!(currentFragment instanceof HoatDongFragment)) {
             Toast.makeText(requireContext(),
@@ -148,8 +176,14 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         String tinhTrang = actTrangThai.getText().toString();
 
         // LẤY ID ĐÚNG
-        int nguoiLienHe = currentHoatDongFragment.getNguoiLienHeId();
-
+//        int nguoiLienHe = currentHoatDongFragment.getNguoiLienHeId();
+        int nguoiLienHe = 0;
+        if (caNhan != null){
+            nguoiLienHe = caNhan.getId();
+        }
+        else if (LeadID > 0){
+            nguoiLienHe = LeadID;
+        }
 
         if (tenHoatDong == null || tenHoatDong.trim().isEmpty()) {
             Toast.makeText(requireContext(),
@@ -205,9 +239,18 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         this.caNhan = cn;
     }
 
+    public void setLead(int leadID) {
+        this.LeadID = leadID;
+    }
+
     private void setFragment(Fragment fragment) {
-        if (fragment instanceof HoatDongFragment && caNhan != null) {
-            ((HoatDongFragment) fragment).setCaNhan(caNhan);
+        if (fragment instanceof HoatDongFragment) {
+            if (caNhan != null){
+                ((HoatDongFragment) fragment).setCaNhan(caNhan);
+            }
+            if (LeadID > 0){
+                ((HoatDongFragment) fragment).setLead(LeadID);
+            }
         }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);

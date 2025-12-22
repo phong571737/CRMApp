@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.Adapter.ToChucAdapter;
+import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.R;
 import com.example.crmmobile.BottomSheet.ToChucLuaChonHanhDongSheet;
 
@@ -31,7 +32,7 @@ public class ToChucFragment extends Fragment
     private RecyclerView recyclerView;
     private ToChucAdapter adapter;
     private List<ToChuc> toChucList;
-    private ImageButton btnBack;
+    private CompanyRepository companyRepository;
 
     private int selectedPosition = -1;
     private ToChuc selectedToChuc = null;
@@ -39,141 +40,88 @@ public class ToChucFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.layout_tochuc, container, false);
-        Log.d(TAG, "Fragment onCreateView CALLED");
 
-        // === XỬ LÝ NÚT BACK ===
+        companyRepository = new CompanyRepository(getContext());
+
         ImageButton btnBack = view.findViewById(R.id.btn_organization_back);
         if (btnBack != null) {
-            btnBack.setOnClickListener(v -> {
-                requireActivity().getSupportFragmentManager().popBackStack();
-            });
+            btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         }
 
-        // === NÚT FAB ===
-        com.google.android.material.floatingactionbutton.FloatingActionButton fab_add =
-                view.findViewById(R.id.fab_add);
-        fab_add.setOnClickListener(v -> {
-            Log.d(TAG, "FAB Clicked!");
+        view.findViewById(R.id.fab_add).setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
             intent.putExtra("EXTRA_TITLE", "Tạo công ty");
             startActivity(intent);
         });
 
-        // === CẬP NHẬT KHỞI TẠO ADAPTER ===
         recyclerView = view.findViewById(R.id.recycler_view_organization);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        loadSampleData();
-        // Pass "this" (chính Fragment này) làm listener
-        adapter = new ToChucAdapter(getContext(), toChucList, this, this);
-        recyclerView.setAdapter(adapter);
+
+        loadData(); // Load lần đầu
 
         return view;
     }
 
-    // === HÀM TỪ OnItemClickListener ===
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData(); // Refresh khi quay lại
+    }
+
+    private void loadData() {
+        toChucList = companyRepository.getAllCompany();
+        if (toChucList == null) toChucList = new ArrayList<>();
+
+        adapter = new ToChucAdapter(getContext(), toChucList, this, this);
+        recyclerView.setAdapter(adapter);
+    }
+
     @Override
     public void onItemClicked(int position, ToChuc toChuc) {
-        Log.d(TAG, "Item clicked: " + toChuc.getCompanyName());
-        // Mở Activity chi tiết
-        Intent intent = new Intent(getContext(), ChiTietToChucActivity.class);
-        // (Sau này có thể gửi ID công ty qua đây)
-        // intent.putExtra("COMPANY_ID", toChuc.getId());
+        // Click vào item -> Mở màn hình Sửa (hoặc Chi tiết)
+        Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
+        intent.putExtra("COMPANY_ID", toChuc.getId()); // Truyền ID để biết là Edit
         startActivity(intent);
     }
 
-    // === HÀM TỪ ToChucAdapter.OnMoreOptionsClickListener ===
+
+    private void onEditClicked(int position) {
+        if(position == -1 || selectedToChuc == null) return; // Kiểm tra kỹ
+
+        Log.d(TAG, "onEditClicked: " + selectedToChuc.getCompanyName() + " ID: " + selectedToChuc.getId());
+
+        Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
+        intent.putExtra("EXTRA_TITLE", "Chỉnh sửa công ty");
+
+        // === QUAN TRỌNG: TRUYỀN ID CÔNG TY ===
+        intent.putExtra("COMPANY_ID", selectedToChuc.getId());
+        // =====================================
+
+        startActivity(intent);
+        // Không cần notifyItemChanged ở đây vì khi quay lại onResume sẽ load lại list
+    }
     @Override
     public void onMoreOptionsClicked(int position, ToChuc toChuc) {
-        // Lưu lại công ty vừa được chọn
         this.selectedPosition = position;
         this.selectedToChuc = toChuc;
-
-        // Mở BottomSheet
         ToChucLuaChonHanhDongSheet bottomSheet = new ToChucLuaChonHanhDongSheet();
-        // Dùng getChildFragmentManager() khi mở dialog/sheet từ bên trong Fragment
         bottomSheet.show(getChildFragmentManager(), "LuaChonHanhDongSheet");
-    }
-
-    // === CÁC HÀM TỪ LuaChonHanhDongSheet.ItemClickListener ===
-    @Override
-    public void onActionGhim() {
-        if(selectedToChuc == null) return;
-        Toast.makeText(getContext(), "Đã ghim: " + selectedToChuc.getCompanyName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onActionXemTongQuan() {
-        onOverviewClicked(selectedPosition);
-    }
-
-    @Override
-    public void onActionThemHoatDong() {
-        if(selectedToChuc == null) return;
-        Toast.makeText(getContext(), "Thêm hoạt động cho: " + selectedToChuc.getCompanyName(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onActionChinhSua() {
-        onEditClicked(selectedPosition);
     }
 
     @Override
     public void onActionXoa() {
         if(selectedToChuc == null) return;
-        Toast.makeText(getContext(), "Xóa: " + selectedToChuc.getCompanyName(), Toast.LENGTH_SHORT).show();
+        companyRepository.deleteCompany(selectedToChuc.getId());
+        Toast.makeText(getContext(), "Đã xóa", Toast.LENGTH_SHORT).show();
+        loadData(); // Refresh list
     }
 
-
-    // === CÁC HÀM XỬ LÝ CLICK ===
-    private void onEditClicked(int position) {
-        if(position == -1) return; // Kiểm tra an toàn
-        Log.d(TAG, "onEditClicked CALLED for position " + position);
-        Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
-        intent.putExtra("EXTRA_TITLE", "Chỉnh sửa công ty");
-        startActivity(intent);
-        adapter.notifyItemChanged(position);
-    }
-
-    private void onOverviewClicked(int position) {
-        if(position == -1) return; // Kiểm tra an toàn
-        Log.d(TAG, "onOverviewClicked CALLED for position " + position);
-        Intent intent = new Intent(getContext(), TongQuanCongTyActivity.class);
-        startActivity(intent);
-        adapter.notifyItemChanged(position);
-    }
-
-    // === Hàm loadSampleData ===
-    private void loadSampleData() {
-        toChucList = new ArrayList<>();
-        // 1. CloudGO
-        toChucList.add(new ToChuc(
-                "Công ty TNHH CloudGO", "Công nghệ", "09/07/2025",
-                true,
-                ToChuc.TrangThai.KHONG_QUAN_TAM, "2", "2", false,
-                Arrays.asList(R.drawable.avatar_girl, R.drawable.avatar_man, R.drawable.avatar_girl)
-        ));
-        // 2. Hasaki
-        toChucList.add(new ToChuc(
-                "Công ty TNHH Hasaki Beauty & Spa", "Mỹ phẩm", "12/10/2025",
-                true,
-                ToChuc.TrangThai.CO_CO_HOI, "2", "1", true,
-                Arrays.asList(R.drawable.avatar_man, R.drawable.avatar_man)
-        ));
-        // 3. Chiaki
-        toChucList.add(new ToChuc(
-                "Công ty Cổ phần Thương mại Chiaki", "Mua sắm", "18/09/2025",
-                true,
-                ToChuc.TrangThai.NONE, "2", "1", true,
-                Arrays.asList(R.drawable.avatar_girl, R.drawable.avatar_man)
-        ));
-        // 4. IMAP
-        toChucList.add(new ToChuc(
-                "Công ty Cổ phần Giáo dục & Đào tạo IMAP VietNam", "Giáo dục", "12/08/2025",
-                true,
-                ToChuc.TrangThai.CAN_QUAN_TAM, "2", "1", false,
-                Arrays.asList(R.drawable.avatar_girl)
-        ));
+    // Các hàm khác giữ nguyên hoặc để trống nếu chưa dùng
+    @Override public void onActionGhim() {}
+    @Override public void onActionXemTongQuan() {}
+    @Override public void onActionThemHoatDong() {}
+    @Override public void onActionChinhSua() {
+        onItemClicked(selectedPosition, selectedToChuc);
     }
 }

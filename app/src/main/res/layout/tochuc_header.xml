@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingBottom="8dp">
+    android:paddingBottom="@dimen/margin20">
 
     <!-- Nút quay lại -->
     <ImageButton
@@ -35,19 +35,7 @@
         app:layout_constraintTop_toTopOf="@id/btn_organization_back"
         app:layout_constraintBottom_toBottomOf="@id/btn_organization_back" />
 
-    <!-- Nút filter -->
-    <ImageView
-        android:id="@+id/img_organization_filter"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_sliders"
-        app:tint="#9E9E9E"
-        android:contentDescription="@string/cd_filter_button"
-        android:background="@drawable/chip_bg"
-        android:backgroundTint="#F0F6FF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/search_bar_organization" />
+
 
     <!-- Thanh tìm kiếm  -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,12 +44,12 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/chip_bg"
-        android:backgroundTint="#F0F6FF"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_chip"
+        android:backgroundTint="@color/bg_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_organization_title"
-        app:layout_constraintEnd_toStartOf="@id/img_organization_filter">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Icon tìm kiếm -->
         <ImageView
@@ -70,6 +58,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="8dp"
             android:contentDescription="@null"
+            app:tint="@color/color_icon"
             android:src="@drawable/ic_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -83,72 +72,12 @@
             android:layout_marginStart="8dp"
             android:background="@null"
             android:hint="@string/organization_search_hint"
-            android:paddingHorizontal="4dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textColorHint="@color/lead_not_choose"
             app:layout_constraintStart_toEndOf="@id/img_organization_search"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Dãy chip -->
-    <HorizontalScrollView
-        android:id="@+id/organization_chip_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@id/search_bar_organization"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <!-- Chip 1 -->
-            <TextView
-                android:id="@+id/tv_organization_chip1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:text="@string/organization_chip_1"
-                android:textColor="#9E9E9E"
-                android:textSize="11sp"
-                android:background="@drawable/chip_bg" />
-
-            <!-- Chip 2 -->
-            <TextView
-                android:id="@+id/tv_organization_chip2"
-                android:text="@string/organization_chip_2"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textSize="11sp"
-                android:background="@drawable/chip_bg"
-                android:backgroundTint="#F0F6FF"
-                android:textColor="@color/blue"/>
-
-            <!-- Chip 3 -->
-            <TextView
-                android:id="@+id/tv_organization_chip3"
-                android:text="@string/organization_chip_3"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textSize="11sp"
-                android:background="@drawable/chip_bg"
-                android:textColor="#9E9E9E"/>
-        </LinearLayout>
-    </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

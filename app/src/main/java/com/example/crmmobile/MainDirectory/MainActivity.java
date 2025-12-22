@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements main_screen.onMod
             navFooter.getMenu().findItem(R.id.nav_menu).setChecked(true);
         }
 
-        if(moduleName.equals("Tổ chức")){
+        if(moduleName.equals("Công ty")){
             Fragment toChucFragment  = new ToChucFragment() ;
 
             getSupportFragmentManager()

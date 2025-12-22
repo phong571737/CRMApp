@@ -85,7 +85,7 @@ public class main_screen extends Fragment {
         timeHandler = new Handler(Looper.getMainLooper());
 
         itemModules = Arrays.asList(
-                    new Module("Tổ chức", R.drawable.ic_company),
+                    new Module("Công ty", R.drawable.ic_company),
                     new Module("Cá nhân", R.drawable.ic_individual),
                     new Module("Báo giá", R.drawable.ic_quote),
                     new Module("Hóa đơn", R.drawable.ic_bill),

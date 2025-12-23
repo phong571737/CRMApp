@@ -64,7 +64,7 @@ public class OrderFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        // ✅ Fragment inflate layout tại đây
+        //Fragment inflate layout tại đây
         return inflater.inflate(R.layout.fragment_order, container, false);
     }
 
@@ -81,10 +81,10 @@ public class OrderFragment extends Fragment {
         // Lấy dữ liệu từ DB qua DonHangRepository
         donHangRepository = new DonHangRepository(ctx);
         orderList = donHangRepository.getOrdersForList();
-        // ✅ allOrders: toàn bộ dữ liệu
+        //allOrders: toàn bộ dữ liệu
         allOrders = donHangRepository.getOrdersForList();
 
-        // ✅ adapter: nếu constructor của bạn đang là (List<Order>, Context) thì truyền ctx
+        //adapter: nếu constructor của bạn đang là (List<Order>, Context) thì truyền ctx
         // (tránh truyền this(Fragment) gây lỗi)
         orderAdapter = new OrderAdapter(orderList, ctx, this::showBottomSheet);
 
@@ -111,14 +111,14 @@ public class OrderFragment extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.fabAddOrder);
         if (fab != null) {
             fab.setOnClickListener(v -> {
-                // ✅ Intent cần Context (không dùng this(Fragment))
+                //Intent cần Context (không dùng this(Fragment))
                 Intent i = new Intent(ctx, SOCreate1Activity.class);
                 startActivity(i);
             });
         }
 
         // ===== Xử lý insets (status/nav bar) cho root =====
-        // ✅ layout fragment_order không có id "main" -> dùng root view luôn
+        //layout fragment_order không có id "main" -> dùng root view luôn
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(sys.left, sys.top, sys.right, 0);
@@ -145,7 +145,7 @@ public class OrderFragment extends Fragment {
 
     // ===== BottomSheet hành động cho từng đơn =====
     public void showBottomSheet(Order order) {
-        // ✅ BottomSheetDialog cần Context
+        //BottomSheetDialog cần Context
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
 
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_actions, null, false);
@@ -209,7 +209,7 @@ public class OrderFragment extends Fragment {
 
 
     private void addActionItem(LinearLayout parent, int iconRes, String text, Runnable onClick) {
-        // ✅ LayoutInflater cần Context (không dùng LayoutInflater.from(this))
+        //LayoutInflater cần Context (không dùng LayoutInflater.from(this))
         View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_action, parent, false);
         ImageView icon = itemView.findViewById(R.id.actionIcon);
         TextView label = itemView.findViewById(R.id.actionText);

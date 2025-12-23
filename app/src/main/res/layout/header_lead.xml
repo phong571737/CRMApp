@@ -39,8 +39,7 @@
             android:background="@drawable/bg_chip"
             android:backgroundTint="@color/bg_search"
             android:paddingStart="@dimen/padding16"
-            android:paddingEnd="@dimen/padding16"
-            app:layout_constraintEnd_toStartOf="@id/filter_button">
+            android:paddingEnd="@dimen/padding16">
 
             <!--Icon-->
             <ImageView

@@ -66,8 +66,7 @@
             android:background="@drawable/bg_chip"
             android:backgroundTint="@color/bg_search"
             android:layout_marginStart="@dimen/start_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/filter_button">
+            app:layout_constraintStart_toStartOf="parent">
 
             <!--Icon-->
             <ImageView

@@ -31,6 +31,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="@dimen/start_margin"
         android:layout_marginEnd="10dp"
+        android:paddingBottom="@dimen/margin20"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,94 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/filter_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_sliders"
-            android:contentDescription="@string/desc_Search"
-            android:background="@drawable/bg_filter"
-            android:backgroundTint="@color/icon_search"
-            android:layout_marginStart="10dp"
-            app:tint="@color/color_icon"/>
-
     </LinearLayout>
-
-    <!--Thanh lọc trạng thái có thể cuộn ngang -->
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_margin="@dimen/start_margin"
-        app:layout_constraintTop_toBottomOf="@id/ll_search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <!-- Các chip trạng thái ... (giữ nguyên như của bạn) -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingHorizontal="11dp"
-                android:text="ĐH đã duyệt"
-                android:textColor="#1D4ED8"
-                android:textSize="11sp"
-                android:background="@drawable/chip_selected"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="ĐH đã giao"
-                android:textColor="@color/lead_not_choose"
-                android:textSize="11sp"
-                android:background="@drawable/chip_unselected"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/chip_unselected"
-                android:gravity="center"
-                android:paddingHorizontal="11dp"
-                android:text="ĐH B2B"
-                android:textColor="@color/lead_not_choose"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingHorizontal="11dp"
-                android:text="ĐH đã huỷ"
-                android:textColor="@color/lead_not_choose"
-                android:textSize="11sp"
-                android:background="@drawable/chip_unselected"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:paddingHorizontal="14dp"
-                android:text="ĐH B2C"
-                android:textColor="#4B5563"
-                android:textSize="11sp"
-                android:background="@drawable/chip_unselected"
-                android:layout_marginEnd="8dp" />
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <!-- Danh sách đơn hàng -->
     <androidx.recyclerview.widget.RecyclerView
@@ -166,20 +80,18 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:paddingHorizontal="16dp"
-        android:background="@color/bg_lead"
+        android:background="@drawable/bg_color_main_screen"
         tools:listitem="@layout/item_order"
-        app:layout_constraintTop_toBottomOf="@id/horizontalScrollView"
+        app:layout_constraintTop_toBottomOf="@id/ll_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 🔹 FAB dấu cộng ở mép dưới bên phải -->
+    <!--FAB dấu cộng ở mép dưới bên phải -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
         android:contentDescription="@string/add"
         app:backgroundTint="@color/brand"
         app:layout_constraintBottom_toBottomOf="parent"

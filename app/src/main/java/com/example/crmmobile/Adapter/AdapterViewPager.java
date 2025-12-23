@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.crmmobile.CalendarDirectory.Calendar;
+import com.example.crmmobile.CalendarDirectory.CalendarFragment;
 import com.example.crmmobile.OrderDirectory.OrderFragment;
 import com.example.crmmobile.LeadDirectory.leadFragment;
 import com.example.crmmobile.MainDirectory.main_screen;
@@ -40,7 +40,7 @@ public class AdapterViewPager extends FragmentStateAdapter {
             case TAB_ORDER:
                 return new OrderFragment();
             case TAB_CALENDAR:
-                return new Calendar();
+                return new CalendarFragment();
             default:
                 return new main_screen();
         }

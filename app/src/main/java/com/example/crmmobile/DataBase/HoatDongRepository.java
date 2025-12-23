@@ -185,5 +185,54 @@ public class HoatDongRepository {
         return list;
     }
 
+    public ArrayList<HoatDong> getHoatDongByDay(String day) {
+        ArrayList<HoatDong> list = new ArrayList<>();
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
 
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM HOATDONG WHERE NGAYBATDAU = ?",
+                new String[]{String.valueOf(day)}
+        );
+
+        if (cursor.moveToFirst()) {
+            Log.e(TAG, "Ngày đang có trong DB: '" + cursor.getString(0) + "'");
+            Log.e(TAG, "Ngày bắt đâu có trong DB: '" + cursor.getString(4) + "'");
+            do {
+                int nhanVienIndex = cursor.getColumnIndexOrThrow("NHANVIEN");
+                int nguoiLienHeIndex = cursor.getColumnIndexOrThrow("NGUOILIENHE");
+                int coHoiIndex = cursor.getColumnIndexOrThrow("COHOI");
+                int giaoChoIndex = cursor.getColumnIndexOrThrow("GIAOCHO");
+                int typeIndex = cursor.getColumnIndex("TYPE");
+
+                // Xử lý NULL cho các foreign keys
+                int nhanVien = cursor.isNull(nhanVienIndex) ? 0 : cursor.getInt(nhanVienIndex);
+                int nguoiLienHe = cursor.isNull(nguoiLienHeIndex) ? 0 : cursor.getInt(nguoiLienHeIndex);
+                int coHoi = cursor.isNull(coHoiIndex) ? 0 : cursor.getInt(coHoiIndex);
+                int giaoCho = cursor.isNull(giaoChoIndex) ? 0 : cursor.getInt(giaoChoIndex);
+                String type = cursor.isNull(typeIndex) ? null : cursor.getString(typeIndex);
+
+                HoatDong hd = new HoatDong(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("ID")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("TENHOATDONG")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("THOIGIANBATDAU")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("THOIGIANKETTHUC")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("NGAYBATDAU")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")),
+                        nhanVien,
+                        cursor.getString(cursor.getColumnIndexOrThrow("TOCHUC")),
+                        nguoiLienHe,
+                        coHoi,
+                        cursor.getString(cursor.getColumnIndexOrThrow("MOTA")),
+                        giaoCho,
+                        type
+                );
+
+                list.add(hd);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
 }

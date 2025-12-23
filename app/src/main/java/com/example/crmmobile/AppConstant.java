@@ -10,4 +10,6 @@ public class AppConstant {
     public static final String CONVERT_MODE = "convert";
     public static final String EDIT_MODE = "edit";
     public static final String CURRENT_MODE = "current";
+    public static final String ACTIVITY = "ACTIVITY_DIALOG";
+    public static final String ACTIVITY_ARG = "ACTIVITY_ARG";
 }

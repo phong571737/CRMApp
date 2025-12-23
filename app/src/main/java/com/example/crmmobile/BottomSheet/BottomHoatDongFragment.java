@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,15 +43,14 @@ import java.util.concurrent.Executors;
 
 
 public class BottomHoatDongFragment extends BottomSheetDialogFragment {
+    private static final String TAG = "BOTTOM_HOATDONG";
     private CaNhan caNhan;
     private ImageView iccall, icmeeting, icCancel, ic_face2;
     private TextView tv_title;
     private Button btnLuu;
-    private HoatDongFragment hoatdongFragment;
     private Calendar calendar;
     private TextView tvNgayBatDau, tvGioBatDau;
     private TextView tvNgayKetThuc, tvGioKetThuc;
-
     private String currentType = "call";
     private int LeadID = -1;
     private HoatDong hoatDong;
@@ -84,7 +84,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
                 pickDateTime(tvNgayKetThuc, tvGioKetThuc)
         );
 
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        calendar = Calendar.getInstance();
 
         // --- Mặc định hiển thị tab Tổng quan ---
         setFragment(new HoatDongFragment());
@@ -172,7 +172,6 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         String thoiGianBatDau = tvGioBatDau.getText().toString();
         String thoiGianKetThuc = tvGioKetThuc.getText().toString();
         //  String giaoCho = actNguoiPhuTrach.getText().toString();
-
         String tinhTrang = actTrangThai.getText().toString();
 
         // LẤY ID ĐÚNG
@@ -185,7 +184,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
             nguoiLienHe = LeadID;
         }
 
-        if (tenHoatDong == null || tenHoatDong.trim().isEmpty()) {
+        if (TextUtils.isEmpty(tenHoatDong)) {
             Toast.makeText(requireContext(),
                     "Vui lòng nhập tiêu đề hoạt động",
                     Toast.LENGTH_SHORT).show();
@@ -193,9 +192,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         }
 
         // FK tạm
-        int nhanVien = 0;
-        int giaoCho = 0;
-        int coHoi = 0;
+        int nhanVien = 0, giaoCho = 0, coHoi = 0;
 
         if (moTa == null) moTa = "";
         if (toChuc == null) toChuc = "";
@@ -274,7 +271,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
     private void pickDateTime(TextView tvDate, TextView tvTime) {
 
-        Calendar calendar = Calendar.getInstance();
+//        Calendar calendar = Calendar.getInstance();
 
         // --- Chọn ngày ---
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -288,6 +285,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
                             year
                     );
                     tvDate.setText(date);
+                    Log.e(TAG, "date: " + tvDate.getText().toString());
 
                     // --- Chọn giờ ---
                     TimePickerDialog timePickerDialog = new TimePickerDialog(

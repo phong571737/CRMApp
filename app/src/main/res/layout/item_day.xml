@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/margin15"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <TextView
         android:id="@+id/day_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:gravity="top|center"
+        android:layout_marginTop="@dimen/margin15"
         android:text="1"
         android:textSize="@dimen/text18"
         android:textColor="@color/icon_infor"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/layout_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin5"
+        android:layout_marginStart="@dimen/margin5"
+        android:layout_marginEnd="@dimen/margin5"
+        android:orientation="vertical"/>
+
+</LinearLayout>

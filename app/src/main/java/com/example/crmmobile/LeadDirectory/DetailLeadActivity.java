@@ -123,10 +123,12 @@ public class DetailLeadActivity extends AppCompatActivity {
             NhanVienRepository nhanVienRepository = new NhanVienRepository(this);
             String tenNV = nhanVienRepository.getNameByID(lead.getGiaochoID());
             String TenNVTao = nhanVienRepository.getNameByID(lead.getNguoitaoID());
+            String TenNVDisplay = InitClass.getName(tenNV);
+            String TenNVTaoDisplay = InitClass.getName(TenNVTao);
             mainHandler.post(()->{
                 if (!TextUtils.isEmpty(tenNV)){
-                    tv_person_in_charge.setText(tenNV);
-                    tv_created_by.setText(TenNVTao);
+                    tv_person_in_charge.setText(TenNVDisplay);
+                    tv_created_by.setText(TenNVTaoDisplay);
                 }else {
                     tv_person_in_charge.setText("");
                     tv_created_by.setText("");

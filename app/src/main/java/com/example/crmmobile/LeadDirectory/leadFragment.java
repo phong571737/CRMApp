@@ -138,7 +138,8 @@ public class leadFragment extends Fragment {
                     @Override
                     public void onDelete(Lead lead) {
                         db.DeleteLead(lead.getID());//delete from database
-                        leadList.remove(position); // delete from list
+                        leadList.remove(position); // delete from list(list displayed by recyclerview)
+                        leadDB.remove(position);//delete from database
 
                         //update recyclerview
                         adapter.notifyItemRemoved(position);
@@ -212,5 +213,23 @@ public class leadFragment extends Fragment {
                 reloadList();
             }
         });
+
+        getParentFragmentManager().setFragmentResultListener(
+                "REFRESH_HOATDONG",
+                this,
+                ((requestKey, result) -> {
+                    if (result.getBoolean(AppConstant.REFRESH, false) && adapter != null){
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+        );
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter != null){
+            adapter.notifyDataSetChanged();
+        }
     }
 }

@@ -38,10 +38,11 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/blue"
-        app:tabSelectedTextColor="@color/blue"
-        app:tabTextColor="#9E9E9E"
-        app:tabIndicatorHeight="2dp">
+        android:background="@color/white"
+        app:tabTextColor="#8C8C8C"
+        app:tabIndicatorColor="#1B74E4"
+        app:tabIndicatorFullWidth="true"
+        app:tabSelectedTextColor="#1B74E4">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -59,6 +60,7 @@
     <FrameLayout
         android:id="@+id/frameLayoutThongTin"
         android:layout_width="match_parent"
+        android:background="@drawable/bg_color_main_screen"
         android:layout_height="0dp"
         android:layout_weight="1" />
 

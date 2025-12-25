@@ -1,5 +1,8 @@
 package com.example.crmmobile.MainDirectory;
 
+import android.graphics.Color;
+import android.text.TextUtils;
+
 import com.example.crmmobile.R;
 
 public class InitClass {
@@ -75,5 +78,25 @@ public class InitClass {
         }
         else
             return "Mới truy cập";
+    }
+
+    public static String getName(String hovaten){
+        if (TextUtils.isEmpty(hovaten)) return "";
+        String[] parts = hovaten.trim().split("\\s+");
+
+        if (parts.length == 1) return parts[0];
+        if (parts.length == 2) return hovaten.trim();
+
+        return parts[parts.length - 2] + " " + parts[parts.length - 1];
+    }
+
+    public static int getActivityColor(int index){
+        int[] colors = {
+                Color.parseColor("#89CFF0"),
+                Color.parseColor("#FA8C16"),
+                Color.parseColor("#FFEB3B"),
+                Color.parseColor("#4CAF50")
+        };
+        return colors[index % colors.length];
     }
 }

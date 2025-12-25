@@ -85,9 +85,9 @@ public class lead_information extends Fragment {
 
     private void bindViewModeltoEditext(MutableLiveData<String> title, EditText editText) {
         title.observe(getViewLifecycleOwner(), v->{
-            if (v == null) return;
+            String value = (v == null) ? "" : v;
             String curr = editText.getText() != null ? editText.getText().toString() : "";
-            if (!v.equals(curr)){
+            if (!value.equals(curr)){
                 if(editText instanceof MaterialAutoCompleteTextView){
                     ((MaterialAutoCompleteTextView)editText).setText(v,false);
                 }else{

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.crmmobile.LeadDirectory.Lead;
@@ -28,11 +29,11 @@ public class NhanVienRepository {
         int count = cursor.getInt(0);
         cursor.close();
         if (count == 0) {
-            insert(new Nhanvien("Tường Vy"));
-            insert(new Nhanvien("Tuấn Phong"));
-            insert(new Nhanvien("Ánh Xuân"));
-            insert(new Nhanvien("Đức Thành"));
-            insert(new Nhanvien("Hữu Thiện"));
+            insert(new Nhanvien("Phan Thị Tường Vy"));
+            insert(new Nhanvien("Huỳnh Văn Tuấn Phong"));
+            insert(new Nhanvien("Lê Thị Ánh Xuân"));
+            insert(new Nhanvien("Nguyễn Đức Thành"));
+            insert(new Nhanvien("Nguyễn Hữu Thiện"));
         }
     }
 

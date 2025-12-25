@@ -169,7 +169,7 @@
                         android:id="@+id/ngaybatdau"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15-11-2025"
+                        android:text="dd-mm-yyyy"
                         android:textSize="12sp" />
 
                     <TextView
@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/margin7"
-                        android:text="13:15"
+                        android:text="hh:mm"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -192,14 +192,14 @@
                         android:id="@+id/ngayketthuc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15-11-2025"
+                        android:text="dd-mm-yyyy"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/gioketthuc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="13:30"
+                        android:text="hh:mm"
                         android:textSize="12sp"
                         android:layout_marginStart="@dimen/margin7"/>
                 </LinearLayout>

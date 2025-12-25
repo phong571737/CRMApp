@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@drawable/bg_color_main_screen"
     android:fitsSystemWindows="true">
 
     <!-- HEADER -->
@@ -14,7 +14,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        android:background="@color/white">
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -39,10 +40,11 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabTextColor="#8C8C8C"
         app:tabIndicatorColor="#1B74E4"
-        app:tabSelectedTextColor="#1B74E4"
-        app:tabTextColor="#9E9E9E"
-        app:tabIndicatorHeight="2dp">
+        app:tabIndicatorFullWidth="true"
+        app:tabSelectedTextColor="#1B74E4">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

@@ -102,7 +102,7 @@ public class CompanyRepository {
         db.close();
     }
 
-    // === 5. QUAN TRỌNG: Hàm lấy chi tiết Company theo ID ===
+    //Hàm lấy chi tiết Company theo ID
     public ToChuc getCompanyByID(int id){
         SQLiteDatabase db = this.dbHelper.getReadableDatabase();
         ToChuc toChuc = null;
@@ -147,6 +147,29 @@ public class CompanyRepository {
         toChuc.setAssignedTo(cursor.getString(cursor.getColumnIndexOrThrow("GIAO_CHO")));
         toChuc.setStarred(cursor.getInt(cursor.getColumnIndexOrThrow("IS_STARRED")) == 1);
         toChuc.setShowTraoDoi(cursor.getInt(cursor.getColumnIndexOrThrow("SHOW_TRAO_DOI")) == 1);
+
+        return toChuc;
+    }
+
+    //Hàm kiểm tra công ty có tồn tại hay không
+    public ToChuc getCompanyByName(String name){
+        SQLiteDatabase db = this.dbHelper.getReadableDatabase();
+        ToChuc toChuc = null;
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + CompanyTable.TABLE_NAME + " WHERE TEN_CONG_TY=?", new String[]{name.trim()});
+
+        if(cursor.moveToFirst()){
+            toChuc = new ToChuc();
+            toChuc.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
+            toChuc.setCompanyName(
+                    cursor.getString(cursor.getColumnIndexOrThrow("TEN_CONG_TY"))
+            );
+            toChuc.setAddress(
+                    cursor.getString(cursor.getColumnIndexOrThrow("DIA_CHI"))
+            );
+        }
+        cursor.close();
+        db.close();
 
         return toChuc;
     }

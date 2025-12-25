@@ -54,7 +54,6 @@ public class HoatDong implements Serializable {
         this.ngayBatDau = ngayBatDau;
         this.tinhTrang = tinhTrang;
         this.type = type;
-
     }
 
     // Constructor dùng khi INSERT
@@ -87,6 +86,11 @@ public class HoatDong implements Serializable {
 
 
     // Getter
+
+    public int getId() {
+        return id;
+    }
+
     public String getTenHoatDong() { return tenHoatDong; }
     public String getThoiGianBatDau() { return thoiGianBatDau; }
     public String getThoiGianKetThuc() { return thoiGianKetThuc; }

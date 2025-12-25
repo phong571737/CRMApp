@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.LeadDirectory.Lead;
 import com.example.crmmobile.LeadDirectory.Nhanvien;
 
@@ -75,4 +76,34 @@ public class NhanVienRepository {
 //        db.close();
         return name;
     }
+
+    // Xuan them vao de lay du lieu id + name cua employee cho dropdown trong form
+    public List<Nhanvien> getAllIdName() {
+        List<Nhanvien> list = new ArrayList<>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT ID, HOTEN FROM NHANVIEN",
+                null
+        );
+
+        Log.d("DEBUG_NhanvienRepo", "cursor count = " + cursor.getCount());
+
+        while (cursor.moveToNext()) {
+            Nhanvien cn = new Nhanvien();
+            cn.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
+            cn.setHoten(cursor.getString(cursor.getColumnIndexOrThrow("HOTEN")));
+
+            list.add(cn);
+
+            Log.d("DEBUG_NhanvienRepo",
+                    "Loaded: id=" + cn.getId() + ", name=" + cn.getHoten());
+        }
+
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
 }

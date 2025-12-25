@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.DataBase.Table.CompanyTable;
 
@@ -173,4 +175,35 @@ public class CompanyRepository {
 
         return toChuc;
     }
+
+    // Xuan them vao de lay du lieu id + name cua company cho dropdown trong form
+    public List<ToChuc> getAllIdName() {
+        List<ToChuc> list = new ArrayList<>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT ID, TEN_CONG_TY FROM COMPANY",
+                null
+        );
+
+        Log.d("DEBUG_CompanyRepo", "cursor count = " + cursor.getCount());
+
+        while (cursor.moveToNext()) {
+            ToChuc cn = new ToChuc();
+            cn.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
+            cn.setCompanyName(cursor.getString(cursor.getColumnIndexOrThrow("TEN_CONG_TY")));
+
+            list.add(cn);
+
+            Log.d("DEBUG_CompanyRepo",
+                    "Loaded: id=" + cn.getId() + ", name=" + cn.getCompanyName());
+        }
+
+        cursor.close();
+        db.close();
+
+        return list;
+    }
+
+
 }

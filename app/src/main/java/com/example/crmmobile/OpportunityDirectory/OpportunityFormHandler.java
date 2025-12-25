@@ -4,6 +4,8 @@ package com.example.crmmobile.OpportunityDirectory;
 import android.text.TextUtils;
 
 import com.example.crmmobile.IndividualDirectory.CaNhan;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 
 import org.jspecify.annotations.Nullable;
 
@@ -104,8 +106,8 @@ public class OpportunityFormHandler {
     }
 
     /** Giúp Fragment tìm text theo ID khi populate form */
-    public String findCompanyName(int id, List<Company> list) {
-        for (Company c : list) if (c.getId() == id) return c.getName();
+    public String findCompanyName(int id, @Nullable List<ToChuc> list) {
+        for (ToChuc c : list) if (c.getId() == id) return c.getCompanyName();
         return "";
     }
 
@@ -114,8 +116,8 @@ public class OpportunityFormHandler {
         return "";
     }
 
-    public String findEmployeeName(int id, List<Employee> list) {
-        for (Employee e : list) if (e.getId() == id) return e.getName();
+    public String findEmployeeName(int id, @Nullable List<Nhanvien> list) {
+        for (Nhanvien e : list) if (e.getId() == id) return e.getHoten();
         return "";
     }
 

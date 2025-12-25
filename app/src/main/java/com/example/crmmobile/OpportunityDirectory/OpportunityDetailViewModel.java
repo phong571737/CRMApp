@@ -10,7 +10,11 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.crmmobile.DataBase.CaNhanRepository;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 
 public class OpportunityDetailViewModel extends AndroidViewModel {
 
@@ -54,7 +58,7 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
     private OpportunityRepository oppRepo;
     private CompanyRepository companyRepo;
     private CaNhanRepository caNhanRepo;
-    private EmployeeRepository employeeRepo;
+    private NhanVienRepository employeeRepo;
 
     private final MediatorLiveData<OpportunityDetailUI> ui = new MediatorLiveData<>();
     private final MutableLiveData<Opportunity> opportunityLD = new MutableLiveData<>();
@@ -65,7 +69,7 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
         oppRepo = OpportunityRepository.getInstance(app);
         companyRepo = new CompanyRepository(null);
         caNhanRepo = new CaNhanRepository(app);
-        employeeRepo = new EmployeeRepository(null);
+        employeeRepo = new NhanVienRepository(null);
     }
 
     public void loadOpportunityById(int id) {
@@ -112,8 +116,8 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
     // ===== mapping helpers =====
 
     private String findCompanyName(int id) {
-        for (Company c : companyRepo.getAllCompanies())
-            if (c.getId() == id) return c.getName();
+        for (ToChuc c : companyRepo.getAllIdName())
+            if (c.getId() == id) return c.getCompanyName();
         return "";
     }
 
@@ -124,8 +128,8 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
     }
 
     private String findEmployeeName(int id) {
-        for (Employee e : employeeRepo.getAllEmployees())
-            if (e.getId() == id) return e.getName();
+        for (Nhanvien e : employeeRepo.getAllIdName())
+            if (e.getId() == id) return e.getHoten();
         return "";
     }
 

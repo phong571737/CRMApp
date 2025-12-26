@@ -16,6 +16,10 @@ import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.LeadDirectory.Nhanvien;
 import com.example.crmmobile.OrganizationDirectory.ToChuc;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class OpportunityDetailViewModel extends AndroidViewModel {
 
 //    private OpportunityRepository oppRepo;
@@ -67,9 +71,9 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
     public OpportunityDetailViewModel(@NonNull Application app) {
         super(app);
         oppRepo = OpportunityRepository.getInstance(app);
-        companyRepo = new CompanyRepository(null);
+        companyRepo = new CompanyRepository(app);
         caNhanRepo = new CaNhanRepository(app);
-        employeeRepo = new NhanVienRepository(null);
+        employeeRepo = new NhanVienRepository(app);
     }
 
     public void loadOpportunityById(int id) {
@@ -81,6 +85,13 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
         tryEmit(); // emit UI
     }
 
+
+    private String formatTime(long millis) {
+        return new SimpleDateFormat(
+                "dd/MM/yyyy HH:mm",
+                Locale.getDefault()
+        ).format(new Date(millis));
+    }
 
     private void tryEmit() {
         if (current == null) return;
@@ -99,7 +110,9 @@ public class OpportunityDetailViewModel extends AndroidViewModel {
                 current.getStatus(),
                 current.getDate(),
                 current.getExpectedDate2(),
-                current.getDescription()
+                current.getDescription(),
+                formatTime(current.getCreatedAt()),
+                formatTime(current.getUpdatedAt())
         );
 
         ui.setValue(uiModel);

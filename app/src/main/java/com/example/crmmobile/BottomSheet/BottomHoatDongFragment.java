@@ -166,7 +166,9 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
         String tenHoatDong = currentHoatDongFragment.getTieuDe();
         String moTa = currentHoatDongFragment.getMoTa();
-        String toChuc = currentHoatDongFragment.getCongTy();
+        int coHoi = currentHoatDongFragment.getCoHoiId();
+        int toChuc = currentHoatDongFragment.getCongTyId();
+
 
         String ngayBatDau = tvNgayBatDau.getText().toString();
         String thoiGianBatDau = tvGioBatDau.getText().toString();
@@ -192,10 +194,10 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         }
 
         // FK tạm
-        int nhanVien = 0, giaoCho = 0, coHoi = 0;
+        int nhanVien = 0, giaoCho = 0;
 
         if (moTa == null) moTa = "";
-        if (toChuc == null) toChuc = "";
+
 
 
         HoatDong hoatDong = new HoatDong(
@@ -245,9 +247,9 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
             if (caNhan != null){
                 ((HoatDongFragment) fragment).setCaNhan(caNhan);
             }
-            if (LeadID > 0){
-                ((HoatDongFragment) fragment).setLead(LeadID);
-            }
+//            if (LeadID > 0){
+//                ((HoatDongFragment) fragment).setLead(LeadID);
+//            }
         }
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);

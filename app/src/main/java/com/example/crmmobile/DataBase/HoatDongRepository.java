@@ -39,7 +39,12 @@ public class HoatDongRepository {
             values.putNull("NHANVIEN");
         }
 
-        values.put("TOCHUC", hoatDong.getToChuc());
+        // Xử lý TOCHUC: nếu = 0 thì set NULL để tránh lỗi foreign key
+        if (hoatDong.getToChuc() > 0) {
+            values.put("TOCHUC", hoatDong.getToChuc());
+        } else {
+            values.putNull("TOCHUC");
+        }
 
         // Xử lý NGUOILIENHE: nếu = 0 thì set NULL để tránh lỗi foreign key
         if (hoatDong.getNguoiLienHe() > 0) {
@@ -99,6 +104,7 @@ public class HoatDongRepository {
         if (cursor.moveToFirst()) {
             do {
                 int nhanVienIndex = cursor.getColumnIndexOrThrow("NHANVIEN");
+                int toChucIndex = cursor.getColumnIndexOrThrow("TOCHUC");
                 int nguoiLienHeIndex = cursor.getColumnIndexOrThrow("NGUOILIENHE");
                 int coHoiIndex = cursor.getColumnIndexOrThrow("COHOI");
                 int giaoChoIndex = cursor.getColumnIndexOrThrow("GIAOCHO");
@@ -106,6 +112,7 @@ public class HoatDongRepository {
 
                 // Xử lý NULL cho các foreign keys
                 int nhanVien = cursor.isNull(nhanVienIndex) ? 0 : cursor.getInt(nhanVienIndex);
+                int toChuc = cursor.isNull(toChucIndex) ? 0 : cursor.getInt(toChucIndex);
                 int nguoiLienHe = cursor.isNull(nguoiLienHeIndex) ? 0 : cursor.getInt(nguoiLienHeIndex);
                 int coHoi = cursor.isNull(coHoiIndex) ? 0 : cursor.getInt(coHoiIndex);
                 int giaoCho = cursor.isNull(giaoChoIndex) ? 0 : cursor.getInt(giaoChoIndex);
@@ -119,7 +126,7 @@ public class HoatDongRepository {
                         cursor.getString(cursor.getColumnIndexOrThrow("NGAYBATDAU")),
                         cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")),
                         nhanVien,
-                        cursor.getString(cursor.getColumnIndexOrThrow("TOCHUC")),
+                        toChuc,
                         nguoiLienHe,
                         coHoi,
                         cursor.getString(cursor.getColumnIndexOrThrow("MOTA")),
@@ -148,6 +155,7 @@ public class HoatDongRepository {
         if (cursor.moveToFirst()) {
             do {
                 int nhanVienIndex = cursor.getColumnIndexOrThrow("NHANVIEN");
+                int toChucIndex = cursor.getColumnIndexOrThrow("TOCHUC");
                 int nguoiLienHeIndex = cursor.getColumnIndexOrThrow("NGUOILIENHE");
                 int coHoiIndex = cursor.getColumnIndexOrThrow("COHOI");
                 int giaoChoIndex = cursor.getColumnIndexOrThrow("GIAOCHO");
@@ -155,6 +163,7 @@ public class HoatDongRepository {
 
                 // Xử lý NULL cho các foreign keys
                 int nhanVien = cursor.isNull(nhanVienIndex) ? 0 : cursor.getInt(nhanVienIndex);
+                int toChuc = cursor.isNull(toChucIndex) ? 0 : cursor.getInt(toChucIndex);
                 int nguoiLienHe = cursor.isNull(nguoiLienHeIndex) ? 0 : cursor.getInt(nguoiLienHeIndex);
                 int coHoi = cursor.isNull(coHoiIndex) ? 0 : cursor.getInt(coHoiIndex);
                 int giaoCho = cursor.isNull(giaoChoIndex) ? 0 : cursor.getInt(giaoChoIndex);
@@ -168,7 +177,7 @@ public class HoatDongRepository {
                         cursor.getString(cursor.getColumnIndexOrThrow("NGAYBATDAU")),
                         cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")),
                         nhanVien,
-                        cursor.getString(cursor.getColumnIndexOrThrow("TOCHUC")),
+                        toChuc,
                         nguoiLienHe,
                         coHoi,
                         cursor.getString(cursor.getColumnIndexOrThrow("MOTA")),
@@ -199,13 +208,14 @@ public class HoatDongRepository {
             Log.e(TAG, "Ngày bắt đâu có trong DB: '" + cursor.getString(4) + "'");
             do {
                 int nhanVienIndex = cursor.getColumnIndexOrThrow("NHANVIEN");
+                int toChucIndex = cursor.getColumnIndexOrThrow("TOCHUC");
                 int nguoiLienHeIndex = cursor.getColumnIndexOrThrow("NGUOILIENHE");
                 int coHoiIndex = cursor.getColumnIndexOrThrow("COHOI");
                 int giaoChoIndex = cursor.getColumnIndexOrThrow("GIAOCHO");
                 int typeIndex = cursor.getColumnIndex("TYPE");
-
                 // Xử lý NULL cho các foreign keys
                 int nhanVien = cursor.isNull(nhanVienIndex) ? 0 : cursor.getInt(nhanVienIndex);
+                int toChuc = cursor.isNull(toChucIndex) ? 0 : cursor.getInt(toChucIndex);
                 int nguoiLienHe = cursor.isNull(nguoiLienHeIndex) ? 0 : cursor.getInt(nguoiLienHeIndex);
                 int coHoi = cursor.isNull(coHoiIndex) ? 0 : cursor.getInt(coHoiIndex);
                 int giaoCho = cursor.isNull(giaoChoIndex) ? 0 : cursor.getInt(giaoChoIndex);
@@ -219,7 +229,7 @@ public class HoatDongRepository {
                         cursor.getString(cursor.getColumnIndexOrThrow("NGAYBATDAU")),
                         cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")),
                         nhanVien,
-                        cursor.getString(cursor.getColumnIndexOrThrow("TOCHUC")),
+                        toChuc,
                         nguoiLienHe,
                         coHoi,
                         cursor.getString(cursor.getColumnIndexOrThrow("MOTA")),

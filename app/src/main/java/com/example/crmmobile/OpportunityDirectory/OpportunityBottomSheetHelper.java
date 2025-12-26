@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.util.Consumer;
+
 import com.example.crmmobile.OpportunityDirectory.Opportunity;
 import com.example.crmmobile.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -15,7 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class OpportunityBottomSheetHelper {
 
     // anchorView có thể dùng nếu bạn muốn neo popup; có thể truyền null
-    public static void showBottomSheet(Context context, Opportunity item, int position, View anchorView) {
+    public static void showBottomSheet(Context context, Opportunity item, View anchorView,  Consumer<Integer> onDelete) {
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.layout_more_actions, null);
 
@@ -46,8 +48,11 @@ public class OpportunityBottomSheetHelper {
 
         addActionItem(context, layoutActions, R.drawable.ic_garbage, "Xóa", () -> {
             // Xóa ở repository
-            OpportunityRepository.getInstance(context).delete(item.getId());
+//            OpportunityRepository.getInstance(context).delete(item.getId());
+//            Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+            onDelete.accept(item.getId());
             Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+
             dialog.dismiss();
         });
 

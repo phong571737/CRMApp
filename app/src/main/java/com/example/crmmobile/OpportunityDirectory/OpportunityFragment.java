@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.Adapter.AdapterOpportunity;
-import com.example.crmmobile.BottomSheet.OpportunityBottomSheetHelper;
+import com.example.crmmobile.OpportunityDirectory.OpportunityBottomSheetHelper;
 import com.example.crmmobile.OpportunityDirectory.Opportunity;
 import com.example.crmmobile.OpportunityDirectory.OpportunityFormActivity;
 import com.example.crmmobile.OpportunityDirectory.OpportunityFormFragment;
@@ -73,7 +73,14 @@ public class OpportunityFragment extends Fragment {
                 new ArrayList<>(), // list rỗng, chờ LiveData cập nhật
                 (item, id, anchor) -> {
                     // Sử dụng id nếu muốn update/delete trực tiếp
-                    OpportunityBottomSheetHelper.showBottomSheet(requireContext(), item, id, anchor);
+//                    OpportunityBottomSheetHelper.showBottomSheet(requireContext(), item, id, anchor);
+
+                    OpportunityBottomSheetHelper.showBottomSheet(
+                            requireContext(),
+                            item,
+                            anchor,
+                            opportunityId -> viewModel.delete(opportunityId)
+                    );
                 },
                 (item, id) -> openOpportunityDetail(id)
         );

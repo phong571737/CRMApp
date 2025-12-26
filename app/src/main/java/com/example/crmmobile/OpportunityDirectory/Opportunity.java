@@ -82,7 +82,7 @@ public class Opportunity {
     public int getCallCount() { return callCount; }
     public int getMessageCount() { return messageCount; }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

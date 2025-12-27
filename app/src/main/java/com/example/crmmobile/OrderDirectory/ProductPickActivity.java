@@ -2,11 +2,15 @@ package com.example.crmmobile.OrderDirectory;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.crmmobile.Adapter.SanPhamAdapter;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.DataBase.SanPhamRepository;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
 import com.example.crmmobile.R;
+import com.example.crmmobile.SanPhamDirectory.SanPham;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -23,10 +32,11 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
 public class ProductPickActivity extends AppCompatActivity {
-
     public static final String EXTRA_NAME  = "extra_product_name";
     public static final String EXTRA_PRICE = "extra_product_price";
     public static final String EXTRA_NOTE  = "extra_product_note";

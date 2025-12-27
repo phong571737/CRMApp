@@ -77,12 +77,7 @@ public class leadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_lead, container, false);
-
-        recyclerLead = view.findViewById(R.id.LeadRecycler);
-        lead_create_button = view.findViewById(R.id.btn_add_lead);
-        serch_bar_Lead = view.findViewById(R.id.serch_bar_Lead);
-        text_search = view.findViewById(R.id.text_search);
-
+        initViews(view);
         recyclerLead.setLayoutManager(new LinearLayoutManager(getContext()));
 
         db = new LeadRepository(getContext());
@@ -167,6 +162,13 @@ public class leadFragment extends Fragment {
         recyclerLead.setAdapter(adapter);
         loadLead();
         return view;
+    }
+
+    private void initViews(View view) {
+        recyclerLead = view.findViewById(R.id.LeadRecycler);
+        lead_create_button = view.findViewById(R.id.btn_add_lead);
+        serch_bar_Lead = view.findViewById(R.id.serch_bar_Lead);
+        text_search = view.findViewById(R.id.text_search);
     }
 
     private void filterLead(String key) {

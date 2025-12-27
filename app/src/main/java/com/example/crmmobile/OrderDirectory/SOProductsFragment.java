@@ -25,6 +25,7 @@ import com.example.crmmobile.OrderDirectory.EditGlobalDiscountBottomSheet;
 import com.example.crmmobile.OrderDirectory.EditProductBottomSheet;
 import com.example.crmmobile.OrderDirectory.ProductPickActivity;
 import com.example.crmmobile.OrderDirectory.EditTaxBottomSheet;
+import com.example.crmmobile.SanPhamDirectory.SanPham;
 import com.google.android.material.button.MaterialButton;
 
 import java.text.NumberFormat;
@@ -33,7 +34,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class SOProductsFragment extends Fragment {
-
     private LinearLayout emptyState;
     private RecyclerView rvProducts;
     private View layoutTongKet;

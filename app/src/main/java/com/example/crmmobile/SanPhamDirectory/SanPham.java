@@ -1,13 +1,33 @@
 package com.example.crmmobile.SanPhamDirectory;
 
 public class SanPham {
+    private Integer ID;
     private String name;
     private String Mota;
-    private String Donggia;
+    private Integer Dongia;
     private String Trangthai;
     private String Ngaytao;
-    private String Nguoitao;
+    private Integer Nguoitao;
     private String MotaThem;
+
+    public SanPham() {
+    }
+
+    public SanPham(String name, Integer dongia, String ngaytao, Integer nguoitao, String trangthai) {
+        this.name = name;
+        Dongia = dongia;
+        Ngaytao = ngaytao;
+        Nguoitao = nguoitao;
+        Trangthai = trangthai;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
 
     public String getName() {
         return name;
@@ -23,14 +43,6 @@ public class SanPham {
 
     public void setMota(String mota) {
         Mota = mota;
-    }
-
-    public String getDonggia() {
-        return Donggia;
-    }
-
-    public void setDonggia(String donggia) {
-        Donggia = donggia;
     }
 
     public String getTrangthai() {
@@ -49,11 +61,11 @@ public class SanPham {
         Ngaytao = ngaytao;
     }
 
-    public String getNguoitao() {
+    public Integer getNguoitao() {
         return Nguoitao;
     }
 
-    public void setNguoitao(String nguoitao) {
+    public void setNguoitao(Integer nguoitao) {
         Nguoitao = nguoitao;
     }
 
@@ -63,5 +75,13 @@ public class SanPham {
 
     public void setMotaThem(String motaThem) {
         MotaThem = motaThem;
+    }
+
+    public Integer getDongia() {
+        return Dongia;
+    }
+
+    public void setDongia(Integer dongia) {
+        Dongia = dongia;
     }
 }

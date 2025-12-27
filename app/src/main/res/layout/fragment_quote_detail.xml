@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/bg_lead"
+    android:background="@drawable/bg_color_main_screen"
     tools:context=".QuoteDirectory.quote_detail">
 
     <include
@@ -25,7 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="fixed"
-            app:tabGravity="fill"/>
+            app:tabGravity="fill"
+            android:background="@color/white"
+            app:tabTextColor="#8C8C8C"
+            app:tabIndicatorColor="#1B74E4"
+            app:tabIndicatorFullWidth="true"
+            app:tabSelectedTextColor="#1B74E4"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_tab"

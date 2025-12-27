@@ -21,7 +21,7 @@
     <string name="thong_tin_quan_ly">Thông tin quản lý</string>
     <string name="giao_cho">Giao cho</string>
     <string name="thong_tin_bao_gia">Thông tin báo giá</string>
-    <string name="tieu_de">Tiêu đề</string>
+    <string name="tieu_de">Tiêu đề <font color='#FF0000'>*</font></string>
     <string name="cong_ty">Công ty</string>
     <string name="nguoi_lien_he">Người liên hệ</string>
     <string name="tinh_trang">Tình trạng</string>

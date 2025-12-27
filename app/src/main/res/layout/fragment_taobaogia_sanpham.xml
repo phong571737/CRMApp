@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerPadding="8dp">
+        android:dividerPadding="8dp"
+        android:padding="16dp">
 
         <!-- ==================== SẢN PHẨM  ==================== -->
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actVungTinhThue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actLoaiTien"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                 android:background="@drawable/rounded_input_box"
                 android:layout_marginBottom="15dp"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actCachTinhThue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,6 +95,50 @@
                     android:paddingEnd="4dp"
                     android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Empty state: hộp như Figma -->
+            <LinearLayout
+                android:id="@+id/emptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/imgEmpty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_box_empty" />
+
+                <TextView
+                    android:id="@+id/tvEmptyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đơn hàng chưa có sản phẩm nào!"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    android:textColor="#111827" />
+
+                <TextView
+                    android:id="@+id/tvEmptySubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Hãy thêm sản phẩm cho đơn hàng này"
+                    android:textSize="12sp"
+                    android:textColor="#6B7280" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false" />
 
             <!-- Nút Thêm sản phẩm -->
             <com.google.android.material.button.MaterialButton

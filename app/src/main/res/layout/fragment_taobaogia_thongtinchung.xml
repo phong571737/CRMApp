@@ -2,14 +2,15 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerPadding="8dp">
+        android:dividerPadding="8dp"
+        android:padding="16dp"
+        >
 
         <!-- ==================== THÔNG TIN BÁO GIÁ ==================== -->
         <LinearLayout
@@ -69,7 +70,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actCongTy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actNguoiLienHe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,7 +106,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actTinhTrang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -154,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actCoHoi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -295,13 +296,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:hint="@string/giao_cho"
+                android:hint="@string/giaocho"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/rounded_input_box"
                 app:endIconMode="dropdown_menu">
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/actGiaoCho"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -1,6 +1,7 @@
 package com.example.crmmobile.OpportunityDirectory;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,8 @@ import com.example.crmmobile.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class OpportunityBottomSheetHelper {
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_USER_ROLE = "userRole";
 
     // anchorView có thể dùng nếu bạn muốn neo popup; có thể truyền null
     public static void showBottomSheet(Context context, Opportunity item, View anchorView,  Consumer<Integer> onDelete) {
@@ -46,15 +49,20 @@ public class OpportunityBottomSheetHelper {
             dialog.dismiss();
         });
 
-        addActionItem(context, layoutActions, R.drawable.ic_garbage, "Xóa", () -> {
-            // Xóa ở repository
+        // Chỉ hiển thị action "Xóa" nếu user là ADMIN
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String userRole = sharedPreferences.getString(KEY_USER_ROLE, "");
+        if ("ADMIN".equals(userRole)) {
+            addActionItem(context, layoutActions, R.drawable.ic_garbage, "Xóa", () -> {
+                // Xóa ở repository
 //            OpportunityRepository.getInstance(context).delete(item.getId());
 //            Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-            onDelete.accept(item.getId());
-            Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                onDelete.accept(item.getId());
+                Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
 
-            dialog.dismiss();
-        });
+                dialog.dismiss();
+            });
+        }
 
         dialog.setContentView(view);
         dialog.show();

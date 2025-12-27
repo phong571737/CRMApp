@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.crmmobile.R;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+
 /**
  * CHỈNH SỬA CLASS ChiTietFragment
  */
@@ -101,11 +103,20 @@ public class ChiTietFragment extends Fragment {
         setTextOrEmpty(tvFillMoTa, caNhan.getMoTa());
         setTextOrEmpty(tvFillGhiChu, caNhan.getGhiChu());
 
-        setTextOrEmpty(tvFillGiaoCho, caNhan.getGiaoCho());
-        setTextOrEmpty(tvFillNguoiPhuTrach, caNhan.getGiaoCho()); // Giả sử người phụ trách giống giao cho
+        // Load tên nhân viên từ giaoChoID
+        String tenNhanVien = "";
+        if (caNhan.getGiaoChoID() != null && caNhan.getGiaoChoID() > 0) {
+            NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
+            tenNhanVien = nhanVienRepository.getNameByID(caNhan.getGiaoChoID());
+            if (tenNhanVien == null || tenNhanVien.isEmpty()) {
+                tenNhanVien = "";
+            }
+        }
+        setTextOrEmpty(tvFillGiaoCho, tenNhanVien);
+        setTextOrEmpty(tvFillNguoiPhuTrach, tenNhanVien); // Người phụ trách giống giao cho
 
         setTextOrEmpty(tvFillNgayTao, caNhan.getNgayTao());
-        setTextOrEmpty(tvFillNgaySua, caNhan.getNgaySua()); // Cần thêm field này vào model CaNhan nếu muốn
+        setTextOrEmpty(tvFillNgaySua, caNhan.getNgaySua());
     }
 
     private void setupToggles(View view) {

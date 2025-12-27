@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.HoatDongDirectory.HoatDong;
 
+import com.example.crmmobile.OpportunityDirectory.Opportunity;
+import com.example.crmmobile.OpportunityDirectory.OpportunityRepository;
 import com.example.crmmobile.R;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class AdapterHoatDong extends RecyclerView.Adapter<AdapterHoatDong.ViewHo
     private Context context;
     private AdapterHoatDong.OnItemClickListener listener;
 
+    private OpportunityRepository opportunityRepository;
 
     public void setOnItemClickListener(AdapterHoatDong.OnItemClickListener listener) {
         this.listener = listener;
@@ -30,6 +33,8 @@ public class AdapterHoatDong extends RecyclerView.Adapter<AdapterHoatDong.ViewHo
     public AdapterHoatDong(Context context, List<HoatDong> hoatDonglist) {
         this.context = context;
         this.hoatDonglist = hoatDonglist;
+        this.opportunityRepository = OpportunityRepository.getInstance(context);
+
     }
 
     public interface OnItemClickListener {
@@ -52,6 +57,20 @@ public class AdapterHoatDong extends RecyclerView.Adapter<AdapterHoatDong.ViewHo
         holder.fillgioketthuc.setText(hd.getThoiGianKetThuc());
         holder.fillngay.setText(hd.getNgayBatDau());
         holder.filltrangthai.setText(hd.getTinhTrang());
+        int coHoiId = hd.getCoHoi();
+        if (coHoiId > 0) {
+            Opportunity opp = opportunityRepository.getById(coHoiId);
+            if (opp != null) {
+                holder.fillcohoi.setVisibility(View.VISIBLE);
+                holder.fillcohoi.setText(opp.getTitle());
+            } else {
+                holder.fillcohoi.setVisibility(View.GONE);
+                holder.fillcohoi.setText("");
+            }
+        } else {
+            holder.fillcohoi.setVisibility(View.GONE);
+            holder.fillcohoi.setText("");
+        }
        // holder.fillbinhluan.setText("2");
         if (hd.getType() != null && hd.getType().equals("call")) {
             holder.icType.setImageResource(R.drawable.ic_call);
@@ -78,7 +97,7 @@ public class AdapterHoatDong extends RecyclerView.Adapter<AdapterHoatDong.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView filltencuochop, fillgiobatdau, fillgioketthuc, fillngay, filltrangthai, fillbinhluan;
+        TextView filltencuochop, fillgiobatdau, fillgioketthuc, fillngay, filltrangthai, fillbinhluan, fillcohoi;
         ImageView icType;
 
 
@@ -90,6 +109,8 @@ public class AdapterHoatDong extends RecyclerView.Adapter<AdapterHoatDong.ViewHo
             fillngay = itemView.findViewById(R.id.fillngay);
             filltrangthai = itemView.findViewById(R.id.filltrangthai);
             fillbinhluan = itemView.findViewById(R.id.fillbinhluan);
+            fillcohoi = itemView.findViewById(R.id.fillcohoi);
+
             icType = itemView.findViewById(R.id.ic_type);
         }
     }

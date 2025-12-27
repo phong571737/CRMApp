@@ -30,7 +30,7 @@ public class NhanVienRepository {
         int count = cursor.getInt(0);
         cursor.close();
         if (count == 0) {
-            insert(new Nhanvien("Phan Thị Tường Vy"));
+            insert(new Nhanvien("Phan Thị Tường Vi"));
             insert(new Nhanvien("Huỳnh Văn Tuấn Phong"));
             insert(new Nhanvien("Lê Thị Ánh Xuân"));
             insert(new Nhanvien("Nguyễn Đức Thành"));

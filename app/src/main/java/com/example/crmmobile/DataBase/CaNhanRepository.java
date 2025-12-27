@@ -175,6 +175,7 @@ public class CaNhanRepository {
             Log.d("DEBUG_CaNhanRepo",
                     "Loaded: id=" + cn.getId() + ", name=" + cn.getHoVaTen());
         }
+
         cursor.close();
         db.close();
 
@@ -192,9 +193,23 @@ public class CaNhanRepository {
             cn = new CaNhan();
             cn.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
             cn.setHoVaTen(cursor.getString(cursor.getColumnIndexOrThrow("HOTEN")));
+            cn.setDanhXung(cursor.getString(cursor.getColumnIndexOrThrow("DANHXUNG")));
+            cn.setTen(cursor.getString(cursor.getColumnIndexOrThrow("TEN")));
             cn.setDiDong(cursor.getString(cursor.getColumnIndexOrThrow("DIENTHOAI")));
             cn.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")));
             cn.setCongTy(cursor.getString(cursor.getColumnIndexOrThrow("CONGTY")));
+            cn.setGioiTinh(cursor.getString(cursor.getColumnIndexOrThrow("GIOITINH")));
+            cn.setNgaySinh(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSINH")));
+            cn.setNgayTao(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
+            cn.setDiaChi(cursor.getString(cursor.getColumnIndexOrThrow("DIACHI")));
+            cn.setQuanHuyen(cursor.getString(cursor.getColumnIndexOrThrow("QUANHUYEN")));
+            cn.setTinhTP(cursor.getString(cursor.getColumnIndexOrThrow("TINHTP")));
+            cn.setQuocGia(cursor.getString(cursor.getColumnIndexOrThrow("QUOCGIA")));
+            cn.setMoTa(cursor.getString(cursor.getColumnIndexOrThrow("MOTA")));
+            cn.setGhiChu(cursor.getString(cursor.getColumnIndexOrThrow("GHICHU")));
+            cn.setGiaoCho(cursor.getString(cursor.getColumnIndexOrThrow("GIAOCHO")));
+            cn.setSoCuocGoi(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCGOI")));
+            cn.setSoCuocHop(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCHOP")));
         }
 
         cursor.close();

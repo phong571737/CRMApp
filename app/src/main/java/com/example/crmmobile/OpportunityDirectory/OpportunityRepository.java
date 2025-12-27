@@ -64,6 +64,14 @@ public class OpportunityRepository {
         dao.delete(id);
     }
 
+    public List<Opportunity> search(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return dao.getAll();   // search rỗng → trả full list
+        }
+        return dao.searchByKeyword(keyword);
+    }
+
+
     public interface Callback { void onComplete(boolean success); }
 
     public void updateStage(Opportunity opportunity, String newStage, String note, Callback callback) {

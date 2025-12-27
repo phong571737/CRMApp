@@ -3,10 +3,13 @@ package com.example.crmmobile.OpportunityDirectory;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 
@@ -33,6 +36,8 @@ public class OpportunityFragment extends Fragment {
     private RecyclerView rvOpportunityBody;
     private OpportunityViewModel viewModel;
     private AdapterOpportunity opportunityAdapter;
+    private EditText etSearch;
+
 
     @SuppressLint("WrongViewCast")
     @Nullable
@@ -53,6 +58,9 @@ public class OpportunityFragment extends Fragment {
     private void initViews(View view) {
         btnAddOpportunity = view.findViewById(R.id.btn_add_opportunity);
         rvOpportunityBody = view.findViewById(R.id.rv_opportunity_body);
+
+        // search EditText nằm trong layout include
+        etSearch = view.findViewById(R.id.et_opportunity_search);
 
         // Nút back ở header fragment (nếu có)
         ImageButton btnOpportunityBack = view.findViewById(R.id.btn_opportunity_back);
@@ -102,6 +110,20 @@ public class OpportunityFragment extends Fragment {
         if (btnAddOpportunity != null) {
             btnAddOpportunity.setOnClickListener(v -> openOpportunityCreateForm());
         }
+
+//        search by keyword
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.search(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     private void openOpportunityDetail(int id) {

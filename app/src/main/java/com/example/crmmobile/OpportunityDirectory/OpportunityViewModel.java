@@ -61,4 +61,10 @@ public class OpportunityViewModel extends AndroidViewModel {
         opportunities.setValue(list);
     }
 
+    public void search(String keyword) {
+        List<Opportunity> result = repository.search(keyword);
+        opportunities.setValue(result);
+    }
+
+
 }

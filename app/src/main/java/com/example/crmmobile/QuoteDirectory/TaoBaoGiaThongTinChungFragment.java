@@ -1,7 +1,10 @@
 package com.example.crmmobile.QuoteDirectory;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.crmmobile.DataBase.CompanyRepository;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
+import com.example.crmmobile.LeadDirectory.ViewModelLead;
+import com.example.crmmobile.OpportunityDirectory.Opportunity;
+import com.example.crmmobile.OpportunityDirectory.OpportunityDAO;
 import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.R;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -22,6 +30,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class TaoBaoGiaThongTinChungFragment extends Fragment {
 
@@ -32,6 +42,7 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
     private TextInputEditText edtTieuDe, edtDieuKhoanDieuKien, edtMoTa;
     private MaterialAutoCompleteTextView actCongTy, actNguoiLienHe, actTinhTrang, actCoHoi, actGiaoCho;
     private CompanyRepository companyRepository;
+    private OpportunityDAO opportunityDAO;
     public interface StringUpdater{
         void update(String s);
     }
@@ -54,6 +65,7 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         bindEditTexttoViewModel(actTinhTrang, s -> viewModelQuote.State.setValue(s));
         bindEditTexttoViewModel(actCoHoi, s -> viewModelQuote.OpportunityName.setValue(s));
         bindEditTexttoViewModel(actNguoiLienHe, s -> viewModelQuote.ContactPerson.setValue(s));
+        bindEditTexttoViewModel(actGiaoCho, s -> viewModelQuote.SendtoName.setValue(s));
 
         // Setup logic ẩn/hiện cho cả 5
         setupToggle(btnToggleBaoGia, layoutBaoGiaContent);
@@ -87,8 +99,37 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         actNguoiLienHe = view.findViewById(R.id.actNguoiLienHe);
         actTinhTrang = view.findViewById(R.id.actTinhTrang);
         actCoHoi = view.findViewById(R.id.actCoHoi);
+        getOpportunity();
         actGiaoCho = view.findViewById(R.id.actGiaoCho);
+        getGiaoCho();
     }
+
+    private void getOpportunity() {
+//        List<Opportunity> opportunitylist =  
+    }
+
+    private void getGiaoCho() {
+        Executor executor = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        executor.execute(()->{
+            NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
+            nhanVienRepository.AddNhanVien();
+            List<Nhanvien> Employees_list = nhanVienRepository.getAllNhanVien();
+            mainHandler.post(()->{
+                ArrayAdapter<Nhanvien> AdapterEmployer =
+                        new ArrayAdapter<>(requireContext(),
+                                android.R.layout.simple_list_item_1,
+                                Employees_list);
+                actGiaoCho.setAdapter(AdapterEmployer);
+                actGiaoCho.setOnItemClickListener(((parent, view1, position, id) -> {
+                    Nhanvien nv = (Nhanvien) parent.getItemAtPosition(position);
+                    viewModelQuote.SendtoID.setValue(nv.getId());
+                    viewModelQuote.SendtoName.setValue(nv.getHoten());
+                }));
+            });
+        });
+    }
+
     private void getCompany() {
         List<ToChuc> companyList = companyRepository.getAllCompany();
         List<String> companyName = new ArrayList<>();

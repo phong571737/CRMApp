@@ -26,6 +26,8 @@ public class CreateQuoteViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> Quantity = new MutableLiveData<>();
     public MutableLiveData<Integer> Price = new MutableLiveData<>();
     public MutableLiveData<Double> TotalAmount = new MutableLiveData<>();
+    public MutableLiveData<Integer> SendtoID = new MutableLiveData<>();
+    public MutableLiveData<String> SendtoName = new MutableLiveData<>();
 
     public CreateQuoteViewModel(@NonNull Application app){
         super(app);

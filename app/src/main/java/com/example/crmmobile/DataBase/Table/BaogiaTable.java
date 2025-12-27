@@ -14,6 +14,7 @@ public class BaogiaTable {
                     "SOLUONG INTEGER," +
                     "DONGIA REAL," +
                     "TONGTIEN REAL," +
+                    "GIAOCHO INTEGER," +
                     "FOREIGN KEY(CONGTY) REFERENCES COMPANY(ID) ON DELETE SET NULL," +
                     "FOREIGN KEY(NGUOILIENHE) REFERENCES CONTACT(ID) ON DELETE SET NULL," +
                     "FOREIGN KEY(COHOI) REFERENCES COHOI(ID) ON DELETE SET NULL" +

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_screen"
+    android:background="@drawable/bg_color_main_screen"
     tools:context="OrderDirectory.SOCreate1Activity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:minHeight="56dp"
-            android:background="@android:color/transparent"
+            android:background="@color/white"
             app:navigationIcon="@drawable/ic_arrow_back_24"
             app:contentInsetStart="96dp"
             app:contentInsetStartWithNavigation="96dp"
@@ -34,9 +34,11 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/brand"
-            app:tabSelectedTextColor="@color/brand"
-            app:tabTextColor="@color/text_secondary">
+            android:background="@color/white"
+            app:tabTextColor="#8C8C8C"
+            app:tabIndicatorColor="#1B74E4"
+            app:tabIndicatorFullWidth="true"
+            app:tabSelectedTextColor="#1B74E4">
             <com.google.android.material.tabs.TabItem android:text="Thông tin chung"
                 android:layout_height="match_parent" android:layout_width="match_parent"/>
             <com.google.android.material.tabs.TabItem android:text="Sản phẩm"

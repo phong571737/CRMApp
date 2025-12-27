@@ -19,6 +19,11 @@ public class DonhangTable {
                     "TONGTIEN REAL," +
                     "MOTA TEXT," +
                     "GIAOCHO INTEGER," +
+
+                    // ✅ NEW
+                    "NGUOITAO INTEGER," +
+                    "EXTRA_JSON TEXT," +
+
                     "FOREIGN KEY(CONGTY) REFERENCES COMPANY(ID) ON DELETE SET NULL," +
                     "FOREIGN KEY(NGUOILIENHE) REFERENCES CONTACT(ID) ON DELETE SET NULL," +
                     "FOREIGN KEY(COHOI) REFERENCES COHOI(ID) ON DELETE SET NULL," +

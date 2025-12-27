@@ -60,7 +60,7 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
 
     private void initViews(View view) {
         icClose = view.findViewById(R.id.ic_close);
-        icMore = view.findViewById(R.id.ic_more);
+//        icMore = view.findViewById(R.id.ic_more);
         tvTenHoatDong = view.findViewById(R.id.tv_tenhoatdong);
        // tvTieuDe = view.findViewById(R.id.tv_tieude);
         tvMoTa = view.findViewById(R.id.tv_mota);
@@ -75,9 +75,9 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
         icClose.setOnClickListener(v -> dismiss());
 
         // TODO: Xử lý icMore click nếu cần
-        icMore.setOnClickListener(v -> {
-            // Có thể hiển thị menu thêm
-        });
+//        icMore.setOnClickListener(v -> {
+//            // Có thể hiển thị menu thêm
+//        });
 
         btnHoanThanh.setOnClickListener(v -> {
             // TODO: Xử lý logic hoàn thành hoạt động
@@ -201,3 +201,4 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
     }
 
 }
+

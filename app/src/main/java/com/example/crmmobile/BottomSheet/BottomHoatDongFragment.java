@@ -56,6 +56,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
     private HoatDong hoatDong;
 
     private AutoCompleteTextView actTrangThai, actNguoiPhuTrach;
+    private int selectedNguoiPhuTrachId = 0; // ID người phụ trách được chọn
 
     @Nullable
     @Override
@@ -76,8 +77,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         );
         actTrangThai.setAdapter(adapterTrangThai);
 
-        tvNgayBatDau.setOnClickListener(v ->
-                pickDateTime(tvNgayBatDau, tvGioBatDau)
+        tvNgayBatDau.setOnClickListener(v ->pickDateTime(tvNgayBatDau, tvGioBatDau)
         );
 
         tvNgayKetThuc.setOnClickListener(v ->
@@ -145,9 +145,12 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
                 actNguoiPhuTrach.setOnItemClickListener(((parent, view1, position, id) -> {
                     Nhanvien nv = (Nhanvien) parent.getItemAtPosition(position);
                     if (nv != null){
+                        selectedNguoiPhuTrachId = nv.getId(); // Lưu ID người phụ trách được chọn
                         ic_face2.setVisibility(View.VISIBLE);
                         int level = InitClass.getIconNhanVien(nv.getId());
                         ic_face2.setImageLevel(level);
+                    } else {
+                        selectedNguoiPhuTrachId = 0;
                     }
                 }));
             });
@@ -166,14 +169,13 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
         String tenHoatDong = currentHoatDongFragment.getTieuDe();
         String moTa = currentHoatDongFragment.getMoTa();
-        int coHoi = currentHoatDongFragment.getCoHoiId();
         int toChuc = currentHoatDongFragment.getCongTyId();
-
+        int coHoi = currentHoatDongFragment.getCoHoiId();
+        int giaoCho = currentHoatDongFragment.getNguoiDungId(); // Lấy ID người dùng được mời
 
         String ngayBatDau = tvNgayBatDau.getText().toString();
         String thoiGianBatDau = tvGioBatDau.getText().toString();
         String thoiGianKetThuc = tvGioKetThuc.getText().toString();
-        //  String giaoCho = actNguoiPhuTrach.getText().toString();
         String tinhTrang = actTrangThai.getText().toString();
 
         // LẤY ID ĐÚNG
@@ -193,11 +195,10 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
             return;
         }
 
-        // FK tạm
-        int nhanVien = 0, giaoCho = 0;
+        // Lấy ID người phụ trách đã chọn
+        int nhanVien = selectedNguoiPhuTrachId;
 
         if (moTa == null) moTa = "";
-
 
 
         HoatDong hoatDong = new HoatDong(
@@ -312,7 +313,6 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
-
         datePickerDialog.show();
     }
 
@@ -334,3 +334,4 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
 
 }
+

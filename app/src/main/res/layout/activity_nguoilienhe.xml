@@ -219,6 +219,15 @@
             android:gravity="center"
             android:textSize="@dimen/text_small" />
 
+        <TextView
+            android:id="@+id/tab_cohoi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cơ hội"
+            android:gravity="center"
+            android:textSize="@dimen/text_small" />
+
 <!--        <TextView-->
 <!--            android:id="@+id/tab_hoatdong"-->
 <!--            android:layout_width="wrap_content"-->

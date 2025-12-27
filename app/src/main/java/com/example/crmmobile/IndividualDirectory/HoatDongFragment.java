@@ -41,6 +41,10 @@ public class HoatDongFragment extends Fragment {
     private List<ToChuc> companyList = new ArrayList<>();
     private int selectedCongTyId = 0;
 
+    // Danh sách nhân viên lấy từ DB và ID nhân viên được chọn (người dùng được mời)
+    private List<Nhanvien> nhanVienList = new ArrayList<>();
+    private int selectedNguoiDungId = 0;
+
     public HoatDongFragment() {}
 
     @Nullable
@@ -71,7 +75,6 @@ public class HoatDongFragment extends Fragment {
                 companyList
         );
         actCongTy.setAdapter(companyAdapter);
-
         // Khi chọn 1 công ty, lưu lại ID tương ứng để dùng khi lưu hoạt động
         actCongTy.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,13 +90,25 @@ public class HoatDongFragment extends Fragment {
         // Load danh sách nhân viên từ database
         NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
         nhanVienRepository.AddNhanVien(); // Đảm bảo có dữ liệu
-        List<Nhanvien> nhanVienList = nhanVienRepository.getAllNhanVien();
+        nhanVienList = nhanVienRepository.getAllNhanVien();
         ArrayAdapter<Nhanvien> nhanVienAdapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
                 nhanVienList
         );
         actNguoiDung.setAdapter(nhanVienAdapter);
+
+        // Khi chọn 1 nhân viên (người dùng được mời), lưu lại ID tương ứng để dùng khi lưu hoạt động
+        actNguoiDung.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                if (position >= 0 && position < nhanVienList.size()) {
+                    selectedNguoiDungId = nhanVienList.get(position).getId();
+                } else {
+                    selectedNguoiDungId = 0;
+                }
+            }
+        });
 
         // Lấy danh sách cơ hội từ database và hiển thị vào AutoCompleteTextView
         OpportunityRepository opportunityRepository = OpportunityRepository.getInstance(requireContext());
@@ -148,8 +163,12 @@ public class HoatDongFragment extends Fragment {
 
     // Trả về ID cơ hội được chọn (0 nếu không chọn)
     public int getCoHoiId() { return selectedCoHoiId; }
+
     // Trả về ID công ty được chọn (0 nếu không chọn)
     public int getCongTyId() { return selectedCongTyId; }
+
+    // Trả về ID người dùng được mời (0 nếu không chọn)
+    public int getNguoiDungId() { return selectedNguoiDungId; }
 
     public int getNguoiLienHeId() {
         return nguoiLienHeId;

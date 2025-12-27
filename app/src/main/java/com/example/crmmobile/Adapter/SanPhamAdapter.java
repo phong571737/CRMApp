@@ -59,7 +59,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.VH>{
     public void onBindViewHolder(@NonNull VH h, int position) {
         SanPham sp = items.get(position);
         h.tvName.setText(sp.getName());
-        h.tvPrice.setText(sp.getDongia() + " đ");
+//        h.tvPrice.setText(sp.getDongia() + " đ");
 
         h.itemView.setOnClickListener(v -> {
             if (onClick != null) onClick.onClick(sp);

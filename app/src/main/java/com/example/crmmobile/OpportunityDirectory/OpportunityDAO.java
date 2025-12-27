@@ -108,6 +108,34 @@ public class OpportunityDAO {
         return list;
     }
 
+    public List<Opportunity> searchByKeyword(String keyword) {
+        List<Opportunity> list = new ArrayList<>();
+        SQLiteDatabase db = DBCRMHandler.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String sql = "SELECT * FROM COHOI " +
+                    "WHERE TENCOHOI LIKE ? " +
+                    "OR MOTA LIKE ?";
+
+            String key = "%" + keyword + "%";
+
+            cursor = db.rawQuery(sql, new String[]{key, key});
+
+            while (cursor.moveToNext()) {
+                list.add(cursorToOpportunity(cursor));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+
+        return list;
+    }
+
+
     private Opportunity cursorToOpportunity(Cursor cursor) {
         return new Opportunity(
                 cursor.getInt(cursor.getColumnIndexOrThrow("ID")),

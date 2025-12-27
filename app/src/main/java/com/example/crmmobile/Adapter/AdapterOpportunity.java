@@ -59,7 +59,7 @@ public class AdapterOpportunity extends RecyclerView.Adapter<AdapterOpportunity.
         holder.tvStatus.setText(item.getStatus());
         holder.tvCallCount.setText(String.valueOf(item.getCallCount()));
         holder.tvMessageCount.setText(String.valueOf(item.getMessageCount()));
-        holder.tvExchange.setText(item.getDescription());
+//        holder.tvExchange.setText(item.getDescription());
 
         // Khi bấm nút menu 3 chấm: truyền cả view làm anchor, và position
         holder.ivMenu.setOnClickListener(v -> {

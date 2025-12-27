@@ -143,34 +143,44 @@ public class CaNhanRepository {
         return result;
     }
 
-// Xuan them vao de lay du lieu id + name cua nguoi lien he cho dropdown trong form
-    public List<CaNhan> getAllIdName() {
-        List<CaNhan> list = new ArrayList<>();
+// them vao de lay du lieu id + name cua nguoi lien he cho dropdown trong form
+public List<CaNhan> getAllIdName() {
+    List<CaNhan> list = new ArrayList<>();
 
-        SQLiteDatabase db = dbHandler.getReadableDatabase();
-        Cursor cursor = db.rawQuery(
-                "SELECT ID, HOTEN FROM CONTACT",
-                null
+    SQLiteDatabase db = dbHandler.getReadableDatabase();
+    Cursor cursor = db.rawQuery(
+            "SELECT ID, HOTEN, TEN FROM CONTACT",
+            null
+    );
+
+    Log.d("DEBUG_CaNhanRepo", "cursor count = " + cursor.getCount());
+
+    while (cursor.moveToNext()) {
+        CaNhan cn = new CaNhan();
+
+        int id = cursor.getInt(cursor.getColumnIndexOrThrow("ID"));
+        String hoTen = cursor.getString(cursor.getColumnIndexOrThrow("HOTEN"));
+        String ten = cursor.getString(cursor.getColumnIndexOrThrow("TEN"));
+
+        cn.setId(id);
+
+        // GHÉP 2 CỘT
+        cn.setHoVaTen(
+                (hoTen != null ? hoTen : "") +
+                        (ten != null ? " " + ten : "")
         );
 
-        Log.d("DEBUG_CaNhanRepo", "cursor count = " + cursor.getCount());
+        list.add(cn);
 
-        while (cursor.moveToNext()) {
-            CaNhan cn = new CaNhan();
-            cn.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
-            cn.setHoVaTen(cursor.getString(cursor.getColumnIndexOrThrow("HOTEN")));
-
-            list.add(cn);
-
-            Log.d("DEBUG_CaNhanRepo",
-                    "Loaded: id=" + cn.getId() + ", name=" + cn.getHoVaTen());
-        }
-
-        cursor.close();
-        db.close();
-
-        return list;
+        Log.d("DEBUG_CaNhanRepo",
+                "Loaded: id=" + cn.getId() + ", name=" + cn.getHoVaTen());
     }
+
+    cursor.close();
+    db.close();
+
+    return list;
+}
 
 
 }

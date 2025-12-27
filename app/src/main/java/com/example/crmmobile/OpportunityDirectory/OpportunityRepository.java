@@ -41,6 +41,11 @@ public class OpportunityRepository {
         return o;
     }
     public long add(Opportunity opportunity) {
+        long now = System.currentTimeMillis();
+
+        opportunity.setCreatedAt(now);
+        opportunity.setUpdatedAt(now);
+
         return dao.add(opportunity);
     }
     public void update(Opportunity opportunity) {
@@ -49,11 +54,23 @@ public class OpportunityRepository {
         Log.d("BUG_TEST", "company = " + opportunity.getCompany());
         Log.d("BUG_TEST", "contact = " + opportunity.getContact());
         Log.d("BUG_TEST", "management = " + opportunity.getManagement());
+
+        long now = System.currentTimeMillis();
+        opportunity.setUpdatedAt(now);
+
         dao.update(opportunity);
     }
     public void delete(int id) {
         dao.delete(id);
     }
+
+    public List<Opportunity> search(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return dao.getAll();   // search rỗng → trả full list
+        }
+        return dao.searchByKeyword(keyword);
+    }
+
 
     public interface Callback { void onComplete(boolean success); }
 

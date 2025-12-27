@@ -19,6 +19,9 @@ public class OpportunityDetailUI {
     public final String expectedDate2;
     public final String description;
 
+    public final String createdAt;
+    public final String updatedAt;
+
     public OpportunityDetailUI(
             int id,
             String title,
@@ -32,7 +35,9 @@ public class OpportunityDetailUI {
             String status,
             String date,
             String expectedDate2,
-            String description
+            String description,
+            String createdAt,
+            String updatedAt
     ) {
         this.id = id;
         this.title = title;
@@ -47,5 +52,7 @@ public class OpportunityDetailUI {
         this.date = date;
         this.expectedDate2 = expectedDate2;
         this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }

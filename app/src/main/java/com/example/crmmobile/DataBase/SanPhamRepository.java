@@ -27,7 +27,7 @@ public class SanPhamRepository {
 
         values.put("TEN", sp.getName());
         values.put("MOTA", sp.getMota());
-        values.put("DONGIA", sp.getDongia());
+        values.put("DONGIA", sp.getDonggia());
         values.put("TRANGTHAI", sp.getTrangthai());
         values.put("NGAYTAO", sp.getNgaytao());
         values.put("NGUOITAO", sp.getNguoitao());
@@ -39,19 +39,56 @@ public class SanPhamRepository {
     }
 
     public void addProduct() {
-        db = dbHelper.getWritableDatabase();
-
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM SANPHAM", null);
         cursor.moveToFirst();
         int count = cursor.getInt(0);
         cursor.close();
+        db.close();
+
         if (count == 0) {
-            addSanPham(new SanPham("Cam AI HA800", 4090000, "27/12/2025", 1, ""));
-            addSanPham(new SanPham("CloudWORK - Giải pháp quản lý dự án chuyên nghiệp", 1290000, "27/12/2025", 1, ""));
-            addSanPham(new SanPham("CloudCheckin", 290000, "27/12/2025", 1, ""));
-            addSanPham(new SanPham("CloudLead", 1290000, "27/12/2025", 1, ""));
+            addSanPham(new SanPham(
+                    "Cam AI HA800",
+                    "",
+                    4090000L,
+                    "Đang bán",
+                    "27/12/2025",
+                    "Tuấn Phong",
+                    ""
+            ));
+
+            addSanPham(new SanPham(
+                    "CloudWORK - Giải pháp quản lý dự án chuyên nghiệp",
+                    "",
+                    1290000L,
+                    "Đang bán",
+                    "27/12/2025",
+                    "Tuấn Phong",
+                    ""
+            ));
+
+            addSanPham(new SanPham(
+                    "CloudCheckin",
+                    "",
+                    1290000L,
+                    "Đang bán",
+                    "27/12/2025",
+                    "Tuấn Phong",
+                    ""
+            ));
+
+            addSanPham(new SanPham(
+                    "CloudLead",
+                    "",
+                    1290000L,
+                    "Đang bán",
+                    "27/12/2025",
+                    "Tuấn Phong",
+                    ""
+            ));
         }
     }
+
 
     public List<SanPham> getAllSanPham() {
         List<SanPham> list = new ArrayList<>();
@@ -64,7 +101,6 @@ public class SanPhamRepository {
                 SanPham sp = new SanPham();
                 sp.setID(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
                 sp.setName(cursor.getString(cursor.getColumnIndexOrThrow("TEN")));
-                sp.setDongia(cursor.getInt(cursor.getColumnIndexOrThrow("DONGIA")));
                 list.add(sp);
             } while (cursor.moveToNext());
         }

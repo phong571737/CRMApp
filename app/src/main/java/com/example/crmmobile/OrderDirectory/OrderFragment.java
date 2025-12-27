@@ -141,6 +141,20 @@ public class OrderFragment extends Fragment {
             orderAdapter.notifyDataSetChanged();
         }
     }
+    private void reloadOrders() {
+        if (donHangRepository == null) return;
+
+        List<Order> fresh = donHangRepository.getOrdersForList();
+
+        // Nếu bạn đang có allOrders / orderList / search thì làm đúng theo kiểu dưới:
+        allOrders.clear();
+        allOrders.addAll(fresh);
+
+        orderList.clear();
+        orderList.addAll(fresh);
+
+        if (orderAdapter != null) orderAdapter.notifyDataSetChanged();
+    }
 
 
     // ===== BottomSheet hành động cho từng đơn =====

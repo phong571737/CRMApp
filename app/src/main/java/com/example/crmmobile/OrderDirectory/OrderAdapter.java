@@ -40,6 +40,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return new OrderViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orders.get(position);
@@ -47,27 +48,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvOrderCode.setText(order.getOrderCode());
         holder.tvCompany.setText(order.getCompany());
 
-        // ✅ Click cả item -> mở màn chi tiết
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderDetailActivity.class);
-
-            // Gửi id + thông tin đơn hàng qua màn chi tiết
-            intent.putExtra("orderId",   order.getId());
-            intent.putExtra("orderCode", order.getOrderCode());
-            intent.putExtra("company",   order.getCompany());
-            intent.putExtra("date",      order.getDate());
-            intent.putExtra("status",    order.getPaymentStatus());
-            intent.putExtra("price",     order.getPrice());
-            intent.putExtra("orderType", order.getOrderType());
-
+            intent.putExtra("orderId", order.getId()); // ✅ chỉ cần id
             context.startActivity(intent);
         });
 
-        // ✅ click nút 3 chấm -> gọi callback
         holder.btnMore.setOnClickListener(v -> {
             if (moreClickListener != null) moreClickListener.onMoreClick(order);
         });
     }
+
+
 
 
     @Override

@@ -1,33 +1,27 @@
 package com.example.crmmobile.SanPhamDirectory;
 
 public class SanPham {
-    private Integer ID;
     private String name;
     private String Mota;
-    private Integer Dongia;
+    private long Donggia;
     private String Trangthai;
     private String Ngaytao;
-    private Integer Nguoitao;
+    private String Nguoitao;
     private String MotaThem;
+    public SanPham() { }
 
-    public SanPham() {
-    }
-
-    public SanPham(String name, Integer dongia, String ngaytao, Integer nguoitao, String trangthai) {
+    public SanPham(String name, String mota, long donggia,
+                   String trangthai, String ngaytao,
+                   String nguoitao, String motaThem) {
         this.name = name;
-        Dongia = dongia;
-        Ngaytao = ngaytao;
-        Nguoitao = nguoitao;
-        Trangthai = trangthai;
+        this.Mota = mota;
+        this.Donggia = donggia;
+        this.Trangthai = trangthai;
+        this.Ngaytao = ngaytao;
+        this.Nguoitao = nguoitao;
+        this.MotaThem = motaThem;
     }
 
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
 
     public String getName() {
         return name;
@@ -43,6 +37,14 @@ public class SanPham {
 
     public void setMota(String mota) {
         Mota = mota;
+    }
+
+    public long getDonggia() {
+        return Donggia;
+    }
+
+    public void setDonggia(long donggia) {
+        Donggia = donggia;
     }
 
     public String getTrangthai() {
@@ -61,11 +63,11 @@ public class SanPham {
         Ngaytao = ngaytao;
     }
 
-    public Integer getNguoitao() {
+    public String getNguoitao() {
         return Nguoitao;
     }
 
-    public void setNguoitao(Integer nguoitao) {
+    public void setNguoitao(String nguoitao) {
         Nguoitao = nguoitao;
     }
 
@@ -77,11 +79,6 @@ public class SanPham {
         MotaThem = motaThem;
     }
 
-    public Integer getDongia() {
-        return Dongia;
-    }
-
-    public void setDongia(Integer dongia) {
-        Dongia = dongia;
+    public void setID(int id) {
     }
 }

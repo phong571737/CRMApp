@@ -5,8 +5,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.crmmobile.R;
+import com.example.crmmobile.DataBase.DonHangRepository;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+
+import org.json.JSONObject;
 
 public class FragmentKhac extends Fragment {
 
     private View root;
+
+    private DonHangRepository donHangRepo;
+    private NhanVienRepository nhanVienRepo;
 
     @Nullable
     @Override
@@ -26,44 +31,93 @@ public class FragmentKhac extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_khac, container, false);
 
-        // Điều khoản & Điều kiện: tvDieuKhoan + tvXemThemDieuKhoan
-        bindExpandableText(
-                findTextView(R.id.tvDieuKhoan),
-                findTextView(R.id.tvXemThemDieuKhoan),
-                3
-        );
+        donHangRepo  = new DonHangRepository(requireContext());
+        nhanVienRepo = new NhanVienRepository(requireContext());
 
-        // Thông tin mô tả: tvThongTinMoTa + tvXemThemMoTa
-        bindExpandableText(
-                findTextView(R.id.tvThongTinMoTa),
-                findTextView(R.id.tvXemThemMoTa),
-                3
-        );
+        bindExpandableText(findTv(R.id.tvDieuKhoan), findTv(R.id.tvXemThemDieuKhoan), 3);
+        bindExpandableText(findTv(R.id.tvThongTinMoTa), findTv(R.id.tvXemThemMoTa), 3);
 
-        // Nếu muốn set dữ liệu động cho các TextView còn lại, làm tại đây:
-        // setTextIfNotNull(R.id.tvSoHopDong, "C016429-5");
-        // setTextIfNotNull(R.id.tvNgayChotDuKy, "30/07/2024");
-        // setTextIfNotNull(R.id.tvNgayKhachHangKy, "30/07/2024");
-        // setTextIfNotNull(R.id.tvTrangThaiHopDong, "Đã xong");
-        // setTextIfNotNull(R.id.tvDaNhanLaiHD, "Không");
-        // setTextIfNotNull(R.id.tvCoHoi, "Công ty CloudSO - Khẩn");
-        // setTextIfNotNull(R.id.tvBaoGia, "Công ty CloudSO - 4th item CloudSale");
-        // setTextIfNotNull(R.id.tvTinhTrangHoaDon, "Tạo nháp");
-        // setTextIfNotNull(R.id.tvGiaoCho, "Nguyễn Minh Hà");
-        // setTextIfNotNull(R.id.tvNgayHen, "30/07/2024 09:56");
-        // setTextIfNotNull(R.id.tvNgayTao, "30/07/2024 09:56");
-        // setTextIfNotNull(R.id.tvNgaySua, "30/07/2024 09:56");
+        bind();
 
         return root;
     }
 
-    /** Gắn logic Xem thêm/Thu gọn cho 1 cặp TextView (nội dung dài + nút) */
+    @Override
+    public void onResume() {
+        super.onResume();
+        bind();
+    }
+
+    private void bind() {
+        int orderId = -1;
+        if (getActivity() instanceof OrderDetailActivity) {
+            orderId = ((OrderDetailActivity) getActivity()).getOrderId();
+        }
+        if (orderId <= 0) return;
+
+        DonHang dh = donHangRepo.getById(orderId);
+        if (dh == null) return;
+
+        JSONObject extra = safeJson(dh.getExtraJson());
+
+        // Những field này DB chưa có => lấy từ extraJson nếu có, không thì “—”
+        setText(R.id.tvSoHopDong, extra.optString("soHopDong", "—"));
+        setText(R.id.tvNgayChotDuKy, extra.optString("ngayChotDuKy", "—"));
+        setText(R.id.tvNgayKhachHangKy, extra.optString("ngayKhachHangKy", "—"));
+        setText(R.id.tvTrangThaiHopDong, extra.optString("trangThaiHopDong", "—"));
+        setText(R.id.tvDaNhanLaiHD, extra.optString("daNhanLaiHD", "—"));
+
+        setText(R.id.tvCoHoi, extra.optString("coHoi", "—"));
+        setText(R.id.tvBaoGia, extra.optString("baoGia", "—"));
+        setText(R.id.tvTinhTrangHoaDon, extra.optString("tinhTrangHoaDon", "—"));
+
+        // Giao cho = người phụ trách
+        String giaoCho = "—";
+        if (dh.getGiaoChoId() > 0) {
+            String name = nhanVienRepo.getNameByID(dh.getGiaoChoId());
+            if (name != null && !name.trim().isEmpty()) giaoCho = name;
+        }
+        setText(R.id.tvGiaoCho, giaoCho);
+
+        setText(R.id.tvNgayHen, extra.optString("ngayHen", "—"));
+        setText(R.id.tvNgayTao, extra.optString("ngayTao", "—"));
+        setText(R.id.tvNgaySua, extra.optString("ngaySua", "—"));
+
+        // Điều khoản / mô tả: ưu tiên extraJson, fallback dùng dh.getMoTa()
+        String dk = extra.optString("dieuKhoan", "");
+        if (dk.isEmpty()) dk = "—";
+        setText(R.id.tvDieuKhoan, dk);
+
+        String mota = extra.optString("moTa", "");
+        if (mota.isEmpty()) mota = (dh.getMoTa() == null || dh.getMoTa().trim().isEmpty()) ? "—" : dh.getMoTa();
+        setText(R.id.tvThongTinMoTa, mota);
+    }
+
+    private JSONObject safeJson(String s) {
+        try {
+            if (s == null || s.trim().isEmpty()) return new JSONObject();
+            return new JSONObject(s);
+        } catch (Exception e) {
+            return new JSONObject();
+        }
+    }
+
+    private TextView findTv(int id) {
+        if (root == null) return null;
+        View v = root.findViewById(id);
+        return (v instanceof TextView) ? (TextView) v : null;
+    }
+
+    private void setText(int id, String value) {
+        TextView tv = findTv(id);
+        if (tv != null) tv.setText(value == null || value.trim().isEmpty() ? "—" : value);
+    }
+
     private void bindExpandableText(@Nullable TextView contentTv,
                                     @Nullable TextView actionTv,
                                     int collapsedLines) {
         if (contentTv == null || actionTv == null) return;
 
-        // Trạng thái mặc định: thu gọn
         contentTv.setMaxLines(collapsedLines);
         contentTv.setEllipsize(TextUtils.TruncateAt.END);
         actionTv.setText("Xem thêm");
@@ -81,17 +135,4 @@ public class FragmentKhac extends Fragment {
             }
         });
     }
-
-    @Nullable
-    private TextView findTextView(int id) {
-        if (root == null) return null;
-        View v = root.findViewById(id);
-        return (v instanceof TextView) ? (TextView) v : null;
-    }
-
-    private void setTextIfNotNull(int id, @NonNull String text) {
-        TextView tv = findTextView(id);
-        if (tv != null) tv.setText(text);
-    }
 }
-

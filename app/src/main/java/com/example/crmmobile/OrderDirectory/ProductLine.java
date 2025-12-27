@@ -13,13 +13,16 @@ public class ProductLine {
         this.price = price;
     }
 
+    // ✅ getters bạn đang gọi trong SOProductsFragment
     public String getName() { return name; }
-    public String getNote() { return note; }
-    public int getQty() { return qty; }
     public long getPrice() { return price; }
+    public int getQty() { return qty; }
 
-    // Thành tiền = đơn giá * số lượng
-    public long getThanhTien() {
-        return price * qty;
-    }
+    public String getNote() { return note; }
+    public void setNote(String note) { this.note = note; }
+
+    public void setQty(int qty) { this.qty = qty; }
+    public void setPrice(long price) { this.price = price; }
+
+    public long getThanhTien() { return (long) qty * price; }
 }

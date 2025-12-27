@@ -175,6 +175,27 @@ public List<CaNhan> getAllIdName() {
         Log.d("DEBUG_CaNhanRepo",
                 "Loaded: id=" + cn.getId() + ", name=" + cn.getHoVaTen());
     }
+    public CaNhan getById(int id) {
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+        CaNhan cn = null;
+
+        Cursor cursor = db.rawQuery("SELECT * FROM CONTACT WHERE ID=?",
+                new String[]{String.valueOf(id)});
+
+        if (cursor.moveToFirst()) {
+            cn = new CaNhan();
+            cn.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
+            cn.setHoVaTen(cursor.getString(cursor.getColumnIndexOrThrow("HOTEN")));
+            cn.setDiDong(cursor.getString(cursor.getColumnIndexOrThrow("DIENTHOAI")));
+            cn.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")));
+            cn.setCongTy(cursor.getString(cursor.getColumnIndexOrThrow("CONGTY")));
+        }
+
+        cursor.close();
+        db.close();
+        return cn;
+    }
+
 
     cursor.close();
     db.close();

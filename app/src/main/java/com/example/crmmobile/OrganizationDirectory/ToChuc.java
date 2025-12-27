@@ -99,4 +99,10 @@ public class ToChuc implements Serializable {
     public String getDate() { return lastPurchaseDate != null ? lastPurchaseDate : ""; }
     public String getPhoneCount() { return "0"; }
     public String getMessageCount() { return "0"; }
+
+//    ham quan trong de dropdown hien thi dung name
+    @Override
+    public String toString() {
+        return companyName;
+    }
 }

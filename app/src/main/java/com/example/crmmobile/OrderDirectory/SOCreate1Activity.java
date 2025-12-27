@@ -23,6 +23,11 @@ import com.example.crmmobile.DataBase.DonHangRepository;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.R;
+import com.example.crmmobile.DataBase.CompanyRepository;
+import com.example.crmmobile.DataBase.CaNhanRepository;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
+import com.example.crmmobile.IndividualDirectory.CaNhan;
+import com.example.crmmobile.OrderDirectory.OrderFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -61,6 +66,14 @@ public class SOCreate1Activity extends AppCompatActivity {
     private final Fragment productsFragment = new SOProductsFragment();
     private final Fragment paymentFragment  = new ThanhToanFragment();
 
+    
+    // Danh sách công ty từ database và ID công ty được chọn
+    private List<ToChuc> companyList = new ArrayList<>();
+    private int selectedCongTyId = 0;
+    
+    // Danh sách người liên hệ từ database và ID người liên hệ được chọn
+    private List<CaNhan> contactList = new ArrayList<>();
+    private int selectedNguoiLienHeId = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +136,78 @@ public class SOCreate1Activity extends AppCompatActivity {
         // ✅ Không set cứng: lấy danh sách từ DB (nếu DB có dữ liệu thì tự show)
         bindCompanyAutoComplete(actCompany);
         bindContactAutoComplete(actContact);
+        // Load danh sách công ty từ database
+        if (actCompany != null) {
+            CompanyRepository companyRepository = new CompanyRepository(this);
+            companyList = companyRepository.getAllCompany();
+            ArrayAdapter<ToChuc> companyAdapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    companyList
+            );
+            actCompany.setAdapter(companyAdapter);
+            
+            // Lưu ID công ty khi người dùng chọn
+            actCompany.setOnItemClickListener((parent, view, position, id) -> {
+                if (position >= 0 && position < companyList.size()) {
+                    selectedCongTyId = companyList.get(position).getId();
+                } else {
+                    selectedCongTyId = 0;
+                }
+            });
+        }
+
+        // Load danh sách người liên hệ từ database
+        if (actContact != null) {
+            CaNhanRepository caNhanRepository = new CaNhanRepository(this);
+            contactList = caNhanRepository.getAllCaNhan();
+            ArrayAdapter<CaNhan> contactAdapter = new ArrayAdapter<CaNhan>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    contactList
+            ) {
+                @Override
+                public android.view.View getView(int position, android.view.View convertView, android.view.ViewGroup parent) {
+                    android.view.View view = super.getView(position, convertView, parent);
+                    setFullName(view, position);
+                    return view;
+                }
+
+                @Override
+                public android.view.View getDropDownView(int position, android.view.View convertView, android.view.ViewGroup parent) {
+                    android.view.View view = super.getDropDownView(position, convertView, parent);
+                    setFullName(view, position);
+                    return view;
+                }
+
+                private void setFullName(android.view.View view, int position) {
+                    CaNhan cn = getItem(position);
+                    if (cn != null) {
+                        // Hiển thị họ tên đầy đủ: hoVaTen + " " + ten
+                        String hoVaTen = cn.getHoVaTen() != null ? cn.getHoVaTen() : "";
+                        String ten = cn.getTen() != null ? cn.getTen() : "";
+                        String fullName = (hoVaTen + " " + ten).trim();
+                        ((android.widget.TextView) view).setText(fullName);
+                    }
+                }
+            };
+            actContact.setAdapter(contactAdapter);
+            
+            // Lưu ID người liên hệ khi người dùng chọn
+            actContact.setOnItemClickListener((parent, view, position, id) -> {
+                if (position >= 0 && position < contactList.size()) {
+                    CaNhan cn = contactList.get(position);
+                    selectedNguoiLienHeId = cn.getId();
+                    // Đảm bảo hiển thị họ tên đầy đủ
+                    String hoVaTen = cn.getHoVaTen() != null ? cn.getHoVaTen() : "";
+                    String ten = cn.getTen() != null ? cn.getTen() : "";
+                    String fullName = (hoVaTen + " " + ten).trim();
+                    actContact.setText(fullName, false);
+                } else {
+                    selectedNguoiLienHeId = 0;
+                }
+            });
+        }
 
         // Status: có thể để cứng vì là enum trạng thái đơn (không phải data DB)
         if (actStatus != null) {
@@ -268,6 +353,11 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         // Chưa có UI -> để trống
         dh.setNgayNhanHang("");
+        // Lưu ID công ty và người liên hệ đã chọn
+        dh.setCongTyId(selectedCongTyId);
+        dh.setNguoiLienHeId(selectedNguoiLienHeId);
+        dh.setCoHoiId(0);         // sau này map từ Opportunity
+        dh.setBaoGiaId(0);        // sau này map từ Quote
 
         // ✅ Lưu JSON sản phẩm vào cột SANPHAM
         dh.setSanPham(productsJson);

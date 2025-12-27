@@ -3,11 +3,25 @@ package com.example.crmmobile.SanPhamDirectory;
 public class SanPham {
     private String name;
     private String Mota;
-    private String Donggia;
+    private long Donggia;
     private String Trangthai;
     private String Ngaytao;
     private String Nguoitao;
     private String MotaThem;
+    public SanPham() { }
+
+    public SanPham(String name, String mota, long donggia,
+                   String trangthai, String ngaytao,
+                   String nguoitao, String motaThem) {
+        this.name = name;
+        this.Mota = mota;
+        this.Donggia = donggia;
+        this.Trangthai = trangthai;
+        this.Ngaytao = ngaytao;
+        this.Nguoitao = nguoitao;
+        this.MotaThem = motaThem;
+    }
+
 
     public String getName() {
         return name;
@@ -25,11 +39,11 @@ public class SanPham {
         Mota = mota;
     }
 
-    public String getDonggia() {
+    public long getDonggia() {
         return Donggia;
     }
 
-    public void setDonggia(String donggia) {
+    public void setDonggia(long donggia) {
         Donggia = donggia;
     }
 
@@ -63,5 +77,8 @@ public class SanPham {
 
     public void setMotaThem(String motaThem) {
         MotaThem = motaThem;
+    }
+
+    public void setID(int id) {
     }
 }

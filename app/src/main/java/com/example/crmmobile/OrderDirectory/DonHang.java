@@ -25,6 +25,9 @@ public class DonHang {
     private long tongTien;    // tổng tiền
     private String moTa;
     private int giaoChoId;
+    private int nguoiTaoId;     // ✅ NEW
+    private String extraJson;   // ✅ NEW
+
 
     public DonHang() {
     }
@@ -106,4 +109,9 @@ public class DonHang {
 
     public int getGiaoChoId() { return giaoChoId; }
     public void setGiaoChoId(int giaoChoId) { this.giaoChoId = giaoChoId; }
+    public int getNguoiTaoId() { return nguoiTaoId; }
+    public void setNguoiTaoId(int nguoiTaoId) { this.nguoiTaoId = nguoiTaoId; }
+
+    public String getExtraJson() { return extraJson; }
+    public void setExtraJson(String extraJson) { this.extraJson = extraJson; }
 }

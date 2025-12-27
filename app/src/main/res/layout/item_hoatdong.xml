@@ -35,13 +35,23 @@
             android:textStyle="bold"
             android:textSize="@dimen/text_medium" />
 
-        <ImageView
-            android:id="@+id/ic_more"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_more_vert"
-            app:tint="@color/blue" />
+<!--        <ImageView-->
+<!--            android:id="@+id/ic_more"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:src="@drawable/ic_more_vert"-->
+<!--            app:tint="@color/blue" />-->
     </LinearLayout>
+    <TextView
+        android:id="@+id/fillcohoi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_basex2"
+        android:layout_marginTop="@dimen/margin_base"
+        android:text=""
+        android:textStyle="bold"
+        android:textSize="@dimen/text_medium"
+        android:visibility="gone" />
 
     <!-- 🔹 DÒNG 2: Thời gian -->
     <LinearLayout

@@ -1,5 +1,7 @@
 package com.example.crmmobile.IndividualDirectory;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,8 +19,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.crmmobile.DataBase.DBCRMHandler;
 import com.example.crmmobile.R;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThongTinKhacFragment extends Fragment {
     private AutoCompleteTextView actQuanHuyen, actTinhTP, actGiaoCho;
@@ -113,6 +119,7 @@ public class ThongTinKhacFragment extends Fragment {
                         "Huyện Hóc Môn", "Huyện Nhà Bè"
                 }
         );
+        List<String> danhSachNhanVien = loadDanhSachNhanVien();
         actQuanHuyen.setAdapter(adapterQuanHuyen);
         actQuanHuyen.setFocusable(false);
         actQuanHuyen.setClickable(true);
@@ -145,7 +152,7 @@ public class ThongTinKhacFragment extends Fragment {
         ArrayAdapter<String> adapterGiaoCho = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
-                new String[]{"Phan Thị Tường Vi", "Nguyễn Hữu Thiện", "Lê Thị Ánh Xuân", "Huỳnh Văn Tuấn Phong", "Nguyễn Đức Thành"}
+                danhSachNhanVien
         );
         actGiaoCho.setAdapter(adapterGiaoCho);
         actGiaoCho.setFocusable(false);
@@ -179,9 +186,47 @@ public class ThongTinKhacFragment extends Fragment {
         edtGhiChu = view.findViewById(R.id.edtghichu);
         edtMota = view.findViewById(R.id.edtmota);
     }
+
+    private List<String> loadDanhSachNhanVien() {
+        List<String> danhSach = new ArrayList<>();
+        DBCRMHandler dbHandler = new DBCRMHandler(requireContext());
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery("SELECT HOTEN FROM NHANVIEN",
+                    new String[]{"Đang làm việc"});
+
+            if (cursor.moveToFirst()) {
+                do {
+                    String hoTen = cursor.getString(cursor.getColumnIndexOrThrow("HOTEN"));
+                    if (hoTen != null && !hoTen.trim().isEmpty()) {
+                        danhSach.add(hoTen);
+                    }
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+
+        // Nếu không có dữ liệu từ DB, trả về danh sách mặc định
+        if (danhSach.isEmpty()) {
+            danhSach.add("Phan Thị Tường Vi");
+            danhSach.add("Nguyễn Hữu Thiện");
+            danhSach.add("Lê Thị Ánh Xuân");
+            danhSach.add("Huỳnh Văn Tuấn Phong");
+            danhSach.add("Nguyễn Đức Thành");
+        }
+
+        return danhSach;
+    }
     /**
      * Hàm gắn sự kiện mở rộng / thu gọn cho 1 tiêu đề và layout chi tiết.
      */
+
     private void setupToggle(TextView titleView, LinearLayout detailLayout) {
         // Mặc định hiển thị chi tiết + icon mũi tên lên
         detailLayout.setVisibility(View.VISIBLE);

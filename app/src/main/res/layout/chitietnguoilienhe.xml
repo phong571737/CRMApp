@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/nguoiphutrach"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -215,6 +215,15 @@
                     android:gravity="center"
                     android:textSize="@dimen/text_small" />
 
+                <TextView
+                    android:id="@+id/cohoi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cơ hội"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_small" />
+
             </LinearLayout>
 
             <!-- Block Thông tin chung -->
@@ -249,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/firt_name"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -277,7 +286,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Tên"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -305,7 +314,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngaysinh"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -333,7 +342,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngaysinh"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -362,7 +371,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngaysinh"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -390,7 +399,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/email"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -402,6 +411,15 @@
                         android:text="vi.phan@gmal.com"
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/thongtindiachi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_basex2"
+                    android:text="@string/address_infor"
+                    android:textSize="@dimen/text_large"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
@@ -412,15 +430,6 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/margin_basex3">
-
-                <TextView
-                    android:id="@+id/thongtindiachi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/address_infor"
-                    android:textSize="@dimen/text_large"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/margin_basex2"/>
 
                 <!-- diachi -->
                 <LinearLayout
@@ -437,7 +446,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/firt_name"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -464,7 +473,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/district"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -492,7 +501,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/province"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -538,7 +547,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/description"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -566,7 +575,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:text="@string/ghichu"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -613,7 +622,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/tinhtrangmuahang"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -641,7 +650,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/sodonhangdamua"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -687,7 +696,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Giao cho"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -715,7 +724,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/nguoiphutrach"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -761,7 +770,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Giao cho"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -789,7 +798,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngay_sua"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small" />
 
                     <TextView

@@ -18,6 +18,7 @@ import com.example.crmmobile.Adapter.AdapterCaNhan;
 import com.example.crmmobile.Adapter.AdapterHoatDong;
 import com.example.crmmobile.BottomSheet.BottomActionFragment;
 import com.example.crmmobile.BottomSheet.BottomHoatDongFragment;
+import com.example.crmmobile.BottomSheet.BottomSheetChiTietHoatDongFragment;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.DataBase.HoatDongRepository;
 import com.example.crmmobile.HoatDongDirectory.HoatDong;
@@ -77,6 +78,21 @@ public class TongQuanFragment extends Fragment {
         loadHoatDong();
 
         adapter = new AdapterHoatDong(requireContext(), hoatDongList);
+
+        // Set click listener để hiển thị bottom sheet chi tiết
+        adapter.setOnItemClickListener(new AdapterHoatDong.OnItemClickListener() {
+            @Override
+            public void onMoreClick(HoatDong hd) {
+                // Có thể xử lý menu more nếu cần
+            }
+
+            @Override
+            public void onItemClick(HoatDong hd) {
+                // Hiển thị bottom sheet chi tiết
+                BottomSheetChiTietHoatDongFragment bottomSheet = BottomSheetChiTietHoatDongFragment.newInstance(hd);
+                bottomSheet.show(getParentFragmentManager(), "chi_tiet_hoat_dong");
+            }
+        });
 
         rvHoatDong.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvHoatDong.setAdapter(adapter);
@@ -183,8 +199,4 @@ public class TongQuanFragment extends Fragment {
         refreshHoatDongList();
         updateActivityStats();
     }
-
-
-
-
 }

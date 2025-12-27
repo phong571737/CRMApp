@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/firt_name"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ten"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngaysinh"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/congty"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/didong"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -188,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/email"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -233,7 +233,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/address"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/gray1"
                     android:textSize="@dimen/text_small"
                     android:layout_marginTop="@dimen/margin_basex3"/>
 
@@ -256,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/district"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -280,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/province"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -325,7 +325,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/description"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/gray1"
                     android:textSize="@dimen/text_small"
                     android:layout_marginTop="@dimen/margin_basex3"/>
 
@@ -342,7 +342,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ghichu"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/gray1"
                     android:textSize="@dimen/text_small"
                     android:layout_marginTop="@dimen/margin_basex3"/>
 
@@ -382,7 +382,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/tinhtrangmuahang"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -406,7 +406,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/sodonhangdamua"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -447,7 +447,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Giao cho"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -471,7 +471,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/nguoiphutrach"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -511,7 +511,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngay_tao"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView
@@ -535,7 +535,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/ngay_sua"
-                        android:textColor="@color/grey"
+                        android:textColor="@color/gray1"
                         android:textSize="@dimen/text_small"/>
 
                     <TextView

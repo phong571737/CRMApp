@@ -26,7 +26,7 @@ import java.util.List;
 public class DBCRMHandler extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "crm.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     public DBCRMHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,14 +58,28 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         db.execSQL(RecentAccessTable.CREATE_TABLE);
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Xóa bảng cũ
-        String[] tables = {"NHANVIEN", "COMPANY", "LEAD", "CONTACT", "COHOI", "BAOGIA", "DONHANG", "HOATDONG", "GOPY", "SANPHAM", "RECENT"};
-        for (String table : tables) {
-            db.execSQL("DROP TABLE IF EXISTS " + table);
+
+        try {
+            // v6: thêm cột EXTRA_JSON cho DONHANG
+            if (oldVersion < 6) {
+                try {
+                    db.execSQL("ALTER TABLE DONHANG ADD COLUMN EXTRA_JSON TEXT");
+                } catch (Exception ignored) {}
+            }
+
+            // ... các upgrade khác về sau
+
+        } catch (Exception ex) {
+            // ⚠️ Chỉ dùng khi bạn chấp nhận mất dữ liệu (fallback)
+            String[] tables = {"NHANVIEN", "COMPANY", "LEAD", "CONTACT", "COHOI", "BAOGIA", "DONHANG", "HOATDONG", "GOPY", "SANPHAM", "RECENT"};
+            for (String table : tables) {
+                db.execSQL("DROP TABLE IF EXISTS " + table);
+            }
+            onCreate(db);
         }
-        onCreate(db);
     }
 
     public void add(CaNhan cn) {

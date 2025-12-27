@@ -1,230 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardOrder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginHorizontal="14dp"
+    android:layout_marginHorizontal="12dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="3dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="@color/light_gray"
-    android:backgroundTint="@color/white">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="14dp">
+        android:padding="14dp">
 
-        <!-- Hàng đầu: mã đơn, sao, tag -->
-        <LinearLayout
-            android:id="@+id/ll_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
+        <!-- Icon giỏ hàng -->
+        <ImageView
+            android:id="@+id/ivCart"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_cart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/shopping"
-                android:contentDescription="@null"
-                app:tint="@color/color_icon"/>
-
-            <TextView
-                android:id="@+id/tvOrderCode"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="SO00109"
-                android:textColor="#000000"
-                android:textSize="15.5sp"
-                android:textStyle="bold"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1" />
-
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/star" />
-
-            <TextView
-                android:id="@+id/tvTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mới"
-                android:textSize="12sp"
-                android:textColor="#F59E0B"
-                android:background="@drawable/tag_new_bg"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="2dp"
-                android:layout_marginEnd="8dp" />
-
-            <ImageView
-                android:id="@+id/btnMore"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="4dp"
-                android:clickable="true"
-                android:contentDescription="Tùy chọn"
-                android:focusable="true"
-                android:src="@drawable/more_vert" />
-
-        </LinearLayout>
-
-        <!-- Thông tin công ty -->
-        <LinearLayout
-            android:id="@+id/ll_company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="6dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/ll_id">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_company"
-                android:layout_marginEnd="8dp"
-                app:tint="@color/color_icon"/>
-
-            <TextView
-                android:id="@+id/tvCompany"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Công ty TNHH Công nghệ CloudGO"
-                android:textColor="#4B5563"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- Giá và ngày -->
-        <LinearLayout
-            android:id="@+id/ll_quote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/ll_company">
-
-            <!-- Nhóm trái: icon + giá -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/paid"
-                    app:tint="@color/color_icon"/>
-
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2.139.000 đ"
-                    android:textColor="#111827"
-                    android:textStyle="bold"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <!-- Khoảng cách giữa giá và ngày -->
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="wrap_content" />
-
-            <!-- Ngày -->
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="30/07/2024"
-                android:textColor="#6B7280"
-                android:textSize="13sp" />
-        </LinearLayout>
-
-        <!-- Trạng thái và avatar -->
-        <LinearLayout
-            android:id="@+id/ll_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="6dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/ll_quote">
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tag_unpaid_bg"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                android:text="Chưa thanh toán"
-                android:textColor="#DC2626"
-                android:textSize="12sp" />
-
-            <!-- View đệm -->
-            <View
-                android:layout_width="150dp"
-                android:layout_height="33dp"
-                android:layout_weight="1" />
-
-            <!-- Các avatar -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginEnd="-8dp"
-                    android:clipToOutline="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/avatar_man" />
-
-                <ImageView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginEnd="-8dp"
-                    android:clipToOutline="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/avatar_girl" />
-
-                <TextView
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:background="@drawable/bg_avatar_more"
-                    android:gravity="center"
-                    android:text="+9"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Nút trao đổi -->
+        <!-- Mã đơn -->
         <TextView
-            android:id="@+id/tvChat"
-            android:layout_width="match_parent"
+            android:id="@+id/tvOrderCode"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Trao đổi (1)"
-            android:textColor="#3B82F6"
+            android:layout_marginStart="8dp"
+            android:text="SO00109"
             android:textStyle="bold"
-            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/ivCart"
+            app:layout_constraintTop_toTopOf="@id/ivCart"
+            app:layout_constraintEnd_toStartOf="@id/ivStar"
+            app:layout_constraintHorizontal_bias="0" />
+
+        <!-- Icon sao -->
+        <ImageView
+            android:id="@+id/ivStar"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/star"
+            app:layout_constraintEnd_toStartOf="@id/tvTag"
+            app:layout_constraintTop_toTopOf="@id/tvOrderCode"
+            android:layout_marginEnd="6dp"/>
+
+        <!-- Tag "Mới" -->
+        <TextView
+            android:id="@+id/tvTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="Mới"
+            android:textSize="12sp"
+            android:textColor="#B45309"
+            android:background="@drawable/tag_new_bg"
+            app:layout_constraintEnd_toStartOf="@id/btnMore"
+            app:layout_constraintTop_toTopOf="@id/tvOrderCode"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Nút ... -->
+        <ImageView
+            android:id="@+id/btnMore"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="@string/app_name"
+            android:padding="2dp"
+            android:src="@drawable/ic_more_vert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Icon công ty -->
+        <ImageView
+            android:id="@+id/ivCompany"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_company"
+            app:layout_constraintStart_toStartOf="@id/ivCart"
+            app:layout_constraintTop_toBottomOf="@id/tvOrderCode"/>
+
+        <!-- Tên công ty -->
+        <TextView
+            android:id="@+id/tvCompany"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/ll_avatar"/>
+            android:text="Công ty TNHH Công nghệ CloudGO"
+            android:textSize="14sp"
+            android:textColor="#374151"
+            app:layout_constraintStart_toEndOf="@id/ivCompany"
+            app:layout_constraintTop_toBottomOf="@id/tvOrderCode"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Icon tiền -->
+        <ImageView
+            android:id="@+id/ivMoney"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/paid"
+            app:layout_constraintStart_toStartOf="@id/ivCart"
+            app:layout_constraintTop_toBottomOf="@id/tvCompany"/>
+
+        <!-- Giá: tvPrice -->
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="2.139.000 đ"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/ivMoney"
+            app:layout_constraintTop_toBottomOf="@id/tvCompany"/>
+
+        <!-- Ngày -->
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:text="30/07/2024"
+            android:textSize="13sp"
+            android:textColor="#6B7280"
+            app:layout_constraintStart_toEndOf="@id/tvPrice"
+            app:layout_constraintTop_toBottomOf="@id/tvCompany"/>
+
+        <!-- Trạng thái thanh toán (đã bỏ avatar + trao đổi) -->
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="Chưa thanh toán"
+            android:textSize="12sp"
+            android:textColor="#DC2626"
+            android:background="@drawable/tag_unpaid_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivMoney"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 

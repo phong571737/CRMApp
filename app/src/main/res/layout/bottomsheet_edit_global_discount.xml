@@ -48,6 +48,7 @@
 
         <!-- Hàng 1: Không có giảm giá -->
         <LinearLayout
+            android:id="@+id/rowGlobalNoDiscount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -63,6 +64,7 @@
 
         <!-- Hàng 2: Giảm giá % + ô 0 % bên phải -->
         <LinearLayout
+            android:id="@+id/rowGlobalPercent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -107,6 +109,7 @@
 
         <!-- Hàng 3: Giảm giá trực tiếp + ô 0.00 đ bên phải -->
         <LinearLayout
+            android:id="@+id/rowGlobalDirect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

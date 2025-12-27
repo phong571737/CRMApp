@@ -43,6 +43,11 @@ public class OrderDetailActivity extends AppCompatActivity {
     private NhanVienRepository nhanVienRepo;
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+    private DonHang currentDonHang;
+
+    public DonHang getCurrentDonHang() {
+        return currentDonHang;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -67,14 +72,12 @@ public class OrderDetailActivity extends AppCompatActivity {
         tvPrice       = findViewById(R.id.tvPrice);
         tvTag         = findViewById(R.id.tvTag);
         tvStatus      = findViewById(R.id.tvStatus);
-        tvCreatorName = findViewById(R.id.tvCreatorName);
-        tvManagerName = findViewById(R.id.tvManagerName);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         iv_back   = findViewById(R.id.btnBack);
 
-        List<String> tabTitles = Arrays.asList("Tổng quan", "Chi tiết", "Nhật ký", "Hoạt động");
+        List<String> tabTitles = Arrays.asList("Tổng quan", "Chi tiết");
         OrderDetailPagerAdapter pagerAdapter = new OrderDetailPagerAdapter(this, tabTitles);
         viewPager.setAdapter(pagerAdapter);
 

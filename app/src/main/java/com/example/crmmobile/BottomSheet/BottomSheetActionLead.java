@@ -46,12 +46,12 @@ public class BottomSheetActionLead {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());//exit
 
-        addActionItemLead(context, layoutAction, R.drawable.ic_pin, "Ghim", null);
-        addActionItemLead(context, layoutAction, R.drawable.ic_call, "Gọi điện", null);
-        addActionItemLead(context, layoutAction, R.drawable.ic_comment_mess, "Chat", null);
-        addActionItemLead(context, layoutAction, R.drawable.ic_sms, "Gửi tin nhắn SMS", null);
-        addActionItemLead(context, layoutAction, R.drawable.ic_mail, "Gửi Email", null);
-        addActionItemLead(context, layoutAction, R.drawable.ic_calendar, "Thêm hoạt động", null);
+//        addActionItemLead(context, layoutAction, R.drawable.ic_pin, "Ghim", null);
+//        addActionItemLead(context, layoutAction, R.drawable.ic_call, "Gọi điện", null);
+//        addActionItemLead(context, layoutAction, R.drawable.ic_comment_mess, "Chat", null);
+//        addActionItemLead(context, layoutAction, R.drawable.ic_sms, "Gửi tin nhắn SMS", null);
+//        addActionItemLead(context, layoutAction, R.drawable.ic_mail, "Gửi Email", null);
+//        addActionItemLead(context, layoutAction, R.drawable.ic_calendar, "Thêm hoạt động", null);
         addActionItemLead(context, layoutAction, R.drawable.ic_loop, "Chuyển đổi Lead", ()->{
             if (listener != null) listener.onConvertLead(lead);
             dialog.dismiss();

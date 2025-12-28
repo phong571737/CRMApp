@@ -190,6 +190,9 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
         else if (LeadID > 0){
             nguoiLienHe = LeadID;
         }
+        else if (quoteID > 0){
+            nguoiLienHe = quoteID;
+        }
 
         if (TextUtils.isEmpty(tenHoatDong)) {
             Toast.makeText(requireContext(),

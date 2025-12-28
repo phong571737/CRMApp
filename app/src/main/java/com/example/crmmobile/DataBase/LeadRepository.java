@@ -48,6 +48,8 @@ public class LeadRepository {
         values.put("GIAOCHO", lead.getGiaochoID());
         values.put("NGUOITAO", lead.getNguoitaoID());
         values.put("NGAYLIENHE", lead.getNgayLienHe());
+        values.put("CUOCGOI", lead.getCuocgoi());
+        values.put("CUOCHOP", lead.getCuochop());
 
         long newId = db.insert("LEAD", null, values);
         db.close();
@@ -91,6 +93,9 @@ public class LeadRepository {
                 lead.setGiaochoID(cursor.getInt(cursor.getColumnIndexOrThrow("GIAOCHO")));
                 lead.setNguoitaoID(cursor.getInt(cursor.getColumnIndexOrThrow("NGUOITAO")));
                 lead.setNgayLienHe(cursor.getString(cursor.getColumnIndexOrThrow("NGAYLIENHE")));
+                lead.setCuocgoi(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCGOI")));
+                lead.setCuochop(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCHOP")));
+
                 list.add(lead);
             }while (cursor.moveToNext());
         }
@@ -131,6 +136,8 @@ public class LeadRepository {
         values.put("GIAOCHO", lead.getGiaochoID());
         values.put("NGUOITAO", lead.getNguoitaoID());
         values.put("NGAYLIENHE", lead.getNgayLienHe());
+        values.put("CUOCGOI", lead.getCuocgoi());
+        values.put("CUOCHOP", lead.getCuochop());
 
         int result = db.update("LEAD", values, "ID=?", new String[]{String.valueOf(lead.getID())});
         db.close();
@@ -187,6 +194,8 @@ public class LeadRepository {
             lead.setGiaochoID(cursor.getInt(cursor.getColumnIndexOrThrow("GIAOCHO")));
             lead.setNguoitaoID(cursor.getInt(cursor.getColumnIndexOrThrow("NGUOITAO")));
             lead.setNgayLienHe(cursor.getString(cursor.getColumnIndexOrThrow("NGAYLIENHE")));
+            lead.setCuocgoi(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCGOI")));
+            lead.setCuochop(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCHOP")));
         }
         cursor.close();
         db.close();

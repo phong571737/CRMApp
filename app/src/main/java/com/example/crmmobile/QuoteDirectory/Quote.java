@@ -9,6 +9,7 @@ public class Quote {
     private String OrderCode;
     private String Title;
     private String company;
+    private Integer companyID;
     private String date;
     private String ContactPersonName;
     private Integer ContactPersonID;
@@ -23,6 +24,8 @@ public class Quote {
     private String Province_Ship;
     private String Nation_Ship;
     private String Description;
+    private Integer calls;
+    private Integer meettings;
 
     public Quote() {}
 
@@ -179,5 +182,29 @@ public class Quote {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public Integer getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(Integer companyID) {
+        this.companyID = companyID;
+    }
+
+    public Integer getCalls() {
+        return calls;
+    }
+
+    public void setCalls(Integer calls) {
+        this.calls = calls;
+    }
+
+    public Integer getMeettings() {
+        return meettings;
+    }
+
+    public void setMeettings(Integer meettings) {
+        this.meettings = meettings;
     }
 }

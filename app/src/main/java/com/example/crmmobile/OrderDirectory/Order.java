@@ -11,6 +11,9 @@ public class Order {
     private String paymentStatus;
     private String orderType;
 
+    public Order() {
+    }
+
     public Order(int id,
                  String orderCode,
                  String company,
@@ -66,5 +69,29 @@ public class Order {
 
     public String getOrderType() {
         return orderType;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 }

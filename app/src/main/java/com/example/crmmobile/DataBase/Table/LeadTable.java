@@ -29,6 +29,8 @@ public class LeadTable {
                     "TIEMNANG TEXT," +
                     "DANHGIA TEXT," +
                     "NGUOITAO INTEGER," +
+                    "CUOCGOI INTEGER," +
+                    "CUOCHOP INTEGER," +
                     "GIAOCHO INTEGER," +
                     "NGAYLIENHE TEXT," +
                     "FOREIGN KEY(NGUOITAO) REFERENCES NHANVIEN(ID) ON DELETE SET NULL," +

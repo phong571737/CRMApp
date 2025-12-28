@@ -38,6 +38,8 @@ public class QuoteRepository {
         values.put("TINH", quote.getProvince_Ship());
         values.put("QUOCGIA", quote.getNation_Ship());
         values.put("MOTA", quote.getDescription());
+        values.put("CUOCGOI", quote.getCalls());
+        values.put("CUOCHOP", quote.getMeettings());
 
         long newId = db.insert("BAOGIA", null, values);
         db.close();
@@ -70,6 +72,8 @@ public class QuoteRepository {
                 quote.setProvince_Ship(cursor.getString(cursor.getColumnIndexOrThrow("TINH")));
                 quote.setNation_Ship(cursor.getString(cursor.getColumnIndexOrThrow("QUOCGIA")));
                 quote.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("MOTA")));
+                quote.setCalls(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCGOI")));
+                quote.setMeettings(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCHOP")));
 
                 list.add(quote);
             }while (cursor.moveToNext());
@@ -100,6 +104,8 @@ public class QuoteRepository {
         values.put("TINH", quote.getProvince_Ship());
         values.put("QUOCGIA", quote.getNation_Ship());
         values.put("MOTA", quote.getDescription());
+        values.put("CUOCGOI", quote.getCalls());
+        values.put("CUOCHOP", quote.getMeettings());
 
         int result = db.update("BAOGIA", values, "ID=?", new String[]{String.valueOf(quote.getID())});
         db.close();
@@ -138,6 +144,8 @@ public class QuoteRepository {
                 quote.setProvince_Ship(cursor.getString(cursor.getColumnIndexOrThrow("TINH")));
                 quote.setNation_Ship(cursor.getString(cursor.getColumnIndexOrThrow("QUOCGIA")));
                 quote.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("MOTA")));
+                quote.setCalls(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCGOI")));
+                quote.setMeettings(cursor.getInt(cursor.getColumnIndexOrThrow("CUOCHOP")));
 
             }while (cursor.moveToNext());
         }

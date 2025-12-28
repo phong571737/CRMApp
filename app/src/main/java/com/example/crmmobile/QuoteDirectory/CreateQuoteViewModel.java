@@ -1,23 +1,18 @@
 package com.example.crmmobile.QuoteDirectory;
 
 import android.app.Application;
-import android.content.Context;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.DataBase.QuoteRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.SimpleFormatter;
 
 public class CreateQuoteViewModel extends AndroidViewModel {
     private final QuoteRepository quoteRepository;
@@ -25,7 +20,7 @@ public class CreateQuoteViewModel extends AndroidViewModel {
     public LiveData<Boolean> getQuoteCreateEvent(){
         return quoteCreatedEvent;
     }
-    public MutableLiveData<Integer> QuoteID = new MutableLiveData<>();
+    public MutableLiveData<Integer> quoteID = new MutableLiveData<>();
     public MutableLiveData<String> QuoteName = new MutableLiveData<>("");
     public MutableLiveData<String> CompanyName = new MutableLiveData<>("");
     public MutableLiveData<String> ContactPersonName = new MutableLiveData<>("");

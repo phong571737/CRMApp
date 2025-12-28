@@ -15,7 +15,9 @@ import android.widget.ImageView;
 
 import com.example.crmmobile.Adapter.AdapterQuote;
 import com.example.crmmobile.BottomSheet.BottomSheetActionQuote;
+import com.example.crmmobile.DataBase.DonHangRepository;
 import com.example.crmmobile.DataBase.QuoteRepository;
+import com.example.crmmobile.OrderDirectory.Order;
 import com.example.crmmobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -96,6 +98,18 @@ public class QuoteFragment extends Fragment {
                     @Override
                     public void onDeleteQuote(Quote quote) {
                         quoteListViewModel.deleteQuote(quote.getID());
+                    }
+
+                    @Override
+                    public void onConvertOrder(Quote quote) {
+                        Order order = new Order();
+                        order.setOrderCode(quote.getOrderCode());
+                        order.setDate(quote.getDate());
+                        order.setCompany(quote.getCompany());
+
+                        DonHangRepository donHangRepository = new DonHangRepository(requireContext());
+
+                        quoteRepository.updateQuote(quote);
                     }
                 });
             }

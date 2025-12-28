@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class BottomSheetActionQuote {
     public interface OnActionListenerQuote{
         void onDeleteQuote(Quote quote);
+        void onConvertOrder(Quote quote);
     }
     private static void addActionItemQuote(Context context, LinearLayout parent, int iconRes, String text, Runnable runnable){
         View view = LayoutInflater.from(context).inflate(R.layout.item_action, parent, false);
@@ -41,12 +42,13 @@ public class BottomSheetActionQuote {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());//exit
 
-        addActionItemQuote(context, layoutAction, R.drawable.ic_pin, "Ghim", null);
-        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành đơn hàng", null);
-        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành hóa đơn", null);
-        addActionItemQuote(context, layoutAction, R.drawable.ic_export_pdf, "Xuất file pdf", null);
-        addActionItemQuote(context, layoutAction, R.drawable.ic_forward_email, "Gửi email kèm file pdf", null);
-        addActionItemQuote(context, layoutAction, R.drawable.ic_duplicate, "Nhân đôi", null);
+        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành đơn hàng", ()->{
+            if (listener != null){
+                listener.onConvertOrder(item);
+            }
+            dialog.dismiss();
+        });
+//        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành hóa đơn", null);
         addActionItemQuote(context, layoutAction, R.drawable.delete, "Xóa", ()->{
             if (listener != null){
                 listener.onDeleteQuote(item);

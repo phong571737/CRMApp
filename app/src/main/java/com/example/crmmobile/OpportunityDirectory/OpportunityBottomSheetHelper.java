@@ -34,20 +34,20 @@ public class OpportunityBottomSheetHelper {
 //            dialog.dismiss();
 //        });
 
-        addActionItem(context, layoutActions, R.drawable.ic_calendar, "Thêm hoạt động", () -> {
-            Toast.makeText(context, "Thêm hoạt động cho " + item.getTitle(), Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-        });
-
-        addActionItem(context, layoutActions, R.drawable.ic_loop, "Chuyển thành báo giá", () -> {
-            Toast.makeText(context, "Chuyển thành báo giá cho " + item.getTitle(), Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-        });
-
-        addActionItem(context, layoutActions, R.drawable.ic_loop, "Chuyển thành đơn hàng", () -> {
-            Toast.makeText(context, "Chuyển thành đơn hàng cho " + item.getTitle(), Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-        });
+//        addActionItem(context, layoutActions, R.drawable.ic_calendar, "Thêm hoạt động", () -> {
+//            Toast.makeText(context, "Thêm hoạt động cho " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//            dialog.dismiss();
+//        });
+//
+//        addActionItem(context, layoutActions, R.drawable.ic_loop, "Chuyển thành báo giá", () -> {
+//            Toast.makeText(context, "Chuyển thành báo giá cho " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//            dialog.dismiss();
+//        });
+//
+//        addActionItem(context, layoutActions, R.drawable.ic_loop, "Chuyển thành đơn hàng", () -> {
+//            Toast.makeText(context, "Chuyển thành đơn hàng cho " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//            dialog.dismiss();
+//        });
 
         // Chỉ hiển thị action "Xóa" nếu user là ADMIN
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

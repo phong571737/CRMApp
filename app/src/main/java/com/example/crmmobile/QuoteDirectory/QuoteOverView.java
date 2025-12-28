@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.crmmobile.Adapter.AdapterHoatDong;
 import com.example.crmmobile.BottomSheet.BottomHoatDongFragment;
+import com.example.crmmobile.DataBase.HoatDongRepository;
+import com.example.crmmobile.HoatDongDirectory.HoatDong;
+import com.example.crmmobile.HoatDongDirectory.ViewModelHoatDong;
 import com.example.crmmobile.R;
-import com.example.crmmobile.OrderDirectory.TaiLieu;
-import com.example.crmmobile.Adapter.TaiLieuAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,10 @@ public class QuoteOverView extends Fragment {
     private LinearLayout ll_add_activity;
     private RecyclerView recycler_activity;
     private CreateQuoteViewModel viewModel;
+    private HoatDongRepository hoatDongRepository;
+    private ArrayList<HoatDong> hoatDongList;
+    private ViewModelHoatDong viewModelHoatDong;
+    private AdapterHoatDong adapter;
 
     public QuoteOverView() {
         // Required empty public constructor
@@ -51,7 +57,18 @@ public class QuoteOverView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_quote_over_view, container, false);
+        viewModel = new ViewModelProvider(requireActivity()).get(CreateQuoteViewModel.class);
+        hoatDongRepository = new HoatDongRepository(requireContext());
+
         initViews(view);
+
+        viewModelHoatDong = new ViewModelProvider(requireActivity()).get(ViewModelHoatDong.class);
+        viewModelHoatDong.init(requireContext());
+
+        hoatDongList = new ArrayList<>();
+        adapter = new AdapterHoatDong(requireContext(), hoatDongList);
+        recycler_activity.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recycler_activity.setAdapter(adapter);
 
 
         display_action.setOnClickListener(v -> {
@@ -79,9 +96,9 @@ public class QuoteOverView extends Fragment {
 
     private void showBottomSheetHoatDong() {
         BottomHoatDongFragment bottom = new BottomHoatDongFragment();
-        Integer currentID = viewModel.QuoteID.getValue();
+        Integer currentID = viewModel.quoteID.getValue();
         if (currentID != null){
-            bottom.setLead(currentID);
+            bottom.setQuote(currentID);
         }
         bottom.show(getParentFragmentManager(), "hoatdong");
     }
@@ -92,5 +109,43 @@ public class QuoteOverView extends Fragment {
         ll_add_activity = view.findViewById(R.id.ll_add_activity);
         fillslcuocgoi = view.findViewById(R.id.fillslcuocgoi);
         fillscuochop= view.findViewById(R.id.fillscuochop);
+    }
+
+    private void updateActivityStats() {
+        if (viewModel.quoteID.getValue() <= 0) {
+            if (fillslcuocgoi != null) fillslcuocgoi.setText("0");
+            if (fillscuochop != null) fillscuochop.setText("0");
+            return;
+        }
+
+        if (hoatDongRepository == null) {
+            hoatDongRepository = new HoatDongRepository(requireContext());
+        }
+
+        int callCount = 0;
+        int meetingCount = 0;
+
+        List<HoatDong> listFromDB = hoatDongRepository.getHoatDongByNguoiLienHe(viewModel.quoteID.getValue());
+        for (HoatDong hd : listFromDB) {
+            String type = hd.getType();
+            if ("call".equalsIgnoreCase(type)) {
+                callCount++;
+            } else if ("meeting".equalsIgnoreCase(type)) {
+                meetingCount++;
+            }
+        }
+
+        if (fillslcuocgoi != null) {
+            fillslcuocgoi.setText("" + callCount);
+        }
+        if (fillscuochop != null) {
+            fillscuochop.setText("" + meetingCount);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateActivityStats();
     }
 }

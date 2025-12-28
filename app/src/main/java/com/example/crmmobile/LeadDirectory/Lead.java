@@ -32,6 +32,8 @@ public class Lead{
     private String Tinh;
     private String Thanhpho;
     private String QuocGia;
+    private Integer Cuocgoi;
+    private Integer Cuochop;
 
     public Lead(){}
 
@@ -275,5 +277,21 @@ public class Lead{
 
     public void setNgayLienHe(String ngayLienHe) {
         NgayLienHe = ngayLienHe;
+    }
+
+    public Integer getCuocgoi() {
+        return Cuocgoi;
+    }
+
+    public void setCuocgoi(Integer cuocgoi) {
+        Cuocgoi = cuocgoi;
+    }
+
+    public Integer getCuochop() {
+        return Cuochop;
+    }
+
+    public void setCuochop(Integer cuochop) {
+        Cuochop = cuochop;
     }
 }

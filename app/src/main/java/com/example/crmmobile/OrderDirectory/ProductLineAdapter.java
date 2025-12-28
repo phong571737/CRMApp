@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.R;
+import com.example.crmmobile.OrderDirectory.ProductLine;
+import com.example.crmmobile.SanPhamDirectory.SanPham;
 
 import java.text.NumberFormat;
 import java.util.List;

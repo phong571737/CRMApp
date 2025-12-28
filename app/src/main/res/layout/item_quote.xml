@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/margin5"
+    android:layout_marginHorizontal="14dp"
+    android:layout_marginVertical="8dp"
     android:background="@color/bg_lead"
     app:cardCornerRadius="8dp">
 
@@ -12,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="14dp"
         android:background="@color/white">
 
         <!--quote code-->
@@ -20,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/top_padding"
-            >
+            android:gravity="center_vertical">
 
             <ImageView
                 android:layout_width="16dp"
@@ -40,8 +41,7 @@
                 android:layout_marginStart="@dimen/margin_action"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="QUO0241234"
-                android:layout_marginBottom="@dimen/margin_icon"/>
+                android:text="QUO0241234"/>
 
             <ImageView
                 android:id="@+id/iv_dots"
@@ -62,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/top_padding">
+            android:layout_marginTop="@dimen/top_padding"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:layout_width="16dp"
@@ -76,7 +77,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_action"
-                android:layout_marginBottom="@dimen/margin_icon"
                 android:text="@string/cus_Company"
                 android:textSize="16sp" />
 
@@ -89,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginTop="@dimen/top_padding">
 
             <ImageView
@@ -101,25 +102,24 @@
                 app:tint="@color/color_icon"/>
 
             <TextView
-                android:id="@+id/tv_job"
+                android:id="@+id/tv_money"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="@dimen/text"
                 android:textStyle="normal"
                 android:layout_marginStart="@dimen/margin_action"
-                android:text="@string/job_infor"
-                android:layout_marginBottom="@dimen/margin_icon"/>
+                android:text="130000 đ" />
 
             <TextView
+                android:id="@+id/tv_date"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/ic_briefcase"
                 android:gravity="end"
                 android:layout_marginEnd="@dimen/margin_action"
-                android:text="19/10/2025"
-                android:layout_marginBottom="@dimen/margin_icon"/>
+                android:text="19/10/2025"/>
 
         </LinearLayout>
         <!-- End money and date-->

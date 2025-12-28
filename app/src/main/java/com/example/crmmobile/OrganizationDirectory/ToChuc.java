@@ -53,6 +53,7 @@ public class ToChuc implements Serializable {
         this.avatarDrawables = avatarDrawables;
     }
 
+
     // Getters & Setters đầy đủ
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -99,4 +100,9 @@ public class ToChuc implements Serializable {
     public String getDate() { return lastPurchaseDate != null ? lastPurchaseDate : ""; }
     public String getPhoneCount() { return "0"; }
     public String getMessageCount() { return "0"; }
+
+    @Override
+    public String toString() {
+        return companyName != null ? companyName : "";
+    }
 }

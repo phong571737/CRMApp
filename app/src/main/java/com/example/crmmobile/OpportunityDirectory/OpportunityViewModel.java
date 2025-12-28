@@ -7,8 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.crmmobile.OpportunityDirectory.Opportunity;
-
 import java.util.List;
 
 public class OpportunityViewModel extends AndroidViewModel {
@@ -62,5 +60,11 @@ public class OpportunityViewModel extends AndroidViewModel {
         List<Opportunity> list = repository.getAll();
         opportunities.setValue(list);
     }
+
+    public void search(String keyword) {
+        List<Opportunity> result = repository.search(keyword);
+        opportunities.setValue(result);
+    }
+
 
 }

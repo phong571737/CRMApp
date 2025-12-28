@@ -67,7 +67,7 @@ public class OpportunityDetailActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.vp_opportunity_detail_content);
         detailEdit = findViewById(R.id.iv_opportunity_detail_edit);
 
-// cẩn thâ truyền đúng intent key "id" từ list fragment để tránh lỗi render
+// cẩn thận truyền đúng intent key "id" từ list fragment để tránh lỗi render
         opportunityId = getIntent().getIntExtra("id", -1);
         Log.d("OD_DEBUG", "opportunityId = " + opportunityId);
 

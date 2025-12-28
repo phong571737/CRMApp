@@ -1,5 +1,7 @@
 package com.example.crmmobile.IndividualDirectory;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,8 +19,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
 import com.example.crmmobile.R;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import android.widget.AdapterView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ThongTinKhacFragment extends Fragment {
     private AutoCompleteTextView actQuanHuyen, actTinhTP, actGiaoCho;
@@ -26,6 +34,8 @@ public class ThongTinKhacFragment extends Fragment {
 
     private CaNhan caNhan; // để populate khi edit
     private ViewModelCanhan viewModelCanhan;
+    private int selectedGiaoChoId = 0; // ID của nhân viên được chọn
+    private List<com.example.crmmobile.LeadDirectory.Nhanvien> nhanVienList = new ArrayList<>();
     public interface StringUpdater{
         void update(String s);
     }
@@ -61,6 +71,13 @@ public class ThongTinKhacFragment extends Fragment {
         bindEditTexttoViewModel(edtDiaChi, s -> viewModelCanhan.diachi.setValue(s));
         bindEditTexttoViewModel(edtGhiChu, s -> viewModelCanhan.ghiChu.setValue(s));
         bindEditTexttoViewModel(edtMota, s -> viewModelCanhan.moTa.setValue(s));
+        
+        // Bind giaoChoID vào viewModel khi edit mode
+        viewModelCanhan.giaoChoID.observe(getViewLifecycleOwner(), giaoChoID -> {
+            if (giaoChoID != null && giaoChoID > 0) {
+                selectedGiaoChoId = giaoChoID;
+            }
+        });
     }
 
     private void bindViewModeltoEditext(MutableLiveData<String> title, EditText editText) {
@@ -142,15 +159,39 @@ public class ThongTinKhacFragment extends Fragment {
         actTinhTP.setOnClickListener(v -> actTinhTP.showDropDown());
 
         // --- Adapter Giao cho ---
+        // Load danh sách nhân viên từ database với ID
+        NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
+        nhanVienRepository.AddNhanVien(); // Đảm bảo có dữ liệu nhân viên
+        nhanVienList = nhanVienRepository.getAllNhanVien();
+        
+        List<String> nhanVienNames = new ArrayList<>();
+        for (Nhanvien nv : nhanVienList) {
+            nhanVienNames.add(nv.getHoten());
+        }
+        
         ArrayAdapter<String> adapterGiaoCho = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
-                new String[]{"Phan Thị Tường Vi", "Nguyễn Hữu Thiện", "Lê Thị Ánh Xuân", "Huỳnh Văn Tuấn Phong", "Nguyễn Đức Thành"}
+                nhanVienNames
         );
         actGiaoCho.setAdapter(adapterGiaoCho);
         actGiaoCho.setFocusable(false);
         actGiaoCho.setClickable(true);
         actGiaoCho.setOnClickListener(v -> actGiaoCho.showDropDown());
+        
+        // Lưu ID khi chọn nhân viên
+        actGiaoCho.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position >= 0 && position < nhanVienList.size()) {
+                    selectedGiaoChoId = nhanVienList.get(position).getId();
+                    viewModelCanhan.giaoChoID.setValue(selectedGiaoChoId);
+                } else {
+                    selectedGiaoChoId = 0;
+                    viewModelCanhan.giaoChoID.setValue(0);
+                }
+            }
+        });
     }
 
     private void initViews(View view) {
@@ -179,9 +220,11 @@ public class ThongTinKhacFragment extends Fragment {
         edtGhiChu = view.findViewById(R.id.edtghichu);
         edtMota = view.findViewById(R.id.edtmota);
     }
+
     /**
      * Hàm gắn sự kiện mở rộng / thu gọn cho 1 tiêu đề và layout chi tiết.
      */
+
     private void setupToggle(TextView titleView, LinearLayout detailLayout) {
         // Mặc định hiển thị chi tiết + icon mũi tên lên
         detailLayout.setVisibility(View.VISIBLE);
@@ -209,5 +252,12 @@ public class ThongTinKhacFragment extends Fragment {
     public String getQuocGia() { return edtQuocGia.getText().toString(); }
     public String getGhiChu() { return edtGhiChu.getText().toString(); }
     public String getMoTa() { return edtMota.getText().toString(); }
+    
+    public int getGiaoChoID() { 
+        if (viewModelCanhan.giaoChoID.getValue() != null) {
+            return viewModelCanhan.giaoChoID.getValue();
+        }
+        return selectedGiaoChoId; 
+    }
 
 }

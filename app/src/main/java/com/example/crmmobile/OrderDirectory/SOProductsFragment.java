@@ -19,6 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.R;
+import com.example.crmmobile.OrderDirectory.ProductLine;
+import com.example.crmmobile.OrderDirectory.ProductLineAdapter;
+import com.example.crmmobile.OrderDirectory.EditGlobalDiscountBottomSheet;
+import com.example.crmmobile.OrderDirectory.EditProductBottomSheet;
+import com.example.crmmobile.OrderDirectory.ProductPickActivity;
+import com.example.crmmobile.OrderDirectory.EditTaxBottomSheet;
+import com.example.crmmobile.SanPhamDirectory.SanPham;
+
 import com.google.android.material.button.MaterialButton;
 
 import java.text.NumberFormat;
@@ -28,7 +36,6 @@ import java.util.Locale;
 
 public class SOProductsFragment extends Fragment {
 
-    // ===== Views =====
     private LinearLayout emptyState;
     private RecyclerView rvProducts;
     private View layoutTongKet;

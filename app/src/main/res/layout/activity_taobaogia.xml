@@ -69,31 +69,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="16dp">
+        android:background="@color/white">
 
-        <Button
-            android:id="@+id/btnHuy"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/abort_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel"
-            android:textSize="16sp"
-            android:backgroundTint="#EDF2FD"
-            android:textColor="@color/blue" />
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cornerRadius="@dimen/bottom_padding"
+            android:backgroundTint="@color/light_blue"
+            android:text="@string/abort"
+            android:textColor="@color/blue"
+            app:layout_constraintHorizontal_weight="1"/>
 
-        <Space
-            android:layout_width="8dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btnLuu"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/blue2"
+            app:cornerRadius="@dimen/bottom_padding"
             android:text="@string/save"
-            android:textSize="16sp"
-            android:backgroundTint="@color/blue" />
+            android:textColor="@color/white"
+            app:layout_constraintHorizontal_weight="1"/>
     </LinearLayout>
 
 </LinearLayout>

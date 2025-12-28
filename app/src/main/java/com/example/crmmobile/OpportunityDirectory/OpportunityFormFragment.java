@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.example.crmmobile.IndividualDirectory.CaNhan;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.R;
 
 public class OpportunityFormFragment extends Fragment {
@@ -191,14 +193,14 @@ public class OpportunityFormFragment extends Fragment {
         ac.setOnClickListener(v -> ac.showDropDown());
 
         ac.setOnItemClickListener((p, v, pos, id) -> {
-            if (list.get(pos) instanceof Company)
-                formVM.setSelectedCompanyId(((Company) list.get(pos)).getId());
+            if (list.get(pos) instanceof ToChuc)
+                formVM.setSelectedCompanyId(((ToChuc) list.get(pos)).getId());
 
             if (list.get(pos) instanceof CaNhan)
                 formVM.setSelectedContactId(((CaNhan) list.get(pos)).getId());
 
-            if (list.get(pos) instanceof Employee)
-                formVM.setSelectedManagementId(((Employee) list.get(pos)).getId());
+            if (list.get(pos) instanceof Nhanvien)
+                formVM.setSelectedManagementId(((Nhanvien) list.get(pos)).getId());
         });
     }
 

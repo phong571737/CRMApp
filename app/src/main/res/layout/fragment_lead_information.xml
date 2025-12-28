@@ -187,7 +187,6 @@
                     android:textSize="14sp"
                     android:hint="@string/birthday"
                     android:background="@android:color/transparent"
-                    android:inputType="date"
                     android:paddingStart="@dimen/margin_base"
                     android:paddingEnd="@dimen/margin_base"/>
             </com.google.android.material.textfield.TextInputLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 
 import com.example.crmmobile.Adapter.AdapterQuote;
 import com.example.crmmobile.BottomSheet.BottomSheetActionQuote;
+import com.example.crmmobile.DataBase.QuoteRepository;
 import com.example.crmmobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -21,9 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuoteFragment extends Fragment {
-    RecyclerView recyclerView;
-    AdapterQuote adapterQuote;
-    List<Quote> listquote;
+    private RecyclerView recyclerView;
+    private AdapterQuote adapterQuote;
+    private List<Quote> listquote;
+    private QuoteRepository quoteRepository;
+    private CreateQuoteViewModel createQuoteViewModel;
+    private QuoteListViewModel quoteListViewModel;
+    private ImageView iv_back;
 
     FloatingActionButton btnaddQuote;
 
@@ -41,7 +47,6 @@ public class QuoteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -49,37 +54,85 @@ public class QuoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_quote, container, false);
+        quoteListViewModel = new ViewModelProvider(requireActivity()).get(QuoteListViewModel.class);
+        createQuoteViewModel = new ViewModelProvider(requireActivity()).get(CreateQuoteViewModel.class);
+        quoteRepository = new QuoteRepository(requireContext());
+        initViews(view);
 
-        recyclerView = view.findViewById(R.id.QuoteRecycler);
-        btnaddQuote = view.findViewById(R.id.btn_add_quote);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        setupRecyclerView();
+        setupViewModel();
+        setupActions();
 
-        listquote = new ArrayList<>();
-        listquote.add(new Quote("ABC1234", "Công ty X", "19/10/2025"));
-        listquote.add(new Quote("ABC1234", "Công ty Y", "19/10/2025"));
-        listquote.add(new Quote("ABC1234", "Công ty Z", "19/10/2025"));
-        listquote.add(new Quote("ABC1234", "Công ty Z", "19/10/2025"));
-        listquote.add(new Quote("ABC1234", "Công ty Z", "19/10/2025"));
+        quoteListViewModel.refresh();
+        createQuoteViewModel.getQuoteCreateEvent().observe(
+                getViewLifecycleOwner(),
+                created->{
+                    if (Boolean.TRUE.equals(created)){
+                        quoteListViewModel.refresh();
+                        createQuoteViewModel.clearCreatedEvent();
+                    }
+                }
+        );
 
-        adapterQuote = new AdapterQuote(listquote,(item, position) ->{
-            BottomSheetActionQuote.ShowBottomSheetQuote(getContext(), item, position);
-        }, quote->{
-            Intent intent = new Intent(getContext(), QuoteDetailActivity.class);
-            startActivity(intent);
+        return view;
+    }
+
+    private void setupViewModel() {
+        quoteListViewModel.getQuotes().observe(
+                getViewLifecycleOwner(), quotes -> {
+                    adapterQuote.setData(quotes);
+                }
+        );
+    }
+
+    private void setupRecyclerView() {
+
+        adapterQuote = new AdapterQuote(requireContext(),
+                new ArrayList<>(),
+                new AdapterQuote.onItemClickListener() {
+            @Override
+            public void onDotsListener(Quote quote, int position) {
+                BottomSheetActionQuote.ShowBottomSheetQuote(getContext(), quote, position, new BottomSheetActionQuote.OnActionListenerQuote() {
+                    @Override
+                    public void onDeleteQuote(Quote quote) {
+                        quoteListViewModel.deleteQuote(quote.getID());
+                    }
+                });
+            }
+
+            @Override
+            public void onMenuListener(Quote quote, int id) {
+                Intent intent = new Intent(getContext(), QuoteDetailActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
         });
         recyclerView.setAdapter(adapterQuote);
+    }
 
+    private void setupActions() {
         //tạo mới báo giá
         btnaddQuote.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), TaoBaoGiaActivity.class);
             startActivity(intent);
         });
-
-        ImageView iv_back = view.findViewById(R.id.iv_back);
         iv_back.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
+    }
 
-        return view;
+    private void initViews(View view) {
+        recyclerView = view.findViewById(R.id.QuoteRecycler);
+        btnaddQuote = view.findViewById(R.id.btn_add_quote);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        iv_back = view.findViewById(R.id.iv_back);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (quoteListViewModel != null){
+            quoteListViewModel.refresh();
+        }
     }
 }

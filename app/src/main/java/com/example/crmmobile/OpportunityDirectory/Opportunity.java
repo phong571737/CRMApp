@@ -6,6 +6,9 @@ public class Opportunity {
     private int callCount;
     private int messageCount;
 
+    private long createdAt;
+    private long updatedAt;
+
     private int id;                 // Id cơ hội
     private String title;          // Tên cơ hội
     private int company;        // Công ty
@@ -56,13 +59,30 @@ public class Opportunity {
                 description, management, 0, 0);
     }
 
+    // Constructor for detail with timestamp
+    public Opportunity(int id, String title, int company, int contact, double price,
+                       String status, String date,
+                       String expectedDate2, String description, int management, long createdAt, long updatedAt) {
+        this.id = id;
+        this.title = title;
+        this.company = company;
+        this.contact = contact;
+        this.price = price;
+        this.status = status;
+        this.date = date;
+        this.expectedDate2 = expectedDate2;
+        this.description = description;
+        this.management = management;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     // --- GETTER ---
 
     public int getCallCount() { return callCount; }
     public int getMessageCount() { return messageCount; }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -102,6 +122,10 @@ public class Opportunity {
     public int getManagement() {
         return management;
     }
+
+    public long getCreatedAt() { return createdAt; }
+    public long getUpdatedAt() { return updatedAt; }
+
 
     // --- SETTER (nếu bạn cần cập nhật sau này) ---
     public void setId(int id){
@@ -144,4 +168,11 @@ public class Opportunity {
         this.management = management;
     }
 
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(long updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

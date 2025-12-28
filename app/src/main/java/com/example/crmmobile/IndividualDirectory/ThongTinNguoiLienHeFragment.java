@@ -19,11 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.crmmobile.DataBase.CompanyRepository;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat; // Import format ngày
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class ThongTinNguoiLienHeFragment extends Fragment {
@@ -33,6 +37,9 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
     private CaNhan pendingData;
 
     private ViewModelCanhan viewModelCanhan;
+    
+    // Danh sách công ty từ database
+    private List<ToChuc> companyList = new ArrayList<>();
     public interface StringUpdater{
         void update(String s);
     }
@@ -185,8 +192,14 @@ public class ThongTinNguoiLienHeFragment extends Fragment {
         ArrayAdapter<String> adapterGioiTinh = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, gioiTinhArr);
         actGioiTinh.setAdapter(adapterGioiTinh);
 
-        String[] congTyArr = {"Công ty A", "Công ty B", "Công ty C", "Freelancer"};
-        ArrayAdapter<String> adapterCongTy = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, congTyArr);
+        // Load danh sách công ty từ database
+        CompanyRepository companyRepository = new CompanyRepository(requireContext());
+        companyList = companyRepository.getAllCompany();
+        ArrayAdapter<ToChuc> adapterCongTy = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                companyList
+        );
         actCongTy.setAdapter(adapterCongTy);
     }
 

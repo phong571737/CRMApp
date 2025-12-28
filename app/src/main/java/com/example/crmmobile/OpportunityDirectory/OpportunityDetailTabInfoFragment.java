@@ -69,11 +69,12 @@ public class OpportunityDetailTabInfoFragment extends Fragment {
         LinearLayout layoutSystem = view.findViewById(R.id.layout_system_info_content);
         setupToggle(ivSystem, layoutSystem);
 
-        detailVM.getOpportunity().observe(getViewLifecycleOwner(), opportunity -> {
-            if (opportunity != null) {
-                bindData(view, opportunity);
+        detailVM.getUI().observe(getViewLifecycleOwner(), ui -> {
+            if (ui != null) {
+                bindData(view, ui);
             }
         });
+
 
     }
 
@@ -92,12 +93,17 @@ public class OpportunityDetailTabInfoFragment extends Fragment {
         });
     }
 
-    private void bindData(View view, Opportunity o) {
+    private String formatCurrency(double amount) {
+        return String.format("%,.0f đ", amount);
+    }
 
-        if (o == null) return;
+    private void bindData(View view, OpportunityDetailUI ui) {
 
-        // ===== Header / Overview =====
-        TextView tvTitle = view.findViewById(R.id.tv_opportunity_info_title);
+        if (ui == null) return;
+
+        // ===== Header =====
+        TextView tvTitle = view.findViewById(R.id.tv_company_description_value);
+        tvTitle.setText(ui.title != null ? ui.title : "-");
 
         // ===== Thông tin cơ hội =====
         TextView tvCompanyValue = view.findViewById(R.id.tv_company_value);
@@ -105,76 +111,47 @@ public class OpportunityDetailTabInfoFragment extends Fragment {
         TextView tvOpportunityValue = view.findViewById(R.id.tv_opportunity_value);
         TextView tvOpportunityStatus = view.findViewById(R.id.tv_opportunity_status);
         TextView tvCloseDateValue = view.findViewById(R.id.tv_close_date_value);
-        TextView tvFailureReasonValue = view.findViewById(R.id.tv_failure_reason_value);
+
+        TextView tvCreatedAt = view.findViewById(R.id.tv_created_date_value);
+        TextView tvUpdatedAt = view.findViewById(R.id.tv_modified_date_value);
+
+        tvCompanyValue.setText(
+                ui.companyName != null ? ui.companyName : "-"
+        );
+
+        tvContactValue.setText(
+                ui.contactName != null ? ui.contactName : "-"
+        );
+
+        tvOpportunityValue.setText(formatCurrency(ui.price));
+
+        tvOpportunityStatus.setText(
+                ui.status != null ? ui.status : "-"
+        );
+
+        tvCloseDateValue.setText(
+                ui.date != null && !ui.date.isEmpty() ? ui.date : "-"
+        );
 
         // ===== Mô tả =====
         TextView tvDescriptionContent = view.findViewById(R.id.tv_description_content);
-
-        // ===== Quản lý =====
-        TextView tvAssignedToValue = view.findViewById(R.id.tv_assigned_to_value);
-
-        // ===== Hệ thống =====
-        TextView tvCreatedDateValue = view.findViewById(R.id.tv_created_date_value);
-        TextView tvModifiedDateValue = view.findViewById(R.id.tv_modified_date_value);
-
-        // =====================================================
-        // SET DATA
-        // =====================================================
-
-        // Tiêu đề
-        tvTitle.setText(
-                o.getTitle() != null ? o.getTitle() : "-"
-        );
-
-        // Công ty (hiện là ID)
-        tvCompanyValue.setText(
-                o.getCompany() > 0 ? "ID: " + o.getCompany() : "-"
-        );
-
-        // Người liên hệ (hiện là ID)
-        tvContactValue.setText(
-                o.getContact() > 0 ? "ID: " + o.getContact() : "-"
-        );
-
-        // Giá trị cơ hội
-        tvOpportunityValue.setText(formatCurrency(o.getPrice()));
-
-        // Trạng thái / Sales stage
-        tvOpportunityStatus.setText(
-                o.getStatus() != null ? o.getStatus() : "-"
-        );
-
-        // Ngày chốt
-        tvCloseDateValue.setText(
-                o.getDate() != null && !o.getDate().isEmpty()
-                        ? o.getDate()
-                        : "-"
-        );
-
-        // Lý do thất bại (chưa có field → để trống an toàn)
-        tvFailureReasonValue.setText("-");
-
-        // Mô tả
         tvDescriptionContent.setText(
-                o.getDescription() != null && !o.getDescription().isEmpty()
-                        ? o.getDescription()
+                ui.description != null && !ui.description.isEmpty()
+                        ? ui.description
                         : "Không có mô tả"
         );
 
-        // Người phụ trách (hiện là ID)
+        // ===== Quản lý =====
+        TextView tvAssignedToValue = view.findViewById(R.id.tv_assigned_to_value);
         tvAssignedToValue.setText(
-                o.getManagement() > 0 ? "User ID: " + o.getManagement() : "-"
+                ui.managementName != null ? ui.managementName : "-"
         );
 
-        // Ngày tạo / sửa (nếu chưa có backend thì tạm)
-        tvCreatedDateValue.setText("-");
-        tvModifiedDateValue.setText("-");
+        // ===== Hệ thống (nếu chưa có backend) =====
+//        ((TextView) view.findViewById(R.id.tv_created_date_value)).setText("-");
+//        ((TextView) view.findViewById(R.id.tv_modified_date_value)).setText("-");
+        tvCreatedAt.setText(ui.createdAt);
+        tvUpdatedAt.setText(ui.updatedAt);
+
     }
-
-    private String formatCurrency(double amount) {
-        return String.format("%,.0f đ", amount);
-    }
-
-
-
 }

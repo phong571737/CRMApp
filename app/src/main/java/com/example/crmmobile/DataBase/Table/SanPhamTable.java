@@ -7,7 +7,7 @@ public class SanPhamTable {
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "TEN TEXT," +
                     "MOTA TEXT," +
-                    "DONGIA REAL," +
+                    "DONGIA INTEGER," +
                     "TRANGTHAI TEXT," +
                     "NGAYTAO TEXT," +
                     "NGUOITAO INTEGER," +

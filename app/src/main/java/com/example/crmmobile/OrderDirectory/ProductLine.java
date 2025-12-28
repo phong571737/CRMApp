@@ -6,6 +6,9 @@ public class ProductLine {
     private int qty;
     private long price;
 
+    // ✅ Giảm giá theo dòng (tiền tuyệt đối, đơn vị: đ)
+    private long discountAmount = 0L;
+
     public ProductLine(String name, String note, int qty, long price) {
         this.name = name;
         this.note = note;
@@ -13,16 +16,29 @@ public class ProductLine {
         this.price = price;
     }
 
-    // ✅ getters bạn đang gọi trong SOProductsFragment
     public String getName() { return name; }
-    public long getPrice() { return price; }
-    public int getQty() { return qty; }
-
     public String getNote() { return note; }
-    public void setNote(String note) { this.note = note; }
+    public int getQty() { return qty; }
+    public long getPrice() { return price; }
 
+    public void setNote(String note) { this.note = note; }
     public void setQty(int qty) { this.qty = qty; }
     public void setPrice(long price) { this.price = price; }
 
-    public long getThanhTien() { return (long) qty * price; }
+    // ✅ discount
+    public long getDiscountAmount() { return discountAmount; }
+    public void setDiscountAmount(long discountAmount) {
+        this.discountAmount = Math.max(0L, discountAmount);
+    }
+
+    public long getBaseAmount() {
+        return (long) qty * price;
+    }
+
+    // ✅ Thành tiền sau giảm giá (fragment tổng kết sẽ dùng cái này)
+    public long getThanhTien() {
+        long base = getBaseAmount();
+        long d = Math.min(Math.max(0L, discountAmount), base);
+        return Math.max(0L, base - d);
+    }
 }

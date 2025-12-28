@@ -18,15 +18,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/btnBack"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/arrow_back"/>
+                android:background="@drawable/arrow_back" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,6 @@
                 android:layout_height="20dp"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_edit" />
-
         </LinearLayout>
 
         <ImageView
@@ -79,12 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="vertical">
-
-        <!-- Mã đơn -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
 
         <TextView
             android:id="@+id/tvOrderCode"
@@ -171,104 +164,27 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
+    <!-- ✅ ĐÃ XÓA: Người tạo + Người phụ trách + avatar -->
 
-        <!-- Người tạo -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imgCreator"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/avatar_girl"
-                android:scaleType="centerCrop" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Người tạo"
-                    android:textColor="#6B7280"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tvCreatorName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nguyễn Minh Hà"
-                    android:textColor="#111827"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Người phụ trách -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imgManager"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/avatar_girl"
-                android:scaleType="centerCrop"
-                />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Người phụ trách"
-                    android:textColor="#6B7280"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tvManagerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nguyễn Minh Hà"
-                    android:textColor="#111827"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- 🔹 Thanh Tab -->
-    <!-- 🔹 Thanh tab -->
+    <!-- 🔹 Tab (Tổng quan / Chi tiết) - làm rõ chữ -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/white"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white" />
+        android:layout_marginTop="12dp"
+        android:background="@color/card_bg"
+        app:tabIndicatorColor="@color/brand"
+        app:tabSelectedTextColor="@color/brand"
+        app:tabTextColor="@color/text_secondary"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="false"
+        app:tabTextAppearance="@style/OrderDetailTabText" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:dividerColor="@color/stroke" />
 
     <!-- 🔹 Vùng chứa nội dung fragment -->
     <androidx.viewpager2.widget.ViewPager2

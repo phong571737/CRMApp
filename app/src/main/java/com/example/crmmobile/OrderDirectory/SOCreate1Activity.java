@@ -51,6 +51,7 @@ public class SOCreate1Activity extends AppCompatActivity {
         void putExtra(String key, String value);
     }
 
+
     private final ArrayList<ProductLine> draftProducts = new ArrayList<>();
     private final JSONObject draftExtra = new JSONObject();
 
@@ -345,11 +346,16 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         String productsJson = encodeProductsJson(productsForSave);
 
+
         // ===== Tạo DonHang để insert (không set cứng nữa) =====
         DonHang dh = new DonHang();
         dh.setTenDonHang(title);
         dh.setNgayDatHang(dateStr);
         dh.setTinhTrang(statusStr);
+
+        // ✅ Lưu extra (thanh toán + thông tin create4) xuống DB
+        dh.setExtraJson(draftExtra.toString());
+
 
         // Chưa có UI -> để trống
         dh.setNgayNhanHang("");
@@ -364,7 +370,12 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         // ✅ Lưu tổng
         dh.setSoLuong(totalQty);
-        dh.setTongTien(totalMoney);
+
+        long grandTotal = getGrandTotalFromProductsFragment(); // ✅ tổng cộng sau giảm giá + thuế
+        if (grandTotal <= 0) grandTotal = totalMoney;         // fallback nếu fragment chưa sẵn sàng
+
+        dh.setTongTien(grandTotal);
+
 
         // donGia bạn có thể để 0 (vì đã có chi tiết từng dòng trong JSON)
         dh.setDonGia(0);
@@ -420,6 +431,16 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         return out;
     }
+    private long getGrandTotalFromProductsFragment() {
+        try {
+            if (productsFragment instanceof SOProductsFragment) {
+                return ((SOProductsFragment) productsFragment).getCurrentTotal();
+            }
+        } catch (Exception ignored) {}
+        return 0L;
+    }
+
+
 
     private String encodeProductsJson(List<ProductLine> list) {
         try {

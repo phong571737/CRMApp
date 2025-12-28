@@ -39,6 +39,9 @@
         <activity android:name=".OrganizationDirectory.TaoCongTyActivity"
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
+
+        <activity android:name=".OrderDirectory.SOCreate4Activity" />
+
         <activity android:name=".ReportDirectory.BaoCaoActivity"
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>

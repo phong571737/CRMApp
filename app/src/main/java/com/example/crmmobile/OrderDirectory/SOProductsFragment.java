@@ -26,6 +26,7 @@ import com.example.crmmobile.OrderDirectory.EditProductBottomSheet;
 import com.example.crmmobile.OrderDirectory.ProductPickActivity;
 import com.example.crmmobile.OrderDirectory.EditTaxBottomSheet;
 import com.example.crmmobile.SanPhamDirectory.SanPham;
+
 import com.google.android.material.button.MaterialButton;
 
 import java.text.NumberFormat;
@@ -34,35 +35,55 @@ import java.util.List;
 import java.util.Locale;
 
 public class SOProductsFragment extends Fragment {
+
     private LinearLayout emptyState;
     private RecyclerView rvProducts;
     private View layoutTongKet;
-    private TextView tvTamTinh, tvGiamGiaChung, tvTongThue, tvTongCong;
 
+    // Tổng kết
+    private TextView tvTamTinh, tvGiamGiaChung, tvTongGiam, tvTruocThue, tvThue, tvTongThue, tvTongCong;
+
+    // ===== Data =====
     private final List<ProductLine> data = new ArrayList<>();
     private ProductLineAdapter adapter;
 
     private ActivityResultLauncher<Intent> pickProductLauncher;
 
+    // ===== Summary params =====
+    private long globalDiscount = 0L;     // giảm giá chung (đ)
+    private double taxRate = 0.0;         // ví dụ 0.1 = 10%
+
+    private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Tạo adapter, chưa đụng gì đến View ở đây
-        adapter = new ProductLineAdapter(data);
+        // ✅ Adapter có callback: mỗi khi qty/price/xóa thay đổi -> updateVisibility() -> updateSummary()
+        adapter = new ProductLineAdapter(data, this::updateVisibility);
 
-        // CLICK ITEM → mở bottom sheet điều chỉnh sản phẩm
         adapter.setOnItemClickListener(line -> {
-            String name = line.getName();
-            long price  = line.getPrice();
-            int qty     = line.getQty();
+            EditProductBottomSheet sheet = EditProductBottomSheet.newInstance(
+                    line.getName(),
+                    line.getPrice(),
+                    line.getQty(),
+                    line.getDiscountAmount()
+            );
 
-            EditProductBottomSheet sheet =
-                    EditProductBottomSheet.newInstance(name, price, qty);
+            sheet.setListener((newQty, discountAmount) -> {
+                line.setQty(newQty);
+                line.setDiscountAmount(discountAmount);
+
+                if (adapter != null) adapter.notifyDataSetChanged();
+                updateVisibility(); // sẽ updateSummary()
+            });
+
             sheet.show(getParentFragmentManager(), "EditProductBottomSheet");
         });
 
-        // Đăng ký launcher chọn sản phẩm
+
+
+        // ✅ Launcher chọn sản phẩm
         pickProductLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -73,18 +94,18 @@ public class SOProductsFragment extends Fragment {
                         long   price = intent.getLongExtra(ProductPickActivity.EXTRA_PRICE, 0L);
                         String note  = intent.getStringExtra(ProductPickActivity.EXTRA_NOTE);
 
-                        if (name != null) {
+                        if (name != null && !name.trim().isEmpty()) {
                             ProductLine line = new ProductLine(
-                                    name,
+                                    name.trim(),
                                     note != null ? note : "",
                                     1,
                                     price
                             );
 
                             data.add(line);
-                            if (adapter != null) {
-                                adapter.notifyItemInserted(data.size() - 1);
-                            }
+                            if (adapter != null) adapter.notifyItemInserted(data.size() - 1);
+
+                            // ✅ cập nhật từ trên xuống tổng cộng
                             updateVisibility();
                         }
                     }
@@ -100,104 +121,163 @@ public class SOProductsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_so_products, container, false);
 
-        // Lấy view từ layout
-        emptyState   = v.findViewById(R.id.emptyState);
-        rvProducts   = v.findViewById(R.id.rvProducts);
+        emptyState    = v.findViewById(R.id.emptyState);
+        rvProducts    = v.findViewById(R.id.rvProducts);
         layoutTongKet = v.findViewById(R.id.layoutTongKet);
 
         if (layoutTongKet != null) {
             tvTamTinh      = layoutTongKet.findViewById(R.id.tvTamTinh);
             tvGiamGiaChung = layoutTongKet.findViewById(R.id.tvGiamGiaChung);
+            tvTongGiam     = layoutTongKet.findViewById(R.id.tvTongGiam);
+            tvTruocThue    = layoutTongKet.findViewById(R.id.tvTruocThue);
+            tvThue         = layoutTongKet.findViewById(R.id.tvThue);
             tvTongThue     = layoutTongKet.findViewById(R.id.tvTongThue);
             tvTongCong     = layoutTongKet.findViewById(R.id.tvTongCong);
         }
 
-        // Setup RecyclerView (GIỜ mới được đụng rvProducts)
-        rvProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        rvProducts.setAdapter(adapter);
+        // Setup RV
+        if (rvProducts != null) {
+            rvProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvProducts.setAdapter(adapter);
+        }
 
-        // Nút "Thêm sản phẩm"
+        // Nút thêm sản phẩm
         MaterialButton btnAdd = v.findViewById(R.id.btnAddProduct);
-        btnAdd.setOnClickListener(view -> {
-            Intent i = new Intent(requireContext(), ProductPickActivity.class);
-            pickProductLauncher.launch(i);
-        });
-        // ==== Click ic_info Thuế mở bottom sheet điều chỉnh thuế ====
+        if (btnAdd != null) {
+            btnAdd.setOnClickListener(view -> {
+                Intent i = new Intent(requireContext(), ProductPickActivity.class);
+                pickProductLauncher.launch(i);
+            });
+        }
+
+        // ==== Thuế ====
         ImageView iconThue = v.findViewById(R.id.iconTooltipThue);
         if (iconThue != null) {
             iconThue.setOnClickListener(view1 -> {
-                long baseAmount = tinhTamTinh();  // hoặc tổng trước thuế nếu bạn có hàm riêng
-                int vatPercentDefault = 10;
+                long baseAmount = tinhTruocThue();     // trước thuế
+                int vatDefault = (int) Math.round(taxRate * 100); // ví dụ 10
 
                 EditTaxBottomSheet sheet =
-                        EditTaxBottomSheet.newInstance(baseAmount, vatPercentDefault);
+                        EditTaxBottomSheet.newInstance(baseAmount, vatDefault);
+
+                // ✅ nếu BottomSheet hỗ trợ callback, gọi setTaxPercent(percent)
+                // sheet.setListener(percent -> setTaxPercent(percent));
+
                 sheet.show(getParentFragmentManager(), "EditTax");
             });
         }
 
-
-        // Click ic_info "Giảm giá chung" → mở BottomSheet giảm giá
         ImageView iconGiamGia = v.findViewById(R.id.iconTooltipGiamGia);
         if (iconGiamGia != null) {
-            iconGiamGia.setOnClickListener(view1 -> {
-                long subtotal = tinhTamTinh();
+            iconGiamGia.setOnClickListener(clicked -> {
+                long subtotal = tinhTamTinh(); // tổng sau giảm theo dòng (nếu có)
+
                 EditGlobalDiscountBottomSheet sheet =
-                        EditGlobalDiscountBottomSheet.newInstance(subtotal);
+                        EditGlobalDiscountBottomSheet.newInstance(subtotal, globalDiscount);
+
+                sheet.setListener((long discountAmount) -> {
+                    globalDiscount = discountAmount;   // ✅ cập nhật giảm giá chung
+                    updateVisibility();                // ✅ updateSummary()
+                });
+
                 sheet.show(getParentFragmentManager(), "EditGlobalDiscount");
             });
+
+
         }
 
-        // Cập nhật hiển thị ban đầu
+
+        // cập nhật lần đầu
         updateVisibility();
 
         return v;
     }
 
-    // Tính tạm tính = sum(thành tiền từng dòng)
+
+    // ===== API để BottomSheet gọi lại (nếu bạn muốn dùng callback) =====
+    public void setGlobalDiscount(long discountValue) {
+        globalDiscount = Math.max(0L, discountValue);
+        updateVisibility(); // sẽ gọi updateSummary()
+    }
+
+
+    public void setTaxPercent(int percent) {
+        if (percent < 0) percent = 0;
+        taxRate = percent / 100.0;
+        updateVisibility();
+    }
+
+    // ===== Tính toán =====
     private long tinhTamTinh() {
-        long sum = 0;
+        long sum = 0L;
         for (ProductLine line : data) {
+            if (line == null) continue;
             sum += line.getThanhTien();
         }
         return sum;
     }
 
+    private long tinhTruocThue() {
+        long subtotal = tinhTamTinh();
+        long truocThue = subtotal - Math.max(0L, globalDiscount);
+        return Math.max(0L, truocThue);
+    }
+
+    private long tinhThue() {
+        long truocThue = tinhTruocThue();
+        return Math.round(truocThue * taxRate);
+    }
+
+    // ===== UI =====
     private void updateVisibility() {
-        // Có thể được gọi từ callback nên nhớ check null
         if (emptyState == null || rvProducts == null) return;
 
-        if (data.isEmpty()) {
-            emptyState.setVisibility(View.VISIBLE);
-            rvProducts.setVisibility(View.GONE);
-            if (layoutTongKet != null) layoutTongKet.setVisibility(View.GONE);
-        } else {
-            emptyState.setVisibility(View.GONE);
-            rvProducts.setVisibility(View.VISIBLE);
-            if (layoutTongKet != null) layoutTongKet.setVisibility(View.VISIBLE);
-            updateSummary();
-        }
+        boolean empty = data.isEmpty();
+
+        emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
+        rvProducts.setVisibility(empty ? View.GONE : View.VISIBLE);
+
+        if (layoutTongKet != null) layoutTongKet.setVisibility(empty ? View.GONE : View.VISIBLE);
+
+        if (!empty) updateSummary();
     }
 
     private void updateSummary() {
-        long subtotal = 0L;
+        long subtotal  = tinhTamTinh();
 
-        for (ProductLine line : data) {
-            subtotal += (long) line.getQty() * line.getPrice();
-        }
+        long giamChung = Math.max(0L, globalDiscount);
+        if (giamChung > subtotal) giamChung = subtotal; // chặn không âm
 
-        long giamGiaChung = 0L;
-        long tongThue     = 0L;
-        long tongCong     = subtotal - giamGiaChung + tongThue;
+        long tongGiam  = giamChung;
 
-        NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
-        String stSubtotal = nf.format(subtotal) + " đ";
-        String stGiam     = nf.format(giamGiaChung) + " đ";
-        String stThue     = nf.format(tongThue) + " đ";
-        String stTongCong = nf.format(tongCong) + " đ";
+        long truocThue = Math.max(0L, subtotal - tongGiam);
+        long thue      = Math.round(truocThue * taxRate);
+        long tongThue  = thue;
 
-        if (tvTamTinh != null)      tvTamTinh.setText(stSubtotal);
-        if (tvGiamGiaChung != null) tvGiamGiaChung.setText(stGiam);
-        if (tvTongThue != null)     tvTongThue.setText(stThue);
-        if (tvTongCong != null)     tvTongCong.setText(stTongCong);
+        long tongCong  = truocThue + tongThue;
+        tvGiamGiaChung.setText(nf.format(giamChung) + " đ");
+
+        if (tvTamTinh != null)      tvTamTinh.setText(nf.format(subtotal) + " đ");
+        if (tvGiamGiaChung != null) tvGiamGiaChung.setText(nf.format(giamChung) + " đ");
+        if (tvTongGiam != null)     tvTongGiam.setText(nf.format(tongGiam) + " đ");
+        if (tvTruocThue != null)    tvTruocThue.setText(nf.format(truocThue) + " đ");
+        if (tvThue != null)         tvThue.setText(nf.format(thue) + " đ");
+        if (tvTongThue != null)     tvTongThue.setText(nf.format(tongThue) + " đ");
+        if (tvTongCong != null)     tvTongCong.setText(nf.format(tongCong) + " đ");
     }
+
+
+    // ✅ Activity sẽ gọi để lấy "Tổng cộng" hiện tại (sau giảm giá chung + thuế)
+    public long getCurrentTotal() {
+        long subtotal = tinhTamTinh();
+
+        long giamChung = Math.max(0L, globalDiscount);
+        if (giamChung > subtotal) giamChung = subtotal;
+
+        long truocThue = Math.max(0L, subtotal - giamChung);
+        long thue = Math.round(truocThue * taxRate);
+
+        return truocThue + thue; // ✅ tongCong
+    }
+
 }

@@ -2,6 +2,7 @@ package com.example.crmmobile.MainDirectory;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +17,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.crmmobile.Adapter.AdapterModule;
 import com.example.crmmobile.Adapter.AdapterRecent;
 import com.example.crmmobile.AppConstant;
+import com.example.crmmobile.AuthDirectory.LoginActivity;
 import com.example.crmmobile.DataBase.LeadRepository;
 import com.example.crmmobile.DataBase.RecentRepository;
 import com.example.crmmobile.LeadDirectory.DetailLeadActivity;
@@ -43,6 +46,9 @@ public class main_screen extends Fragment {
     private onModuleItemSelectedListener itemModuleSelectedListener;
     private RecentRepository recentRepository;
     private Handler timeHandler;
+    private ImageButton btnLogout;
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
 
     public interface onModuleItemSelectedListener{
         void onModuleSelectedListener(String moduleNames);
@@ -82,7 +88,11 @@ public class main_screen extends Fragment {
         recentRepository = new RecentRepository(requireContext());
         rl_module = view.findViewById(R.id.rl_module);
         recycler_recent = view.findViewById(R.id.recycler_recent);
+        btnLogout = view.findViewById(R.id.btnLogout);
         timeHandler = new Handler(Looper.getMainLooper());
+
+        // Setup logout button
+        btnLogout.setOnClickListener(v -> handleLogout());
 
         itemModules = Arrays.asList(
                     new Module("Công ty", R.drawable.ic_company),
@@ -176,5 +186,19 @@ public class main_screen extends Fragment {
     public void onPause() {
         super.onPause();
         timeHandler.removeCallbacks(timeRunnable);
+    }
+
+    private void handleLogout() {
+        // Clear login preferences
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+
+        // Navigate to LoginActivity
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        requireActivity().finish();
     }
 }

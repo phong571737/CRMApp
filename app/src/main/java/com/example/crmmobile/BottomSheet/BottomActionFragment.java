@@ -1,4 +1,6 @@
 package com.example.crmmobile.BottomSheet;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
     private CaNhan caNhan; // item đang thao tác
     private OnActionListener listener; // callback về Activity
     private CaNhanRepository db;
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_USER_ROLE = "userRole";
 
     // Setter từ Activity để truyền item và callback
     public void setCaNhan(CaNhan cn, OnActionListener l) {
@@ -55,6 +59,14 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
         chinhsua = view.findViewById(R.id.chinhsua);
         xoa = view.findViewById(R.id.xoa);
         themHoatDong = view.findViewById(R.id.themhoatdong);
+
+        // --- Check role và ẩn/hiện nút xóa ---
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String userRole = sharedPreferences.getString(KEY_USER_ROLE, "");
+        if (!"ADMIN".equals(userRole)) {
+            // Ẩn nút xóa nếu không phải admin
+            xoa.setVisibility(View.GONE);
+        }
 
         // --- Nút ghim ---
         ghim.setOnClickListener(v -> dismiss()); // hiện tại chỉ đóng, có thể mở rộng

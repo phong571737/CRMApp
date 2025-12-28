@@ -1,6 +1,7 @@
 package com.example.crmmobile.BottomSheet;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,8 @@ import com.example.crmmobile.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class BottomSheetActionLead {
+    private static final String PREFS_NAME = "LoginPrefs";
+    private static final String KEY_USER_ROLE = "userRole";
 
     public interface OnActionListenerLead{
         void onEdit(Lead lead);
@@ -57,10 +60,16 @@ public class BottomSheetActionLead {
             if(listener != null) listener.onEdit(lead);
             dialog.dismiss();
         });
-        addActionItemLead(context, layoutAction, R.drawable.ic_garbage, "Xóa", () ->{
-            if(listener != null) listener.onDelete(lead);
-            dialog.dismiss();
-        });
+
+        // Chỉ hiển thị action "Xóa" nếu user là ADMIN
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String userRole = sharedPreferences.getString(KEY_USER_ROLE, "");
+        if ("ADMIN".equals(userRole)) {
+            addActionItemLead(context, layoutAction, R.drawable.ic_garbage, "Xóa", () ->{
+                if(listener != null) listener.onDelete(lead);
+                dialog.dismiss();
+            });
+        }
 
         dialog.setContentView(view);
         dialog.show();

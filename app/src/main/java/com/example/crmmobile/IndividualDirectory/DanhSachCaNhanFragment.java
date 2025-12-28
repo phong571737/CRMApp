@@ -152,6 +152,9 @@ public class DanhSachCaNhanFragment extends Fragment {
                         intent.putExtra("moTa", editCn.getMoTa());
                         intent.putExtra("ghiChu", editCn.getGhiChu());
                         intent.putExtra("giaoCho", editCn.getGiaoCho());
+                        if (editCn.getGiaoChoID() != null) {
+                            intent.putExtra("giaoChoID", editCn.getGiaoChoID());
+                        }
                         intent.putExtra("soCuocGoi", editCn.getSoCuocGoi());
                         intent.putExtra("soCuocHop", editCn.getSoCuocHop());
 
@@ -221,6 +224,11 @@ public class DanhSachCaNhanFragment extends Fragment {
         cn.setMoTa(data.getStringExtra("moTa"));
         cn.setGhiChu(data.getStringExtra("ghiChu"));
         cn.setGiaoCho(data.getStringExtra("giaoCho"));
+        // Lưu giaoChoID
+        int giaoChoID = data.getIntExtra("giaoChoID", 0);
+        if (giaoChoID > 0) {
+            cn.setGiaoChoID(giaoChoID);
+        }
 
         // --- Ngày tạo mặc định hôm nay (nếu chưa set) ---
         if (data.getStringExtra("ngayTao") != null) {
@@ -289,6 +297,13 @@ public class DanhSachCaNhanFragment extends Fragment {
                 cn.setMoTa(data.getStringExtra("moTa"));
                 cn.setGhiChu(data.getStringExtra("ghiChu"));
                 cn.setGiaoCho(data.getStringExtra("giaoCho"));
+                // Lưu giaoChoID
+                int giaoChoID = data.getIntExtra("giaoChoID", 0);
+                if (giaoChoID > 0) {
+                    cn.setGiaoChoID(giaoChoID);
+                } else {
+                    cn.setGiaoChoID(null);
+                }
                 cn.setSoCuocGoi(data.getIntExtra("soCuocGoi", cn.getSoCuocGoi()));
                 cn.setSoCuocHop(data.getIntExtra("soCuocHop", cn.getSoCuocHop()));
 
@@ -324,21 +339,21 @@ public class DanhSachCaNhanFragment extends Fragment {
 
     private void loadCaNhan() {
         List<CaNhan> listFromDB = db.getAllCaNhan();
-        if (listFromDB.isEmpty()) {
-            // Nếu DB trống, khởi tạo danh sách mặc định
-            allCaNhanList = new ArrayList<>();
-            allCaNhanList.add(new CaNhan("Anh","Nguyễn Văn", "A", "Công ty X", "01/01/2025", 2, 2));
-            allCaNhanList.add(new CaNhan("Chị", "Trần Thị", "B", "Công ty Y", "02/01/2025", 2, 2));
-            allCaNhanList.add(new CaNhan("Anh", "Lê Văn", "C", "Công ty Z", "03/01/2025", 2, 2));
+        // if (listFromDB.isEmpty()) {
+        //     // Nếu DB trống, khởi tạo danh sách mặc định
+        //     allCaNhanList = new ArrayList<>();
+        //     allCaNhanList.add(new CaNhan("Anh","Nguyễn Văn", "A", "Công ty X", "01/01/2025", 2, 2));
+        //     allCaNhanList.add(new CaNhan("Chị", "Trần Thị", "B", "Công ty Y", "02/01/2025", 2, 2));
+        //     allCaNhanList.add(new CaNhan("Anh", "Lê Văn", "C", "Công ty Z", "03/01/2025", 2, 2));
 
-            // Lưu 3 item mặc định vào DB
-            for (CaNhan cn : allCaNhanList) {
-                long id = db.add(cn);
-                cn.setId((int) id);
-            }
-        } else {
+        //     // Lưu 3 item mặc định vào DB
+        //     for (CaNhan cn : allCaNhanList) {
+        //         long id = db.add(cn);
+        //         cn.setId((int) id);
+        //     }
+        // } else {
+        // }
             allCaNhanList = new ArrayList<>(listFromDB);
-        }
         caNhanList = new ArrayList<>(allCaNhanList);
     }
 

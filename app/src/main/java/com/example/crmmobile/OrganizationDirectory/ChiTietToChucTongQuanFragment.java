@@ -16,34 +16,45 @@ import com.example.crmmobile.R;
 public class ChiTietToChucTongQuanFragment extends Fragment {
 
     // === KHAI BÁO CÁC BIẾN VIEW ===
-    private RelativeLayout sectionHoatDong, sectionBinhLuan;
-    private LinearLayout contentHoatDong, contentBinhLuan;
-    private ImageView toggleHoatDong, toggleBinhLuan;
+    private RelativeLayout sectionHoatDong;
+    private LinearLayout contentHoatDong;
+    private ImageView toggleHoatDong;
+
+    private static final String ARG_COMPANY_ID = "company_id";
+    private int companyId;
+
+    public static ChiTietToChucTongQuanFragment newInstance(int companyId) {
+        ChiTietToChucTongQuanFragment fragment = new ChiTietToChucTongQuanFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_COMPANY_ID, companyId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            companyId = getArguments().getInt(ARG_COMPANY_ID);
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chitiettochuc_tongquan, container, false);
 
-        // === ÁNH XẠ CÁC VIEW ===
-        // Mục 1: Hoạt động
+        // === ÁNH XẠ CÁC VIEW  ===
+        // Mục Hoạt động
         sectionHoatDong = view.findViewById(R.id.section_hoat_dong);
         contentHoatDong = view.findViewById(R.id.content_hoat_dong);
         toggleHoatDong = view.findViewById(R.id.toggle_hoat_dong);
-
-        // Mục 2: Bình luận
-        sectionBinhLuan = view.findViewById(R.id.section_binh_luan);
-        contentBinhLuan = view.findViewById(R.id.content_binh_luan);
-        toggleBinhLuan = view.findViewById(R.id.toggle_binh_luan);
-
-        // === GÁN SỰ KIỆN CLICK ===
         setupToggle(sectionHoatDong, contentHoatDong, toggleHoatDong);
-        setupToggle(sectionBinhLuan, contentBinhLuan, toggleBinhLuan);
 
         return view;
     }
 
-    // === THÊM HÀM HELPER ĐỂ XỬ LÝ ẨN/HIỆN ===
+    // === HÀM HELPER ĐỂ XỬ LÝ ẨN/HIỆN ===
     private void setupToggle(View header, View content, ImageView arrow) {
         // Mặc định, tất cả đều mở
         content.setVisibility(View.VISIBLE);

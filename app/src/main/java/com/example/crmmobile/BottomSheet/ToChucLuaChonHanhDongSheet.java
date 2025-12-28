@@ -15,9 +15,8 @@ public class ToChucLuaChonHanhDongSheet extends BottomSheetDialogFragment {
 
     // 1. Định nghĩa interface
     public interface ItemClickListener {
-        void onActionGhim();
         void onActionXemTongQuan();
-        void onActionThemHoatDong();
+
         void onActionChinhSua();
         void onActionXoa();
     }
@@ -48,17 +47,8 @@ public class ToChucLuaChonHanhDongSheet extends BottomSheetDialogFragment {
 
         // 2. Gán sự kiện click cho từng item
         view.findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
-
-        view.findViewById(R.id.action_ghim).setOnClickListener(v -> {
-            mListener.onActionGhim();
-            dismiss();
-        });
         view.findViewById(R.id.action_xem_tong_quan).setOnClickListener(v -> {
             mListener.onActionXemTongQuan();
-            dismiss();
-        });
-        view.findViewById(R.id.action_them_hoat_dong).setOnClickListener(v -> {
-            mListener.onActionThemHoatDong();
             dismiss();
         });
         view.findViewById(R.id.action_chinh_sua).setOnClickListener(v -> {

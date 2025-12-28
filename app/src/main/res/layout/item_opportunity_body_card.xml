@@ -26,9 +26,9 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:src="@drawable/ic_target"
-            app:tint="@color/color_icon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:tint="@color/color_icon" />
 
         <TextView
             android:id="@+id/tv_opportunity_name"
@@ -36,42 +36,42 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Phần mềm CloudWork"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="15.5sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/img_menu"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/img_opportunity_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/img_star"
-            app:layout_constraintHorizontal_bias="0"
             tools:text="Phần mềm CloudWork" />
 
-        <ImageView
-            android:id="@+id/img_star"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_star_filled"
-            app:tint="@color/yellow"
-            app:layout_constraintEnd_toStartOf="@id/img_menu"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/img_star"-->
+        <!--            android:layout_width="20dp"-->
+        <!--            android:layout_height="20dp"-->
+        <!--            android:src="@drawable/ic_star_filled"-->
+        <!--            app:tint="@color/yellow"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/img_menu"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <ImageView
             android:id="@+id/img_menu"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_more_vert"
-            app:tint="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/blue" />
 
         <!-- GIÁ TIỀN -->
         <LinearLayout
             android:id="@+id/layout_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_opportunity_name"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_opportunity_name">
 
             <ImageView
                 android:layout_width="18dp"
@@ -83,10 +83,10 @@
                 android:id="@+id/tv_opportunity_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="14.875.000 đ"
                 android:layout_marginStart="8dp"
-                android:textSize="14sp"
-                android:textColor="@color/black" />
+                android:text="14.875.000 đ"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <!-- NGÀY + CHIP -->
@@ -94,19 +94,19 @@
             android:id="@+id/layout_date_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_marginTop="6dp"
-            app:layout_constraintTop_toBottomOf="@id/layout_price"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/layout_price">
 
             <LinearLayout
                 android:id="@+id/layout_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -120,8 +120,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="17/07/2024"
-                    android:textSize="13sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <View
@@ -133,115 +133,115 @@
                 android:id="@+id/tv_opportunity_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thương lượng đàm phán"
                 android:background="@drawable/bg_status_chip"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="5dp"
-                android:textSize="12.5sp"
-                android:textColor="@color/brown" />
+                android:text="Thương lượng đàm phán"
+                android:textColor="@color/brown"
+                android:textSize="12.5sp" />
         </LinearLayout>
 
-        <!-- CALL + CHAT ICON -->
-        <LinearLayout
-            android:id="@+id/layout_call_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/layout_date_row"
-            app:layout_constraintStart_toStartOf="parent">
+<!--        &lt;!&ndash; CALL + CHAT ICON &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/layout_call_chat"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/layout_date_row">-->
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_call"
-                app:tint="@color/blue_primary" />
+<!--            <ImageView-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:src="@drawable/ic_call"-->
+<!--                app:tint="@color/blue_primary" />-->
 
-            <TextView
-                android:id="@+id/tv_call_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2"
-                android:textColor="@color/black"
-                android:layout_marginStart="6dp" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_call_count"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="6dp"-->
+<!--                android:text="2"-->
+<!--                android:textColor="@color/black" />-->
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_mail"
-                android:layout_marginStart="16dp"
-                app:tint="@color/blue_primary" />
+<!--            <ImageView-->
+<!--                android:layout_width="18dp"-->
+<!--                android:layout_height="18dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:src="@drawable/ic_mail"-->
+<!--                app:tint="@color/blue_primary" />-->
 
-            <TextView
-                android:id="@+id/tv_message_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:textColor="@color/black"
-                android:layout_marginStart="6dp" />
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:id="@+id/tv_message_count"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="6dp"-->
+<!--                android:text="5"-->
+<!--                android:textColor="@color/black" />-->
+<!--        </LinearLayout>-->
 
-        <!-- AVATAR NHÂN VIÊN -->
-        <LinearLayout
-            android:id="@+id/layout_avatar_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/layout_date_row"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/view_divider">
+        <!--        &lt;!&ndash; AVATAR NHÂN VIÊN &ndash;&gt;-->
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/layout_avatar_group"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/layout_date_row"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintBottom_toTopOf="@id/view_divider">-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/avatar_dog"
-                android:background="@drawable/bg_circle_white"
-                android:scaleType="centerCrop"
-                android:layout_marginEnd="-8dp"
-                android:clipToOutline="true" />
+        <!--            <ImageView-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:src="@drawable/avatar_dog"-->
+        <!--                android:background="@drawable/bg_circle_white"-->
+        <!--                android:scaleType="centerCrop"-->
+        <!--                android:layout_marginEnd="-8dp"-->
+        <!--                android:clipToOutline="true" />-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/avatar_man"
-                android:background="@drawable/bg_circle_white"
-                android:scaleType="centerCrop"
-                android:clipToOutline="true"
-                android:layout_marginEnd="-8dp" />
+        <!--            <ImageView-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:src="@drawable/avatar_man"-->
+        <!--                android:background="@drawable/bg_circle_white"-->
+        <!--                android:scaleType="centerCrop"-->
+        <!--                android:clipToOutline="true"-->
+        <!--                android:layout_marginEnd="-8dp" />-->
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/avatar_girl"
-                android:background="@drawable/bg_circle_white"
-                android:scaleType="centerCrop"
-                android:clipToOutline="true" />
-        </LinearLayout>
+        <!--            <ImageView-->
+        <!--                android:layout_width="30dp"-->
+        <!--                android:layout_height="30dp"-->
+        <!--                android:src="@drawable/avatar_girl"-->
+        <!--                android:background="@drawable/bg_circle_white"-->
+        <!--                android:scaleType="centerCrop"-->
+        <!--                android:clipToOutline="true" />-->
+        <!--        </LinearLayout>-->
 
         <!-- ĐƯỜNG NGĂN + NÚT TRAO ĐỔI -->
         <View
             android:id="@+id/view_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/light_gray"
             android:layout_marginTop="32dp"
+            android:background="@color/light_gray"
             app:layout_constraintTop_toBottomOf="@id/layout_call_chat" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_opportunity_exchange"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Trao đổi (1)"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@color/blue_primary"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginBottom="6dp"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/view_divider"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tv_opportunity_exchange"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Trao đổi (1)"-->
+        <!--            android:textSize="14sp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:textColor="@color/blue_primary"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginBottom="6dp"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/view_divider"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

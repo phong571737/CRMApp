@@ -57,8 +57,8 @@ public class AdapterOpportunity extends RecyclerView.Adapter<AdapterOpportunity.
 //        holder.tvPrice.setText(item.getPrice() + " đ"); // Cách 2: thêm đơn vị
         holder.tvDate.setText(item.getDate());
         holder.tvStatus.setText(item.getStatus());
-        holder.tvCallCount.setText(String.valueOf(item.getCallCount()));
-        holder.tvMessageCount.setText(String.valueOf(item.getMessageCount()));
+//        holder.tvCallCount.setText(String.valueOf(item.getCallCount()));
+//        holder.tvMessageCount.setText(String.valueOf(item.getMessageCount()));
 //        holder.tvExchange.setText(item.getDescription());
 
         // Khi bấm nút menu 3 chấm: truyền cả view làm anchor, và position
@@ -92,10 +92,10 @@ public class AdapterOpportunity extends RecyclerView.Adapter<AdapterOpportunity.
             tvPrice = itemView.findViewById(R.id.tv_opportunity_price);
             tvDate = itemView.findViewById(R.id.tv_opportunity_date);
             tvStatus = itemView.findViewById(R.id.tv_opportunity_status);
-            tvCallCount = itemView.findViewById(R.id.tv_call_count);
-            tvMessageCount = itemView.findViewById(R.id.tv_message_count);
+//            tvCallCount = itemView.findViewById(R.id.tv_call_count);
+//            tvMessageCount = itemView.findViewById(R.id.tv_message_count);
 //            tvExchange = itemView.findViewById(R.id.tv_opportunity_exchange);
-            ivStar = itemView.findViewById(R.id.img_star);
+//            ivStar = itemView.findViewById(R.id.img_star);
             ivMenu = itemView.findViewById(R.id.img_menu);
         }
     }

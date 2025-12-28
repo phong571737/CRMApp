@@ -53,6 +53,8 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
     private TextView tvNgayKetThuc, tvGioKetThuc;
     private String currentType = "call";
     private int LeadID = -1;
+    private int opportunityID = -1;
+
     private HoatDong hoatDong;
 
     private AutoCompleteTextView actTrangThai, actNguoiPhuTrach;

@@ -40,63 +40,63 @@
                 android:src="@drawable/ic_arrow_up" />
         </LinearLayout>
 
-        <!-- Empty state content -->
+        <!-- Content container (empty state + RecyclerView) -->
         <LinearLayout
-            android:id="@+id/layout_empty_activities"
+            android:id="@+id/layout_content_activities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_empty_activities_icon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_emptybox" />
-
-            <TextView
-                android:id="@+id/tv_empty_activities_message"
-                android:layout_width="wrap_content"
+            <!-- Empty state content -->
+            <LinearLayout
+                android:id="@+id/layout_empty_activities"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Không có nội dung"
-                android:textColor="#6B7280"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp"/>
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/tv_empty_activities_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hãy bổ sung hoạt động liên quan!"
-                android:textColor="#9CA3AF"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp"/>
+                <ImageView
+                    android:id="@+id/iv_empty_activities_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_emptybox" />
 
-            <Button
-                android:id="@+id/btn_add_activity"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/tv_empty_activities_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Không có nội dung"
+                    android:textColor="#6B7280"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"/>
+
+                <TextView
+                    android:id="@+id/tv_empty_activities_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hãy bổ sung hoạt động liên quan!"
+                    android:textColor="#9CA3AF"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E5E7EB"
+                android:layout_marginVertical="16dp"
+                android:visibility="gone"/>
+
+            <!-- RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHoatDong"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="+ Thêm hoạt động"
-                android:textColor="#2563EB"
-                android:textSize="14sp"
-                android:background="@android:color/transparent"
-                android:layout_marginTop="12dp"/>
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone"/>
         </LinearLayout>
-        <!-- Divider -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E5E7EB"
-            android:layout_marginVertical="16dp"/>
-
-<!--        &lt;!&ndash; RecyclerView &ndash;&gt;-->
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rvHoatDong"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:nestedScrollingEnabled="false"-->
-<!--            android:layout_marginTop="@dimen/margin_basex3"/>-->
     </LinearLayout>
 
 

@@ -135,6 +135,24 @@ public class OpportunityDAO {
         return list;
     }
 
+    public List<Opportunity> getByContactId(int contactId) {
+        List<Opportunity> list = new ArrayList<>();
+        SQLiteDatabase db = DBCRMHandler.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT * FROM COHOI WHERE NGUOILIENHE = ? ORDER BY ID DESC", new String[]{String.valueOf(contactId)});
+            while (cursor.moveToNext()) {
+                list.add(cursorToOpportunity(cursor));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+        return list;
+    }
+
 
     private Opportunity cursorToOpportunity(Cursor cursor) {
         return new Opportunity(

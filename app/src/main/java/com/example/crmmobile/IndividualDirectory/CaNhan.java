@@ -118,8 +118,12 @@ public class CaNhan implements Serializable {
 
 //    Xuan them vao de hien thi dropdown nguoi lien he trong form opportunity
 //    ham quan trong de dropdown hien thi dung name
-    @Override
-    public String toString() {
-        return hoVaTen + " " + ten;
+
+@Override
+public String toString() {
+    if (ten == null || ten.trim().isEmpty()) {
+        return hoVaTen != null ? hoVaTen : "";
     }
+    return hoVaTen + " " + ten;
+}
 }

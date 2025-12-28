@@ -14,15 +14,11 @@ import com.example.crmmobile.R;
 import com.example.crmmobile.OrganizationDirectory.ToChuc;
 
 import java.util.List;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ToChucAdapter extends RecyclerView.Adapter<ToChucAdapter.ToChucViewHolder> {
-    // === TẠO INTERFACE MỚI ===
     public interface OnMoreOptionsClickListener {
         void onMoreOptionsClicked(int position, ToChuc toChuc);
     }
-
-    // === TẠO INTERFACE MỚI CHO CLICK ITEM ===
     public interface OnItemClickListener {
         void onItemClicked(int position, ToChuc toChuc);
     }
@@ -31,7 +27,6 @@ public class ToChucAdapter extends RecyclerView.Adapter<ToChucAdapter.ToChucView
     private OnMoreOptionsClickListener optionsClickListener;
     private OnItemClickListener itemClickListener;
 
-    // === CẬP NHẬT CONSTRUCTOR ===
     public ToChucAdapter(Context context, List<ToChuc> toChucList,
                          OnMoreOptionsClickListener optionsListener,
                          OnItemClickListener itemListener) {
@@ -51,21 +46,15 @@ public class ToChucAdapter extends RecyclerView.Adapter<ToChucAdapter.ToChucView
     @Override
     public void onBindViewHolder(@NonNull ToChucViewHolder holder, int position) {
         ToChuc toChuc = toChucList.get(position);
-        // --- GẮN DỮ LIỆU ---
+
+        // --- GẮN DỮ LIỆU (Chỉ còn các view cơ bản) ---
         holder.tvCompanyName.setText(toChuc.getCompanyName());
         holder.tvIndustry.setText(toChuc.getIndustry());
         holder.tvDate.setText(toChuc.getDate());
-        holder.tvPhoneCount.setText(toChuc.getPhoneCount());
-        holder.tvMessageCount.setText(toChuc.getMessageCount());
 
-        // Logic ẩn/hiện "Trao đổi"
-        if (toChuc.isShowTraoDoi()) {
-            holder.tvTraoDoi.setVisibility(View.VISIBLE);
-        } else {
-            holder.tvTraoDoi.setVisibility(View.GONE);
-        }
+        // ĐÃ XÓA CÁC DÒNG SET DATA CHO PHONE, MESSAGE, TRAO ĐỔI
 
-        // Logic cho Tag Trạng thái
+        // Logic cho Tag Trạng thái (Giữ nguyên)
         switch (toChuc.getTrangThai()) {
             case KHONG_QUAN_TAM:
                 holder.tvStatusTag.setText("Không quan tâm");
@@ -79,49 +68,28 @@ public class ToChucAdapter extends RecyclerView.Adapter<ToChucAdapter.ToChucView
                 holder.tvStatusTag.setTextColor(ContextCompat.getColor(context, R.color.black));
                 holder.tvStatusTag.setVisibility(View.VISIBLE);
                 break;
-
             case CAN_QUAN_TAM:
                 holder.tvStatusTag.setText("Cần quan tâm");
                 holder.tvStatusTag.setBackgroundResource(R.drawable.tag_bg_red);
                 holder.tvStatusTag.setTextColor(ContextCompat.getColor(context, R.color.white));
                 holder.tvStatusTag.setVisibility(View.VISIBLE);
                 break;
-
             case NONE:
-
             default:
                 holder.tvStatusTag.setVisibility(View.GONE);
                 break;
         }
 
-        // Logic cho Avatar
-        List<Integer> avatars = toChuc.getAvatarDrawables();
-        if (avatars != null) {
-            holder.avatar1.setVisibility(avatars.size() >= 1 ? View.VISIBLE : View.GONE);
-            holder.avatar2.setVisibility(avatars.size() >= 2 ? View.VISIBLE : View.GONE);
-            holder.avatar3.setVisibility(avatars.size() >= 3 ? View.VISIBLE : View.GONE);
+        // ĐÃ XÓA LOGIC HIỂN THỊ AVATAR
 
-            if (avatars.size() >= 1) holder.avatar1.setImageResource(avatars.get(0));
-
-            if (avatars.size() >= 2) holder.avatar2.setImageResource(avatars.get(1));
-
-            if (avatars.size() >= 3) holder.avatar3.setImageResource(avatars.get(2));
-
-        } else {
-            holder.avatar1.setVisibility(View.GONE);
-            holder.avatar2.setVisibility(View.GONE);
-            holder.avatar3.setVisibility(View.GONE);
-        }
-
-        // Logic nút 3 chấm
+        // Logic nút 3 chấm (Giữ nguyên)
         holder.ivMoreOptions.setOnClickListener(v -> {
             if (optionsClickListener != null) {
-                // Báo cho Fragment biết: "Nút 3 chấm ở vị trí này đã được bấm"
                 optionsClickListener.onMoreOptionsClicked(holder.getBindingAdapterPosition(), toChuc);
             }
         });
 
-        // === THÊM SỰ KIỆN CLICK CHO TOÀN BỘ ITEM ===
+        // Click item (Giữ nguyên)
         holder.itemView.setOnClickListener(v -> {
             if (itemClickListener != null) {
                 itemClickListener.onItemClicked(holder.getBindingAdapterPosition(), toChuc);
@@ -134,32 +102,37 @@ public class ToChucAdapter extends RecyclerView.Adapter<ToChucAdapter.ToChucView
         return toChucList.size();
     }
 
-    // --- VIEW HOLDER ---
+    // --- VIEW HOLDER (Đã xóa các View không dùng nữa) ---
     public static class ToChucViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivCompanyIcon, ivStar, ivMoreOptions, ivIndustryIcon, ivDateIcon, ivPhoneIcon, ivMessageIcon;
-        TextView tvCompanyName, tvIndustry, tvDate, tvStatusTag, tvPhoneCount, tvMessageCount, tvTraoDoi;
-        CircleImageView avatar1, avatar2, avatar3;
-        View divider;
+        // Đã xóa: ivStar, ivPhoneIcon, ivMessageIcon, avatar1-3, divider
+        ImageView ivCompanyIcon, ivMoreOptions, ivIndustryIcon, ivDateIcon;
+        // Đã xóa: tvPhoneCount, tvMessageCount, tvTraoDoi
+        TextView tvCompanyName, tvIndustry, tvDate, tvStatusTag;
+
         public ToChucViewHolder(@NonNull View itemView) {
             super(itemView);
             ivCompanyIcon = itemView.findViewById(R.id.ivCompanyIcon);
-            ivStar = itemView.findViewById(R.id.ivStar);
+            // ivStar = itemView.findViewById(R.id.ivStar); // ĐÃ XÓA
             ivMoreOptions = itemView.findViewById(R.id.ivMoreOptions);
             ivIndustryIcon = itemView.findViewById(R.id.ivIndustryIcon);
             ivDateIcon = itemView.findViewById(R.id.ivDateIcon);
-            ivPhoneIcon = itemView.findViewById(R.id.ivPhoneIcon);
-            ivMessageIcon = itemView.findViewById(R.id.ivMessageIcon);
+
+            // ivPhoneIcon = itemView.findViewById(R.id.ivPhoneIcon); // ĐÃ XÓA
+            // ivMessageIcon = itemView.findViewById(R.id.ivMessageIcon); // ĐÃ XÓA
+
             tvCompanyName = itemView.findViewById(R.id.tvCompanyName);
             tvIndustry = itemView.findViewById(R.id.tvIndustry);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvStatusTag = itemView.findViewById(R.id.tvStatusTag);
-            tvPhoneCount = itemView.findViewById(R.id.tvPhoneCount);
-            tvMessageCount = itemView.findViewById(R.id.tvMessageCount);
-            tvTraoDoi = itemView.findViewById(R.id.tvTraoDoi);
-            avatar1 = itemView.findViewById(R.id.avatar1);
-            avatar2 = itemView.findViewById(R.id.avatar2);
-            avatar3 = itemView.findViewById(R.id.avatar3);
-            divider = itemView.findViewById(R.id.divider);
+
+            // tvPhoneCount = itemView.findViewById(R.id.tvPhoneCount); // ĐÃ XÓA
+            // tvMessageCount = itemView.findViewById(R.id.tvMessageCount); // ĐÃ XÓA
+            // tvTraoDoi = itemView.findViewById(R.id.tvTraoDoi); // ĐÃ XÓA
+
+            // avatar1 = itemView.findViewById(R.id.avatar1); // ĐÃ XÓA
+            // avatar2 = itemView.findViewById(R.id.avatar2); // ĐÃ XÓA
+            // avatar3 = itemView.findViewById(R.id.avatar3); // ĐÃ XÓA
+            // divider = itemView.findViewById(R.id.divider); // ĐÃ XÓA
         }
     }
 }

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_color_main_screen"
     tools:context=".QuoteDirectory.DetailQuote">
 
     <LinearLayout
@@ -11,6 +12,347 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        />
+        android:layout_marginTop="@dimen/start_margin"
+        android:paddingBottom="@dimen/start_margin"
+        android:background="@color/white">
+
+        <!--Quote information-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/start_margin"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/quote_information"
+                android:textStyle="bold"
+                android:textSize="@dimen/text18"/>
+            <ImageView
+                android:id="@+id/iv_addinfor"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_up"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_quote_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Báo giá triển khai CloundPro"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_company"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_company"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Công ty TNHH Hoàng Việt Nam"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_day"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_contactday"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="23/08/2024"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint_contact"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_contact_person"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Đinh Phương Nam"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Tình trạng"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Đã gửi khách hàng"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!--End Quote information-->
+
+        <!--Relative information-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/chance_information"
+                android:textStyle="bold"
+                android:textSize="@dimen/text18"/>
+            <ImageView
+                android:id="@+id/iv_relative_add"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_up"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_chance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chance"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_opportunity"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Phần mềm CloudPro"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!--End Relative information-->
+
+        <!--Address information-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/address_infor"
+                android:textStyle="bold"
+                android:textSize="@dimen/text18"/>
+            <ImageView
+                android:id="@+id/iv_address_add"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_up"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address_ship"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"
+                    />
+                <TextView
+                    android:id="@+id/tv_ship_address"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="13 Đường số 17-Vạn Phúc City"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/district_ship"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"/>
+                <TextView
+                    android:id="@+id/tv_district_ship"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="TP Thủ Đức"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ship_province"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"/>
+                <TextView
+                    android:id="@+id/tv_province_ship"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="TP Hồ Chí Minh"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin15">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ship_nation"
+                    android:textSize="16sp"
+                    android:textColor="#8C8C8C"/>
+                <TextView
+                    android:id="@+id/tv_ship_nation"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Việt Nam"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:gravity="end"/>
+            </LinearLayout>
+        </LinearLayout>
+        <!--End Address information-->
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

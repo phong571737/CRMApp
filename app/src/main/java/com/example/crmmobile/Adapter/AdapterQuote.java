@@ -23,7 +23,7 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
 
     public interface onItemClickListener{
         void onDotsListener(Quote quote, int position);
-        void onMenuListener(Quote quote);
+        void onMenuListener(Quote quote, int id);
     }
 
     public AdapterQuote(Context context, List<Quote> listquote, onItemClickListener listener){
@@ -57,15 +57,19 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
     public void onBindViewHolder(AdapterQuote.quoteViewHolder viewHolder, final int position){
         Quote quote = listquote.get(position);
 
-        viewHolder.tv_code.setText(quote.getOrderCode());
+        int id = quote.getID();
+        String code = String.format("BG-%04d", id);
+        viewHolder.tv_code.setText(code);
         viewHolder.tv_company.setText(quote.getCompany());
         viewHolder.tv_date.setText(quote.getDate());
-        viewHolder.tv_money.setText((quote.getPrice() == null) ? "0 đ" : String.valueOf(quote.getPrice() + " đ"));
+        viewHolder.tv_money.setText((quote.getTotalAmount() == null) ? "0 đ" : String.valueOf(quote.getTotalAmount() + " đ"));
         Log.e(TAG, "Company name: " + quote.getCompany());
+        Log.e(TAG, "Total Money: " + quote.getTotalAmount());
+        Log.e(TAG, "Date: " + quote.getDate());
 
         viewHolder.itemView.setOnClickListener(v -> {
             if(listener != null){
-                listener.onMenuListener(quote);
+                listener.onMenuListener(quote, quote.getID());
             }
         });
         viewHolder.iv_dots.setOnClickListener(v -> {

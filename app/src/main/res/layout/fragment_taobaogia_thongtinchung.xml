@@ -64,7 +64,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:hint="@string/cong_ty"
+                android:hint="@string/hint_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
@@ -100,7 +100,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:hint="@string/tinh_trang"
+                android:hint="@string/state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
@@ -160,55 +160,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <!-- ==================== ĐIỀU KHOẢN & ĐIỀU KIỆN ==================== -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp">
-
-            <TextView
-                android:text="@string/dieu_khoan_dieu_kien"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/btnToggleDieuKhoanDieuKien"
-                android:src="@drawable/ic_arrow_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutDieuKhoanDieuKienContent"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:hint="@string/dieu_khoan_dieu_kien"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_input_box">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtDieuKhoanDieuKien"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minLines="3"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
                     android:background="@android:color/transparent"/>

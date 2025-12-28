@@ -101,8 +101,9 @@ public class QuoteFragment extends Fragment {
             }
 
             @Override
-            public void onMenuListener(Quote quote) {
+            public void onMenuListener(Quote quote, int id) {
                 Intent intent = new Intent(getContext(), QuoteDetailActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/margin_action">
+        android:layout_marginTop="@dimen/margin20">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -44,13 +44,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin">
 
             <ImageView
                 android:id="@+id/iv_code"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_margin="@dimen/start_margin"
+                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginEnd="@dimen/start_margin"
                 android:src="@drawable/ic_quote"
                 app:tint="@color/color_icon"
                 android:contentDescription="@null"/>
@@ -71,8 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/start_margin"
             android:layout_marginEnd="@dimen/start_margin"
-            android:layout_marginTop="@dimen/start_margin"
-            android:paddingBottom="@dimen/top_padding"
             android:orientation="horizontal">
 
             <TextView
@@ -81,7 +82,9 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Công ty TNHH Hyosung Viet Nam"
-                android:textColor="@color/seemore_color" />
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginEnd="@dimen/start_margin"/>
 
             <TextView
                 android:id="@+id/tv_name"
@@ -90,7 +93,41 @@
                 android:gravity="start"
                 android:layout_height="wrap_content"
                 android:text="Dinh Phuong Nam"
-                android:textColor="@color/seemore_color"/>
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/start_margin"
+            android:layout_marginEnd="@dimen/start_margin"
+            android:layout_marginTop="@dimen/start_margin"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="2.139000 đ"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/start_margin"
+                android:layout_marginEnd="@dimen/start_margin"/>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:gravity="start"
+                    android:layout_height="wrap_content"
+                    android:text="Đã gửi khách hàng"
+                    android:textColor="#05A3D2"
+                    android:background="@drawable/bg_state_quote"/>
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 

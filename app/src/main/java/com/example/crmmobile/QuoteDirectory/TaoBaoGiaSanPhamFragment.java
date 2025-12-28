@@ -3,9 +3,13 @@ package com.example.crmmobile.QuoteDirectory;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,10 +47,14 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
     private final List<ProductLine> data = new ArrayList<>();
     private TextView tvTamTinh, tvTongGiam, tvGiamGiaChung, tvTongTruocThue, tvThue, tvTongThue, tvTongCong;
 
+    public interface StringUpdater{
+        void update(String s);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        viewModelQuote = new ViewModelProvider(requireActivity()).get(CreateQuoteViewModel.class);
         adapter = new ProductLineAdapter(data);
 
         adapter.setOnItemClickListener(line -> {
@@ -86,6 +95,7 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
                 }
             }
         );
+
     }
 
     private void updateVisibility() {
@@ -124,7 +134,7 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
         if (tvTamTinh != null)      tvTamTinh.setText(stSubtotal);
         if (tvGiamGiaChung != null) tvGiamGiaChung.setText(stGiam);
         if (tvTongThue != null)     tvTongThue.setText(stThue);
-        if (tvTongCong != null)     tvTongCong.setText(stTongCong);
+        viewModelQuote.TotalAmount.setValue(tongCong);
     }
 
     @Nullable
@@ -136,6 +146,7 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_taobaogia_sanpham, container, false);
         // Ánh xạ view
         initViews(view);
+        //Observe total
 
         rvProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvProducts.setAdapter(adapter);
@@ -148,6 +159,17 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModelQuote.TotalAmount.observe(getViewLifecycleOwner(), total->{
+            if (total != null){
+                NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+                tvTongCong.setText(nf.format(total) + "đ");
+            }
+        });
     }
 
     private void initViews(View view) {
@@ -176,5 +198,25 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
                 button.setImageResource(R.drawable.ic_arrow_up);
             }
         });
+    }
+
+    private void bindEditTexttoViewModel(EditText editText, StringUpdater updater) {
+        editText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    updater.update(s.toString());
+                }
+            }
+        );
     }
 }

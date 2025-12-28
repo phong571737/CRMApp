@@ -11,9 +11,10 @@ public class BaogiaTable {
                     "COHOI INTEGER," +
                     "TINHTRANG TEXT," +
                     "SANPHAM TEXT," +
+                    "NGAYTAO TEXT," +
                     "SOLUONG INTEGER," +
-                    "DONGIA REAL," +
-                    "TONGTIEN REAL," +
+                    "DONGIA INTEGER," +
+                    "TONGTIEN INTEGER," +
                     "GIAOCHO INTEGER," +
                     "FOREIGN KEY(CONGTY) REFERENCES COMPANY(ID) ON DELETE SET NULL," +
                     "FOREIGN KEY(NGUOILIENHE) REFERENCES CONTACT(ID) ON DELETE SET NULL," +

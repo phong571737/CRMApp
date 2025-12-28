@@ -42,60 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:hint="@string/vung_tinh_thue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/rounded_input_box"
-                app:endIconMode="dropdown_menu">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actVungTinhThue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:hint="@string/loai_tien"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/rounded_input_box"
-                app:endIconMode="dropdown_menu">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actLoaiTien"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:hint="@string/cach_tinh_thue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_input_box"
-                android:layout_marginBottom="15dp"
-                app:endIconMode="dropdown_menu">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/actCachTinhThue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
             <!-- Empty state: hộp như Figma -->
             <LinearLayout
                 android:id="@+id/emptyState"

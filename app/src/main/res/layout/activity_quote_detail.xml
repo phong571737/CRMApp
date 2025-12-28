@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_quote_detail"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_color_main_screen">
 
-</FrameLayout>
+    <include
+        android:id="@+id/header_detail"
+        layout="@layout/quote_detail_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            android:background="@color/white"
+            app:tabTextColor="#8C8C8C"
+            app:tabIndicatorColor="#1B74E4"
+            app:tabIndicatorFullWidth="true"
+            app:tabSelectedTextColor="#1B74E4"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_tab"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</LinearLayout>

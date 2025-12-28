@@ -7,15 +7,17 @@ import androidx.room.PrimaryKey;
 public class Quote {
     private Integer ID;
     private String OrderCode;
+    private String Title;
     private String company;
     private String date;
-    private String ContactPerson;
+    private String ContactPersonName;
+    private Integer ContactPersonID;
     private String OpportunityName;
     private String State;
     private String Product;
     private Integer Quantity;
     private Integer Price;
-    private Double TotalAmount;
+    private Long TotalAmount;
 
     public Quote() {}
 
@@ -54,6 +56,14 @@ public class Quote {
         this.ID = ID;
     }
 
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
     public String getOrderCode() {
         return OrderCode;
     }
@@ -62,12 +72,20 @@ public class Quote {
         OrderCode = orderCode;
     }
 
-    public String getContactPerson() {
-        return ContactPerson;
+    public String getContactPersonName() {
+        return ContactPersonName;
     }
 
-    public void setContactPerson(String contactPerson) {
-        ContactPerson = contactPerson;
+    public void setContactPersonName(String contactPersonName) {
+        ContactPersonName = contactPersonName;
+    }
+
+    public Integer getContactPersonID() {
+        return ContactPersonID;
+    }
+
+    public void setContactPersonID(Integer contactPersonID) {
+        ContactPersonID = contactPersonID;
     }
 
     public String getOpportunityName() {
@@ -110,11 +128,11 @@ public class Quote {
         Price = price;
     }
 
-    public Double getTotalAmount() {
+    public Long getTotalAmount() {
         return TotalAmount;
     }
 
-    public void setTotalAmount(Double totalAmount) {
+    public void setTotalAmount(Long totalAmount) {
         TotalAmount = totalAmount;
     }
 }

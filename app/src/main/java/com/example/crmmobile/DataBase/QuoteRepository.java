@@ -25,13 +25,14 @@ public class QuoteRepository {
 
         values.put("TENBAOGIA", quote.getOrderCode());
         values.put("CONGTY", quote.getCompany());
-        values.put("NGUOILIENHE", quote.getContactPerson());
+        values.put("NGUOILIENHE", quote.getContactPersonID());
         values.put("COHOI", quote.getOpportunityName());
         values.put("TINHTRANG", quote.getState());
         values.put("SANPHAM", quote.getProduct());
         values.put("SOLUONG", quote.getQuantity());
         values.put("DONGIA", quote.getPrice());
         values.put("TONGTIEN", quote.getTotalAmount());
+        values.put("NGAYTAO", quote.getDate());
 
         long newId = db.insert("BAOGIA", null, values);
         db.close();
@@ -51,13 +52,14 @@ public class QuoteRepository {
                 quote.setID(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
                 quote.setOrderCode(cursor.getString(cursor.getColumnIndexOrThrow("TENBAOGIA")));
                 quote.setCompany(cursor.getString(cursor.getColumnIndexOrThrow("CONGTY")));
-                quote.setContactPerson(cursor.getString(cursor.getColumnIndexOrThrow("NGUOILIENHE")));
+                quote.setContactPersonID(cursor.getInt(cursor.getColumnIndexOrThrow("NGUOILIENHE")));
                 quote.setOpportunityName(cursor.getString(cursor.getColumnIndexOrThrow("COHOI")));
                 quote.setState(cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")));
                 quote.setProduct(cursor.getString(cursor.getColumnIndexOrThrow("SANPHAM")));
                 quote.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow("SOLUONG")));
                 quote.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("DONGIA")));
-                quote.setTotalAmount(cursor.getDouble(cursor.getColumnIndexOrThrow("TONGTIEN")));
+                quote.setTotalAmount(cursor.getLong(cursor.getColumnIndexOrThrow("TONGTIEN")));
+                quote.setDate(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
 
                 list.add(quote);
             }while (cursor.moveToNext());
@@ -75,13 +77,14 @@ public class QuoteRepository {
 
         values.put("TENBAOGIA", quote.getOrderCode());
         values.put("CONGTY", quote.getCompany());
-        values.put("NGUOILIENHE", quote.getContactPerson());
+        values.put("NGUOILIENHE", quote.getContactPersonID());
         values.put("COHOI", quote.getOpportunityName());
         values.put("TINHTRANG", quote.getState());
         values.put("SANPHAM", quote.getProduct());
         values.put("SOLUONG", quote.getQuantity());
         values.put("DONGIA", quote.getPrice());
         values.put("TONGTIEN", quote.getTotalAmount());
+        values.put("NGAYTAO", quote.getDate());
 
         int result = db.update("BAOGIA", values, "ID=?", new String[]{String.valueOf(quote.getID())});
         db.close();
@@ -93,5 +96,34 @@ public class QuoteRepository {
         SQLiteDatabase db = this.dbHelper.getWritableDatabase();
         db.delete("BAOGIA", "ID=?", new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public Quote getQuoteByID(int id){
+        SQLiteDatabase db = this.dbHelper.getReadableDatabase();
+        Quote quote = null;
+
+        Cursor cursor = db.rawQuery("SELECT * FROM BAOGIA WHERE ID = ?", new String[]{String.valueOf(id)});
+
+        if(cursor.moveToFirst()){
+            do {
+                quote = new Quote();
+                quote.setID(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
+                quote.setOrderCode(cursor.getString(cursor.getColumnIndexOrThrow("TENBAOGIA")));
+                quote.setCompany(cursor.getString(cursor.getColumnIndexOrThrow("CONGTY")));
+                quote.setContactPersonID(cursor.getInt(cursor.getColumnIndexOrThrow("NGUOILIENHE")));
+                quote.setOpportunityName(cursor.getString(cursor.getColumnIndexOrThrow("COHOI")));
+                quote.setState(cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")));
+                quote.setProduct(cursor.getString(cursor.getColumnIndexOrThrow("SANPHAM")));
+                quote.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow("SOLUONG")));
+                quote.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("DONGIA")));
+                quote.setTotalAmount(cursor.getLong(cursor.getColumnIndexOrThrow("TONGTIEN")));
+                quote.setDate(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        return quote;
     }
 }

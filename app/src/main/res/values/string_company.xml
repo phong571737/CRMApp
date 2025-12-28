@@ -25,6 +25,7 @@
     <string name="cong_ty">Công ty</string>
     <string name="nguoi_lien_he">Người liên hệ</string>
     <string name="tinh_trang">Tình trạng</string>
+    <string name="state">Tình trạng <font color='#FF0000'>*</font></string>
     <string name="thong_tin_lien_quan">Thông tin liên quan</string>
     <string name="co_hoi">Cơ hội</string>
     <string name="dieu_khoan_dieu_kien">Điều khoản và Điều kiện</string>

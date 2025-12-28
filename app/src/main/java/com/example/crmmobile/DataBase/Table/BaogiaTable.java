@@ -11,6 +11,11 @@ public class BaogiaTable {
                     "COHOI INTEGER," +
                     "TINHTRANG TEXT," +
                     "SANPHAM TEXT," +
+                    "DIACHI TEXT," +
+                    "QUANHUYEN TEXT," +
+                    "TINH TEXT," +
+                    "QUOCGIA TEXT," +
+                    "MOTA TEXT," +
                     "NGAYTAO TEXT," +
                     "SOLUONG INTEGER," +
                     "DONGIA INTEGER," +

@@ -18,6 +18,11 @@ public class Quote {
     private Integer Quantity;
     private Integer Price;
     private Long TotalAmount;
+    private String Address_Ship;
+    private String District_Ship;
+    private String Province_Ship;
+    private String Nation_Ship;
+    private String Description;
 
     public Quote() {}
 
@@ -134,5 +139,45 @@ public class Quote {
 
     public void setTotalAmount(Long totalAmount) {
         TotalAmount = totalAmount;
+    }
+
+    public String getAddress_Ship() {
+        return Address_Ship;
+    }
+
+    public void setAddress_Ship(String address_Ship) {
+        Address_Ship = address_Ship;
+    }
+
+    public String getDistrict_Ship() {
+        return District_Ship;
+    }
+
+    public void setDistrict_Ship(String district_Ship) {
+        District_Ship = district_Ship;
+    }
+
+    public String getProvince_Ship() {
+        return Province_Ship;
+    }
+
+    public void setProvince_Ship(String province_Ship) {
+        Province_Ship = province_Ship;
+    }
+
+    public String getNation_Ship() {
+        return Nation_Ship;
+    }
+
+    public void setNation_Ship(String nation_Ship) {
+        Nation_Ship = nation_Ship;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 }

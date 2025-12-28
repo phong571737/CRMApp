@@ -33,6 +33,11 @@ public class QuoteRepository {
         values.put("DONGIA", quote.getPrice());
         values.put("TONGTIEN", quote.getTotalAmount());
         values.put("NGAYTAO", quote.getDate());
+        values.put("DIACHI", quote.getAddress_Ship());
+        values.put("QUANHUYEN", quote.getDistrict_Ship());
+        values.put("TINH", quote.getProvince_Ship());
+        values.put("QUOCGIA", quote.getNation_Ship());
+        values.put("MOTA", quote.getDescription());
 
         long newId = db.insert("BAOGIA", null, values);
         db.close();
@@ -60,6 +65,11 @@ public class QuoteRepository {
                 quote.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("DONGIA")));
                 quote.setTotalAmount(cursor.getLong(cursor.getColumnIndexOrThrow("TONGTIEN")));
                 quote.setDate(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
+                quote.setAddress_Ship(cursor.getString(cursor.getColumnIndexOrThrow("DIACHI")));
+                quote.setDistrict_Ship(cursor.getString(cursor.getColumnIndexOrThrow("QUANHUYEN")));
+                quote.setProvince_Ship(cursor.getString(cursor.getColumnIndexOrThrow("TINH")));
+                quote.setNation_Ship(cursor.getString(cursor.getColumnIndexOrThrow("QUOCGIA")));
+                quote.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("MOTA")));
 
                 list.add(quote);
             }while (cursor.moveToNext());
@@ -85,6 +95,11 @@ public class QuoteRepository {
         values.put("DONGIA", quote.getPrice());
         values.put("TONGTIEN", quote.getTotalAmount());
         values.put("NGAYTAO", quote.getDate());
+        values.put("DIACHI", quote.getAddress_Ship());
+        values.put("QUANHUYEN", quote.getDistrict_Ship());
+        values.put("TINH", quote.getProvince_Ship());
+        values.put("QUOCGIA", quote.getNation_Ship());
+        values.put("MOTA", quote.getDescription());
 
         int result = db.update("BAOGIA", values, "ID=?", new String[]{String.valueOf(quote.getID())});
         db.close();
@@ -118,6 +133,11 @@ public class QuoteRepository {
                 quote.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow("DONGIA")));
                 quote.setTotalAmount(cursor.getLong(cursor.getColumnIndexOrThrow("TONGTIEN")));
                 quote.setDate(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
+                quote.setAddress_Ship(cursor.getString(cursor.getColumnIndexOrThrow("DIACHI")));
+                quote.setDistrict_Ship(cursor.getString(cursor.getColumnIndexOrThrow("QUANHUYEN")));
+                quote.setProvince_Ship(cursor.getString(cursor.getColumnIndexOrThrow("TINH")));
+                quote.setNation_Ship(cursor.getString(cursor.getColumnIndexOrThrow("QUOCGIA")));
+                quote.setDescription(cursor.getString(cursor.getColumnIndexOrThrow("MOTA")));
 
             }while (cursor.moveToNext());
         }

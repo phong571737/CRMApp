@@ -38,6 +38,16 @@ public class CreateQuoteViewModel extends AndroidViewModel {
     public MutableLiveData<Long> TotalAmount = new MutableLiveData<>(0L);
     public MutableLiveData<Integer> SendtoID = new MutableLiveData<>();
     public MutableLiveData<String> SendtoName = new MutableLiveData<>();
+    public MutableLiveData<String> description = new MutableLiveData<>();
+    public MutableLiveData<String> address_Ship = new MutableLiveData<>();
+    public MutableLiveData<String> district_ship = new MutableLiveData<>();
+    public MutableLiveData<String> province_ship = new MutableLiveData<>();
+    public MutableLiveData<String> nation_ship = new MutableLiveData<>();
+
+    public MutableLiveData<String> quoteNameError = new MutableLiveData<>();
+    public MutableLiveData<String> stateError = new MutableLiveData<>();
+    public MutableLiveData<String> companyError = new MutableLiveData<>();
+    public MutableLiveData<String> addressError = new MutableLiveData<>();
 
     public CreateQuoteViewModel(@NonNull Application app){
         super(app);
@@ -46,13 +56,20 @@ public class CreateQuoteViewModel extends AndroidViewModel {
 
     public void saveQuote(){
         Quote quote = new Quote();
+        quoteNameError.setValue(null);
+        stateError.setValue(null);
+        companyError.setValue(null);
+        addressError.setValue(null);
+        boolean isValid = true;
+
         String today = new SimpleDateFormat(
                 "dd/MM/yyyy",
                 new Locale("vi", "VN")
         ).format(new Date());
 
         if (TextUtils.isEmpty(QuoteName.getValue())){
-            Toast.makeText(getApplication(), "Vui lòng nhập tên báo giá", Toast.LENGTH_SHORT).show();
+            quoteNameError.setValue("Vui lòng nhập tên báo giá");
+            isValid = false;
             return;
         }
         if (TextUtils.isEmpty(State.getValue())){
@@ -61,6 +78,10 @@ public class CreateQuoteViewModel extends AndroidViewModel {
         }
         if (TextUtils.isEmpty(CompanyName.getValue())){
             Toast.makeText(getApplication(), "Vui lòng nhập công ty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(address_Ship.getValue())){
+            Toast.makeText(getApplication(), "Vui lòng nhập địa chỉ", Toast.LENGTH_SHORT).show();
             return;
         }
 

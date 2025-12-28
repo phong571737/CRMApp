@@ -40,10 +40,10 @@ import java.util.concurrent.Executors;
 public class TaoBaoGiaThongTinChungFragment extends Fragment {
 
     // Khai báo các View và Button cho 5 sections
-    private View layoutBaoGiaContent, layoutLienQuanContent, layoutMoTaContent, layoutQuanLyContent;
-    private ImageView btnToggleBaoGia, btnToggleLienQuan, btnToggleMoTa, btnToggleQuanLy;
+    private View layoutBaoGiaContent, layoutLienQuanContent, layoutMoTaContent, layoutQuanLyContent,layoutDiachiContent;
+    private ImageView btnToggleBaoGia, btnToggleLienQuan, btnToggleMoTa, btnToggleQuanLy, btnToggleDiachi;
     private CreateQuoteViewModel viewModelQuote;
-    private TextInputEditText edtTieuDe, edtMoTa;
+    private TextInputEditText edtTieuDe, edtMoTa, edtDiachi, edtdistrict, edtprovince, edtnation;
     private MaterialAutoCompleteTextView actCongTy, actNguoiLienHe, actTinhTrang, actCoHoi, actGiaoCho;
     private CompanyRepository companyRepository;
     private OpportunityDAO opportunityDAO;
@@ -72,12 +72,18 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         bindEditTexttoViewModel(actCoHoi, s -> viewModelQuote.OpportunityName.setValue(s));
         bindEditTexttoViewModel(actNguoiLienHe, s -> viewModelQuote.ContactPersonName.setValue(s));
         bindEditTexttoViewModel(actGiaoCho, s -> viewModelQuote.SendtoName.setValue(s));
+        bindEditTexttoViewModel(edtDiachi, s -> viewModelQuote.address_Ship.setValue(s));
+        bindEditTexttoViewModel(edtdistrict, s -> viewModelQuote.district_ship.setValue(s));
+        bindEditTexttoViewModel(edtprovince, s -> viewModelQuote.province_ship.setValue(s));
+        bindEditTexttoViewModel(edtnation, s -> viewModelQuote.nation_ship.setValue(s));
+        bindEditTexttoViewModel(edtMoTa, s -> viewModelQuote.description.setValue(s));
 
         // Setup logic ẩn/hiện cho cả 5
         setupToggle(btnToggleBaoGia, layoutBaoGiaContent);
         setupToggle(btnToggleLienQuan, layoutLienQuanContent);
         setupToggle(btnToggleMoTa, layoutMoTaContent);
         setupToggle(btnToggleQuanLy, layoutQuanLyContent);
+        setupToggle(btnToggleDiachi, layoutDiachiContent);
 
         return view;
     }
@@ -87,11 +93,13 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         layoutLienQuanContent = view.findViewById(R.id.layoutLienQuanContent);
         layoutMoTaContent = view.findViewById(R.id.layoutMoTaContent);
         layoutQuanLyContent = view.findViewById(R.id.layoutQuanLyContent);
+        layoutDiachiContent = view.findViewById(R.id.layoutDiachiContent);
 
         btnToggleBaoGia = view.findViewById(R.id.btnToggleBaoGia);
         btnToggleLienQuan = view.findViewById(R.id.btnToggleLienQuan);
         btnToggleMoTa = view.findViewById(R.id.btnToggleMoTa);
         btnToggleQuanLy = view.findViewById(R.id.btnToggleQuanLy);
+        btnToggleDiachi = view.findViewById(R.id.btnToggleDiachi);
 
         //bind view
         edtTieuDe = view.findViewById(R.id.edtTieuDe);
@@ -106,6 +114,10 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         getOpportunity();
         actGiaoCho = view.findViewById(R.id.actGiaoCho);
         getGiaoCho();
+        edtDiachi = view.findViewById(R.id.edtDiachi);
+        edtdistrict = view.findViewById(R.id.edtdistrict);
+        edtprovince = view.findViewById(R.id.edtprovince);
+        edtnation = view.findViewById(R.id.edtnation);
     }
 
     private void getTinhTrang() {

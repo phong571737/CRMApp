@@ -11,33 +11,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- PHẦN 1: THỐNG KÊ (3 CỘT) -->
+        <!-- PHẦN 1: THỐNG KÊ (2 CỘT) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3"
+            android:weightSum="2"
             android:background="@color/white"
             android:paddingVertical="16dp"
             android:elevation="1dp">
 
             <!-- Cột 1: Cuộc gọi -->
             <LinearLayout style="@style/StatItem">
-                <TextView style="@style/StatValue" android:text="36" />
+                <TextView style="@style/StatValue" android:text="0" />
                 <TextView style="@style/StatLabel" android:text="@string/num_calls" />
             </LinearLayout>
             <View style="@style/VerticalDivider" />
             <!-- Cột 2: Cuộc họp -->
             <LinearLayout style="@style/StatItem">
-                <TextView style="@style/StatValue" android:text="21" />
+                <TextView style="@style/StatValue" android:text="0" />
                 <TextView style="@style/StatLabel" android:text="@string/num_meeting" />
             </LinearLayout>
             <View style="@style/VerticalDivider" />
-            <!-- Cột 3: Công việc -->
-            <LinearLayout style="@style/StatItem">
-                <TextView style="@style/StatValue" android:text="30" />
-                <TextView style="@style/StatLabel" android:text="@string/num_job" />
-            </LinearLayout>
         </LinearLayout>
 
         <!-- PHẦN 2: HOẠT ĐỘNG ĐÃ LÊN LỊCH -->
@@ -83,50 +78,6 @@
                     android:layout_gravity="center_horizontal"
                     app:drawableStartCompat="@drawable/ic_add"
                     app:drawableTint="#1B74E4"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- PHẦN 3: BÌNH LUẬN -->
-        <LinearLayout style="@style/DetailSectionContainer">
-
-            <!-- Header  -->
-            <RelativeLayout
-                android:id="@+id/section_binh_luan"
-                style="@style/DetailSectionHeader">
-                <TextView style="@style/DetailSectionTitle" android:text="@string/binh_luan" />
-                <ImageView
-                    style="@style/DetailSectionToggleIcon"
-                    android:id="@+id/toggle_binh_luan"/>
-            </RelativeLayout>
-
-            <!-- Trạng thái trống  -->
-            <LinearLayout
-                android:id="@+id/content_binh_luan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_emptybox" />
-
-                <!-- Nút Thêm bình luận -->
-                <TextView
-                    android:id="@+id/btn_them_binh_luan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/them_binh_luan"
-                    android:textColor="#3B72F2"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/ic_add"
-                    app:drawableTint="#1B74E4" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

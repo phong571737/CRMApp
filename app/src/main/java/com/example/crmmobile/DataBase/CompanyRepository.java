@@ -20,7 +20,7 @@ public class CompanyRepository {
         dbHelper = new DBCRMHandler(context);
     }
 
-    // 1. Thêm Company
+    // Thêm Company
     public long addCompany(ToChuc toChuc){
         SQLiteDatabase db = this.dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -49,7 +49,7 @@ public class CompanyRepository {
         return newId;
     }
 
-    // 2. Lấy danh sách Company
+    // Lấy danh sách Company
     public List<ToChuc> getAllCompany(){
         List<ToChuc> list = new ArrayList<>();
         SQLiteDatabase db = this.dbHelper.getReadableDatabase();
@@ -68,7 +68,7 @@ public class CompanyRepository {
         return list;
     }
 
-    // 3. Cập nhật Company
+    // Cập nhật Company
     public int updateCompany(ToChuc toChuc){
         SQLiteDatabase db = this.dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -97,14 +97,14 @@ public class CompanyRepository {
         return result;
     }
 
-    // 4. Xóa Company
+    // Xóa Company
     public void deleteCompany(int id){
         SQLiteDatabase db = this.dbHelper.getWritableDatabase();
         db.delete(CompanyTable.TABLE_NAME, "ID=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
-    //Hàm lấy chi tiết Company theo ID
+    // Hàm lấy chi tiết Company theo ID
     public ToChuc getCompanyByID(int id){
         SQLiteDatabase db = this.dbHelper.getReadableDatabase();
         ToChuc toChuc = null;
@@ -153,7 +153,7 @@ public class CompanyRepository {
         return toChuc;
     }
 
-    //Hàm kiểm tra công ty có tồn tại hay không
+    // Hàm kiểm tra công ty có tồn tại hay không
     public ToChuc getCompanyByName(String name){
         SQLiteDatabase db = this.dbHelper.getReadableDatabase();
         ToChuc toChuc = null;
@@ -205,5 +205,20 @@ public class CompanyRepository {
         return list;
     }
 
-
+    // Tìm kiếm Company theo tên
+    public List<ToChuc> searchCompany(String keyword) {
+        List<ToChuc> list = new ArrayList<>();
+        SQLiteDatabase db = this.dbHelper.getReadableDatabase();
+        // Tìm kiếm theo tên công ty
+        Cursor cursor = db.rawQuery("SELECT * FROM " + CompanyTable.TABLE_NAME + " WHERE TEN_CONG_TY LIKE ? ORDER BY ID DESC",
+                new String[]{"%" + keyword.trim() + "%"});
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(mapCursorToToChuc(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
 }

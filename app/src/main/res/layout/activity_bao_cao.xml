@@ -76,6 +76,45 @@
                 android:padding="32dp"
                 android:visibility="gone" />
 
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E5E7EB"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Title for Revenue Chart -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thống kê doanh thu theo tháng"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#111827"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Revenue Chart Container -->
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/revenueChartView"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="16dp"
+                android:background="#F9FAFB"
+                android:padding="16dp" />
+
+            <!-- Empty state for Revenue -->
+            <TextView
+                android:id="@+id/tvEmptyRevenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Không có dữ liệu doanh thu để hiển thị"
+                android:textSize="14sp"
+                android:textColor="#9CA3AF"
+                android:gravity="center"
+                android:padding="32dp"
+                android:visibility="gone" />
+
         </LinearLayout>
     </ScrollView>
 

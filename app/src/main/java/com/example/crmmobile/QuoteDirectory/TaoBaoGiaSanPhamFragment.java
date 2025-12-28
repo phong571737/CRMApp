@@ -65,17 +65,32 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
             // ✅ discount hiện tại của dòng sản phẩm (nếu bạn chưa lưu discount thì để 0L)
             long currentDiscount = 0L;
 
-            EditProductBottomSheet sheet =
-                    EditProductBottomSheet.newInstance(name, price, qty, currentDiscount);
+            EditProductBottomSheet sheet = EditProductBottomSheet.newInstance(line);
 
-            sheet.setListener((newQty, discountAmount) -> {
+            sheet.setListener((newQty, discountType, discountPercent, discountDirect, vatPercent) -> {
                 line.setQty(newQty);
 
-                // nếu ProductLine của bạn có field discount:
-                // line.setDiscount(discountAmount);
+                // cập nhật giảm giá theo đúng kiểu
+                if (discountType == ProductLine.DISCOUNT_PERCENT) {
+                    line.setDiscountPercent(discountPercent);
+                } else if (discountType == ProductLine.DISCOUNT_DIRECT) {
+                    line.setDiscountDirect(discountDirect);
+                } else {
+                    line.setNoDiscount();
+                }
 
-                adapter.notifyDataSetChanged();
+                // cập nhật VAT theo sản phẩm
+                line.setVatPercent(vatPercent);
+
+                // refresh UI
+                if (adapter != null) adapter.notifyDataSetChanged();
+
+                // nếu fragment bạn có hàm update tổng tiền / tổng kết thì gọi ở đây
+                // updateSummary();
             });
+
+            sheet.show(getParentFragmentManager(), "EditProductBottomSheet");
+
 
             sheet.show(getParentFragmentManager(), "EditProductBottomSheet");
         });

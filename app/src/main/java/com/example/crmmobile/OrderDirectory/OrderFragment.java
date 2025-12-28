@@ -159,22 +159,23 @@ public class OrderFragment extends Fragment {
 
     // ===== BottomSheet hành động cho từng đơn =====
     public void showBottomSheet(Order order) {
-        //BottomSheetDialog cần Context
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
 
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_actions, null, false);
         LinearLayout layoutActions = view.findViewById(R.id.layoutActions);
 
-        addActionItem(layoutActions, R.drawable.keep, "Ghim",
-                () -> Toast.makeText(requireContext(), "Đã ghim đơn hàng", Toast.LENGTH_SHORT).show());
-        addActionItem(layoutActions, R.drawable.ic_loop, "Chuyển thành hóa đơn",
-                () -> Toast.makeText(requireContext(), "Chuyển hóa đơn thành công", Toast.LENGTH_SHORT).show());
-        addActionItem(layoutActions, R.drawable.files, "Xuất file PDF",
-                () -> Toast.makeText(requireContext(), "Xuất file PDF...", Toast.LENGTH_SHORT).show());
-        addActionItem(layoutActions, R.drawable.outgoingmail, "Gửi email kèm file PDF",
-                () -> Toast.makeText(requireContext(), "Gửi thành công", Toast.LENGTH_SHORT).show());
-        addActionItem(layoutActions, R.drawable.copy, "Nhân đôi",
-                () -> Toast.makeText(requireContext(), "Nhân đôi thành công", Toast.LENGTH_SHORT).show());
+        // ✅ 1) GHIM ĐƠN HÀNG
+        addActionItem(layoutActions, R.drawable.keep, "Ghim đơn hàng", () -> {
+            // TODO: nếu bạn có cột "pinned/starred" trong DB thì update tại đây
+            // Ví dụ: donHangRepository.setPinned(order.getId(), 1);
+
+            Toast.makeText(requireContext(), "Đã ghim đơn hàng", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+
+
+        // (Tuỳ bạn) ✅ 3) HỦY ĐƠN HÀNG (nếu muốn giữ thì để lại, không muốn thì xóa block này)
         addActionItem(layoutActions, R.drawable.ic_escape, "Hủy đơn hàng", () -> {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Hủy đơn hàng")
@@ -184,10 +185,11 @@ public class OrderFragment extends Fragment {
                         if (rows > 0) {
                             Toast.makeText(requireContext(), "Đơn hàng đã bị hủy", Toast.LENGTH_SHORT).show();
 
-                            // reload list
                             orderList.clear();
                             orderList.addAll(donHangRepository.getOrdersForList());
                             orderAdapter.notifyDataSetChanged();
+
+                            dialog.dismiss();
                         } else {
                             Toast.makeText(requireContext(), "Không thể hủy đơn hàng", Toast.LENGTH_SHORT).show();
                         }
@@ -200,6 +202,7 @@ public class OrderFragment extends Fragment {
         dialog.setContentView(view);
         dialog.show();
     }
+
     private void filterOrders(String query) {
         if (allOrders == null || orderList == null || orderAdapter == null) return;
 

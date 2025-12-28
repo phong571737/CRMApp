@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.R;
-import com.example.crmmobile.OrderDirectory.ProductLine;
-import com.example.crmmobile.SanPhamDirectory.SanPham;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -18,15 +16,8 @@ import java.util.Locale;
 
 public class ProductLineAdapter extends RecyclerView.Adapter<ProductLineAdapter.VH> {
 
-    // ✅ callback để fragment cập nhật tổng tiền/empty view
-    public interface OnChanged {
-        void onChanged();
-    }
-
-    // ✅ click item để mở bottomsheet chỉnh sửa
-    public interface OnItemClickListener {
-        void onItemClick(ProductLine line);
-    }
+    public interface OnChanged { void onChanged(); }
+    public interface OnItemClickListener { void onItemClick(ProductLine line); }
 
     private final List<ProductLine> data;
     private final OnChanged onChanged;
@@ -34,19 +25,16 @@ public class ProductLineAdapter extends RecyclerView.Adapter<ProductLineAdapter.
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
 
-    // ✅ Constructor 1 tham số (để không bị lỗi nếu bạn gọi new Adapter(data))
     public ProductLineAdapter(List<ProductLine> data) {
         this.data = data;
         this.onChanged = null;
     }
 
-    // ✅ Constructor 2 tham số (đúng “Expected 2 arguments”)
     public ProductLineAdapter(List<ProductLine> data, OnChanged onChanged) {
         this.data = data;
         this.onChanged = onChanged;
     }
 
-    // ✅ Hàm bạn đang gọi trong SOProductsFragment
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }
@@ -66,14 +54,14 @@ public class ProductLineAdapter extends RecyclerView.Adapter<ProductLineAdapter.
         h.tvName.setText(p.getName());
         h.tvQty.setText(String.valueOf(p.getQty()));
         h.tvPrice.setText(nf.format(p.getPrice()) + " đ");
-        h.tvTotal.setText("Thành tiền: " + nf.format(p.getThanhTien()) + " đ");
 
-        // ✅ click item mở bottomsheet
+        // ✅ thành tiền hiển thị là FINAL (sau giảm + thuế dòng)
+        h.tvTotal.setText("Thành tiền: " + nf.format(p.getFinalAmount()) + " đ");
+
         h.itemView.setOnClickListener(v -> {
             if (itemClickListener != null) itemClickListener.onItemClick(p);
         });
 
-        // ✅ tăng/giảm/xóa (nếu bạn đang cần)
         h.btnMinus.setOnClickListener(v -> {
             int q = Math.max(1, p.getQty() - 1);
             p.setQty(q);
@@ -98,9 +86,7 @@ public class ProductLineAdapter extends RecyclerView.Adapter<ProductLineAdapter.
     }
 
     @Override
-    public int getItemCount() {
-        return data == null ? 0 : data.size();
-    }
+    public int getItemCount() { return data == null ? 0 : data.size(); }
 
     static class VH extends RecyclerView.ViewHolder {
         TextView tvName, tvPrice, tvQty, tvTotal;

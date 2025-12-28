@@ -147,6 +147,30 @@
         </LinearLayout>
 
     </RadioGroup>
+    <!-- Giảm giá từ sản phẩm (read-only) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Giảm giá từ sản phẩm"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvLineDiscountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 đ"
+            android:textStyle="bold"
+            android:textSize="13sp" />
+    </LinearLayout>
+
 
     <!-- Mức giảm giá -->
     <TextView

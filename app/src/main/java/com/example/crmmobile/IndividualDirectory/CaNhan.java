@@ -120,6 +120,6 @@ public class CaNhan implements Serializable {
 //    ham quan trong de dropdown hien thi dung name
     @Override
     public String toString() {
-        return hoVaTen;
+        return hoVaTen + " " + ten;
     }
 }

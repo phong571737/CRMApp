@@ -31,6 +31,7 @@ public class CreateQuoteViewModel extends AndroidViewModel {
     public MutableLiveData<String> ContactPersonName = new MutableLiveData<>("");
     public MutableLiveData<Integer> ContactPersonID = new MutableLiveData<>();
     public MutableLiveData<String> OpportunityName = new MutableLiveData<String>("");
+    public MutableLiveData<Integer> OpportunityID = new MutableLiveData<>();
     public MutableLiveData<String> State = new MutableLiveData<>("");
     public MutableLiveData<String> Product = new MutableLiveData<>("");
     public MutableLiveData<Integer> Quantity = new MutableLiveData<>();

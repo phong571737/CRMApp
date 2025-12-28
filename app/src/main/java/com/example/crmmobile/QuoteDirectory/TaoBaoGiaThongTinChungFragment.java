@@ -195,6 +195,7 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         actNguoiLienHe.setOnItemClickListener(((parent, view, position, id) -> {
             CaNhan selected = canhanList.get(position);
             viewModelQuote.ContactPersonID.setValue(selected.getId());
+            viewModelQuote.ContactPersonName.setValue(selected.getHoVaTen() + " " + selected.getTen());
         }));
     }
 
@@ -221,7 +222,24 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
     }
 
     private void getOpportunity() {
-
+        Executor executor = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        executor.execute(()->{
+            opportunityDAO= new OpportunityDAO(requireContext());
+            List<Opportunity> opportunityList = opportunityDAO.getAll();
+            mainHandler.post(()->{
+                ArrayAdapter<Opportunity> AdapterEmployer =
+                        new ArrayAdapter<>(requireContext(),
+                                android.R.layout.simple_list_item_1,
+                                opportunityList);
+                actCoHoi.setAdapter(AdapterEmployer);
+                actCoHoi.setOnItemClickListener(((parent, view1, position, id) -> {
+                    Opportunity opportunity = (Opportunity) parent.getItemAtPosition(position);
+                    viewModelQuote.OpportunityName.setValue(opportunity.getTitle());
+                    viewModelQuote.OpportunityID.setValue(opportunity.getId());
+                }));
+            });
+        });
     }
 
     private void getCompany() {

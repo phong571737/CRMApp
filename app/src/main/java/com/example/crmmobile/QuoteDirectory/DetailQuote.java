@@ -9,27 +9,41 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.crmmobile.DataBase.CaNhanRepository;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.IndividualDirectory.CaNhan;
+import com.example.crmmobile.LeadDirectory.Nhanvien;
+import com.example.crmmobile.MainDirectory.InitClass;
 import com.example.crmmobile.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class DetailQuote extends Fragment {
     private LinearLayout ll_root, ll_quote_information, ll_chance, ll_address;
     private View section;
-    private TextView tv_title, tv_company, tv_contactday, tv_contact_person, tv_opportunity, tv_state,
+    private TextView tv_title, tv_company, tv_opportunity, tv_state,
             tv_ship_address, tv_district_ship, tv_province_ship, tv_ship_nation;
     private ImageView iv_addinfor, iv_relative_add, iv_address_add;
-    private List<section_quotedetail> sectionQuotedetails;
     private CreateQuoteViewModel viewModel;
+    private CaNhanRepository caNhanRepository;
+    private CaNhan caNhan;
+    private Quote quote;
 
     public DetailQuote() {
         // Required empty public constructor
@@ -60,12 +74,12 @@ public class DetailQuote extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         viewModel = new ViewModelProvider(requireActivity()).get(CreateQuoteViewModel.class);
+        caNhanRepository = new CaNhanRepository(requireContext());
 
         bindLiveDataToTextView(viewModel.CompanyName, tv_company);
         bindLiveDataToTextView(viewModel.QuoteName, tv_title);
         bindLiveDataToTextView(viewModel.OpportunityName, tv_opportunity);
         bindLiveDataToTextView(viewModel.State, tv_state);
-        bindLiveDataToTextView(viewModel.ContactPersonName, tv_contact_person);
         bindLiveDataToTextView(viewModel.address_Ship, tv_ship_address);
         bindLiveDataToTextView(viewModel.district_ship, tv_district_ship);
         bindLiveDataToTextView(viewModel.province_ship, tv_province_ship);
@@ -82,8 +96,6 @@ public class DetailQuote extends Fragment {
         iv_relative_add = view.findViewById(R.id.iv_relative_add);
         tv_title = view.findViewById(R.id.tv_title);
         tv_company = view.findViewById(R.id.tv_company);
-        tv_contactday = view.findViewById(R.id.tv_contactday);
-        tv_contact_person = view.findViewById(R.id.tv_contact_person);
         tv_opportunity = view.findViewById(R.id.tv_opportunity);
         ll_quote_information = view.findViewById(R.id.ll_quote_information);
         ll_chance = view.findViewById(R.id.ll_chance);

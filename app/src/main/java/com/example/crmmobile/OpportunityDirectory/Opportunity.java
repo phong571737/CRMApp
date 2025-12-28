@@ -1,6 +1,8 @@
 package com.example.crmmobile.OpportunityDirectory;
 
 
+import androidx.annotation.NonNull;
+
 public class Opportunity {
 
     private int callCount;
@@ -174,5 +176,11 @@ public class Opportunity {
 
     public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getTitle();
     }
 }

@@ -19,14 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.R;
-import com.example.crmmobile.OrderDirectory.ProductLine;
-import com.example.crmmobile.OrderDirectory.ProductLineAdapter;
-import com.example.crmmobile.OrderDirectory.EditGlobalDiscountBottomSheet;
-import com.example.crmmobile.OrderDirectory.EditProductBottomSheet;
-import com.example.crmmobile.OrderDirectory.ProductPickActivity;
-import com.example.crmmobile.OrderDirectory.EditTaxBottomSheet;
-import com.example.crmmobile.SanPhamDirectory.SanPham;
-
 import com.google.android.material.button.MaterialButton;
 
 import java.text.NumberFormat;
@@ -40,18 +32,18 @@ public class SOProductsFragment extends Fragment {
     private RecyclerView rvProducts;
     private View layoutTongKet;
 
-    // Tổng kết
     private TextView tvTamTinh, tvGiamGiaChung, tvTongGiam, tvTruocThue, tvThue, tvTongThue, tvTongCong;
 
-    // ===== Data =====
     private final List<ProductLine> data = new ArrayList<>();
     private ProductLineAdapter adapter;
 
     private ActivityResultLauncher<Intent> pickProductLauncher;
 
-    // ===== Summary params =====
-    private long globalDiscount = 0L;     // giảm giá chung (đ)
-    private double taxRate = 0.0;         // ví dụ 0.1 = 10%
+    // ✅ Giảm giá chung (order-level) – KHÁC với giảm giá từng SP
+    private long globalDiscountExtra = 0L;
+
+    // ✅ Thuế order-level (VAT %) – KHÁC với VAT từng SP
+    private double taxRate = 0.0;
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
 
@@ -59,31 +51,31 @@ public class SOProductsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // ✅ Adapter có callback: mỗi khi qty/price/xóa thay đổi -> updateVisibility() -> updateSummary()
         adapter = new ProductLineAdapter(data, this::updateVisibility);
 
         adapter.setOnItemClickListener(line -> {
-            EditProductBottomSheet sheet = EditProductBottomSheet.newInstance(
-                    line.getName(),
-                    line.getPrice(),
-                    line.getQty(),
-                    line.getDiscountAmount()
-            );
+            EditProductBottomSheet sheet = EditProductBottomSheet.newInstance(line);
 
-            sheet.setListener((newQty, discountAmount) -> {
+            sheet.setListener((newQty, discountType, discountPercent, discountDirect, vatPercent) -> {
                 line.setQty(newQty);
-                line.setDiscountAmount(discountAmount);
+
+                if (discountType == ProductLine.DISCOUNT_PERCENT) {
+                    line.setDiscountPercent(discountPercent);
+                } else if (discountType == ProductLine.DISCOUNT_DIRECT) {
+                    line.setDiscountDirect(discountDirect);
+                } else {
+                    line.setNoDiscount();
+                }
+
+                line.setVatPercent(vatPercent);
 
                 if (adapter != null) adapter.notifyDataSetChanged();
-                updateVisibility(); // sẽ updateSummary()
+                updateVisibility();
             });
 
             sheet.show(getParentFragmentManager(), "EditProductBottomSheet");
         });
 
-
-
-        // ✅ Launcher chọn sản phẩm
         pickProductLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -104,8 +96,6 @@ public class SOProductsFragment extends Fragment {
 
                             data.add(line);
                             if (adapter != null) adapter.notifyItemInserted(data.size() - 1);
-
-                            // ✅ cập nhật từ trên xuống tổng cộng
                             updateVisibility();
                         }
                     }
@@ -135,13 +125,11 @@ public class SOProductsFragment extends Fragment {
             tvTongCong     = layoutTongKet.findViewById(R.id.tvTongCong);
         }
 
-        // Setup RV
         if (rvProducts != null) {
             rvProducts.setLayoutManager(new LinearLayoutManager(requireContext()));
             rvProducts.setAdapter(adapter);
         }
 
-        // Nút thêm sản phẩm
         MaterialButton btnAdd = v.findViewById(R.id.btnAddProduct);
         if (btnAdd != null) {
             btnAdd.setOnClickListener(view -> {
@@ -150,90 +138,94 @@ public class SOProductsFragment extends Fragment {
             });
         }
 
-        // ==== Thuế ====
+        // ===== Icon THUẾ (order-level) =====
         ImageView iconThue = v.findViewById(R.id.iconTooltipThue);
         if (iconThue != null) {
             iconThue.setOnClickListener(view1 -> {
-                long baseAmount = tinhTruocThue();     // trước thuế
-                int vatDefault = (int) Math.round(taxRate * 100); // ví dụ 10
+                long beforeTax = calcBeforeTax(); // sau giảm (từng SP + chung)
+                int vatDefault = (int) Math.round(taxRate * 100);
 
-                EditTaxBottomSheet sheet =
-                        EditTaxBottomSheet.newInstance(baseAmount, vatDefault);
+                long lineTaxSum = calcLineTaxSum();
 
-                // ✅ nếu BottomSheet hỗ trợ callback, gọi setTaxPercent(percent)
-                // sheet.setListener(percent -> setTaxPercent(percent));
+                EditTaxBottomSheet sheet = EditTaxBottomSheet.newInstance(beforeTax, vatDefault, lineTaxSum);
+
+                // ✅ FIX: BẮT CALLBACK (trước đây bạn comment nên không cập nhật)
+                sheet.setListener(percent -> setTaxPercent(percent));
 
                 sheet.show(getParentFragmentManager(), "EditTax");
             });
         }
 
+        // ===== Icon GIẢM GIÁ CHUNG (order-level) =====
         ImageView iconGiamGia = v.findViewById(R.id.iconTooltipGiamGia);
         if (iconGiamGia != null) {
             iconGiamGia.setOnClickListener(clicked -> {
-                long subtotal = tinhTamTinh(); // tổng sau giảm theo dòng (nếu có)
+                long subtotalAfterLineDiscount = calcSubtotalAfterLineDiscount();
+                long lineDiscountSum = calcLineDiscountSum();
 
                 EditGlobalDiscountBottomSheet sheet =
-                        EditGlobalDiscountBottomSheet.newInstance(subtotal, globalDiscount);
+                        EditGlobalDiscountBottomSheet.newInstance(subtotalAfterLineDiscount, globalDiscountExtra, lineDiscountSum);
 
-                sheet.setListener((long discountAmount) -> {
-                    globalDiscount = discountAmount;   // ✅ cập nhật giảm giá chung
-                    updateVisibility();                // ✅ updateSummary()
+                sheet.setListener(discountAmount -> {
+                    globalDiscountExtra = Math.max(0L, discountAmount);
+                    updateVisibility();
                 });
 
                 sheet.show(getParentFragmentManager(), "EditGlobalDiscount");
             });
-
-
         }
 
-
-        // cập nhật lần đầu
         updateVisibility();
-
         return v;
     }
 
-
-    // ===== API để BottomSheet gọi lại (nếu bạn muốn dùng callback) =====
-    public void setGlobalDiscount(long discountValue) {
-        globalDiscount = Math.max(0L, discountValue);
-        updateVisibility(); // sẽ gọi updateSummary()
-    }
-
-
     public void setTaxPercent(int percent) {
         if (percent < 0) percent = 0;
+        if (percent > 100) percent = 100;
         taxRate = percent / 100.0;
         updateVisibility();
     }
 
-    // ===== Tính toán =====
-    private long tinhTamTinh() {
+    // ====== TÍNH TOÁN ======
+    private long calcSubtotalBase() {
         long sum = 0L;
-        for (ProductLine line : data) {
-            if (line == null) continue;
-            sum += line.getThanhTien();
-        }
+        for (ProductLine p : data) sum += p.getBaseAmount();
         return sum;
     }
 
-    private long tinhTruocThue() {
-        long subtotal = tinhTamTinh();
-        long truocThue = subtotal - Math.max(0L, globalDiscount);
-        return Math.max(0L, truocThue);
+    private long calcLineDiscountSum() {
+        long sum = 0L;
+        for (ProductLine p : data) sum += p.getDiscountAmount();
+        return sum;
     }
 
-    private long tinhThue() {
-        long truocThue = tinhTruocThue();
-        return Math.round(truocThue * taxRate);
+    private long calcSubtotalAfterLineDiscount() {
+        long sum = 0L;
+        for (ProductLine p : data) sum += p.getAfterDiscountAmount();
+        return sum;
     }
 
-    // ===== UI =====
+    private long calcBeforeTax() {
+        long afterLineDiscount = calcSubtotalAfterLineDiscount();
+        long extra = Math.max(0L, globalDiscountExtra);
+        if (extra > afterLineDiscount) extra = afterLineDiscount;
+        return Math.max(0L, afterLineDiscount - extra);
+    }
+
+    private long calcLineTaxSum() {
+        long sum = 0L;
+        for (ProductLine p : data) sum += p.getTaxAmount();
+        return sum;
+    }
+
+    private long calcOrderTax(long beforeTax) {
+        return Math.round(beforeTax * taxRate);
+    }
+
     private void updateVisibility() {
         if (emptyState == null || rvProducts == null) return;
 
         boolean empty = data.isEmpty();
-
         emptyState.setVisibility(empty ? View.VISIBLE : View.GONE);
         rvProducts.setVisibility(empty ? View.GONE : View.VISIBLE);
 
@@ -243,41 +235,37 @@ public class SOProductsFragment extends Fragment {
     }
 
     private void updateSummary() {
-        long subtotal  = tinhTamTinh();
+        long subtotalBase = calcSubtotalBase();
 
-        long giamChung = Math.max(0L, globalDiscount);
-        if (giamChung > subtotal) giamChung = subtotal; // chặn không âm
+        long lineDiscountSum = calcLineDiscountSum();
+        long extraDiscount = Math.max(0L, globalDiscountExtra);
 
-        long tongGiam  = giamChung;
+        long afterLineDiscount = calcSubtotalAfterLineDiscount();
+        if (extraDiscount > afterLineDiscount) extraDiscount = afterLineDiscount;
 
-        long truocThue = Math.max(0L, subtotal - tongGiam);
-        long thue      = Math.round(truocThue * taxRate);
-        long tongThue  = thue;
+        long totalDiscount = lineDiscountSum + extraDiscount;
 
-        long tongCong  = truocThue + tongThue;
-        tvGiamGiaChung.setText(nf.format(giamChung) + " đ");
+        long beforeTax = Math.max(0L, afterLineDiscount - extraDiscount);
 
-        if (tvTamTinh != null)      tvTamTinh.setText(nf.format(subtotal) + " đ");
-        if (tvGiamGiaChung != null) tvGiamGiaChung.setText(nf.format(giamChung) + " đ");
-        if (tvTongGiam != null)     tvTongGiam.setText(nf.format(tongGiam) + " đ");
-        if (tvTruocThue != null)    tvTruocThue.setText(nf.format(truocThue) + " đ");
-        if (tvThue != null)         tvThue.setText(nf.format(thue) + " đ");
-        if (tvTongThue != null)     tvTongThue.setText(nf.format(tongThue) + " đ");
-        if (tvTongCong != null)     tvTongCong.setText(nf.format(tongCong) + " đ");
+        long lineTaxSum = calcLineTaxSum();
+        long orderTax = calcOrderTax(beforeTax);
+        long totalTax = lineTaxSum + orderTax;
+
+        long grandTotal = beforeTax + totalTax;
+
+        if (tvTamTinh != null)      tvTamTinh.setText(nf.format(subtotalBase) + " đ");
+        if (tvGiamGiaChung != null) tvGiamGiaChung.setText(nf.format(totalDiscount) + " đ");
+        if (tvTongGiam != null)     tvTongGiam.setText(nf.format(totalDiscount) + " đ");
+        if (tvTruocThue != null)    tvTruocThue.setText(nf.format(beforeTax) + " đ");
+        if (tvThue != null)         tvThue.setText(nf.format(totalTax) + " đ");
+        if (tvTongThue != null)     tvTongThue.setText(nf.format(totalTax) + " đ");
+        if (tvTongCong != null)     tvTongCong.setText(nf.format(grandTotal) + " đ");
     }
 
-
-    // ✅ Activity sẽ gọi để lấy "Tổng cộng" hiện tại (sau giảm giá chung + thuế)
+    // ✅ Tổng cộng hiện tại (bao gồm thuế dòng + thuế order)
     public long getCurrentTotal() {
-        long subtotal = tinhTamTinh();
-
-        long giamChung = Math.max(0L, globalDiscount);
-        if (giamChung > subtotal) giamChung = subtotal;
-
-        long truocThue = Math.max(0L, subtotal - giamChung);
-        long thue = Math.round(truocThue * taxRate);
-
-        return truocThue + thue; // ✅ tongCong
+        long beforeTax = calcBeforeTax();
+        long totalTax = calcLineTaxSum() + calcOrderTax(beforeTax);
+        return beforeTax + totalTax;
     }
-
 }

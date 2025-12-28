@@ -27,27 +27,38 @@ import java.util.Locale;
 public class EditProductBottomSheet extends BottomSheetDialogFragment {
 
     public interface Listener {
-        void onConfirmed(int newQty, long discountAmount);
+        void onConfirmed(int newQty,
+                         int discountType,
+                         int discountPercent,
+                         long discountDirect,
+                         int vatPercent);
     }
 
     private static final String ARG_NAME  = "arg_name";
     private static final String ARG_PRICE = "arg_price";
     private static final String ARG_QTY   = "arg_qty";
-    private static final String ARG_DISCOUNT = "arg_discount";
+
+    private static final String ARG_DISCOUNT_TYPE    = "arg_discount_type";
+    private static final String ARG_DISCOUNT_PERCENT = "arg_discount_percent";
+    private static final String ARG_DISCOUNT_DIRECT  = "arg_discount_direct";
+
+    private static final String ARG_VAT_PERCENT      = "arg_vat_percent";
 
     private Listener listener;
+    public void setListener(Listener listener) { this.listener = listener; }
 
-    public void setListener(Listener listener) {
-        this.listener = listener;
-    }
-
-    public static EditProductBottomSheet newInstance(String name, long price, int qty, long currentDiscount) {
+    public static EditProductBottomSheet newInstance(ProductLine line) {
         EditProductBottomSheet f = new EditProductBottomSheet();
         Bundle b = new Bundle();
-        b.putString(ARG_NAME, name);
-        b.putLong(ARG_PRICE, price);
-        b.putInt(ARG_QTY, qty);
-        b.putLong(ARG_DISCOUNT, currentDiscount);
+        b.putString(ARG_NAME, line.getName());
+        b.putLong(ARG_PRICE, line.getPrice());
+        b.putInt(ARG_QTY, line.getQty());
+
+        b.putInt(ARG_DISCOUNT_TYPE, line.getDiscountType());
+        b.putInt(ARG_DISCOUNT_PERCENT, line.getDiscountPercent());
+        b.putLong(ARG_DISCOUNT_DIRECT, line.getDiscountDirect());
+
+        b.putInt(ARG_VAT_PERCENT, line.getVatPercent());
         f.setArguments(b);
         return f;
     }
@@ -67,16 +78,27 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         super.onViewCreated(v, savedInstanceState);
 
         Bundle args = getArguments();
+
         String name = args != null ? args.getString(ARG_NAME, "") : "";
         long price  = args != null ? args.getLong(ARG_PRICE, 0L) : 0L;
         int qty     = args != null ? args.getInt(ARG_QTY, 1) : 1;
-        long currentDiscount = args != null ? args.getLong(ARG_DISCOUNT, 0L) : 0L;
+
+        int discountType    = args != null ? args.getInt(ARG_DISCOUNT_TYPE, ProductLine.DISCOUNT_NONE) : ProductLine.DISCOUNT_NONE;
+        int discountPercent = args != null ? args.getInt(ARG_DISCOUNT_PERCENT, 0) : 0;
+        long discountDirect = args != null ? args.getLong(ARG_DISCOUNT_DIRECT, 0L) : 0L;
+
+        int vatPercent = args != null ? args.getInt(ARG_VAT_PERCENT, 0) : 0;
 
         TextView tvName        = v.findViewById(R.id.tvProductName);
         TextView tvQty         = v.findViewById(R.id.tvQuantity);
         TextView tvLinePrice   = v.findViewById(R.id.tvLinePrice);
         TextView tvDiscountAmt = v.findViewById(R.id.tvDiscountAmount);
+        TextView tvTaxAmt      = v.findViewById(R.id.tvTaxAmount);
         TextView tvFinalAmount = v.findViewById(R.id.tvFinalAmount);
+
+        TextView tvVatPercent  = v.findViewById(R.id.tvVatPercent);
+        TextView tvVatAmount   = v.findViewById(R.id.tvVatAmount);
+        View layoutVatRow      = v.findViewById(R.id.layoutVatRow);
 
         ImageButton btnMinus   = v.findViewById(R.id.btnMinus);
         ImageButton btnPlus    = v.findViewById(R.id.btnPlus);
@@ -85,7 +107,6 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         Button btnConfirm      = v.findViewById(R.id.btnConfirm);
 
         // ===== Discount =====
-        RadioGroup rgDiscount  = v.findViewById(R.id.rgDiscountType); // có thể không hoạt động nếu radio bị bọc layout, ta sẽ tự xử lý
         RadioButton rbNoDiscount       = v.findViewById(R.id.rbNoDiscount);
         RadioButton rbDiscountPercent  = v.findViewById(R.id.rbDiscountPercent);
         RadioButton rbDiscountDirect   = v.findViewById(R.id.rbDiscountDirect);
@@ -93,68 +114,33 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         EditText edtPercent = v.findViewById(R.id.edtDiscountPercent);
         EditText edtDirect  = v.findViewById(R.id.edtDiscountDirect);
 
-        // ===== Tax (FE nếu bạn có) =====
+        // ===== Tax =====
         RadioGroup rgTax = v.findViewById(R.id.rgTax);
+        RadioButton rbNoTax = v.findViewById(R.id.rbNoTax);
+        RadioButton rbVAT10 = v.findViewById(R.id.rbVAT10);
 
         tvName.setText(name);
         tvQty.setText(String.valueOf(Math.max(1, qty)));
 
-        // ✅ set trạng thái ban đầu
-        if (currentDiscount > 0) {
+        // ✅ INIT đúng theo state (FIX lỗi reopen)
+        if (discountType == ProductLine.DISCOUNT_PERCENT) {
+            rbDiscountPercent.setChecked(true);
+            edtPercent.setText(String.valueOf(Math.max(0, discountPercent)));
+        } else if (discountType == ProductLine.DISCOUNT_DIRECT) {
             rbDiscountDirect.setChecked(true);
-            edtDirect.setText(nf.format(currentDiscount) + " đ");
+            edtDirect.setText(nf.format(Math.max(0L, discountDirect)) + " đ");
         } else {
             rbNoDiscount.setChecked(true);
-            edtPercent.setText("0");
-            edtDirect.setText("0 đ");
         }
 
-        Runnable applyEnabled = () -> {
-            boolean isPercent = rbDiscountPercent.isChecked();
-            boolean isDirect  = rbDiscountDirect.isChecked();
+        // VAT init
+        if (vatPercent > 0) {
+            if (rbVAT10 != null) rbVAT10.setChecked(true);
+        } else {
+            if (rbNoTax != null) rbNoTax.setChecked(true);
+        }
 
-            edtPercent.setEnabled(isPercent);
-            edtDirect.setEnabled(isDirect);
-
-            if (!isPercent) edtPercent.setText("0");
-            if (!isDirect)  edtDirect.setText("0 đ");
-        };
-
-        Runnable recalc = () -> {
-            int q = parseIntSafe(tvQty.getText().toString(), 1);
-            if (q < 1) q = 1;
-
-            long base = price * q;
-
-            long discount = 0L;
-            if (rbDiscountPercent.isChecked()) {
-                double p = parsePercentSafe(edtPercent.getText().toString());
-                if (p < 0) p = 0;
-                if (p > 100) p = 100;
-                discount = Math.round(base * (p / 100.0));
-            } else if (rbDiscountDirect.isChecked()) {
-                discount = parseMoneySafe(edtDirect.getText().toString());
-            }
-
-            if (discount < 0) discount = 0;
-            if (discount > base) discount = base;
-
-            long afterDiscount = base - discount;
-
-            // tax FE (nếu có rbVAT10)
-            long tax = 0L;
-            if (rgTax != null && rgTax.getCheckedRadioButtonId() == R.id.rbVAT10) {
-                tax = Math.round(afterDiscount * 0.1);
-            }
-
-            long finalAmount = afterDiscount + tax;
-
-            tvLinePrice.setText(nf.format(base) + " đ");
-            tvDiscountAmt.setText(nf.format(discount) + " đ");
-            tvFinalAmount.setText(nf.format(finalAmount) + " đ");
-        };
-
-        // ✅ FIX chính: ép 3 radio “Giảm giá” chọn 1-bỏ 2 (do RadioGroup không quản lý được nếu radio không là con trực tiếp)
+        // ✅ radio exclusive (tránh RadioGroup bị bọc layout gây lỗi)
         final boolean[] lock = {false};
         CompoundButton.OnCheckedChangeListener exclusive = (button, isChecked) -> {
             if (lock[0] || !isChecked) return;
@@ -166,70 +152,148 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
 
             lock[0] = false;
 
-            applyEnabled.run();
-            recalc.run();
+            applyEnabled(rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect);
+            recalc(price, tvQty, rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect,
+                    rgTax, tvLinePrice, tvDiscountAmt, tvTaxAmt, tvVatPercent, tvVatAmount, layoutVatRow, tvFinalAmount);
         };
 
         rbNoDiscount.setOnCheckedChangeListener(exclusive);
         rbDiscountPercent.setOnCheckedChangeListener(exclusive);
         rbDiscountDirect.setOnCheckedChangeListener(exclusive);
 
-        // click/focus vào ô nhập => tự tick đúng radio
+        // click vào ô nhập => tick đúng radio
         edtPercent.setOnClickListener(x -> rbDiscountPercent.setChecked(true));
         edtDirect.setOnClickListener(x -> rbDiscountDirect.setChecked(true));
         edtPercent.setOnFocusChangeListener((vv, hasFocus) -> { if (hasFocus) rbDiscountPercent.setChecked(true); });
         edtDirect.setOnFocusChangeListener((vv, hasFocus) -> { if (hasFocus) rbDiscountDirect.setChecked(true); });
 
-        TextWatcher watcher = new SimpleTextWatcher(recalc);
+        TextWatcher watcher = new SimpleTextWatcher(() ->
+                recalc(price, tvQty, rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect,
+                        rgTax, tvLinePrice, tvDiscountAmt, tvTaxAmt, tvVatPercent, tvVatAmount, layoutVatRow, tvFinalAmount)
+        );
         edtPercent.addTextChangedListener(watcher);
         edtDirect.addTextChangedListener(watcher);
-        if (rgTax != null) rgTax.setOnCheckedChangeListener((g, id) -> recalc.run());
+
+        if (rgTax != null) {
+            rgTax.setOnCheckedChangeListener((g, id) ->
+                    recalc(price, tvQty, rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect,
+                            rgTax, tvLinePrice, tvDiscountAmt, tvTaxAmt, tvVatPercent, tvVatAmount, layoutVatRow, tvFinalAmount)
+            );
+        }
 
         btnMinus.setOnClickListener(view -> {
             int q = parseIntSafe(tvQty.getText().toString(), 1);
             if (q > 1) {
                 tvQty.setText(String.valueOf(q - 1));
-                recalc.run();
+                recalc(price, tvQty, rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect,
+                        rgTax, tvLinePrice, tvDiscountAmt, tvTaxAmt, tvVatPercent, tvVatAmount, layoutVatRow, tvFinalAmount);
             }
         });
 
         btnPlus.setOnClickListener(view -> {
             int q = parseIntSafe(tvQty.getText().toString(), 1);
             tvQty.setText(String.valueOf(q + 1));
-            recalc.run();
+            recalc(price, tvQty, rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect,
+                    rgTax, tvLinePrice, tvDiscountAmt, tvTaxAmt, tvVatPercent, tvVatAmount, layoutVatRow, tvFinalAmount);
         });
 
-        applyEnabled.run();
-        recalc.run();
+        applyEnabled(rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect);
+        recalc(price, tvQty, rbDiscountPercent, rbDiscountDirect, edtPercent, edtDirect,
+                rgTax, tvLinePrice, tvDiscountAmt, tvTaxAmt, tvVatPercent, tvVatAmount, layoutVatRow, tvFinalAmount);
 
         btnClose.setOnClickListener(view -> dismiss());
         btnCancel.setOnClickListener(view -> dismiss());
 
-        // ✅ CONFIRM: trả dữ liệu về Fragment (int + long)
+        // ✅ CONFIRM: trả đúng kiểu + giá trị gốc (% hoặc direct) + VAT
         btnConfirm.setOnClickListener(view -> {
             int q = parseIntSafe(tvQty.getText().toString(), 1);
             if (q < 1) q = 1;
 
-            long base = price * q;
-            long discount = 0L;
+            int outType = ProductLine.DISCOUNT_NONE;
+            int outPercent = 0;
+            long outDirect = 0L;
 
             if (rbDiscountPercent.isChecked()) {
-                double p = parsePercentSafe(edtPercent.getText().toString());
-                if (p < 0) p = 0;
-                if (p > 100) p = 100;
-                discount = Math.round(base * (p / 100.0));
+                outType = ProductLine.DISCOUNT_PERCENT;
+                outPercent = (int) Math.round(parsePercentSafe(edtPercent.getText().toString()));
+                if (outPercent < 0) outPercent = 0;
+                if (outPercent > 100) outPercent = 100;
             } else if (rbDiscountDirect.isChecked()) {
-                discount = parseMoneySafe(edtDirect.getText().toString());
-            } else {
-                discount = 0L;
+                outType = ProductLine.DISCOUNT_DIRECT;
+                outDirect = parseMoneySafe(edtDirect.getText().toString());
+                if (outDirect < 0) outDirect = 0L;
             }
 
-            if (discount < 0) discount = 0;
-            if (discount > base) discount = base;
+            int outVatPercent = 0;
+            if (rgTax != null && rgTax.getCheckedRadioButtonId() == R.id.rbVAT10) {
+                outVatPercent = 10; // theo layout của bạn đang cố định 10%
+            }
 
-            if (listener != null) listener.onConfirmed(q, discount);
+            if (listener != null) listener.onConfirmed(q, outType, outPercent, outDirect, outVatPercent);
             dismiss();
         });
+    }
+
+    private void applyEnabled(RadioButton rbPercent, RadioButton rbDirect, EditText etPercent, EditText etDirect) {
+        boolean isPercent = rbPercent.isChecked();
+        boolean isDirect  = rbDirect.isChecked();
+        etPercent.setEnabled(isPercent);
+        etDirect.setEnabled(isDirect);
+        // ✅ KHÔNG reset text để tránh mất dữ liệu khi chuyển qua lại
+    }
+
+    private void recalc(long price,
+                        TextView tvQty,
+                        RadioButton rbPercent,
+                        RadioButton rbDirect,
+                        EditText etPercent,
+                        EditText etDirect,
+                        RadioGroup rgTax,
+                        TextView tvLinePrice,
+                        TextView tvDiscountAmt,
+                        TextView tvTaxAmt,
+                        TextView tvVatPercent,
+                        TextView tvVatAmount,
+                        View layoutVatRow,
+                        TextView tvFinalAmount) {
+
+        int q = parseIntSafe(tvQty.getText().toString(), 1);
+        if (q < 1) q = 1;
+
+        long base = price * (long) q;
+
+        long discount = 0L;
+        if (rbPercent.isChecked()) {
+            double p = parsePercentSafe(etPercent.getText().toString());
+            if (p < 0) p = 0;
+            if (p > 100) p = 100;
+            discount = Math.round(base * (p / 100.0));
+        } else if (rbDirect.isChecked()) {
+            discount = parseMoneySafe(etDirect.getText().toString());
+        }
+
+        if (discount < 0) discount = 0;
+        if (discount > base) discount = base;
+
+        long afterDiscount = base - discount;
+
+        int vatPercent = 0;
+        if (rgTax != null && rgTax.getCheckedRadioButtonId() == R.id.rbVAT10) {
+            vatPercent = 10;
+        }
+
+        long tax = (vatPercent > 0) ? Math.round(afterDiscount * (vatPercent / 100.0)) : 0L;
+        long finalAmount = afterDiscount + tax;
+
+        if (tvLinePrice != null)   tvLinePrice.setText(nf.format(base) + " đ");
+        if (tvDiscountAmt != null) tvDiscountAmt.setText(nf.format(discount) + " đ");
+        if (tvTaxAmt != null)      tvTaxAmt.setText(nf.format(tax) + " đ");
+
+        if (layoutVatRow != null) layoutVatRow.setVisibility(vatPercent > 0 ? View.VISIBLE : View.GONE);
+        if (tvVatPercent != null) tvVatPercent.setText(vatPercent + " %");
+        if (tvVatAmount != null)  tvVatAmount.setText(nf.format(tax) + " đ");
+
+        if (tvFinalAmount != null) tvFinalAmount.setText(nf.format(finalAmount) + " đ");
     }
 
     private static class SimpleTextWatcher implements TextWatcher {
@@ -249,14 +313,12 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         } catch (Exception e) { return def; }
     }
 
-    // "20", "20.5", "20,5", "20 %"
     private double parsePercentSafe(String s) {
         try {
             if (s == null) return 0.0;
             s = s.trim().replace(',', '.');
             s = s.replaceAll("[^0-9.]", "");
             if (s.isEmpty()) return 0.0;
-
             int firstDot = s.indexOf('.');
             if (firstDot >= 0) {
                 String before = s.substring(0, firstDot + 1);
@@ -267,7 +329,6 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         } catch (Exception e) { return 0.0; }
     }
 
-    // "0.00 đ", "8.180.000 đ" => 8180000
     private long parseMoneySafe(String s) {
         try {
             if (s == null) return 0L;
@@ -277,6 +338,3 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         } catch (Exception e) { return 0L; }
     }
 }
-
-
-

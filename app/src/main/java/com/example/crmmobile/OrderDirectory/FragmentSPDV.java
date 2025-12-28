@@ -30,7 +30,10 @@ public class FragmentSPDV extends Fragment {
     private RecyclerView rv;
     private TextView tvEmpty;
 
-    private TextView tvTamTinh, tvThue, tvTongCong; // nếu bạn có các id tổng kết
+    // Tổng kết (include item_tong_ket_don_hang)
+    private View layoutTongKet;
+    private TextView tvTamTinh, tvGiamGiaChung, tvTongGiam, tvTruocThue, tvThue, tvTongThue, tvTongCong;
+
     private final List<ProductLine> data = new ArrayList<>();
     private ProductLineAdapter adapter;
 
@@ -43,8 +46,9 @@ public class FragmentSPDV extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_spdv, container, false);
-        setupTopInfoRows(view);
 
+        setupTopInfoRows(view);
+        bindTongKetViews(view);
 
         donHangRepo = new DonHangRepository(requireContext());
 
@@ -52,29 +56,12 @@ public class FragmentSPDV extends Fragment {
         tvEmpty = view.findViewById(R.id.tvEmptyProducts);
 
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new ProductLineAdapter(data, this::updateEmptyAndTotals); // ✅
+        adapter = new ProductLineAdapter(data);
         rv.setAdapter(adapter);
 
-
         bind();
-
         return view;
     }
-    private void updateEmptyAndTotals() {
-        // 1) Ẩn/hiện empty text
-        if (tvEmpty != null && rv != null) {
-            boolean empty = (data == null || data.isEmpty());
-            tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
-            rv.setVisibility(empty ? View.GONE : View.VISIBLE);
-        }
-
-        // 2) Nếu bạn có phần "tổng kết" (tạm tính/thuế/tổng cộng) thì cập nhật ở đây
-        // Ví dụ:
-        // long total = 0;
-        // for (ProductLine p : data) total += p.getThanhTien();
-        // tvTongCong.setText(nf.format(total) + " đ");
-    }
-
 
     @Override
     public void onResume() {
@@ -96,24 +83,98 @@ public class FragmentSPDV extends Fragment {
         data.addAll(parseProductsFromDonHang(dh));
         adapter.notifyDataSetChanged();
 
-        if (data.isEmpty()) {
-            rv.setVisibility(View.GONE);
-            if (tvEmpty != null) tvEmpty.setVisibility(View.VISIBLE);
-        } else {
-            rv.setVisibility(View.VISIBLE);
-            if (tvEmpty != null) tvEmpty.setVisibility(View.GONE);
+        boolean empty = data.isEmpty();
+        if (rv != null) rv.setVisibility(empty ? View.GONE : View.VISIBLE);
+        if (tvEmpty != null) tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+
+        updateTotals(dh);
+    }
+
+    private void bindTongKetViews(View root) {
+        layoutTongKet = root.findViewById(R.id.layoutTongKet);
+        if (layoutTongKet == null) return;
+
+        tvTamTinh      = layoutTongKet.findViewById(R.id.tvTamTinh);
+        tvGiamGiaChung = layoutTongKet.findViewById(R.id.tvGiamGiaChung);
+        tvTongGiam     = layoutTongKet.findViewById(R.id.tvTongGiam);
+        tvTruocThue    = layoutTongKet.findViewById(R.id.tvTruocThue);
+        tvThue         = layoutTongKet.findViewById(R.id.tvThue);
+        tvTongThue     = layoutTongKet.findViewById(R.id.tvTongThue);
+        tvTongCong     = layoutTongKet.findViewById(R.id.tvTongCong);
+
+        // Màn chi tiết chỉ đọc -> ẩn icon
+        View icGiam = layoutTongKet.findViewById(R.id.iconTooltipGiamGia);
+        if (icGiam != null) icGiam.setVisibility(View.GONE);
+        View icThue = layoutTongKet.findViewById(R.id.iconTooltipThue);
+        if (icThue != null) icThue.setVisibility(View.GONE);
+    }
+
+    private void updateTotals(DonHang dh) {
+        if (layoutTongKet == null || dh == null) return;
+
+        long subtotal = 0L;
+        for (ProductLine p : data) {
+            if (p == null) continue;
+            subtotal += p.getFinalAmount();
+
+
         }
 
-        // Nếu bạn có tổng kết ở fragment_spdv thì tính tại đây
-        // long subtotal = ...
-        // tvTamTinh.setText(...)
+        long globalDiscount = 0L;
+        long beforeTax      = subtotal;
+        long taxAmount      = 0L;
+        long grandTotal     = (long) dh.getTongTien();
+
+        // ưu tiên breakdown đã lưu từ SOProductsFragment (EXTRA_JSON)
+        try {
+            String extraStr = dh.getExtraJson();
+            if (extraStr != null && !extraStr.trim().isEmpty()) {
+                JSONObject extra = new JSONObject(extraStr);
+
+                subtotal       = optLong(extra, "subtotal", subtotal);
+                globalDiscount = optLong(extra, "globalDiscount", 0L);
+
+                if (globalDiscount > subtotal) globalDiscount = subtotal;
+                if (globalDiscount < 0) globalDiscount = 0;
+
+                beforeTax  = optLong(extra, "beforeTax", Math.max(0L, subtotal - globalDiscount));
+                taxAmount  = optLong(extra, "taxAmount", 0L);
+                grandTotal = optLong(extra, "grandTotal", beforeTax + taxAmount);
+            }
+        } catch (Exception ignored) {}
+
+        if (globalDiscount > subtotal) globalDiscount = subtotal;
+        if (globalDiscount < 0) globalDiscount = 0;
+
+        beforeTax  = Math.max(0L, subtotal - globalDiscount);
+        taxAmount  = Math.max(0L, taxAmount);
+        grandTotal = Math.max(0L, grandTotal);
+
+        if (tvTamTinh != null)      tvTamTinh.setText(nf.format(subtotal) + " đ");
+        if (tvGiamGiaChung != null) tvGiamGiaChung.setText(nf.format(globalDiscount) + " đ");
+        if (tvTongGiam != null)     tvTongGiam.setText(nf.format(globalDiscount) + " đ");
+        if (tvTruocThue != null)    tvTruocThue.setText(nf.format(beforeTax) + " đ");
+        if (tvThue != null)         tvThue.setText(nf.format(taxAmount) + " đ");
+        if (tvTongThue != null)     tvTongThue.setText(nf.format(taxAmount) + " đ");
+        if (tvTongCong != null)     tvTongCong.setText(nf.format(grandTotal) + " đ");
+    }
+
+    private long optLong(JSONObject o, String k, long def) {
+        try {
+            if (!o.has(k) || o.isNull(k)) return def;
+            Object v = o.get(k);
+            if (v instanceof Number) return ((Number) v).longValue();
+            String s = String.valueOf(v).trim();
+            if (s.isEmpty()) return def;
+            return Long.parseLong(s);
+        } catch (Exception e) { return def; }
     }
 
     private List<ProductLine> parseProductsFromDonHang(DonHang dh) {
         List<ProductLine> list = new ArrayList<>();
         String sp = dh.getSanPham();
 
-        // ✅ JSON array case
+        // JSON array
         if (sp != null) {
             String s = sp.trim();
             if (s.startsWith("[") && s.endsWith("]")) {
@@ -125,8 +186,12 @@ public class FragmentSPDV extends Fragment {
                         String note = o.optString("note", "");
                         int qty = o.optInt("qty", 1);
                         long price = o.optLong("price", 0L);
+                        long discount = o.optLong("discountAmount", 0L);
+
                         if (!name.isEmpty()) {
-                            list.add(new ProductLine(name, note, qty, price));
+                            ProductLine pl = new ProductLine(name, note, qty, price);
+                            pl.setDiscountAmount(discount);
+                            list.add(pl);
                         }
                     }
                     return list;
@@ -134,17 +199,19 @@ public class FragmentSPDV extends Fragment {
             }
         }
 
-        // ✅ fallback: đơn chỉ có 1 SP
+        // fallback: đơn chỉ có 1 SP
         if (sp != null && !sp.trim().isEmpty()) {
-            list.add(new ProductLine(
+            ProductLine pl = new ProductLine(
                     sp.trim(),
                     "",
                     Math.max(1, dh.getSoLuong()),
-                    dh.getDonGia()
-            ));
+                    (long) dh.getDonGia()
+            );
+            list.add(pl);
         }
         return list;
     }
+
     private void setupTopInfoRows(View root) {
         View rowCurrency = root.findViewById(R.id.rowCurrency);
         if (rowCurrency != null) {
@@ -162,5 +229,5 @@ public class FragmentSPDV extends Fragment {
             if (vl != null) vl.setText("Trong nước");
         }
     }
-
 }
+

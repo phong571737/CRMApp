@@ -21,21 +21,21 @@ import java.util.Locale;
 
 public class EditTaxBottomSheet extends BottomSheetDialogFragment {
 
-    public interface Listener {
-        void onConfirmed(int vatPercent);
-    }
+    public interface Listener { void onConfirmed(int vatPercent); }
 
     private Listener listener;
     public void setListener(Listener listener) { this.listener = listener; }
 
     private static final String ARG_AMOUNT_BEFORE_TAX = "arg_amount_before_tax";
     private static final String ARG_VAT_PERCENT       = "arg_vat_percent";
+    private static final String ARG_LINE_TAX_SUM      = "arg_line_tax_sum";
 
-    public static EditTaxBottomSheet newInstance(long amountBeforeTax, int vatPercent) {
+    public static EditTaxBottomSheet newInstance(long amountBeforeTax, int vatPercent, long lineTaxSum) {
         EditTaxBottomSheet f = new EditTaxBottomSheet();
         Bundle args = new Bundle();
         args.putLong(ARG_AMOUNT_BEFORE_TAX, amountBeforeTax);
         args.putInt(ARG_VAT_PERCENT, vatPercent);
+        args.putLong(ARG_LINE_TAX_SUM, lineTaxSum);
         f.setArguments(args);
         return f;
     }
@@ -49,27 +49,38 @@ public class EditTaxBottomSheet extends BottomSheetDialogFragment {
 
         EditText edtVatPercent = v.findViewById(R.id.edtVatPercent);
         TextView tvTaxAmount   = v.findViewById(R.id.tvTaxAmount);
+        TextView tvLineTaxValue= v.findViewById(R.id.tvLineTaxValue);
+
         MaterialButton btnCancel  = v.findViewById(R.id.btnTaxCancel);
         MaterialButton btnConfirm = v.findViewById(R.id.btnTaxConfirm);
 
         long amountBeforeTax = 0L;
         int vatPercent = 10;
+        long lineTaxSum = 0L;
 
         if (getArguments() != null) {
             amountBeforeTax = getArguments().getLong(ARG_AMOUNT_BEFORE_TAX, 0L);
             vatPercent      = getArguments().getInt(ARG_VAT_PERCENT, 10);
+            lineTaxSum      = getArguments().getLong(ARG_LINE_TAX_SUM, 0L);
+        }
+
+        NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+
+        if (tvLineTaxValue != null) {
+            tvLineTaxValue.setText(nf.format(Math.max(0L, lineTaxSum)) + " đ");
         }
 
         long finalAmountBeforeTax = amountBeforeTax;
+        long finalLineTaxSum = lineTaxSum;
 
         edtVatPercent.setText(String.valueOf(vatPercent));
-        updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, vatPercent);
+        updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, vatPercent, finalLineTaxSum);
 
         edtVatPercent.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int p = parsePercentSafe(s != null ? s.toString() : "0");
-                updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, p);
+                updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, p, finalLineTaxSum);
             }
             @Override public void afterTextChanged(Editable s) {}
         });
@@ -97,9 +108,11 @@ public class EditTaxBottomSheet extends BottomSheetDialogFragment {
         } catch (Exception e) { return 0; }
     }
 
-    private void updateTaxAmountText(TextView tv, long baseAmount, int percent) {
-        long tax = Math.round(baseAmount * (percent / 100.0));
+    // ✅ tvTaxAmount hiển thị TỔNG THUẾ = thuế order + thuế từ sản phẩm
+    private void updateTaxAmountText(TextView tv, long baseAmount, int percent, long lineTaxSum) {
+        long orderTax = Math.round(baseAmount * (percent / 100.0));
+        long totalTax = Math.max(0L, lineTaxSum) + Math.max(0L, orderTax);
         NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
-        tv.setText(nf.format(tax) + " đ");
+        tv.setText(nf.format(totalTax) + " đ");
     }
 }

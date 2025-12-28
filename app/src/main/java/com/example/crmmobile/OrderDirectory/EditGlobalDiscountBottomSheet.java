@@ -23,18 +23,20 @@ import java.util.Locale;
 
 public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
 
-    public interface Listener {
-        void onConfirmed(long discountAmount);
-    }
+    public interface Listener { void onConfirmed(long discountAmount); }
 
     private static final String ARG_SUBTOTAL = "arg_subtotal";
     private static final String ARG_CURRENT  = "arg_current";
+    private static final String ARG_LINE_DISCOUNT_SUM = "arg_line_discount_sum";
 
-    public static EditGlobalDiscountBottomSheet newInstance(long subtotal, long currentDiscount) {
+    public static EditGlobalDiscountBottomSheet newInstance(long subtotalAfterLineDiscount,
+                                                            long currentGlobalExtra,
+                                                            long lineDiscountSum) {
         EditGlobalDiscountBottomSheet f = new EditGlobalDiscountBottomSheet();
         Bundle b = new Bundle();
-        b.putLong(ARG_SUBTOTAL, subtotal);
-        b.putLong(ARG_CURRENT, currentDiscount);
+        b.putLong(ARG_SUBTOTAL, subtotalAfterLineDiscount);
+        b.putLong(ARG_CURRENT, currentGlobalExtra);
+        b.putLong(ARG_LINE_DISCOUNT_SUM, lineDiscountSum);
         f.setArguments(b);
         return f;
     }
@@ -44,16 +46,16 @@ public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
 
     private long subtotal = 0L;
     private long current = 0L;
+    private long lineDiscountSum = 0L;
 
-    private View root;
     private RadioButton rbNone, rbPercent, rbDirect;
     private EditText etPercent, etDirect;
-    private TextView tvDiscountValue;
+    private TextView tvDiscountValue, tvLineDiscountValue;
     private MaterialButton btnCancel, btnConfirm;
     private ImageView btnClose;
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
-    private final boolean[] lock = {false}; // ✅ chống loop khi setChecked
+    private final boolean[] lock = {false};
 
     @Nullable
     @Override
@@ -61,14 +63,14 @@ public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        root = inflater.inflate(R.layout.bottomsheet_edit_global_discount, container, false);
+        View root = inflater.inflate(R.layout.bottomsheet_edit_global_discount, container, false);
 
         if (getArguments() != null) {
             subtotal = getArguments().getLong(ARG_SUBTOTAL, 0L);
             current  = getArguments().getLong(ARG_CURRENT, 0L);
+            lineDiscountSum = getArguments().getLong(ARG_LINE_DISCOUNT_SUM, 0L);
         }
 
-        // ===== mapping ids đúng như file của bạn =====
         rbNone    = root.findViewById(R.id.rbGlobalNoDiscount);
         rbPercent = root.findViewById(R.id.rbGlobalPercent);
         rbDirect  = root.findViewById(R.id.rbGlobalDirect);
@@ -76,13 +78,17 @@ public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
         etPercent = root.findViewById(R.id.edtGlobalPercent);
         etDirect  = root.findViewById(R.id.edtGlobalDirect);
 
-        tvDiscountValue = root.findViewById(R.id.tvGlobalDiscountAmount);
+        tvDiscountValue    = root.findViewById(R.id.tvGlobalDiscountAmount);
+        tvLineDiscountValue= root.findViewById(R.id.tvLineDiscountValue);
 
         btnCancel  = root.findViewById(R.id.btnGlobalCancel);
         btnConfirm = root.findViewById(R.id.btnGlobalConfirm);
         btnClose   = root.findViewById(R.id.btnCloseGlobal);
 
-        // Click cả dòng (nếu XML có)
+        if (tvLineDiscountValue != null) {
+            tvLineDiscountValue.setText(nf.format(Math.max(0L, lineDiscountSum)) + " đ");
+        }
+
         View rowNone    = root.findViewById(R.id.rowGlobalNoDiscount);
         View rowPercent = root.findViewById(R.id.rowGlobalPercent);
         View rowDirect  = root.findViewById(R.id.rowGlobalDirect);
@@ -91,131 +97,82 @@ public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
         if (rowPercent != null) rowPercent.setOnClickListener(v -> selectPercent());
         if (rowDirect != null) rowDirect.setOnClickListener(v -> selectDirect());
 
-        // ✅ FIX CHÍNH: ép 3 radio luôn “chọn 1 - bỏ 2”
-        if (rbNone != null) {
-            rbNone.setOnCheckedChangeListener((b, isChecked) -> {
-                if (lock[0] || !isChecked) return;
-                selectNone();
-            });
-        }
-        if (rbPercent != null) {
-            rbPercent.setOnCheckedChangeListener((b, isChecked) -> {
-                if (lock[0] || !isChecked) return;
-                selectPercent();
-            });
-        }
-        if (rbDirect != null) {
-            rbDirect.setOnCheckedChangeListener((b, isChecked) -> {
-                if (lock[0] || !isChecked) return;
-                selectDirect();
-            });
-        }
+        rbNone.setOnCheckedChangeListener((b, isChecked) -> { if (!lock[0] && isChecked) selectNone(); });
+        rbPercent.setOnCheckedChangeListener((b, isChecked) -> { if (!lock[0] && isChecked) selectPercent(); });
+        rbDirect.setOnCheckedChangeListener((b, isChecked) -> { if (!lock[0] && isChecked) selectDirect(); });
 
-        // Click/focus vào ô nhập => tự chọn radio đúng
-        if (etPercent != null) {
-            etPercent.setOnClickListener(v -> selectPercent());
-            etPercent.setOnFocusChangeListener((v, hasFocus) -> { if (hasFocus) selectPercent(); });
-            etPercent.addTextChangedListener(simpleWatcher(this::updatePreview));
-        }
+        etPercent.setOnClickListener(v -> selectPercent());
+        etPercent.setOnFocusChangeListener((v, hasFocus) -> { if (hasFocus) selectPercent(); });
+        etPercent.addTextChangedListener(simpleWatcher(this::updatePreview));
 
-        if (etDirect != null) {
-            etDirect.setOnClickListener(v -> selectDirect());
-            etDirect.setOnFocusChangeListener((v, hasFocus) -> { if (hasFocus) selectDirect(); });
-            etDirect.addTextChangedListener(simpleWatcher(this::updatePreview));
-        }
+        etDirect.setOnClickListener(v -> selectDirect());
+        etDirect.setOnFocusChangeListener((v, hasFocus) -> { if (hasFocus) selectDirect(); });
+        etDirect.addTextChangedListener(simpleWatcher(this::updatePreview));
 
-        // init state theo current
         if (current > 0) {
             selectDirect();
-            if (etDirect != null) etDirect.setText(nf.format(current) + " đ");
+            etDirect.setText(nf.format(current) + " đ");
         } else {
             selectNone();
         }
-
         updatePreview();
 
         if (btnClose != null) btnClose.setOnClickListener(v -> dismiss());
         if (btnCancel != null) btnCancel.setOnClickListener(v -> dismiss());
 
-        if (btnConfirm != null) {
-            btnConfirm.setOnClickListener(v -> {
-                long discountAmount = calcDiscountAmount();
-                if (listener != null) listener.onConfirmed(discountAmount);
-                dismiss();
-            });
-        }
+        btnConfirm.setOnClickListener(v -> {
+            long discountAmount = calcDiscountAmount();
+            if (listener != null) listener.onConfirmed(discountAmount);
+            dismiss();
+        });
 
         return root;
     }
 
-    // ===== chọn exclusive =====
     private void selectNone() {
-        if (lock[0]) return;
         lock[0] = true;
-
-        if (rbNone != null) rbNone.setChecked(true);
-        if (rbPercent != null) rbPercent.setChecked(false);
-        if (rbDirect != null) rbDirect.setChecked(false);
-
+        rbNone.setChecked(true); rbPercent.setChecked(false); rbDirect.setChecked(false);
         lock[0] = false;
-
         applyEnabledState();
         updatePreview();
     }
 
     private void selectPercent() {
-        if (lock[0]) return;
         lock[0] = true;
-
-        if (rbNone != null) rbNone.setChecked(false);
-        if (rbPercent != null) rbPercent.setChecked(true);
-        if (rbDirect != null) rbDirect.setChecked(false);
-
+        rbNone.setChecked(false); rbPercent.setChecked(true); rbDirect.setChecked(false);
         lock[0] = false;
-
         applyEnabledState();
         updatePreview();
     }
 
     private void selectDirect() {
-        if (lock[0]) return;
         lock[0] = true;
-
-        if (rbNone != null) rbNone.setChecked(false);
-        if (rbPercent != null) rbPercent.setChecked(false);
-        if (rbDirect != null) rbDirect.setChecked(true);
-
+        rbNone.setChecked(false); rbPercent.setChecked(false); rbDirect.setChecked(true);
         lock[0] = false;
-
         applyEnabledState();
         updatePreview();
     }
 
     private void applyEnabledState() {
-        boolean isPercent = rbPercent != null && rbPercent.isChecked();
-        boolean isDirect  = rbDirect  != null && rbDirect.isChecked();
-
-        if (etPercent != null) etPercent.setEnabled(isPercent);
-        if (etDirect != null) etDirect.setEnabled(isDirect);
-
-        if (!isPercent && etPercent != null) etPercent.setText("0");
-        if (!isDirect  && etDirect != null)  etDirect.setText("0 đ");
+        boolean isPercent = rbPercent.isChecked();
+        boolean isDirect  = rbDirect.isChecked();
+        etPercent.setEnabled(isPercent);
+        etDirect.setEnabled(isDirect);
+        // không reset text
     }
 
     private void updatePreview() {
         long amount = calcDiscountAmount();
-        if (tvDiscountValue != null) tvDiscountValue.setText(nf.format(amount) + " đ");
+        tvDiscountValue.setText(nf.format(amount) + " đ");
     }
 
     private long calcDiscountAmount() {
         if (subtotal < 0) subtotal = 0;
 
-        // none
-        if (rbNone != null && rbNone.isChecked()) return 0L;
+        if (rbNone.isChecked()) return 0L;
 
-        // percent
-        if (rbPercent != null && rbPercent.isChecked()) {
-            int percent = parseIntSafe(etPercent != null ? etPercent.getText().toString() : "0");
+        if (rbPercent.isChecked()) {
+            int percent = parseIntSafe(etPercent.getText().toString());
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
             long amount = Math.round(subtotal * (percent / 100.0));
@@ -223,9 +180,8 @@ public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
             return Math.max(0L, amount);
         }
 
-        // direct
-        if (rbDirect != null && rbDirect.isChecked()) {
-            long amount = parseMoneySafe(etDirect != null ? etDirect.getText().toString() : "0");
+        if (rbDirect.isChecked()) {
+            long amount = parseMoneySafe(etDirect.getText().toString());
             if (amount > subtotal) amount = subtotal;
             return Math.max(0L, amount);
         }
@@ -247,21 +203,15 @@ public class EditGlobalDiscountBottomSheet extends BottomSheetDialogFragment {
             s = s.trim();
             if (s.isEmpty()) return 0;
             return Integer.parseInt(s.replaceAll("[^0-9]", ""));
-        } catch (Exception e) {
-            return 0;
-        }
+        } catch (Exception e) { return 0; }
     }
 
-    // ✅ parse "0.00 đ" / "8.180.000 đ" / "8180000"
     private long parseMoneySafe(String s) {
         try {
             if (s == null) return 0L;
             String digits = s.replaceAll("[^0-9]", "");
             if (digits.isEmpty()) return 0L;
             return Long.parseLong(digits);
-        } catch (Exception e) {
-            return 0L;
-        }
+        } catch (Exception e) { return 0L; }
     }
 }
-

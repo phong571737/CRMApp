@@ -94,7 +94,7 @@ public class AdapterOpportunity extends RecyclerView.Adapter<AdapterOpportunity.
             tvStatus = itemView.findViewById(R.id.tv_opportunity_status);
             tvCallCount = itemView.findViewById(R.id.tv_call_count);
             tvMessageCount = itemView.findViewById(R.id.tv_message_count);
-            tvExchange = itemView.findViewById(R.id.tv_opportunity_exchange);
+//            tvExchange = itemView.findViewById(R.id.tv_opportunity_exchange);
             ivStar = itemView.findViewById(R.id.img_star);
             ivMenu = itemView.findViewById(R.id.img_menu);
         }

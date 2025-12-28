@@ -26,10 +26,10 @@ public class OpportunityBottomSheetHelper {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());
 
-        addActionItem(context, layoutActions, R.drawable.ic_pin, "Ghim", () -> {
-            Toast.makeText(context, "Đã ghim: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
-        });
+//        addActionItem(context, layoutActions, R.drawable.ic_pin, "Ghim", () -> {
+//            Toast.makeText(context, "Đã ghim: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//            dialog.dismiss();
+//        });
 
         addActionItem(context, layoutActions, R.drawable.ic_calendar, "Thêm hoạt động", () -> {
             Toast.makeText(context, "Thêm hoạt động cho " + item.getTitle(), Toast.LENGTH_SHORT).show();

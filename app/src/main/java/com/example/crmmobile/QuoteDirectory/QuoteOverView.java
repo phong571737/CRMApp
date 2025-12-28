@@ -2,6 +2,8 @@ package com.example.crmmobile.QuoteDirectory;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.crmmobile.BottomSheet.BottomHoatDongFragment;
 import com.example.crmmobile.R;
 import com.example.crmmobile.OrderDirectory.TaiLieu;
 import com.example.crmmobile.Adapter.TaiLieuAdapter;
@@ -20,11 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuoteOverView extends Fragment {
-    private RecyclerView rv_document;
-    private TaiLieuAdapter adapter;
-    private List<TaiLieu> list_document;
-    private ImageView iv_document;
-    private ConstraintLayout cl_document;
+    private ImageView display_action;
+    private TextView fillslcuocgoi, fillscuochop;
+    private LinearLayout ll_add_activity;
+    private RecyclerView recycler_activity;
+    private CreateQuoteViewModel viewModel;
 
     public QuoteOverView() {
         // Required empty public constructor
@@ -46,30 +51,46 @@ public class QuoteOverView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_quote_over_view, container, false);
-        rv_document = view.findViewById(R.id.rv_document);
-        iv_document = view.findViewById(R.id.iv_document);
-        cl_document = view.findViewById(R.id.cl_reference);
+        initViews(view);
 
-        rv_document.setLayoutManager(new LinearLayoutManager(getContext()));
-        list_document = new ArrayList<>();
 
-        list_document.add(new TaiLieu("Báo giá sản phẩm.pdf", "17/05/2024", "10:24", "Nguyễn Minh Hà"));
-        list_document.add(new TaiLieu("Bảng giá sản phẩm.xlsx", "13/05/2024", "12:40", "Nguyễn Thị Tú Vân"));
-
-        adapter = new TaiLieuAdapter(getContext(), list_document);
-        rv_document.setAdapter(adapter);
-
-        iv_document.setOnClickListener(v -> {
-            if(cl_document.getVisibility() == View.VISIBLE){
-                cl_document.setVisibility(View.GONE);
-                iv_document.setImageResource(R.drawable.ic_arrow_down);
+        display_action.setOnClickListener(v -> {
+            if(recycler_activity.getVisibility() == View.VISIBLE){
+                recycler_activity.setVisibility(View.GONE);
+                display_action.setImageResource(R.drawable.ic_arrow_down);
             }
             else {
-                cl_document.setVisibility(View.VISIBLE);
-                iv_document.setImageResource(R.drawable.ic_arrow_up);
+                recycler_activity.setVisibility(View.VISIBLE);
+                display_action.setImageResource(R.drawable.ic_arrow_up);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //add activity
+        ll_add_activity.setOnClickListener(v -> {
+            showBottomSheetHoatDong();
+        });
+    }
+
+    private void showBottomSheetHoatDong() {
+        BottomHoatDongFragment bottom = new BottomHoatDongFragment();
+        Integer currentID = viewModel.QuoteID.getValue();
+        if (currentID != null){
+            bottom.setLead(currentID);
+        }
+        bottom.show(getParentFragmentManager(), "hoatdong");
+    }
+
+    private void initViews(View view) {
+        display_action = view.findViewById(R.id.display_action);
+        recycler_activity = view.findViewById(R.id.recycler_activity);
+        ll_add_activity = view.findViewById(R.id.ll_add_activity);
+        fillslcuocgoi = view.findViewById(R.id.fillslcuocgoi);
+        fillscuochop= view.findViewById(R.id.fillscuochop);
     }
 }

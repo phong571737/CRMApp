@@ -53,6 +53,7 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
     private TextView tvNgayKetThuc, tvGioKetThuc;
     private String currentType = "call";
     private int LeadID = -1;
+    private int quoteID = -1;
     private int opportunityID = -1;
 
     private HoatDong hoatDong;
@@ -243,6 +244,10 @@ public class BottomHoatDongFragment extends BottomSheetDialogFragment {
 
     public void setLead(int leadID) {
         this.LeadID = leadID;
+    }
+
+    public void setQuote(int quoteID){
+        this.quoteID = quoteID;
     }
 
     private void setFragment(Fragment fragment) {

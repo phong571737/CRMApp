@@ -207,4 +207,6 @@ public class Quote {
     public void setMeettings(Integer meettings) {
         this.meettings = meettings;
     }
+
+
 }

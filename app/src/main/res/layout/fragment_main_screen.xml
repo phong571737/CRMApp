@@ -70,10 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
-            android:paddingTop="@dimen/top_padding"
-            android:paddingBottom="@dimen/bottom_padding"
-            android:paddingStart="@dimen/margin7"
-            android:paddingEnd="@dimen/margin7"/>
+            />
     </LinearLayout>
     <!--End module-->
 

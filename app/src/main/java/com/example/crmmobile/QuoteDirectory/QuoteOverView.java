@@ -111,41 +111,9 @@ public class QuoteOverView extends Fragment {
         fillscuochop= view.findViewById(R.id.fillscuochop);
     }
 
-    private void updateActivityStats() {
-        if (viewModel.quoteID.getValue() <= 0) {
-            if (fillslcuocgoi != null) fillslcuocgoi.setText("0");
-            if (fillscuochop != null) fillscuochop.setText("0");
-            return;
-        }
-
-        if (hoatDongRepository == null) {
-            hoatDongRepository = new HoatDongRepository(requireContext());
-        }
-
-        int callCount = 0;
-        int meetingCount = 0;
-
-        List<HoatDong> listFromDB = hoatDongRepository.getHoatDongByNguoiLienHe(viewModel.quoteID.getValue());
-        for (HoatDong hd : listFromDB) {
-            String type = hd.getType();
-            if ("call".equalsIgnoreCase(type)) {
-                callCount++;
-            } else if ("meeting".equalsIgnoreCase(type)) {
-                meetingCount++;
-            }
-        }
-
-        if (fillslcuocgoi != null) {
-            fillslcuocgoi.setText("" + callCount);
-        }
-        if (fillscuochop != null) {
-            fillscuochop.setText("" + meetingCount);
-        }
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        updateActivityStats();
     }
 }

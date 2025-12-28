@@ -98,20 +98,15 @@ public class main_screen extends Fragment {
                     new Module("Công ty", R.drawable.ic_company),
                     new Module("Cá nhân", R.drawable.ic_individual),
                     new Module("Báo giá", R.drawable.ic_quote),
-                    new Module("Hóa đơn", R.drawable.ic_bill),
                     new Module("Hợp đồng", R.drawable.ic_contract),
                     new Module("Báo cáo", R.drawable.ic_chart),
-                    new Module("Cơ hội", R.drawable.ic_target),
-                    new Module("CSKH", R.drawable.customer_care)
+                    new Module("Cơ hội", R.drawable.ic_target)
         );
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return 1;
-            }
-        });
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        rl_module.addItemDecoration(new VerticalSpaceItemDecoration(
+                (int) getResources().getDisplayMetrics().density * 20
+        ));
         //assign layoutmanager
         rl_module.setLayoutManager(layoutManager);
 

@@ -20,10 +20,6 @@
         android:icon="@drawable/ic_calendar"
         android:title="@string/Calendar"/>
     <item
-        android:id="@+id/nav_notify"
-        android:icon="@drawable/ic_bell"
-        android:title="@string/Notify"/>
-    <item
         android:id="@+id/nav_menu"
         android:icon="@drawable/ic_menu"
         android:title="@string/Menu"/>

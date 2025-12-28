@@ -25,8 +25,8 @@ public class DonHang {
     private long tongTien;    // tổng tiền
     private String moTa;
     private int giaoChoId;
-    private int nguoiTaoId;     // ✅ NEW
-    private String extraJson;   // ✅ NEW
+    private int nguoiTaoId;
+    private String extraJson;
 
 
     public DonHang() {

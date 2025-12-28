@@ -79,7 +79,7 @@ public class DonHangRepository {
 
         ContentValues v = new ContentValues();
 
-        // ✅ đúng schema
+        //đúng schema
         v.put("TENDONHANG", dh.getTenDonHang());
 
         // DB của bạn đang lưu TEXT cho các cột này, không phải ID

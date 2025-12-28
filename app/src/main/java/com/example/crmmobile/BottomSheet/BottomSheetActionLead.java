@@ -65,10 +65,10 @@ public class BottomSheetActionLead {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String userRole = sharedPreferences.getString(KEY_USER_ROLE, "");
         if ("ADMIN".equals(userRole)) {
-            addActionItemLead(context, layoutAction, R.drawable.ic_garbage, "Xóa", () ->{
-                if(listener != null) listener.onDelete(lead);
-                dialog.dismiss();
-            });
+        addActionItemLead(context, layoutAction, R.drawable.ic_garbage, "Xóa", () ->{
+            if(listener != null) listener.onDelete(lead);
+            dialog.dismiss();
+        });
         }
 
         dialog.setContentView(view);

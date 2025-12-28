@@ -53,12 +53,12 @@ public class OpportunityBottomSheetHelper {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String userRole = sharedPreferences.getString(KEY_USER_ROLE, "");
         if ("ADMIN".equals(userRole)) {
-            addActionItem(context, layoutActions, R.drawable.ic_garbage, "Xóa", () -> {
-                // Xóa ở repository
-                OpportunityRepository.getInstance(context).delete(item.getId());
-                Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            });
+        addActionItem(context, layoutActions, R.drawable.ic_garbage, "Xóa", () -> {
+            // Xóa ở repository
+            OpportunityRepository.getInstance(context).delete(item.getId());
+            Toast.makeText(context, "Đã xóa cơ hội: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
         }
 
         dialog.setContentView(view);

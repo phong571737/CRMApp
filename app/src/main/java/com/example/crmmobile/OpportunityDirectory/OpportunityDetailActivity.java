@@ -58,7 +58,7 @@ public class OpportunityDetailActivity extends AppCompatActivity {
         tvStatus   = headerRoot.findViewById(R.id.tv_opportunity_status);
 
 // owner
-        tvCreator  = headerRoot.findViewById(R.id.tv_opportunity_creator_name);
+//        tvCreator  = headerRoot.findViewById(R.id.tv_opportunity_creator_name);
         tvAssignee = headerRoot.findViewById(R.id.tv_opportunity_assignee_name);
 
 
@@ -137,8 +137,8 @@ public class OpportunityDetailActivity extends AppCompatActivity {
 
         // Tên đã được map
         tvCompany.setText(ui.companyName);
-        tvCreator.setText(ui.contactName);
-        tvAssignee.setText(ui.contactName);
+//        tvCreator.setText(ui.contactName);
+        tvAssignee.setText(ui.managementName);
     }
 
 

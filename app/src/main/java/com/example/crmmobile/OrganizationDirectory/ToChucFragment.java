@@ -44,21 +44,42 @@ public class ToChucFragment extends Fragment
 
         companyRepository = new CompanyRepository(getContext());
 
+        // 1. Ánh xạ nút Back
         ImageButton btnBack = view.findViewById(R.id.btn_organization_back);
         if (btnBack != null) {
             btnBack.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
         }
 
+        // 2. Ánh xạ nút Thêm mới (FAB)
         view.findViewById(R.id.fab_add).setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
             intent.putExtra("EXTRA_TITLE", "Tạo công ty");
             startActivity(intent);
         });
 
+        // 3. Cấu hình RecyclerView
         recyclerView = view.findViewById(R.id.recycler_view_organization);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        loadData(); // Load lần đầu
+        // 4. XỬ LÝ TÌM KIẾM
+        android.widget.EditText etSearch = view.findViewById(R.id.et_organization_search);
+        if (etSearch != null) {
+            etSearch.addTextChangedListener(new android.text.TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    // Gọi hàm lọc dữ liệu mỗi khi người dùng nhập chữ
+                    filterList(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(android.text.Editable s) {}
+            });
+        }
+
+        loadData(); // Load toàn bộ danh sách lần đầu
 
         return view;
     }
@@ -79,28 +100,29 @@ public class ToChucFragment extends Fragment
 
     @Override
     public void onItemClicked(int position, ToChuc toChuc) {
-        // Click vào item -> Mở màn hình Sửa (hoặc Chi tiết)
-        Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
-        intent.putExtra("COMPANY_ID", toChuc.getId()); // Truyền ID để biết là Edit
+        Intent intent = new Intent(getContext(), ChiTietToChucActivity.class);
+        intent.putExtra("COMPANY_ID", toChuc.getId());
         startActivity(intent);
     }
 
+    // Thêm hàm lọc dữ liệu
+    private void filterList(String keyword) {
+        toChucList = companyRepository.searchCompany(keyword);
+        adapter = new ToChucAdapter(getContext(), toChucList, this, this);
+        recyclerView.setAdapter(adapter);
+    }
 
     private void onEditClicked(int position) {
-        if(position == -1 || selectedToChuc == null) return; // Kiểm tra kỹ
+        if(position == -1 || selectedToChuc == null) return;
 
         Log.d(TAG, "onEditClicked: " + selectedToChuc.getCompanyName() + " ID: " + selectedToChuc.getId());
 
         Intent intent = new Intent(getContext(), TaoCongTyActivity.class);
         intent.putExtra("EXTRA_TITLE", "Chỉnh sửa công ty");
-
-        // === QUAN TRỌNG: TRUYỀN ID CÔNG TY ===
         intent.putExtra("COMPANY_ID", selectedToChuc.getId());
-        // =====================================
-
         startActivity(intent);
-        // Không cần notifyItemChanged ở đây vì khi quay lại onResume sẽ load lại list
     }
+
     @Override
     public void onMoreOptionsClicked(int position, ToChuc toChuc) {
         this.selectedPosition = position;
@@ -117,11 +139,18 @@ public class ToChucFragment extends Fragment
         loadData(); // Refresh list
     }
 
-    // Các hàm khác giữ nguyên hoặc để trống nếu chưa dùng
-    @Override public void onActionGhim() {}
-    @Override public void onActionXemTongQuan() {}
-    @Override public void onActionThemHoatDong() {}
-    @Override public void onActionChinhSua() {
-        onItemClicked(selectedPosition, selectedToChuc);
+    @Override
+    public void onActionXemTongQuan() {
+        if (selectedToChuc != null) {
+            Intent intent = new Intent(getContext(), TongQuanCongTyActivity.class);
+            intent.putExtra("COMPANY_ID", selectedToChuc.getId());
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onActionChinhSua() {
+        // Gọi đúng hàm xử lý chỉnh sửa
+        onEditClicked(selectedPosition);
     }
 }

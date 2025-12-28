@@ -7,7 +7,23 @@ public class ToChuc implements Serializable {
 
     // Enum trạng thái
     public enum TrangThai {
-        KHONG_QUAN_TAM, CO_CO_HOI, CAN_QUAN_TAM, NONE
+        KHONG_QUAN_TAM("Không quan tâm"),
+        CO_CO_HOI("Có cơ hội"),
+        CAN_QUAN_TAM("Cần quan tâm"),
+        NONE("---"); // Trạng thái mặc định
+
+        private final String displayValue;
+
+        // Constructor cho Enum
+        TrangThai(String displayValue) {
+            this.displayValue = displayValue;
+        }
+
+        // Phương thức để lấy chuỗi hiển thị
+        @Override
+        public String toString() {
+            return displayValue;
+        }
     }
 
     private int id; // ID Database

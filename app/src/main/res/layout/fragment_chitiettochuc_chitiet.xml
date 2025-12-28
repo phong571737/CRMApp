@@ -25,23 +25,23 @@
 
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/ten_cong_ty" />
-                    <TextView style="@style/DetailValue" android:text="Công ty TNHH Công nghệ CloudGO" />
+                    <TextView android:id="@+id/tv_detail_ten_cty" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/trang_thai" />
-                    <TextView style="@style/DetailValue" android:text="Đang hoạt động" />
+                    <TextView android:id="@+id/tv_detail_trang_thai" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/website" />
-                    <TextView style="@style/DetailValue.Blue" android:autoLink="web" android:text="https://cloudgo.vn/" />
+                    <TextView android:id="@+id/tv_detail_website" style="@style/DetailValue.Blue" android:autoLink="web" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/dien_thoai" />
-                    <TextView style="@style/DetailValue" android:text="0123456789" />
+                    <TextView android:id="@+id/tv_detail_dien_thoai" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/email" />
-                    <TextView style="@style/DetailValue.Blue" android:autoLink="email" android:text="cloudgo@gmail.com" />
+                    <TextView android:id="@+id/tv_detail_email" style="@style/DetailValue.Blue" android:autoLink="email" android:text="---" />
                 </RelativeLayout>
 
                 <RelativeLayout style="@style/DetailRowLayout">
@@ -51,7 +51,7 @@
                         android:drawablePadding="4dp"
                         app:drawableEndCompat="@drawable/ic_information_small"
                         app:drawableTint="#9E9E9E"/>
-                    <TextView style="@style/DetailValue" android:text="Công nghệ" />
+                    <TextView android:id="@+id/tv_detail_nganh_nghe" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -76,21 +76,22 @@
                         app:drawableEndCompat="@drawable/ic_information_small"
                         app:drawableTint="#9E9E9E"/>
                     <TextView
+                        android:id="@+id/tv_detail_dia_chi"
                         style="@style/DetailValue.FullWidth"
-                        android:text="13 Đường số 37 - Vạn Phúc City, P.Hiệp Bình Phước" />
+                        android:text="---" />
                 </LinearLayout>
 
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/district" />
-                    <TextView style="@style/DetailValue" android:text="TP. Thủ Đức" />
+                    <TextView android:id="@+id/tv_detail_quan_huyen" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/province" />
-                    <TextView style="@style/DetailValue" android:text="TP. Hồ Chí Minh" />
+                    <TextView android:id="@+id/tv_detail_tinh_tp" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/nation" />
-                    <TextView style="@style/DetailValue" android:text="Việt Nam" />
+                    <TextView android:id="@+id/tv_detail_quoc_gia" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -109,8 +110,9 @@
                 <LinearLayout style="@style/DetailRowLayout.Vertical">
                     <TextView style="@style/DetailLabel" android:text="@string/description" />
                     <TextView
+                        android:id="@+id/tv_detail_mo_ta"
                         style="@style/DetailValue.FullWidth"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+                        android:text="---" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -128,23 +130,23 @@
 
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/tinh_trang_mua_hang" />
-                    <TextView style="@style/DetailValue" android:text="Đã mua" />
+                    <TextView android:id="@+id/tv_detail_tinh_trang_mua" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/so_don_hang_da_mua" />
-                    <TextView style="@style/DetailValue" android:text="2" />
+                    <TextView android:id="@+id/tv_detail_so_don" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/ngay_mua_hang_dau_tien" />
-                    <TextView style="@style/DetailValue" android:text="21/05/2024" />
+                    <TextView android:id="@+id/tv_detail_ngay_dau" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/ngay_mua_hang_gan_nhat" />
-                    <TextView style="@style/DetailValue" android:text="07/06/2024" />
+                    <TextView android:id="@+id/tv_detail_ngay_cuoi" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/tong_doanh_thu" />
-                    <TextView style="@style/DetailValue" android:text="2.250.000 đ" />
+                    <TextView android:id="@+id/tv_detail_doanh_thu" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -162,7 +164,7 @@
 
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/giao_cho" />
-                    <TextView style="@style/DetailValue" android:text="Nguyễn Minh Hà" />
+                    <TextView android:id="@+id/tv_detail_giao_cho" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -180,15 +182,15 @@
 
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/ngay_tao" />
-                    <TextView style="@style/DetailValue" android:text="30/07/2024 09:56" />
+                    <TextView android:id="@+id/tv_detail_ngay_tao" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/ngay_sua" />
-                    <TextView style="@style/DetailValue" android:text="30/07/2024 09:56" />
+                    <TextView android:id="@+id/tv_detail_ngay_sua" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/tao_boi" />
-                    <TextView style="@style/DetailValue" android:text="Nguyễn Minh Hà" />
+                    <TextView android:id="@+id/tv_detail_tao_boi" style="@style/DetailValue" android:text="---" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

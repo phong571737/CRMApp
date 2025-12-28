@@ -6,20 +6,17 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ChiTietToChucPagerAdapter extends FragmentStateAdapter {
-
-    public ChiTietToChucPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
-        super(fragmentActivity);
+    private int companyId;
+    public ChiTietToChucPagerAdapter(@NonNull FragmentActivity fa, int id) {
+        super(fa);
+        this.companyId = id;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // Trả về Fragment tương ứng với vị trí
-        if (position == 0) {
-            return new ChiTietToChucTongQuanFragment(); // Tab "Tổng quan"
-        } else {
-            return new ChiTietToChucChiTietFragment(); // Tab "Chi tiết"
-        }
+        if (position == 0) return ChiTietToChucTongQuanFragment.newInstance(companyId);
+        else return ChiTietToChucChiTietFragment.newInstance(companyId);
     }
 
     @Override

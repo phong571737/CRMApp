@@ -102,6 +102,11 @@ public class ThanhToanFragment extends Fragment {
                     String picked = items[which];
                     tvPaymentStatus.setText(picked);
                     putExtra("paymentStatus", picked);
+                    Bundle b = new Bundle();
+                    b.putString("paymentStatus", picked);
+                    b.putString("paymentMethod", "Thanh toán trực tiếp");
+                    getParentFragmentManager().setFragmentResult("PAYMENT_UPDATED", b);
+
                     dialog.dismiss();
                 })
                 .setNegativeButton("Hủy", null)

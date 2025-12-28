@@ -11,7 +11,6 @@ import com.example.crmmobile.R;
 import com.example.crmmobile.DataBase.CaNhanRepository;
 import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.DataBase.DonHangRepository;
-import com.example.crmmobile.DataBase.NhanVienRepository;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.google.android.material.tabs.TabLayout;
@@ -34,15 +33,15 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     // Header views
     private TextView tvOrderCode, tvCustomer, tvCompany, tvPrice, tvTag, tvStatus;
-    private TextView tvCreatorName, tvManagerName;
 
     // repos
     private DonHangRepository donHangRepo;
     private CompanyRepository companyRepo;
     private CaNhanRepository caNhanRepo;
-    private NhanVienRepository nhanVienRepo;
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
+
+    // ✅ để Fragment đọc đúng đơn hiện tại
     private DonHang currentDonHang;
 
     public DonHang getCurrentDonHang() {
@@ -60,18 +59,17 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         orderId = getIntent().getIntExtra(EXTRA_ORDER_ID, -1);
 
-        donHangRepo  = new DonHangRepository(this);
-        companyRepo  = new CompanyRepository(this);
-        caNhanRepo   = new CaNhanRepository(this);
-        nhanVienRepo = new NhanVienRepository(this);
+        donHangRepo = new DonHangRepository(this);
+        companyRepo = new CompanyRepository(this);
+        caNhanRepo  = new CaNhanRepository(this);
 
         // bind header
-        tvOrderCode   = findViewById(R.id.tvOrderCode);
-        tvCustomer    = findViewById(R.id.tvCustomer);
-        tvCompany     = findViewById(R.id.tvCompany);
-        tvPrice       = findViewById(R.id.tvPrice);
-        tvTag         = findViewById(R.id.tvTag);
-        tvStatus      = findViewById(R.id.tvStatus);
+        tvOrderCode = findViewById(R.id.tvOrderCode);
+        tvCustomer  = findViewById(R.id.tvCustomer);
+        tvCompany   = findViewById(R.id.tvCompany);
+        tvPrice     = findViewById(R.id.tvPrice);
+        tvTag       = findViewById(R.id.tvTag);
+        tvStatus    = findViewById(R.id.tvStatus);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -87,9 +85,9 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         viewPager.setCurrentItem(0);
 
-        iv_back.setOnClickListener(v -> finish());
+        if (iv_back != null) iv_back.setOnClickListener(v -> finish());
 
-        bindHeaderFromDb(); // first load
+        bindHeaderFromDb();
     }
 
     @Override
@@ -104,7 +102,8 @@ public class OrderDetailActivity extends AppCompatActivity {
         DonHang dh = donHangRepo.getById(orderId);
         if (dh == null) return;
 
-        // mã đơn = tenDonHang (hoặc bạn đổi sang format SO000xx tuỳ)
+        currentDonHang = dh; // ✅ DÒNG QUAN TRỌNG: để Fragment đọc đúng tình trạng thanh toán
+
         safeSet(tvOrderCode, dh.getTenDonHang());
 
         // công ty
@@ -116,31 +115,27 @@ public class OrderDetailActivity extends AppCompatActivity {
         safeSet(tvCustomer, contactName);
 
         // tổng tiền
-        String money = nf.format(dh.getTongTien()) + " đ";
-        safeSet(tvPrice, money);
+        try {
+            String money = nf.format(dh.getTongTien()) + " đ";
+            safeSet(tvPrice, money);
+        } catch (Exception e) {
+            safeSet(tvPrice, "—");
+        }
 
         // trạng thái
         safeSet(tvStatus, dh.getTinhTrang());
 
-        // tag (nếu chưa có field riêng thì dùng tạm trạng thái/loại)
+        // tag
         safeSet(tvTag, dh.getTinhTrang());
-
-        // người tạo
-        String creator = resolveNhanVienName(dh.getNguoiTaoId());
-        if (creator.isEmpty()) creator = "—";
-        safeSet(tvCreatorName, creator);
-
-        // người phụ trách
-        String assignee = resolveNhanVienName(dh.getGiaoChoId());
-        if (assignee.isEmpty()) assignee = "—";
-        safeSet(tvManagerName, assignee);
     }
 
     private String resolveCompanyName(DonHang dh) {
         try {
             if (dh.getCongTyId() > 0) {
                 ToChuc c = companyRepo.getCompanyByID(dh.getCongTyId());
-                if (c != null && c.getCompanyName() != null) return c.getCompanyName();
+                if (c != null && c.getCompanyName() != null && !c.getCompanyName().trim().isEmpty()) {
+                    return c.getCompanyName();
+                }
             }
         } catch (Exception ignored) {}
 
@@ -154,7 +149,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         try {
             if (dh.getNguoiLienHeId() > 0) {
                 CaNhan cn = caNhanRepo.getById(dh.getNguoiLienHeId());
-                if (cn != null && cn.getHoVaTen() != null) return cn.getHoVaTen();
+                if (cn != null && cn.getHoVaTen() != null && !cn.getHoVaTen().trim().isEmpty()) {
+                    return cn.getHoVaTen();
+                }
             }
         } catch (Exception ignored) {}
 
@@ -164,14 +161,6 @@ public class OrderDetailActivity extends AppCompatActivity {
             if (parts.length >= 2) return parts[1].trim();
         }
         return "—";
-    }
-
-    private String resolveNhanVienName(int id) {
-        if (id <= 0) return "";
-        try {
-            return nhanVienRepo.getNameByID(id);
-        } catch (Exception ignored) {}
-        return "";
     }
 
     private void safeSet(TextView tv, String s) {

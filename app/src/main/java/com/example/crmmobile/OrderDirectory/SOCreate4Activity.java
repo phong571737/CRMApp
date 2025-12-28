@@ -3,6 +3,7 @@ package com.example.crmmobile.OrderDirectory;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +58,15 @@ public class SOCreate4Activity extends AppCompatActivity {
             setResult(RESULT_OK, out);
             finish();
         });
+        com.google.android.material.appbar.MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setNavigationOnClickListener(v -> {
+                setResult(RESULT_CANCELED);
+                finish();
+            });
+        }
+
+
     }
 
     private void setText(TextInputEditText edt, String s) {

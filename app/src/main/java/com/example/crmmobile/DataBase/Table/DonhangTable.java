@@ -23,6 +23,8 @@ public class DonhangTable {
                     // ✅ NEW
                     "NGUOITAO INTEGER," +
                     "EXTRA_JSON TEXT," +
+                    "PHUONG_THUC_THANH_TOAN TEXT"+
+                    "TINH_TRANG_THANH_TOAN TEXTTINH_TRANG_THANH_TOAN TEXT"+
 
                     "FOREIGN KEY(CONGTY) REFERENCES COMPANY(ID) ON DELETE SET NULL," +
                     "FOREIGN KEY(NGUOILIENHE) REFERENCES CONTACT(ID) ON DELETE SET NULL," +

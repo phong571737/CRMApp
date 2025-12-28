@@ -62,33 +62,38 @@ public class CreateQuoteViewModel extends AndroidViewModel {
         addressError.setValue(null);
         boolean isValid = true;
 
+        if (TextUtils.isEmpty(QuoteName.getValue())){
+            quoteNameError.setValue("Vui lòng nhập tên báo giá");
+            isValid = false;
+        }
+        if (TextUtils.isEmpty(State.getValue())){
+            stateError.setValue("Vui lòng nhập tình trạng");
+            isValid = false;
+        }
+        if (TextUtils.isEmpty(CompanyName.getValue())){
+            companyError.setValue("Vui lòng nhập công ty");
+            isValid = false;
+        }
+        if (TextUtils.isEmpty(address_Ship.getValue())){
+            addressError.setValue("Vui lòng nhập địa chỉ");
+            isValid = false;
+        }
+        if (!isValid) return;
+
         String today = new SimpleDateFormat(
                 "dd/MM/yyyy",
                 new Locale("vi", "VN")
         ).format(new Date());
 
-        if (TextUtils.isEmpty(QuoteName.getValue())){
-            quoteNameError.setValue("Vui lòng nhập tên báo giá");
-            isValid = false;
-            return;
-        }
-        if (TextUtils.isEmpty(State.getValue())){
-            Toast.makeText(getApplication(), "Vui lòng nhập tình trạng", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(CompanyName.getValue())){
-            Toast.makeText(getApplication(), "Vui lòng nhập công ty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(address_Ship.getValue())){
-            Toast.makeText(getApplication(), "Vui lòng nhập địa chỉ", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         quote.setOrderCode(QuoteName.getValue());
         quote.setState(State.getValue());
         quote.setOpportunityName(OpportunityName.getValue());
         quote.setPrice(Price.getValue());
+        quote.setDescription(description.getValue());
+        quote.setAddress_Ship(address_Ship.getValue());
+        quote.setDistrict_Ship(district_ship.getValue());
+        quote.setProvince_Ship(province_ship.getValue());
+        quote.setNation_Ship(nation_ship.getValue());
         Long total = TotalAmount.getValue();
         quote.setTotalAmount(total != null ? total : 0L);
         quote.setCompany(CompanyName.getValue());

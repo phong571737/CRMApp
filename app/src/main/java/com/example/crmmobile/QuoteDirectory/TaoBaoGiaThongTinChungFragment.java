@@ -31,6 +31,7 @@ import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.R;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,8 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
     private CompanyRepository companyRepository;
     private OpportunityDAO opportunityDAO;
     private CaNhanRepository caNhanRepository;
+    private TextInputLayout til_title, til_company, til_state, til_sendto, til_address;
+    private TextView tv_title_error, tv_company_error, tv_state_error, tv_address_error;
     public interface StringUpdater{
         void update(String s);
     }
@@ -101,6 +104,19 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         btnToggleQuanLy = view.findViewById(R.id.btnToggleQuanLy);
         btnToggleDiachi = view.findViewById(R.id.btnToggleDiachi);
 
+        til_title = view.findViewById(R.id.til_title);
+        til_company = view.findViewById(R.id.til_company);
+        til_state = view.findViewById(R.id.til_state);
+        til_sendto = view.findViewById(R.id.til_sendto);
+        til_address = view.findViewById(R.id.til_address);
+
+        //error
+        tv_title_error = view.findViewById(R.id.tv_title_error);
+        tv_company_error = view.findViewById(R.id.tv_company_error);
+        tv_state_error = view.findViewById(R.id.tv_state_error);
+        tv_address_error = view.findViewById(R.id.tv_address_error);
+        DisplayError();
+
         //bind view
         edtTieuDe = view.findViewById(R.id.edtTieuDe);
         edtMoTa = view.findViewById(R.id.edtMoTa);
@@ -118,6 +134,41 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         edtdistrict = view.findViewById(R.id.edtdistrict);
         edtprovince = view.findViewById(R.id.edtprovince);
         edtnation = view.findViewById(R.id.edtnation);
+    }
+
+    private void DisplayError() {
+        viewModelQuote.quoteNameError.observe(requireActivity(), error->{
+            if (TextUtils.isEmpty(error)){
+                tv_title_error.setVisibility(View.GONE);
+            }else {
+                tv_title_error.setVisibility(View.VISIBLE);
+                tv_title_error.setText(error);
+            }
+        });
+        viewModelQuote.companyError.observe(requireActivity(), error->{
+            if (TextUtils.isEmpty(error)){
+                tv_company_error.setVisibility(View.GONE);
+            }else {
+                tv_company_error.setVisibility(View.VISIBLE);
+                tv_company_error.setText(error);
+            }
+        });
+        viewModelQuote.stateError.observe(requireActivity(), error->{
+            if (TextUtils.isEmpty(error)){
+                tv_state_error.setVisibility(View.GONE);
+            }else {
+                tv_state_error.setVisibility(View.VISIBLE);
+                tv_state_error.setText(error);
+            }
+        });
+        viewModelQuote.addressError.observe(requireActivity(), error->{
+            if (TextUtils.isEmpty(error)){
+                tv_address_error.setVisibility(View.GONE);
+            }else {
+                tv_address_error.setVisibility(View.VISIBLE);
+                tv_address_error.setText(error);
+            }
+        });
     }
 
     private void getTinhTrang() {

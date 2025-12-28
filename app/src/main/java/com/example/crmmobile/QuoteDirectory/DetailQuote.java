@@ -25,7 +25,8 @@ import java.util.List;
 public class DetailQuote extends Fragment {
     private LinearLayout ll_root, ll_quote_information, ll_chance, ll_address;
     private View section;
-    private TextView tv_title, tv_company, tv_contactday, tv_contact_person, tv_opportunity, tv_state;
+    private TextView tv_title, tv_company, tv_contactday, tv_contact_person, tv_opportunity, tv_state,
+            tv_ship_address, tv_district_ship, tv_province_ship, tv_ship_nation;
     private ImageView iv_addinfor, iv_relative_add, iv_address_add;
     private List<section_quotedetail> sectionQuotedetails;
     private CreateQuoteViewModel viewModel;
@@ -65,6 +66,10 @@ public class DetailQuote extends Fragment {
         bindLiveDataToTextView(viewModel.OpportunityName, tv_opportunity);
         bindLiveDataToTextView(viewModel.State, tv_state);
         bindLiveDataToTextView(viewModel.ContactPersonName, tv_contact_person);
+        bindLiveDataToTextView(viewModel.address_Ship, tv_ship_address);
+        bindLiveDataToTextView(viewModel.district_ship, tv_district_ship);
+        bindLiveDataToTextView(viewModel.province_ship, tv_province_ship);
+        bindLiveDataToTextView(viewModel.nation_ship, tv_ship_nation);
 
         setupaddInfor(iv_addinfor, ll_quote_information);
         setupaddInfor(iv_relative_add, ll_chance);
@@ -85,6 +90,10 @@ public class DetailQuote extends Fragment {
         tv_state = view.findViewById(R.id.tv_state);
         iv_address_add = view.findViewById(R.id.iv_address_add);
         ll_address = view.findViewById(R.id.ll_address);
+        tv_ship_address = view.findViewById(R.id.tv_ship_address);
+        tv_district_ship = view.findViewById(R.id.tv_district_ship);
+        tv_province_ship = view.findViewById(R.id.tv_province_ship);
+        tv_ship_nation = view.findViewById(R.id.tv_ship_nation);
     }
 
     private void bindLiveDataToTextView(MutableLiveData<String> liveData, TextView tv) {

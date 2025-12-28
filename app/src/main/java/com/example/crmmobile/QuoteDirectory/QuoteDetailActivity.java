@@ -95,6 +95,10 @@ public class QuoteDetailActivity extends AppCompatActivity {
         viewModel.OpportunityName.setValue(quote.getOpportunityName());
         viewModel.State.setValue(quote.getState());
         viewModel.TotalAmount.setValue(quote.getTotalAmount());
+        viewModel.address_Ship.setValue(quote.getAddress_Ship());
+        viewModel.district_ship.setValue(quote.getDistrict_Ship());
+        viewModel.province_ship.setValue(quote.getProvince_Ship());
+        viewModel.nation_ship.setValue(quote.getNation_Ship());
     }
 
     private void initViews() {

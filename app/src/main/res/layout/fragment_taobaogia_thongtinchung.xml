@@ -43,6 +43,7 @@
             android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:hint="@string/tieu_de"
                 android:layout_width="match_parent"
@@ -61,8 +62,18 @@
                     android:paddingEnd="4dp"
                     android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_title_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp"
+                android:text="error"
+                android:visibility="gone"
+                android:layout_marginBottom="15dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_company"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:hint="@string/hint_company"
                 android:layout_width="match_parent"
@@ -79,6 +90,15 @@
                     android:paddingEnd="4dp"
                     android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_company_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp"
+                android:text="error"
+                android:visibility="gone"
+                android:layout_marginBottom="15dp"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -99,6 +119,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_state"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:hint="@string/state"
                 android:layout_width="match_parent"
@@ -115,6 +136,15 @@
                     android:paddingEnd="4dp"
                     android:background="@android:color/transparent"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_state_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp"
+                android:text="error"
+                android:visibility="gone"
+                android:layout_marginBottom="15dp"/>
 
         </LinearLayout>
 
@@ -197,6 +227,7 @@
             android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_address"
                 android:hint="@string/address_ship_required"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,6 +243,16 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/tv_address_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="12sp"
+                android:text="error"
+                android:visibility="gone"
+                android:layout_marginBottom="15dp"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:hint="@string/district_ship"
                 android:layout_width="match_parent"
@@ -338,6 +379,7 @@
             android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_sendto"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:hint="@string/giaocho"
                 android:layout_width="match_parent"

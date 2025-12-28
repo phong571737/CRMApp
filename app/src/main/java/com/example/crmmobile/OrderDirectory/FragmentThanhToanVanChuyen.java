@@ -11,12 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.crmmobile.R;
-
-import org.json.JSONObject;
+import com.example.crmmobile.DataBase.DonHangRepository;
 
 public class FragmentThanhToanVanChuyen extends Fragment {
 
     private TextView tvPaymentMethod, tvPaymentStatus;
+    private DonHangRepository donHangRepo;
 
     @Nullable
     @Override
@@ -33,27 +33,48 @@ public class FragmentThanhToanVanChuyen extends Fragment {
         tvPaymentMethod = view.findViewById(R.id.tvPaymentMethod);
         tvPaymentStatus = view.findViewById(R.id.tvPaymentStatus);
 
-        DonHang dh = null;
-        if (getActivity() instanceof OrderDetailActivity) {
-            dh = ((OrderDetailActivity) getActivity()).getCurrentDonHang(); // bạn cần có getter này
+        donHangRepo = new DonHangRepository(requireContext());
+
+        getParentFragmentManager().setFragmentResultListener(
+                "PAYMENT_UPDATED",
+                this,
+                (key, bundle) -> {
+                    String status = bundle.getString("paymentStatus", "Chưa thanh toán");
+                    String method = bundle.getString("paymentMethod", "Thanh toán trực tiếp");
+
+                    tvPaymentStatus.setText(status);
+                    tvPaymentMethod.setText(method);
+                }
+        );
+
+
+        render();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        render();
+    }
+
+    private void render() {
+        int orderId = -1;
+        if (getActivity() != null) {
+            orderId = getActivity().getIntent().getIntExtra(OrderDetailActivity.EXTRA_ORDER_ID, -1);
         }
 
         String method = "Thanh toán trực tiếp";
         String status = "Chưa thanh toán";
 
-        try {
-            if (dh != null) {
-                String extraStr = dh.getExtraJson();
-                JSONObject extra = (extraStr == null || extraStr.trim().isEmpty())
-                        ? new JSONObject()
-                        : new JSONObject(extraStr);
+        if (orderId > 0) {
+            String m = donHangRepo.getPaymentMethod(orderId);
+            String s = donHangRepo.getPaymentStatus(orderId);
 
-                method = extra.optString("paymentMethod", method);
-                status = extra.optString("paymentStatus", status);
-            }
-        } catch (Exception ignored) {}
+            if (m != null && !m.trim().isEmpty()) method = m;
+            if (s != null && !s.trim().isEmpty()) status = s;
+        }
 
-        tvPaymentMethod.setText(method);
-        tvPaymentStatus.setText(status);
+        if (tvPaymentMethod != null) tvPaymentMethod.setText(method);
+        if (tvPaymentStatus != null) tvPaymentStatus.setText(status);
     }
 }

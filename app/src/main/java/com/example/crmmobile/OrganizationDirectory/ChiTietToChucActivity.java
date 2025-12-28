@@ -4,18 +4,11 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.R;
-import com.example.crmmobile.OrganizationDirectory.ToChuc;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 public class ChiTietToChucActivity extends AppCompatActivity {
-
-    private ViewPager2 viewPager;
-    private TabLayout tabLayout;
 
     // Khai báo Repository và các View
     private CompanyRepository companyRepository;
@@ -31,12 +24,8 @@ public class ChiTietToChucActivity extends AppCompatActivity {
         // --- KHỞI TẠO REPOSITORY ---
         companyRepository = new CompanyRepository(getApplication());
 
-        // --- ÁNH XẠ CÁC VIEW ---
-        viewPager = findViewById(R.id.view_pager);
-        tabLayout = findViewById(R.id.tab_layout);
+        // --- ÁNH XẠ CÁC VIEW (Bỏ ViewPager và TabLayout) ---
         ImageButton btnBack = findViewById(R.id.btn_back);
-
-        // Ánh xạ các TextView trong header
         tvCompanyName = findViewById(R.id.tvCompanyName);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         tvEmail = findViewById(R.id.tvEmail);
@@ -45,40 +34,42 @@ public class ChiTietToChucActivity extends AppCompatActivity {
         tvAssigneeName = findViewById(R.id.tvAssigneeName);
 
         // --- TẢI VÀ HIỂN THỊ DỮ LIỆU ---
-        // Nhận ID từ Intent
         int companyId = getIntent().getIntExtra("COMPANY_ID", -1);
+        loadHeaderData(companyId); // Load dữ liệu cho header (giữ nguyên)
 
-        // Gọi hàm load dữ liệu cho header
-        loadHeaderData(companyId);
-
-        // Thiết lập Adapter cho ViewPager
-        ChiTietToChucPagerAdapter adapter = new ChiTietToChucPagerAdapter(this, companyId);
-        viewPager.setAdapter(adapter);
-
-        // Kết nối TabLayout với ViewPager2
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            if (position == 0) {
-                tab.setText("Tổng quan");
-            } else {
-                tab.setText("Chi tiết");
-            }
-        }).attach();
+        // --- LOAD FRAGMENT ---
+        if (savedInstanceState == null) { // Chỉ load fragment lần đầu
+            loadChiTietFragment(companyId);
+        }
 
         // Xử lý nút Back
         btnBack.setOnClickListener(v -> finish());
     }
 
     /**
+     * Hàm để load ChiTietToChucChiTietFragment vào FrameLayout
+     * @param companyId ID của công ty để truyền cho fragment
+     */
+    private void loadChiTietFragment(int companyId) {
+        // Tạo một instance mới của fragment và truyền companyId vào
+        ChiTietToChucChiTietFragment fragment = ChiTietToChucChiTietFragment.newInstance(companyId);
+
+        // Dùng FragmentManager để thay thế nội dung của FrameLayout bằng fragment
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+
+    /**
      * Hàm để tải dữ liệu công ty và hiển thị lên header
      * @param companyId ID của công ty cần tải
      */
     private void loadHeaderData(int companyId) {
-        if (companyId == -1) return; // Không có ID thì không làm gì cả
+        if (companyId == -1) return;
 
-        // Dùng Repository để lấy dữ liệu từ DB
         ToChuc company = companyRepository.getCompanyByID(companyId);
 
-        // Cập nhật giao diện nếu có dữ liệu
         if (company != null) {
             tvCompanyName.setText(getOrDefault(company.getCompanyName()));
             tvPhoneNumber.setText(getOrDefault(company.getPhone()));
@@ -86,7 +77,6 @@ public class ChiTietToChucActivity extends AppCompatActivity {
             tvIndustry.setText(getOrDefault(company.getIndustry()));
             tvAssigneeName.setText(getOrDefault(company.getAssignedTo()));
 
-            // Hiển thị trạng thái (nếu có)
             if (company.getTrangThai() != null) {
                 tvStatusTag.setText(company.getTrangThai().toString());
             } else {
@@ -96,7 +86,7 @@ public class ChiTietToChucActivity extends AppCompatActivity {
     }
 
     /**
-     * Hàm tiện ích để trả về "---" nếu chuỗi rỗng hoặc null
+     * Hàm tiện ích để trả về "---" nếu chuỗi rỗng hoặc null (giữ nguyên)
      */
     private String getOrDefault(String value) {
         return (value != null && !value.isEmpty()) ? value : "---";

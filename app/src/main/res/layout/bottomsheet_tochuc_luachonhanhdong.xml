@@ -40,12 +40,6 @@
     <!-- Danh sách hành động -->
 
     <TextView
-        android:id="@+id/action_xem_tong_quan"
-        android:text="@string/xem_tong_quan"
-        app:drawableStartCompat="@drawable/ic_overview"
-        style="@style/BottomSheetActionItem" />
-
-    <TextView
         android:id="@+id/action_chinh_sua"
         android:text="@string/chinh_sua"
         app:drawableStartCompat="@drawable/ic_pencil"

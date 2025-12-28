@@ -15,8 +15,6 @@ public class ToChucLuaChonHanhDongSheet extends BottomSheetDialogFragment {
 
     // 1. Định nghĩa interface
     public interface ItemClickListener {
-        void onActionXemTongQuan();
-
         void onActionChinhSua();
         void onActionXoa();
     }
@@ -26,7 +24,6 @@ public class ToChucLuaChonHanhDongSheet extends BottomSheetDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        // Gán listener từ Fragment cha
         if (getParentFragment() instanceof ItemClickListener) {
             mListener = (ItemClickListener) getParentFragment();
         } else {
@@ -37,7 +34,6 @@ public class ToChucLuaChonHanhDongSheet extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Load layout đã tạo ở Bước 2
         return inflater.inflate(R.layout.bottomsheet_tochuc_luachonhanhdong, container, false);
     }
 
@@ -45,18 +41,18 @@ public class ToChucLuaChonHanhDongSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 2. Gán sự kiện click cho từng item
         view.findViewById(R.id.btn_close).setOnClickListener(v -> dismiss());
-        view.findViewById(R.id.action_xem_tong_quan).setOnClickListener(v -> {
-            mListener.onActionXemTongQuan();
-            dismiss();
-        });
+
         view.findViewById(R.id.action_chinh_sua).setOnClickListener(v -> {
-            mListener.onActionChinhSua();
+            if (mListener != null) {
+                mListener.onActionChinhSua();
+            }
             dismiss();
         });
         view.findViewById(R.id.action_xoa).setOnClickListener(v -> {
-            mListener.onActionXoa();
+            if (mListener != null) {
+                mListener.onActionXoa();
+            }
             dismiss();
         });
     }

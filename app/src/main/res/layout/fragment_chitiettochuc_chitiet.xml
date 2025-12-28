@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout style="@style/DetailRowLayout.Vertical">
+                <RelativeLayout style="@style/DetailRowLayout">
                     <TextView
                         style="@style/DetailLabel"
                         android:text="@string/dia_chi"
@@ -77,9 +77,9 @@
                         app:drawableTint="#9E9E9E"/>
                     <TextView
                         android:id="@+id/tv_detail_dia_chi"
-                        style="@style/DetailValue.FullWidth"
+                        style="@style/DetailValue"
                         android:text="---" />
-                </LinearLayout>
+                </RelativeLayout>
 
                 <RelativeLayout style="@style/DetailRowLayout">
                     <TextView style="@style/DetailLabel" android:text="@string/district" />

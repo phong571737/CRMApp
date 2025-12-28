@@ -140,15 +140,6 @@ public class ToChucFragment extends Fragment
     }
 
     @Override
-    public void onActionXemTongQuan() {
-        if (selectedToChuc != null) {
-            Intent intent = new Intent(getContext(), TongQuanCongTyActivity.class);
-            intent.putExtra("COMPANY_ID", selectedToChuc.getId());
-            startActivity(intent);
-        }
-    }
-
-    @Override
     public void onActionChinhSua() {
         // Gọi đúng hàm xử lý chỉnh sửa
         onEditClicked(selectedPosition);

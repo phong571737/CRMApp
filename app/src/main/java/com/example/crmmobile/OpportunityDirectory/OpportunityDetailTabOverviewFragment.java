@@ -62,9 +62,9 @@ public class OpportunityDetailTabOverviewFragment extends Fragment {
         setupToggle(ivOpportunity, layoutOpportunity);
 
         // 🔹 Comment
-        ImageView ivOpportunity2 = view.findViewById(R.id.iv_comment_toggle);
-        LinearLayout layoutOpportunity2 = view.findViewById(R.id.layout_comment_content);
-        setupToggle(ivOpportunity2, layoutOpportunity2);
+//        ImageView ivOpportunity2 = view.findViewById(R.id.iv_comment_toggle);
+//        LinearLayout layoutOpportunity2 = view.findViewById(R.id.layout_comment_content);
+//        setupToggle(ivOpportunity2, layoutOpportunity2);
 
         detailVM.getOpportunity().observe(
                 getViewLifecycleOwner(),

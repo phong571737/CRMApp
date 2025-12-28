@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.crmmobile.OrderDirectory.OrderFragment;
 import com.example.crmmobile.R;
 
 import java.util.List;
@@ -26,7 +25,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private final Context context;
     private final OnMoreClickListener moreClickListener;
 
-    public OrderAdapter(List<Order> orders, Context context, OnMoreClickListener moreClickListener) {
+    public OrderAdapter(@NonNull List<Order> orders,
+                        @NonNull Context context,
+                        OnMoreClickListener moreClickListener) {
         this.orders = orders;
         this.context = context;
         this.moreClickListener = moreClickListener;
@@ -35,40 +36,43 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_order, parent, false);
-        return new OrderViewHolder(view);
+        return new OrderViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        Order order = orders.get(position);
+        Order o = orders.get(position);
 
-        holder.tvOrderCode.setText(order.getOrderCode());
-        holder.tvCompany.setText(order.getCompany());
+        if (holder.tvOrderCode != null) holder.tvOrderCode.setText(safe(o.getOrderCode()));
+        if (holder.tvCompany != null)   holder.tvCompany.setText(safe(o.getCompany()));
 
-        // ✅ Click cả item -> mở màn chi tiết
+        // ✅ Giá: chỉ lấy từ o.getPrice() (đã format trong DonHangRepository)
+        if (holder.tvPrice != null) {
+            holder.tvPrice.setText(safe(o.getPrice()));
+        }
+
+        if (holder.tvDate != null)   holder.tvDate.setText(safe(o.getDate()));
+        if (holder.tvStatus != null) holder.tvStatus.setText(safe(o.getPaymentStatus()));
+
+        if (holder.tvTag != null) {
+            String tag = safe(o.getOrderType());
+            holder.tvTag.setText(tag.isEmpty() ? "Mới" : tag);
+        }
+
+        if (holder.btnMore != null) {
+            holder.btnMore.setOnClickListener(v -> {
+                if (moreClickListener != null) moreClickListener.onMoreClick(o);
+            });
+        }
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, OrderDetailActivity.class);
-
-            // Gửi id + thông tin đơn hàng qua màn chi tiết
-            intent.putExtra("orderId",   order.getId());
-            intent.putExtra("orderCode", order.getOrderCode());
-            intent.putExtra("company",   order.getCompany());
-            intent.putExtra("date",      order.getDate());
-            intent.putExtra("status",    order.getPaymentStatus());
-            intent.putExtra("price",     order.getPrice());
-            intent.putExtra("orderType", order.getOrderType());
-
+            intent.putExtra("orderId", o.getId());
             context.startActivity(intent);
         });
-
-        // ✅ click nút 3 chấm -> gọi callback
-        holder.btnMore.setOnClickListener(v -> {
-            if (moreClickListener != null) moreClickListener.onMoreClick(order);
-        });
     }
-
 
     @Override
     public int getItemCount() {
@@ -76,14 +80,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView tvOrderCode, tvCompany;
+        TextView tvOrderCode, tvCompany, tvPrice, tvDate, tvStatus, tvTag;
         ImageView btnMore;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             tvOrderCode = itemView.findViewById(R.id.tvOrderCode);
-            tvCompany = itemView.findViewById(R.id.tvCompany);
-            btnMore = itemView.findViewById(R.id.btnMore);
+            tvCompany   = itemView.findViewById(R.id.tvCompany);
+            tvPrice     = itemView.findViewById(R.id.tvPrice);
+            tvDate      = itemView.findViewById(R.id.tvDate);
+            tvStatus    = itemView.findViewById(R.id.tvStatus);
+            tvTag       = itemView.findViewById(R.id.tvTag);
+            btnMore     = itemView.findViewById(R.id.btnMore);
         }
+    }
+
+    private String safe(String s) {
+        return s == null ? "" : s;
     }
 }

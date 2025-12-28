@@ -12,7 +12,7 @@ public class HoatDong implements Serializable {
     private String ngayBatDau;
     private String tinhTrang;
     private int nhanVien;
-    private String toChuc;
+    private int toChuc;
     private int nguoiLienHe;
     private int coHoi;
     private String moTa;
@@ -26,7 +26,7 @@ public class HoatDong implements Serializable {
                     String ngayBatDau,
                     String tinhTrang,
                     int nhanVien,
-                    String toChuc,
+                    int toChuc,
                     int nguoiLienHe,
                     int coHoi,
                     String moTa,
@@ -63,7 +63,7 @@ public class HoatDong implements Serializable {
                     String ngayBatDau,
                     String tinhTrang,
                     int nhanVien,
-                    String toChuc,
+                    int toChuc,
                     int nguoiLienHe,
                     int coHoi,
                     String moTa,
@@ -97,7 +97,7 @@ public class HoatDong implements Serializable {
     public String getNgayBatDau() { return ngayBatDau; }
     public String getTinhTrang() { return tinhTrang; }
     public int getNhanVien() { return nhanVien; }
-    public String getToChuc() { return toChuc; }
+    public int getToChuc() { return toChuc; }
     public int getNguoiLienHe() { return nguoiLienHe; }
     public int getCoHoi() { return coHoi; }
 
@@ -138,7 +138,7 @@ public class HoatDong implements Serializable {
         this.nhanVien = nhanVien;
     }
 
-    public void setToChuc(String toChuc) {
+    public void setToChuc(int toChuc) {
         this.toChuc = toChuc;
     }
 

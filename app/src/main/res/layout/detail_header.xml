@@ -90,8 +90,6 @@
                         android:layout_height="wrap_content"
                         android:text="012345678"
                         android:textColor="@color/seemore_color"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         />
                     <ImageView
                         android:id="@+id/phone_icon"
@@ -100,23 +98,20 @@
                         android:layout_marginStart="10dp"
                         android:src="@drawable/ic_call"
                         app:tint="@color/seemore_color"
-                        app:layout_constraintStart_toEndOf="@id/tv_phone"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tv_phone"
                         android:contentDescription="@null"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
                     <TextView
                         android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="abc@gmail.com"
-                        android:textColor="@color/seemore_color"
-                        app:layout_constraintStart_toStartOf="@id/guideline_center"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        android:textColor="@color/seemore_color" />
 
                     <ImageView
                         android:id="@+id/iv_email"
@@ -125,8 +120,6 @@
                         android:layout_marginStart="10dp"
                         android:src="@drawable/ic_mail"
                         app:tint="@color/seemore_color"
-                        app:layout_constraintStart_toEndOf="@id/tv_email"
-                        app:layout_constraintBaseline_toBaselineOf="@id/tv_email"
                         android:contentDescription="@null"/>
                 </LinearLayout>
         </LinearLayout>

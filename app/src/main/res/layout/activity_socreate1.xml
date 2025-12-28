@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_screen"
+    android:background="@drawable/bg_color_main_screen"
     tools:context="OrderDirectory.SOCreate1Activity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:minHeight="56dp"
-            android:background="@android:color/transparent"
+            android:background="@color/white"
             app:navigationIcon="@drawable/ic_arrow_back_24"
             app:contentInsetStart="96dp"
             app:contentInsetStartWithNavigation="96dp"
@@ -34,9 +34,11 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/brand"
-            app:tabSelectedTextColor="@color/brand"
-            app:tabTextColor="@color/text_secondary">
+            android:background="@color/white"
+            app:tabTextColor="#8C8C8C"
+            app:tabIndicatorColor="#1B74E4"
+            app:tabIndicatorFullWidth="true"
+            app:tabSelectedTextColor="#1B74E4">
             <com.google.android.material.tabs.TabItem android:text="Thông tin chung"
                 android:layout_height="match_parent" android:layout_width="match_parent"/>
             <com.google.android.material.tabs.TabItem android:text="Sản phẩm"
@@ -126,38 +128,45 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilCompany"
-                        style="@style/Widget.SO.TextInputLayout.Outlined.Dropdown"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="67dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_12"
                         android:hint="@string/hint_cong_ty"
-                        app:boxStrokeColor="@color/til_stroke_selector"
-                        app:boxStrokeErrorColor="@color/til_error_stroke"
-                        app:endIconDrawable="@drawable/ic_add"
-                        app:endIconMode="custom"
-                        app:errorEnabled="true">
+                        android:background="@drawable/rounded_input_box"
+                        app:endIconMode="dropdown_menu">
 
                         <AutoCompleteTextView
                             android:id="@+id/actCompany"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textSize="@dimen/text14"
+                            android:paddingStart="@dimen/margin_basex2"
+                            android:paddingEnd="@dimen/margin_base"
+                            android:background="@android:color/transparent" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Người liên hệ + nút thêm -->
+                    <!-- Người liên hệ -->
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/tilContact"
-                        style="@style/Widget.SO.TextInputLayout.Outlined.Dropdown"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_12"
                         android:hint="Người liên hệ"
-                        app:endIconMode="custom"
-                        app:endIconDrawable="@drawable/ic_add">
+                        android:background="@drawable/rounded_input_box"
+                        app:endIconMode="dropdown_menu">
 
                         <AutoCompleteTextView
                             android:id="@+id/actContact"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textSize="@dimen/text14"
+                            android:paddingStart="@dimen/margin_basex2"
+                            android:paddingEnd="@dimen/margin_base"
+                            android:background="@android:color/transparent" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Ngày đặt hàng * + icon lịch -->

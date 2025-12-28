@@ -40,6 +40,12 @@
             android:exported="false"
             android:theme="@style/Theme.CRMMobile"/>
 
+        <activity android:name=".OrderDirectory.SOCreate4Activity" />
+
+        <activity android:name=".ReportDirectory.BaoCaoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile"/>
+
         <activity
             android:name=".OpportunityDirectory.OpportunityDetailActivity"
             android:exported="false"
@@ -73,7 +79,7 @@
             android:exported="false"
             android:parentActivityName=".OrderDirectory.SOCreate1Activity" />
 
-        <activity android:name=".MainDirectory.MainActivity"
+        <activity android:name=".AuthDirectory.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.CRMMobile">
             <intent-filter>
@@ -81,6 +87,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainDirectory.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CRMMobile" />
     </application>
 
 </manifest>

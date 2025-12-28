@@ -53,6 +53,7 @@ public class ToChuc implements Serializable {
         this.avatarDrawables = avatarDrawables;
     }
 
+
     // Getters & Setters đầy đủ
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -100,9 +101,8 @@ public class ToChuc implements Serializable {
     public String getPhoneCount() { return "0"; }
     public String getMessageCount() { return "0"; }
 
-//    ham quan trong de dropdown hien thi dung name
     @Override
     public String toString() {
-        return companyName;
+        return companyName != null ? companyName : "";
     }
 }

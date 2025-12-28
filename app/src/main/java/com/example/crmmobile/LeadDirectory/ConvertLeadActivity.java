@@ -359,6 +359,7 @@ public class ConvertLeadActivity extends AppCompatActivity {
         til_job = findViewById(R.id.til_job);
     }
 
+    //List the companies in the database
     private void getCompany() {
         List<ToChuc> companyList = companyRepository.getAllCompany();
         List<String> companyName = new ArrayList<>();

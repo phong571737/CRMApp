@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.crmmobile.OrderDirectory.DonHang;
 import com.example.crmmobile.OrderDirectory.Order;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,33 +34,93 @@ public class DonHangRepository {
     private static final String COL_TONGTIEN     = "TONGTIEN";
     private static final String COL_MOTA         = "MOTA";
     private static final String COL_GIAOCHO      = "GIAOCHO";
+    private static final String COL_NGUOITAO    = "NGUOITAO";
+    private static final String COL_EXTRA_JSON  = "EXTRA_JSON";
 
     public DonHangRepository(Context context) {
         dbHelper = new DBCRMHandler(context.getApplicationContext());
     }
+    private String getStringSafe(Cursor c, String col) {
+        int idx = c.getColumnIndex(col);
+        return (idx >= 0 && !c.isNull(idx)) ? c.getString(idx) : null;
+    }
+
+    private int getIntSafe(Cursor c, String col, int def) {
+        int idx = c.getColumnIndex(col);
+        if (idx < 0 || c.isNull(idx)) return def;
+        try {
+            return c.getInt(idx);
+        } catch (Exception e) {
+            try { return Integer.parseInt(c.getString(idx)); } catch (Exception ex) { return def; }
+        }
+    }
+
+    private long getLongSafe(Cursor c, String col, long def) {
+        int idx = c.getColumnIndex(col);
+        if (idx < 0 || c.isNull(idx)) return def;
+        try {
+            return c.getLong(idx);
+        } catch (Exception e) {
+            try { return Long.parseLong(c.getString(idx)); } catch (Exception ex) { return def; }
+        }
+    }
+
+
 
     // ===== CREATE =====
-    public long insert(DonHang donHang) {
+    public long insert(DonHang dh) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        long newId = -1;
 
-        values.put(COL_TENDONHANG,   donHang.getTenDonHang());
-        values.put(COL_CONGTY,       donHang.getCongTyId());
-        values.put(COL_NGUOILIENHE,  donHang.getNguoiLienHeId());
-        values.put(COL_COHOI,        donHang.getCoHoiId());
-        values.put(COL_BAOGIA,       donHang.getBaoGiaId());
-        values.put(COL_TINHTRANG,    donHang.getTinhTrang());
-        values.put(COL_NGAYDATHANG,  donHang.getNgayDatHang());
-        values.put(COL_NGAYNHANHANG, donHang.getNgayNhanHang());
-        values.put(COL_SANPHAM,      donHang.getSanPham());
-        values.put(COL_SOLUONG,      donHang.getSoLuong());
-        values.put(COL_DONGIA,       donHang.getDonGia());
-        values.put(COL_TONGTIEN,     donHang.getTongTien());
-        values.put(COL_MOTA,         donHang.getMoTa());
-        values.put(COL_GIAOCHO,      donHang.getGiaoChoId());
+        ContentValues v = new ContentValues();
 
-        return db.insert(TABLE_NAME, null, values);
+        // ✅ đúng schema
+        v.put("TENDONHANG", dh.getTenDonHang());
+
+        // DB của bạn đang lưu TEXT cho các cột này, không phải ID
+        // Nếu bạn không có getter riêng thì lấy từ MoTa "Công ty - Liên hệ"
+        String mota = dh.getMoTa() == null ? "" : dh.getMoTa();
+        String congTy = "";
+        String lienHe = "";
+        if (mota.contains(" - ")) {
+            String[] parts = mota.split(" - ");
+            if (parts.length >= 1) congTy = parts[0].trim();
+            if (parts.length >= 2) lienHe = parts[1].trim();
+        }
+        v.put("EXTRA_JSON", dh.getExtraJson());
+
+        v.put("CONGTY", congTy);
+        v.put("NGUOILIENHE", lienHe);
+
+        // nếu chưa có thì để rỗng
+        v.put("COHOI", "");
+        v.put("BAOGIA", "");
+
+        v.put("TINHTRANG", dh.getTinhTrang());
+        v.put("NGAYDATHANG", dh.getNgayDatHang());
+        v.put("NGAYNHANHANG", dh.getNgayNhanHang());
+
+        v.put("SANPHAM", dh.getSanPham());
+        v.put("SOLUONG", dh.getSoLuong());
+        v.put("DONGIA", dh.getDonGia());
+        v.put("TONGTIEN", dh.getTongTien());
+
+        v.put("MOTA", dh.getMoTa());
+
+        // GIAOCHO của bạn cũng là TEXT theo schema
+        // nếu chưa có UI thì để rỗng
+        v.put("GIAOCHO", "");
+
+        try {
+            newId = db.insertOrThrow("DONHANG", null, v);
+        } catch (Exception e) {
+            android.util.Log.e("DONHANG", "insert failed", e);
+        } finally {
+            db.close();
+        }
+        return newId;
     }
+
 
     // ===== READ: tất cả đơn hàng =====
     public List<DonHang> getAll() {
@@ -116,7 +178,8 @@ public class DonHangRepository {
     public int update(DonHang donHang) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-
+        values.put(COL_NGUOITAO,   donHang.getNguoiTaoId());
+        values.put(COL_EXTRA_JSON, donHang.getExtraJson());
         values.put(COL_TENDONHANG,   donHang.getTenDonHang());
         values.put(COL_CONGTY,       donHang.getCongTyId());
         values.put(COL_NGUOILIENHE,  donHang.getNguoiLienHeId());
@@ -153,23 +216,81 @@ public class DonHangRepository {
     // ===== Map Cursor -> DonHang =====
     private DonHang fromCursor(Cursor c) {
         DonHang dh = new DonHang();
-        dh.setId(c.getInt(c.getColumnIndexOrThrow(COL_ID)));
-        dh.setTenDonHang(c.getString(c.getColumnIndexOrThrow(COL_TENDONHANG)));
-        dh.setCongTyId(c.getInt(c.getColumnIndexOrThrow(COL_CONGTY)));
-        dh.setNguoiLienHeId(c.getInt(c.getColumnIndexOrThrow(COL_NGUOILIENHE)));
-        dh.setCoHoiId(c.getInt(c.getColumnIndexOrThrow(COL_COHOI)));
-        dh.setBaoGiaId(c.getInt(c.getColumnIndexOrThrow(COL_BAOGIA)));
-        dh.setTinhTrang(c.getString(c.getColumnIndexOrThrow(COL_TINHTRANG)));
-        dh.setNgayDatHang(c.getString(c.getColumnIndexOrThrow(COL_NGAYDATHANG)));
-        dh.setNgayNhanHang(c.getString(c.getColumnIndexOrThrow(COL_NGAYNHANHANG)));
-        dh.setSanPham(c.getString(c.getColumnIndexOrThrow(COL_SANPHAM)));
-        dh.setSoLuong(c.getInt(c.getColumnIndexOrThrow(COL_SOLUONG)));
-        dh.setDonGia(c.getLong(c.getColumnIndexOrThrow(COL_DONGIA)));
-        dh.setTongTien(c.getLong(c.getColumnIndexOrThrow(COL_TONGTIEN)));
-        dh.setMoTa(c.getString(c.getColumnIndexOrThrow(COL_MOTA)));
-        dh.setGiaoChoId(c.getInt(c.getColumnIndexOrThrow(COL_GIAOCHO)));
+
+        // ===== Cột thật sự có trong bảng DONHANG =====
+        dh.setId(getIntSafe(c, "ID", 0));
+        dh.setTenDonHang(getStringSafe(c, "TENDONHANG"));
+
+        dh.setTinhTrang(getStringSafe(c, "TINHTRANG"));
+        dh.setNgayDatHang(getStringSafe(c, "NGAYDATHANG"));
+        dh.setNgayNhanHang(getStringSafe(c, "NGAYNHANHANG"));
+
+        dh.setSanPham(getStringSafe(c, "SANPHAM"));
+        dh.setSoLuong(getIntSafe(c, "SOLUONG", 0));
+        dh.setDonGia(getLongSafe(c, "DONGIA", 0L));
+        dh.setTongTien(getLongSafe(c, "TONGTIEN", 0L));
+
+        // ===== Công ty / Người liên hệ đang là TEXT trong DB =====
+        String congTyName  = getStringSafe(c, "CONGTY");
+        String lienHeName  = getStringSafe(c, "NGUOILIENHE");
+        String coHoiName   = getStringSafe(c, "COHOI");
+        String baoGiaName  = getStringSafe(c, "BAOGIA");
+        String giaoChoName = getStringSafe(c, "GIAOCHO");
+        // ===== EXTRA_JSON: ưu tiên đọc từ cột EXTRA_JSON nếu có =====
+        String extraStr = getStringSafe(c, "EXTRA_JSON");
+
+        // Bạn đang dùng MoTa kiểu "Công ty - Liên hệ" để hiển thị
+        String mota = getStringSafe(c, "MOTA");
+        if ((mota == null || mota.trim().isEmpty())) {
+            String ct = (congTyName == null) ? "" : congTyName.trim();
+            String lh = (lienHeName == null) ? "" : lienHeName.trim();
+            if (!ct.isEmpty() || !lh.isEmpty()) mota = ct + " - " + lh;
+        }
+        dh.setMoTa(mota);
+
+        // ===== Các field ...Id trong DonHang object: DB không có -> set 0 =====
+        dh.setCongTyId(0);
+        dh.setNguoiLienHeId(0);
+        dh.setCoHoiId(0);
+        dh.setBaoGiaId(0);
+        dh.setGiaoChoId(0);
+        dh.setNguoiTaoId(0);
+
+
+        try {
+            JSONObject extra = (extraStr == null || extraStr.trim().isEmpty())
+                    ? new JSONObject()
+                    : new JSONObject(extraStr);
+
+            // fallback: nhét thêm text từ các cột nếu thiếu key
+            if (congTyName != null && !extra.has("company")) extra.put("company", congTyName);
+            if (lienHeName != null && !extra.has("contact")) extra.put("contact", lienHeName);
+            if (coHoiName != null && !extra.has("coHoi")) extra.put("coHoi", coHoiName);
+            if (baoGiaName != null && !extra.has("baoGia")) extra.put("baoGia", baoGiaName);
+            if (giaoChoName != null && !extra.has("giaoCho")) extra.put("giaoCho", giaoChoName);
+
+            dh.setExtraJson(extra.toString());
+        } catch (Exception ex) {
+            // nếu JSON hỏng -> fallback "{}" + vẫn nhét được company/contact
+            try {
+                JSONObject extra = new JSONObject();
+                if (congTyName != null) extra.put("company", congTyName);
+                if (lienHeName != null) extra.put("contact", lienHeName);
+                if (coHoiName != null) extra.put("coHoi", coHoiName);
+                if (baoGiaName != null) extra.put("baoGia", baoGiaName);
+                if (giaoChoName != null) extra.put("giaoCho", giaoChoName);
+                dh.setExtraJson(extra.toString());
+            } catch (Exception ex2) {
+                dh.setExtraJson("{}");
+            }
+        }
+
+
+
+
         return dh;
     }
+
 
     // ===== Helper: convert sang List<Order> cho màn hình list =====
     public List<Order> getOrdersForList() {
@@ -180,7 +301,9 @@ public class DonHangRepository {
             String orderCode = dh.getTenDonHang();
             //String company   = "Công ty #" + dh.getCongTyId(); // sau này map từ CompanyRepository
             String company   = dh.getMoTa();  // tạm dùng mô tả để show tên công ty
-            String price     = String.valueOf(dh.getTongTien()) + " đ";
+            java.text.NumberFormat nf = java.text.NumberFormat.getInstance(new java.util.Locale("vi", "VN"));
+            String price = nf.format(dh.getTongTien()) + " đ";
+
             String date      = dh.getNgayDatHang();
             String status    = dh.getTinhTrang();
             String orderType = ""; // có thể để trống hoặc suy ra từ TINHTRANG

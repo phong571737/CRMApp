@@ -13,122 +13,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- ========== Thông tin hợp đồng ========== -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E8EBF1"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <!-- Header -->
-                <TextView
-                    android:id="@+id/tvHeaderHopDong"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Thông tin hợp đồng"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:paddingBottom="6dp"/>
-
-                <!-- Rows -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!-- row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp">
-                        <TextView
-                            style="@style/SoInfoLabel"
-                            android:text="Số hợp đồng"/>
-                        <TextView
-                            android:id="@+id/tvSoHopDong"
-                            style="@style/SoInfoValue"
-                            android:text="C016429-5"/>
-                    </LinearLayout>
-                    <View style="@style/SoDivider"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp">
-                        <TextView
-                            style="@style/SoInfoLabel"
-                            android:text="Ngày chốt dự kiến"/>
-                        <TextView
-                            android:id="@+id/tvNgayChotDuKy"
-                            style="@style/SoInfoValue"
-                            android:text="30/07/2024"/>
-                    </LinearLayout>
-                    <View style="@style/SoDivider"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp">
-                        <TextView
-                            style="@style/SoInfoLabel"
-                            android:text="Ngày khách hàng ký"/>
-                        <TextView
-                            android:id="@+id/tvNgayKhachHangKy"
-                            style="@style/SoInfoValue"
-                            android:text="30/07/2024"/>
-                    </LinearLayout>
-                    <View style="@style/SoDivider"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp">
-                        <TextView
-                            style="@style/SoInfoLabel"
-                            android:text="Trạng thái"/>
-                        <TextView
-                            android:id="@+id/tvTrangThaiHopDong"
-                            style="@style/SoInfoValue"
-                            android:text="Đã xong"/>
-                    </LinearLayout>
-                    <View style="@style/SoDivider"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingVertical="6dp">
-                        <TextView
-                            style="@style/SoInfoLabel"
-                            android:text="Đã nhận lại HĐ"/>
-                        <TextView
-                            android:id="@+id/tvDaNhanLaiHD"
-                            style="@style/SoInfoValue"
-                            android:text="Không"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <!-- ✅ (ĐÃ XÓA) Thông tin hợp đồng -->
 
         <!-- ========== Thông tin liên quan ========== -->
         <com.google.android.material.card.MaterialCardView
@@ -195,47 +80,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ========== Thông tin hoa hồng ========== -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="#FFFFFF"
-            app:strokeColor="#E8EBF1"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Thông tin hoa hồng"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:paddingBottom="6dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingVertical="6dp">
-                    <TextView
-                        style="@style/SoInfoLabel"
-                        android:text="Tình trạng hóa đơn"/>
-                    <TextView
-                        android:id="@+id/tvTinhTrangHoaDon"
-                        style="@style/SoInfoValue"
-                        android:text="Tạo nháp"/>
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <!-- ✅ (ĐÃ XÓA) Thông tin hoa hồng -->
 
         <!-- ========== Điều khoản & Điều kiện ========== -->
         <com.google.android.material.card.MaterialCardView
@@ -443,3 +288,4 @@
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+

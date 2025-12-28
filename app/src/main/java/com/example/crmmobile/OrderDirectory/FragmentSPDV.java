@@ -1,23 +1,40 @@
 package com.example.crmmobile.OrderDirectory;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.crmmobile.R;
+import com.example.crmmobile.DataBase.DonHangRepository;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class FragmentSPDV extends Fragment {
+
+    private DonHangRepository donHangRepo;
+
+    private RecyclerView rv;
+    private TextView tvEmpty;
+
+    private TextView tvTamTinh, tvThue, tvTongCong; // nếu bạn có các id tổng kết
+    private final List<ProductLine> data = new ArrayList<>();
+    private ProductLineAdapter adapter;
+
+    private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
 
     @Nullable
     @Override
@@ -26,98 +43,124 @@ public class FragmentSPDV extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_spdv, container, false);
+        setupTopInfoRows(view);
 
-        // ---Vùng tính thuế ---
-        View rowRegion = view.findViewById(R.id.rowRegion);
-        ((TextView) rowRegion.findViewById(R.id.tvLabel)).setText("Vùng tính thuế");
-        ((TextView) rowRegion.findViewById(R.id.tvValue)).setText("Trong nước");
 
-        // --- Loại tiền ---
-        View rowCurrency = view.findViewById(R.id.rowCurrency);
-        ((TextView) rowCurrency.findViewById(R.id.tvLabel)).setText("Loại tiền");
-        ((TextView) rowCurrency.findViewById(R.id.tvValue)).setText("Vietnam, Dong (đ)");
+        donHangRepo = new DonHangRepository(requireContext());
 
-        // --- Cách tính thuế ---
-        View rowTaxType = view.findViewById(R.id.rowTaxType);
-        ((TextView) rowTaxType.findViewById(R.id.tvLabel)).setText("Cách tính thuế");
-        ((TextView) rowTaxType.findViewById(R.id.tvValue)).setText("Theo từng mặt hàng");
+        rv = view.findViewById(R.id.rvOrderProducts);
+        tvEmpty = view.findViewById(R.id.tvEmptyProducts);
 
-        // --- Cam AI HA800 ---
-        View camAI = view.findViewById(R.id.itemCamAI);
-        ((TextView) camAI.findViewById(R.id.tvTenSanPham)).setText("Cam AI HA800");
-        ((TextView) camAI.findViewById(R.id.tvSoLuong)).setText("1 x 4.200.000 đ");
-        ((TextView) camAI.findViewById(R.id.tvThanhTien)).setText("4.200.000 đ");
+        rv.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new ProductLineAdapter(data, this::updateEmptyAndTotals); // ✅
+        rv.setAdapter(adapter);
 
-        // --- CloudLead ---
-        View cloudLead = view.findViewById(R.id.itemCloudLead);
-        ((TextView) cloudLead.findViewById(R.id.tvTenSanPham)).setText("CloudLead");
-        ((TextView) cloudLead.findViewById(R.id.tvSoLuong)).setText("1 x 1.820.000 đ");
-        ((TextView) cloudLead.findViewById(R.id.tvThanhTien)).setText("1.820.000 đ");
 
-        // ---Phần tổng ---
-        long tamTinh = 4_200_000L + 1_820_000L;
-        long thue = Math.round(tamTinh * 0.10); // VAT 10%
-        long tongCong = tamTinh + thue;
-
-        ((TextView) view.findViewById(R.id.tvTamTinh)).setText(formatCurrency(tamTinh));
-        ((TextView) view.findViewById(R.id.tvTruocThue)).setText(formatCurrency(tamTinh));
-        ((TextView) view.findViewById(R.id.tvThue)).setText(formatCurrency(thue));
-        ((TextView) view.findViewById(R.id.tvTongThue)).setText(formatCurrency(thue));
-        ((TextView) view.findViewById(R.id.tvTongCong)).setText(formatCurrency(tongCong));
-        ((TextView) view.findViewById(R.id.tvGiamGiaChung)).setText("0 đ");
-        ((TextView) view.findViewById(R.id.tvTongGiam)).setText("0 đ");
-
-        // --- Tooltip khi nhấn icon ---
-        ImageView iconGiamGia = view.findViewById(R.id.iconTooltipGiamGia);
-        ImageView iconThue = view.findViewById(R.id.iconTooltipThue);
-
-        iconGiamGia.setOnClickListener(v ->
-                showTooltip(v, "Số tiền giảm giá cuối cùng = 0 đ"));
-
-        iconThue.setOnClickListener(v ->
-                showTooltip(v, "VAT: 10% của 6.020.000 đ = 602.000 đ\nTổng số tiền thuế = 602.000 đ"));
+        bind();
 
         return view;
     }
+    private void updateEmptyAndTotals() {
+        // 1) Ẩn/hiện empty text
+        if (tvEmpty != null && rv != null) {
+            boolean empty = (data == null || data.isEmpty());
+            tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
+            rv.setVisibility(empty ? View.GONE : View.VISIBLE);
+        }
 
-    // Định dạng tiền: 602000 -> "602.000 đ"
-    private String formatCurrency(long value) {
-        NumberFormat nf = NumberFormat.getInstance();
-        return nf.format(value) + " đ";
+        // 2) Nếu bạn có phần "tổng kết" (tạm tính/thuế/tổng cộng) thì cập nhật ở đây
+        // Ví dụ:
+        // long total = 0;
+        // for (ProductLine p : data) total += p.getThanhTien();
+        // tvTongCong.setText(nf.format(total) + " đ");
     }
 
-    private void showTooltip(View anchor, String message) {
-        // Inflate layout tooltip
-        View popupView = LayoutInflater.from(anchor.getContext())
-                .inflate(R.layout.tooltip_layout, null);
 
-        TextView tvTooltip = popupView.findViewById(R.id.tvTooltip);
-        tvTooltip.setText(message);
+    @Override
+    public void onResume() {
+        super.onResume();
+        bind();
+    }
 
-        // Tạo popup window
-        final PopupWindow popupWindow = new PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                true
-        );
+    private void bind() {
+        int orderId = -1;
+        if (getActivity() instanceof OrderDetailActivity) {
+            orderId = ((OrderDetailActivity) getActivity()).getOrderId();
+        }
+        if (orderId <= 0) return;
 
-        // Cho phép tắt khi nhấn ngoài
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setElevation(10f);
+        DonHang dh = donHangRepo.getById(orderId);
+        if (dh == null) return;
 
-        // Tính vị trí hiển thị: bên phải icon
-        int[] location = new int[2];
-        anchor.getLocationOnScreen(location);
+        data.clear();
+        data.addAll(parseProductsFromDonHang(dh));
+        adapter.notifyDataSetChanged();
 
-        // Hiển thị popup bên phải icon
-        popupWindow.showAtLocation(anchor,
-                Gravity.NO_GRAVITY,
-                location[0] + anchor.getWidth() + 15, // dịch sang phải
-                location[1] - 20); // căn chỉnh lên một chút
+        if (data.isEmpty()) {
+            rv.setVisibility(View.GONE);
+            if (tvEmpty != null) tvEmpty.setVisibility(View.VISIBLE);
+        } else {
+            rv.setVisibility(View.VISIBLE);
+            if (tvEmpty != null) tvEmpty.setVisibility(View.GONE);
+        }
 
-        // Tự ẩn sau 3 giây (tùy chỉnh)
-        popupView.postDelayed(popupWindow::dismiss, 3000);
+        // Nếu bạn có tổng kết ở fragment_spdv thì tính tại đây
+        // long subtotal = ...
+        // tvTamTinh.setText(...)
+    }
+
+    private List<ProductLine> parseProductsFromDonHang(DonHang dh) {
+        List<ProductLine> list = new ArrayList<>();
+        String sp = dh.getSanPham();
+
+        // ✅ JSON array case
+        if (sp != null) {
+            String s = sp.trim();
+            if (s.startsWith("[") && s.endsWith("]")) {
+                try {
+                    JSONArray arr = new JSONArray(s);
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject o = arr.getJSONObject(i);
+                        String name = o.optString("name", "");
+                        String note = o.optString("note", "");
+                        int qty = o.optInt("qty", 1);
+                        long price = o.optLong("price", 0L);
+                        if (!name.isEmpty()) {
+                            list.add(new ProductLine(name, note, qty, price));
+                        }
+                    }
+                    return list;
+                } catch (Exception ignored) {}
+            }
+        }
+
+        // ✅ fallback: đơn chỉ có 1 SP
+        if (sp != null && !sp.trim().isEmpty()) {
+            list.add(new ProductLine(
+                    sp.trim(),
+                    "",
+                    Math.max(1, dh.getSoLuong()),
+                    dh.getDonGia()
+            ));
+        }
+        return list;
+    }
+    private void setupTopInfoRows(View root) {
+        View rowCurrency = root.findViewById(R.id.rowCurrency);
+        if (rowCurrency != null) {
+            TextView lb = rowCurrency.findViewById(R.id.tvLabel);
+            TextView vl = rowCurrency.findViewById(R.id.tvValue);
+            if (lb != null) lb.setText("Tiền tệ");
+            if (vl != null) vl.setText("VND");
+        }
+
+        View rowTaxType = root.findViewById(R.id.rowTaxType);
+        if (rowTaxType != null) {
+            TextView lb = rowTaxType.findViewById(R.id.tvLabel);
+            TextView vl = rowTaxType.findViewById(R.id.tvValue);
+            if (lb != null) lb.setText("Loại thuế");
+            if (vl != null) vl.setText("Trong nước");
+        }
     }
 
 }

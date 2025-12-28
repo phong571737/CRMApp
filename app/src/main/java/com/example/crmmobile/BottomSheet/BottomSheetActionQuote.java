@@ -7,12 +7,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.crmmobile.LeadDirectory.Lead;
 import com.example.crmmobile.QuoteDirectory.Quote;
 import com.example.crmmobile.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class BottomSheetActionQuote {
-    private static void addActionItemQuote(Context context, LinearLayout parent, int iconRes, String text){
+    public interface OnActionListenerQuote{
+        void onDeleteQuote(Quote quote);
+    }
+    private static void addActionItemQuote(Context context, LinearLayout parent, int iconRes, String text, Runnable runnable){
         View view = LayoutInflater.from(context).inflate(R.layout.item_action, parent, false);
 
         ImageView icon_action = view.findViewById(R.id.actionIcon);
@@ -21,10 +25,14 @@ public class BottomSheetActionQuote {
         icon_action.setImageResource(iconRes);
         text_action.setText(text);
 
+        view.setOnClickListener(v -> {
+            if (runnable != null) runnable.run();
+        });
+
         parent.addView(view);
     }
 
-    public static void ShowBottomSheetQuote(Context context, Quote item, int position ){
+    public static void ShowBottomSheetQuote(Context context, Quote item, int position, OnActionListenerQuote listener){
         BottomSheetDialog dialog = new BottomSheetDialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.layout_more_actions, null);
 
@@ -33,12 +41,18 @@ public class BottomSheetActionQuote {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());//exit
 
-        addActionItemQuote(context, layoutAction, R.drawable.ic_pin, "Ghim");
-        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành đơn hàng");
-        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành hóa đơn");
-        addActionItemQuote(context, layoutAction, R.drawable.ic_export_pdf, "Xuất file pdf");
-        addActionItemQuote(context, layoutAction, R.drawable.ic_forward_email, "Gửi email kèm file pdf");
-        addActionItemQuote(context, layoutAction, R.drawable.ic_duplicate, "Nhân đôi");
+        addActionItemQuote(context, layoutAction, R.drawable.ic_pin, "Ghim", null);
+        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành đơn hàng", null);
+        addActionItemQuote(context, layoutAction, R.drawable.ic_loop, "Chuyển thành hóa đơn", null);
+        addActionItemQuote(context, layoutAction, R.drawable.ic_export_pdf, "Xuất file pdf", null);
+        addActionItemQuote(context, layoutAction, R.drawable.ic_forward_email, "Gửi email kèm file pdf", null);
+        addActionItemQuote(context, layoutAction, R.drawable.ic_duplicate, "Nhân đôi", null);
+        addActionItemQuote(context, layoutAction, R.drawable.delete, "Xóa", ()->{
+            if (listener != null){
+                listener.onDeleteQuote(item);
+            }
+            dialog.dismiss();
+        });
 
         dialog.setContentView(view);
         dialog.show();

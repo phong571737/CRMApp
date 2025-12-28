@@ -81,6 +81,11 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
             viewModelCanhan.moTa.setValue(intent.getStringExtra("moTa"));
             viewModelCanhan.ghiChu.setValue(intent.getStringExtra("ghiChu"));
             viewModelCanhan.giaoCho.setValue(intent.getStringExtra("giaoCho"));
+            // Lưu giaoChoID nếu có
+            int giaoChoID = intent.getIntExtra("giaoChoID", 0);
+            if (giaoChoID > 0) {
+                viewModelCanhan.giaoChoID.setValue(giaoChoID);
+            }
         }
     }
 
@@ -131,6 +136,14 @@ public class ThongTinLienHeActivity extends AppCompatActivity {
         result.putExtra("quocGia", viewModelCanhan.quocGia.getValue());
         result.putExtra("ghiChu", viewModelCanhan.ghiChu.getValue());
         result.putExtra("moTa", viewModelCanhan.moTa.getValue());
+        
+        // Lấy giaoChoID từ ViewModel
+        Integer giaoChoID = viewModelCanhan.giaoChoID.getValue();
+        if (giaoChoID != null && giaoChoID > 0) {
+            result.putExtra("giaoChoID", giaoChoID);
+        } else {
+            result.putExtra("giaoChoID", 0);
+        }
 
         if ("edit".equals(mode) && editingId != -1) {
             result.putExtra("id", editingId);

@@ -25,4 +25,10 @@
     <string name="add_quote">Thêm báo giá</string>
     <string name="edit_lead">Chỉnh sửa Lead</string>
     <string name="potential">Mức độ tiềm năng</string>
+    <string name="title">Tiêu đề</string>
+    <string name="chance_information">Thông tin cơ hội</string>
+    <string name="address_ship">Địa chỉ giao hàng</string>
+    <string name="district_ship">Quận/huyện giao hàng</string>
+    <string name="ship_province">Tỉnh thành giao hàng</string>
+    <string name="ship_nation">Quốc gia giao hàng</string>
 </resources>

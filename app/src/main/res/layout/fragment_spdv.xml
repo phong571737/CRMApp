@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,28 +26,44 @@
             android:divider="@drawable/divider_invisible"
             android:showDividers="middle">
 
-            <include layout="@layout/item_info_row_simple"
-                android:id="@+id/rowRegion" />
+            <!-- ✅ đã xóa rowRegion -->
 
-            <include layout="@layout/item_info_row_simple"
-                android:id="@+id/rowCurrency" />
+            <include
+                android:id="@+id/rowCurrency"
+                layout="@layout/item_info_row_simple" />
 
-            <include layout="@layout/item_info_row_simple"
-                android:id="@+id/rowTaxType" />
-            <!-- Phần sản phẩm -->
+            <include
+                android:id="@+id/rowTaxType"
+                layout="@layout/item_info_row_simple" />
+
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Sản phẩm/Dịch vụ"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="#000"
-                android:layout_marginTop="16dp"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"/>
+                android:layout_marginTop="16dp" />
 
-            <include layout="@layout/item_san_pham" android:id="@+id/itemCamAI" />
-            <include layout="@layout/item_san_pham" android:id="@+id/itemCloudLead" />
-            <!-- === Tổng kết (PHẢI NẰM Ở DƯỚI CÙNG) === -->
-            <include layout="@layout/item_tong_ket_don_hang" android:id="@+id/layoutTongKet" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/tvEmptyProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chưa có sản phẩm"
+                android:gravity="center"
+                android:padding="12dp"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/layoutTongKet"
+                layout="@layout/item_tong_ket_don_hang" />
 
         </LinearLayout>
 

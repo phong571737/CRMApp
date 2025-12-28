@@ -54,15 +54,10 @@ public class create_Lead extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_lead, container, false);
-        back_btn = view.findViewById(R.id.btn_lead_back);
-        tabLayout = view.findViewById(R.id.tablayout);
-        viewPager2 = view.findViewById(R.id.vp_tab);
-        btnSave = view.findViewById(R.id.save_button);
-        btnAbort = view.findViewById(R.id.abort_button);
+        viewModelLead = new ViewModelProvider(requireActivity()).get(ViewModelLead.class);
+        initViews(view);
         AdapterCreateLead adapterCreate = new AdapterCreateLead(this);
         viewPager2.setAdapter(adapterCreate);
-
-        viewModelLead = new ViewModelProvider(requireActivity()).get(ViewModelLead.class);
 
         new TabLayoutMediator(tabLayout, viewPager2,((tab, i) -> {
             if(i == 0) tab.setText("Thông tin lead");
@@ -83,6 +78,14 @@ public class create_Lead extends Fragment {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
         return view;
+    }
+
+    private void initViews(View view) {
+        back_btn = view.findViewById(R.id.btn_lead_back);
+        tabLayout = view.findViewById(R.id.tablayout);
+        viewPager2 = view.findViewById(R.id.vp_tab);
+        btnSave = view.findViewById(R.id.save_button);
+        btnAbort = view.findViewById(R.id.abort_button);
     }
 
     private void saveCreateLead() {

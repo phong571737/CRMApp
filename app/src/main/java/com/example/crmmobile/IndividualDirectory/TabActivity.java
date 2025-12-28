@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.crmmobile.MainDirectory.Recent;
 import com.example.crmmobile.MainDirectory.RecentViewModel;
 import com.example.crmmobile.R;
+import com.example.crmmobile.DataBase.NhanVienRepository;
+import com.example.crmmobile.DataBase.CaNhanRepository;
 
 /**
  * CHỈNH SỬA CLASS TabActivity
@@ -22,7 +24,7 @@ import com.example.crmmobile.R;
 
 public class TabActivity extends AppCompatActivity {
 
-    private TextView tabTongQuan, tabChiTiet;
+    private TextView tabTongQuan, tabChiTiet, tabCoHoi;
     private ImageView icBack;
 
     private TextView tvHeaderTen, tvHeaderSdt, tvHeaderEmail, tvHeaderCongTy, tvHeaderNguoiTao, tvHeaderNguoiPhuTrach;
@@ -78,6 +80,39 @@ public class TabActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Reload dữ liệu từ database khi quay lại để đảm bảo dữ liệu luôn mới nhất
+        if (currentCaNhan != null && currentCaNhan.getId() > 0) {
+            CaNhanRepository caNhanRepository = new CaNhanRepository(this);
+            CaNhan updatedCaNhan = caNhanRepository.getById(currentCaNhan.getId());
+            if (updatedCaNhan != null) {
+                currentCaNhan = updatedCaNhan;
+                fillHeaderData();
+                // Cập nhật fragment hiện tại với dữ liệu mới
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
+                if (currentFragment instanceof ChiTietFragment) {
+                    // Reload ChiTietFragment với dữ liệu mới
+                    ChiTietFragment fragment = new ChiTietFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CANHAN_DATA", currentCaNhan);
+                    fragment.setArguments(bundle);
+                    setFragment(fragment);
+                    setActiveTab(tabChiTiet);
+                } else if (currentFragment instanceof TongQuanFragment) {
+                    // Reload TongQuanFragment với dữ liệu mới
+                    TongQuanFragment fragment = new TongQuanFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CANHAN_DATA", currentCaNhan);
+                    fragment.setArguments(bundle);
+                    setFragment(fragment);
+                    setActiveTab(tabTongQuan);
+                }
+            }
+        }
+    }
+
     private void SetRecentCanhan() {
         if (currentCaNhan == null) return;
 
@@ -101,7 +136,7 @@ public class TabActivity extends AppCompatActivity {
         tabTongQuan = findViewById(R.id.tab_tongquan);
         tabChiTiet = findViewById(R.id.tab_chitiet);
 //        tabHoatDong = findViewById(R.id.tab_hoatdong);
-//        tabCoHoi = findViewById(R.id.tab_cohoi);
+        tabCoHoi = findViewById(R.id.tab_cohoi);
         icBack = findViewById(R.id.ic_back);
 
         // Header Views
@@ -121,7 +156,16 @@ public class TabActivity extends AppCompatActivity {
             tvHeaderCongTy.setText(checkNull(currentCaNhan.getCongTy()));
             // Giả sử tên người tạo lấy từ User đăng nhập, ở đây tạm thời set cứng hoặc lấy từ DB nếu có field
             // tvHeaderNguoiTao.setText(...);
-            tvHeaderNguoiPhuTrach.setText(checkNull(currentCaNhan.getGiaoCho()));
+            // Load tên nhân viên từ giaoChoID
+            String tenNhanVien = "";
+            if (currentCaNhan.getGiaoChoID() != null && currentCaNhan.getGiaoChoID() > 0) {
+                NhanVienRepository nhanVienRepository = new NhanVienRepository(this);
+                tenNhanVien = nhanVienRepository.getNameByID(currentCaNhan.getGiaoChoID());
+                if (tenNhanVien == null || tenNhanVien.isEmpty()) {
+                    tenNhanVien = "";
+                }
+            }
+            tvHeaderNguoiPhuTrach.setText(checkNull(tenNhanVien));
         }
     }
 
@@ -145,8 +189,8 @@ public class TabActivity extends AppCompatActivity {
 //        tabHoatDong.setTextColor(getResources().getColor(R.color.grey));
 //        tabHoatDong.setBackgroundResource(android.R.color.transparent);
 //
-//        tabCoHoi.setTextColor(getResources().getColor(R.color.grey));
-//        tabCoHoi.setBackgroundResource(android.R.color.transparent);
+        tabCoHoi.setTextColor(getResources().getColor(R.color.grey));
+        tabCoHoi.setBackgroundResource(android.R.color.transparent);
 
         // Tab được chọn hiển thị màu xanh + viền dưới
         selectedTab.setTextColor(getResources().getColor(R.color.blue));

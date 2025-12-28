@@ -10,8 +10,13 @@ import com.example.crmmobile.OrderDirectory.Order;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class DonHangRepository {
 
@@ -313,5 +318,93 @@ public class DonHangRepository {
             orders.add(o);
         }
         return orders;
+    }
+
+    // ===== Thống kê doanh thu theo tháng =====
+    /**
+     * Trả về Map với key là "MM/yyyy" (ví dụ "01/2024") và value là tổng doanh thu của tháng đó
+     */
+    public Map<String, Long> getRevenueByMonth() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Map<String, Long> revenueMap = new LinkedHashMap<>();
+
+        Cursor cursor = db.query(
+                TABLE_NAME,
+                new String[]{COL_NGAYDATHANG, COL_TONGTIEN},
+                COL_NGAYDATHANG + " IS NOT NULL AND " + COL_NGAYDATHANG + " != '' AND " + COL_TONGTIEN + " IS NOT NULL",
+                null,
+                null, null,
+                COL_NGAYDATHANG + " ASC"
+        );
+
+        if (cursor != null) {
+            try {
+                // Các format ngày có thể có: dd/MM/yyyy, dd-MM-yyyy
+                SimpleDateFormat[] formats = {
+                    new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()),
+                    new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()),
+                    new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                };
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        String ngayDatHang = getStringSafe(cursor, COL_NGAYDATHANG);
+                        long tongTien = getLongSafe(cursor, COL_TONGTIEN, 0L);
+
+                        if (ngayDatHang == null || ngayDatHang.trim().isEmpty() || tongTien <= 0) {
+                            continue;
+                        }
+
+                        // Parse ngày để lấy tháng/năm
+                        Calendar cal = Calendar.getInstance();
+                        boolean parsed = false;
+
+                        for (SimpleDateFormat format : formats) {
+                            try {
+                                cal.setTime(format.parse(ngayDatHang));
+                                parsed = true;
+                                break;
+                            } catch (Exception e) {
+                                // Thử format tiếp
+                            }
+                        }
+
+                        if (!parsed) {
+                            // Nếu không parse được, thử extract từ chuỗi dd/MM/yyyy hoặc dd-MM-yyyy
+                            try {
+                                String[] parts = ngayDatHang.split("[/-]");
+                                if (parts.length >= 3) {
+                                    int day = Integer.parseInt(parts[0]);
+                                    int month = Integer.parseInt(parts[1]);
+                                    int year = Integer.parseInt(parts[2]);
+                                    cal.set(year, month - 1, day);
+                                    parsed = true;
+                                }
+                            } catch (Exception e) {
+                                // Bỏ qua nếu không parse được
+                            }
+                        }
+
+                        if (parsed) {
+                            int month = cal.get(Calendar.MONTH) + 1; // Calendar.MONTH bắt đầu từ 0
+                            int year = cal.get(Calendar.YEAR);
+                            String monthKey = String.format(Locale.getDefault(), "%02d/%d", month, year);
+
+                            // Cộng dồn doanh thu
+                            Long currentRevenue = revenueMap.get(monthKey);
+                            if (currentRevenue == null) {
+                                revenueMap.put(monthKey, tongTien);
+                            } else {
+                                revenueMap.put(monthKey, currentRevenue + tongTien);
+                            }
+                        }
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return revenueMap;
     }
 }

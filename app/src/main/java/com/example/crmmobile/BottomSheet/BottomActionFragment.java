@@ -20,7 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomActionFragment extends BottomSheetDialogFragment {
 
-    private LinearLayout ghim, chinhsua, xoa, themHoatDong;
+    private LinearLayout  chinhsua, xoa, themHoatDong;
     private CaNhan caNhan; // item đang thao tác
     private OnActionListener listener; // callback về Activity
     private CaNhanRepository db;
@@ -55,7 +55,7 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
         db = new CaNhanRepository(requireContext());
 
         // --- Bind các nút ---
-        ghim = view.findViewById(R.id.ghim);
+//        ghim = view.findViewById(R.id.ghim);
         chinhsua = view.findViewById(R.id.chinhsua);
         xoa = view.findViewById(R.id.xoa);
         themHoatDong = view.findViewById(R.id.themhoatdong);
@@ -69,7 +69,7 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
         }
 
         // --- Nút ghim ---
-        ghim.setOnClickListener(v -> dismiss()); // hiện tại chỉ đóng, có thể mở rộng
+//        ghim.setOnClickListener(v -> dismiss()); // hiện tại chỉ đóng, có thể mở rộng
 
         // --- Nút chỉnh sửa ---
         chinhsua.setOnClickListener(v -> {

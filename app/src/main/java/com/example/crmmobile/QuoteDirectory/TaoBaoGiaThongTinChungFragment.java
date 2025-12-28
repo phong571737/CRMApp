@@ -252,6 +252,12 @@ public class TaoBaoGiaThongTinChungFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(),
                 android.R.layout.simple_dropdown_item_1line, companyName);
         actCongTy.setAdapter(adapter);
+
+        actCongTy.setOnItemClickListener(((parent, view, position, id) -> {
+            ToChuc tc = companyList.get(position);
+            viewModelQuote.companyID.setValue(tc.getId());
+            viewModelQuote.CompanyName.setValue(tc.getCompanyName());
+        }));
     }
 
     // Hàm chung để xử lý ẩn/hiện

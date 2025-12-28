@@ -48,7 +48,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         if (holder.tvOrderCode != null) holder.tvOrderCode.setText(safe(o.getOrderCode()));
         if (holder.tvCompany != null)   holder.tvCompany.setText(safe(o.getCompany()));
 
-        // ✅ Giá: chỉ lấy từ o.getPrice() (đã format trong DonHangRepository)
+        //Giá: chỉ lấy từ o.getPrice() (đã format trong DonHangRepository)
         if (holder.tvPrice != null) {
             holder.tvPrice.setText(safe(o.getPrice()));
         }

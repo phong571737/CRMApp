@@ -20,8 +20,11 @@ public class InitClass {
         else if (nhanvien == 4){
             result  = 3;
         }
-        else {
+        else if (nhanvien == 5){
             result = 4;
+        }
+        else {
+            result = 5;
         }
         return result;
     }

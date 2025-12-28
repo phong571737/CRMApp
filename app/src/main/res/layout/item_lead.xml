@@ -216,31 +216,6 @@
 
         </LinearLayout>
         <!--end called and comments-->
-
-        <ImageView
-            android:id="@+id/iv_created_by"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/nhanvienlist"
-            android:background="@drawable/bg_circle_white"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toTopOf="@id/layout_call_chat"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-        <ImageView
-            android:id="@+id/iv_sendto"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/nhanvienlist"
-            android:background="@drawable/bg_circle_white"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="@dimen/margin5"
-            android:layout_marginLeft="@dimen/margin5"
-            app:layout_constraintTop_toTopOf="@id/layout_call_chat"
-            app:layout_constraintEnd_toStartOf="@id/iv_created_by"
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QuoteFragment extends Fragment {
+    private static final String TAG = "QUOTE_FRAGMENT";
     private RecyclerView recyclerView;
     private AdapterQuote adapterQuote;
     private List<Quote> listquote;
@@ -104,21 +106,39 @@ public class QuoteFragment extends Fragment {
 
                     @Override
                     public void onConvertOrder(Quote quote) {
+//                        if (quote.isConverted()){
+//                            Toast.makeText(getContext(), "Báo giá đã được chuyển đổi", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
                         DonHang donHang = new DonHang();
+                        Order order = new Order();
 
-                        int id = quote.getID();
-                        String code = String.format("BG-%04d", id);
+                        order.setOrderCode(quote.getOrderCode());
+                        order.setCompany(quote.getCompany());
+                        order.setPrice(quote.getTotalAmount().toString());
+                        order.setDate(quote.getDate());
+                        order.setOrderType(null);
+
                         donHang.setTenDonHang(quote.getTitle());
                         donHang.setNgayNhanHang(quote.getDate());
                         donHang.setNguoiLienHeId(quote.getContactPersonID());
                         donHang.setDonGia(quote.getPrice());
                         donHang.setSoLuong(quote.getQuantity());
                         donHang.setTongTien(quote.getTotalAmount());
-//                        donHang.setCongTyId(qu);
+                        donHang.setCongTyId(quote.getCompanyID() != null ? quote.getCompanyID() : 0);
+                        donHang.setNguoiLienHeId(quote.getContactPersonID() != null ? quote.getContactPersonID() : 0);
+                        donHang.setCoHoiId(quote.getOpportunityID() != null ? quote.getOpportunityID() : 0);
+                        Log.e(TAG, "Congty ID:" + quote.getCompanyID());
+                        Log.e(TAG, "Nguoi lien he ID:" + quote.getContactPersonID());
+                        Log.e(TAG, "Co hoi ID:" + quote.getOpportunityID());
+                        Log.e(TAG, "Date:" + quote.getDate());
+                        Log.e(TAG, "Date:" + quote.getCompany());
 
                         DonHangRepository donHangRepository = new DonHangRepository(requireContext());
                         long id = donHangRepository.insert(donHang);
-                        if (id > 0){
+                        long idOrder = donHangRepository.insert(order);
+                        if (id > 0 && idOrder > 0){
+//                            quote.setConverted(true);
                             quoteRepository.updateQuote(quote);
                             Toast.makeText(getContext(), "Chuyển đổi thành công đơn hàng", Toast.LENGTH_SHORT).show();
                         }else {

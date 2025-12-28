@@ -51,7 +51,7 @@ public class OrderFragment extends Fragment {
     private RecyclerView recyclerView;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) { // ✅ phải public
+    public void onCreate(@Nullable Bundle savedInstanceState) { //phải public
         super.onCreate(savedInstanceState);
         //  Fragment không dùng EdgeToEdge.enable(this) + setContentView(...)
     }
@@ -164,7 +164,7 @@ public class OrderFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_actions, null, false);
         LinearLayout layoutActions = view.findViewById(R.id.layoutActions);
 
-        // ✅ 1) GHIM ĐƠN HÀNG
+        //1) GHIM ĐƠN HÀNG
         addActionItem(layoutActions, R.drawable.keep, "Ghim đơn hàng", () -> {
             // TODO: nếu bạn có cột "pinned/starred" trong DB thì update tại đây
             // Ví dụ: donHangRepository.setPinned(order.getId(), 1);
@@ -175,7 +175,7 @@ public class OrderFragment extends Fragment {
 
 
 
-        // (Tuỳ bạn) ✅ 3) HỦY ĐƠN HÀNG (nếu muốn giữ thì để lại, không muốn thì xóa block này)
+        // (Tuỳ bạn)3) HỦY ĐƠN HÀNG (nếu muốn giữ thì để lại, không muốn thì xóa block này)
         addActionItem(layoutActions, R.drawable.ic_escape, "Hủy đơn hàng", () -> {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Hủy đơn hàng")

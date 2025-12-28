@@ -41,7 +41,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
 
-    // ✅ để Fragment đọc đúng đơn hiện tại
+    // để Fragment đọc đúng đơn hiện tại
     private DonHang currentDonHang;
 
     public DonHang getCurrentDonHang() {

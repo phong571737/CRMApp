@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.crmmobile.DataBase.CompanyRepository;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.QuoteDirectory.Quote;
 import com.example.crmmobile.R;
 
@@ -20,6 +22,8 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
     private static final String TAG = "ADAPTER_QUOTE";
     private  List<Quote> listquote;
     private final onItemClickListener listener;
+    private CompanyRepository companyRepository;
+    private final Context context;
 
     public interface onItemClickListener{
         void onDotsListener(Quote quote, int position);
@@ -29,6 +33,9 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
     public AdapterQuote(Context context, List<Quote> listquote, onItemClickListener listener){
         this.listquote = listquote;
         this.listener = listener;
+        this.context = context;
+        this.companyRepository = new CompanyRepository(context);
+
     }
     public static class quoteViewHolder extends RecyclerView.ViewHolder{
 
@@ -49,7 +56,6 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
     @Override
     public quoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_quote, parent, false);
-
         return new quoteViewHolder(view);
     }
 
@@ -60,7 +66,7 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
         int id = quote.getID();
         String code = String.format("BG-%04d", id);
         viewHolder.tv_code.setText(code);
-        viewHolder.tv_company.setText(quote.getCompany());
+        viewHolder.tv_company.setText(getCompynyByID(quote.getCompanyID()));
         viewHolder.tv_date.setText(quote.getDate());
         viewHolder.tv_money.setText((quote.getTotalAmount() == null) ? "0 đ" : String.valueOf(quote.getTotalAmount() + " đ"));
         Log.e(TAG, "Company name: " + quote.getCompany());
@@ -88,5 +94,16 @@ public class AdapterQuote extends RecyclerView.Adapter<AdapterQuote.quoteViewHol
         this.listquote.clear();
         this.listquote.addAll(quotes);
         notifyDataSetChanged(); //reload
+    }
+
+    private String getCompynyByID(Integer id){
+        List<ToChuc> companyList = companyRepository.getAllCompany();
+        if (id == null) return "";
+        for (ToChuc toChuc: companyList){
+            if (toChuc.getId() == id){
+                return toChuc.getCompanyName();
+            }
+        }
+        return "";
     }
 }

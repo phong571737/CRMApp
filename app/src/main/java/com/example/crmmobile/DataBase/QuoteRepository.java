@@ -24,9 +24,9 @@ public class QuoteRepository {
         ContentValues values = new ContentValues();
 
         values.put("TENBAOGIA", quote.getOrderCode());
-        values.put("CONGTY", quote.getCompany());
+        values.put("CONGTY", quote.getCompanyID());
         values.put("NGUOILIENHE", quote.getContactPersonID());
-        values.put("COHOI", quote.getOpportunityName());
+        values.put("COHOI", quote.getOpportunityID());
         values.put("TINHTRANG", quote.getState());
         values.put("SANPHAM", quote.getProduct());
         values.put("SOLUONG", quote.getQuantity());
@@ -58,9 +58,9 @@ public class QuoteRepository {
                 Quote quote = new Quote();
                 quote.setID(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
                 quote.setOrderCode(cursor.getString(cursor.getColumnIndexOrThrow("TENBAOGIA")));
-                quote.setCompany(cursor.getString(cursor.getColumnIndexOrThrow("CONGTY")));
+                quote.setCompanyID(cursor.getInt(cursor.getColumnIndexOrThrow("CONGTY")));
                 quote.setContactPersonID(cursor.getInt(cursor.getColumnIndexOrThrow("NGUOILIENHE")));
-                quote.setOpportunityName(cursor.getString(cursor.getColumnIndexOrThrow("COHOI")));
+                quote.setOpportunityID(cursor.getInt(cursor.getColumnIndexOrThrow("COHOI")));
                 quote.setState(cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")));
                 quote.setProduct(cursor.getString(cursor.getColumnIndexOrThrow("SANPHAM")));
                 quote.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow("SOLUONG")));
@@ -90,9 +90,9 @@ public class QuoteRepository {
         ContentValues values = new ContentValues();
 
         values.put("TENBAOGIA", quote.getOrderCode());
-        values.put("CONGTY", quote.getCompany());
+        values.put("CONGTY", quote.getCompanyID());
         values.put("NGUOILIENHE", quote.getContactPersonID());
-        values.put("COHOI", quote.getOpportunityName());
+        values.put("COHOI", quote.getOpportunityID());
         values.put("TINHTRANG", quote.getState());
         values.put("SANPHAM", quote.getProduct());
         values.put("SOLUONG", quote.getQuantity());
@@ -130,9 +130,9 @@ public class QuoteRepository {
                 quote = new Quote();
                 quote.setID(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
                 quote.setOrderCode(cursor.getString(cursor.getColumnIndexOrThrow("TENBAOGIA")));
-                quote.setCompany(cursor.getString(cursor.getColumnIndexOrThrow("CONGTY")));
+                quote.setCompanyID(cursor.getInt(cursor.getColumnIndexOrThrow("CONGTY")));
                 quote.setContactPersonID(cursor.getInt(cursor.getColumnIndexOrThrow("NGUOILIENHE")));
-                quote.setOpportunityName(cursor.getString(cursor.getColumnIndexOrThrow("COHOI")));
+                quote.setOpportunityID(cursor.getInt(cursor.getColumnIndexOrThrow("COHOI")));
                 quote.setState(cursor.getString(cursor.getColumnIndexOrThrow("TINHTRANG")));
                 quote.setProduct(cursor.getString(cursor.getColumnIndexOrThrow("SANPHAM")));
                 quote.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow("SOLUONG")));

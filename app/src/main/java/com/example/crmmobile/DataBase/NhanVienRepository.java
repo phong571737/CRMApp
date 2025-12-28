@@ -147,7 +147,7 @@ public class NhanVienRepository {
 
     public String getNameByID(int id){
         db = dbHelper.getReadableDatabase();
-        Log.e("REPO_DEBUG", "Truy vấn ID: " + id);
+        Log.e("REPO_DEBUG", "ID: " + id);
         String name = "";
         Cursor cursor = db.rawQuery("SELECT HOTEN FROM NHANVIEN WHERE ID = ?", new String[]{String.valueOf(id)});
         if (cursor.moveToFirst()){

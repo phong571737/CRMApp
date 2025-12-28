@@ -126,6 +126,28 @@ public class DonHangRepository {
         return newId;
     }
 
+    public long insert(Order order) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        long newId = -1;
+
+        ContentValues v = new ContentValues();
+
+        v.put("TENDONHANG", order.getOrderCode());
+        v.put("CONGTY", order.getCompany());
+
+        v.put("TINHTRANG", order.getPaymentStatus());
+        v.put("TONGTIEN", order.getPrice());
+
+        try {
+            newId = db.insertOrThrow("DONHANG", null, v);
+        } catch (Exception e) {
+            android.util.Log.e("DONHANG", "insert failed", e);
+        } finally {
+            db.close();
+        }
+        return newId;
+    }
+
 
     // ===== READ: tất cả đơn hàng =====
     public List<DonHang> getAll() {

@@ -2,6 +2,7 @@ package com.example.crmmobile.QuoteDirectory;
 
 import android.app.Application;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class CreateQuoteViewModel extends AndroidViewModel {
+    private static final String TAG = "QUOTE_VIEWMODEL";
     private final QuoteRepository quoteRepository;
     private final MutableLiveData<Boolean> quoteCreatedEvent = new MutableLiveData<>();
     public LiveData<Boolean> getQuoteCreateEvent(){
@@ -23,6 +25,7 @@ public class CreateQuoteViewModel extends AndroidViewModel {
     public MutableLiveData<Integer> quoteID = new MutableLiveData<>();
     public MutableLiveData<String> QuoteName = new MutableLiveData<>("");
     public MutableLiveData<String> CompanyName = new MutableLiveData<>("");
+    public MutableLiveData<Integer> companyID = new MutableLiveData<>();
     public MutableLiveData<String> ContactPersonName = new MutableLiveData<>("");
     public MutableLiveData<Integer> ContactPersonID = new MutableLiveData<>();
     public MutableLiveData<String> OpportunityName = new MutableLiveData<String>("");
@@ -84,6 +87,7 @@ public class CreateQuoteViewModel extends AndroidViewModel {
         quote.setOrderCode(QuoteName.getValue());
         quote.setState(State.getValue());
         quote.setOpportunityName(OpportunityName.getValue());
+        quote.setOpportunityID(OpportunityID.getValue());
         quote.setPrice(Price.getValue());
         quote.setDescription(description.getValue());
         quote.setAddress_Ship(address_Ship.getValue());
@@ -93,8 +97,11 @@ public class CreateQuoteViewModel extends AndroidViewModel {
         Long total = TotalAmount.getValue();
         quote.setTotalAmount(total != null ? total : 0L);
         quote.setCompany(CompanyName.getValue());
+        quote.setCompanyID(companyID.getValue());
         quote.setContactPersonID(ContactPersonID.getValue());
         quote.setDate(today);
+        Log.e(TAG, "Cơ hội ID: " + quote.getOpportunityID());
+        Log.e(TAG, "Người lien hệ ID: " + quote.getContactPersonID());
         quoteRepository.addQuote(quote);
         quoteCreatedEvent.setValue(true);
     }

@@ -22,10 +22,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.crmmobile.DataBase.CaNhanRepository;
+import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.DataBase.NhanVienRepository;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
 import com.example.crmmobile.LeadDirectory.Nhanvien;
 import com.example.crmmobile.MainDirectory.InitClass;
+import com.example.crmmobile.OpportunityDirectory.Opportunity;
+import com.example.crmmobile.OpportunityDirectory.OpportunityDAO;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.R;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class DetailQuote extends Fragment {
+    private static final String TAG = "DETAIL_QUOTE";
     private LinearLayout ll_root, ll_quote_information, ll_chance, ll_address;
     private View section;
     private TextView tv_title, tv_company, tv_opportunity, tv_state,
@@ -42,6 +47,8 @@ public class DetailQuote extends Fragment {
     private ImageView iv_addinfor, iv_relative_add, iv_address_add;
     private CreateQuoteViewModel viewModel;
     private CaNhanRepository caNhanRepository;
+    private CompanyRepository companyRepository;
+    private OpportunityDAO opportunityDAO;
     private CaNhan caNhan;
     private Quote quote;
 
@@ -75,19 +82,66 @@ public class DetailQuote extends Fragment {
         initViews(view);
         viewModel = new ViewModelProvider(requireActivity()).get(CreateQuoteViewModel.class);
         caNhanRepository = new CaNhanRepository(requireContext());
+        companyRepository = new CompanyRepository(requireContext());
+        opportunityDAO= new OpportunityDAO(requireContext());
 
-        bindLiveDataToTextView(viewModel.CompanyName, tv_company);
+        getCompanyNameByID();
+        ConvertOpportunityfromID();
+
         bindLiveDataToTextView(viewModel.QuoteName, tv_title);
-        bindLiveDataToTextView(viewModel.OpportunityName, tv_opportunity);
         bindLiveDataToTextView(viewModel.State, tv_state);
         bindLiveDataToTextView(viewModel.address_Ship, tv_ship_address);
         bindLiveDataToTextView(viewModel.district_ship, tv_district_ship);
         bindLiveDataToTextView(viewModel.province_ship, tv_province_ship);
         bindLiveDataToTextView(viewModel.nation_ship, tv_ship_nation);
+        Log.e(TAG, "Company ID: " + viewModel.companyID.getValue());
+
 
         setupaddInfor(iv_addinfor, ll_quote_information);
         setupaddInfor(iv_relative_add, ll_chance);
         setupaddInfor(iv_address_add, ll_address);
+    }
+
+    private void ConvertOpportunityfromID() {
+        viewModel.OpportunityID.observe(getViewLifecycleOwner(), id->{
+            if (id != null){
+                String companyName = getOpportunityByName(id, opportunityDAO);
+                tv_opportunity.setText(companyName);
+            }
+            else {
+                tv_opportunity.setText("");
+            }
+        });
+    }
+
+    private String getOpportunityByName(Integer id, OpportunityDAO opportunityDAO) {
+        List<Opportunity> opportunityList = opportunityDAO.getAll();
+        for (Opportunity opportunity: opportunityList){
+            if (opportunity.getId() == id){
+                return  opportunity.getTitle();
+            }
+        }
+        return "";
+    }
+
+    private void getCompanyNameByID() {
+        viewModel.companyID.observe(getViewLifecycleOwner(), id->{
+            if (id != null){
+                String companyName = getCompanyByID(id, companyRepository);
+                tv_company.setText(companyName);
+            }
+            else {
+                tv_company.setText("");
+            }
+        });
+    }
+
+    private String getCompanyByID(Integer id, CompanyRepository companyRepository) {
+        List<ToChuc> companies = companyRepository.getAllCompany();
+        for (ToChuc tc : companies){
+            if (tc.getId() == id) return tc.getCompanyName();
+        }
+        return "";
     }
 
     private void initViews(View view) {

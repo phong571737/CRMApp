@@ -14,6 +14,7 @@ public class Quote {
     private String ContactPersonName;
     private Integer ContactPersonID;
     private String OpportunityName;
+    private Integer opportunityID;
     private String State;
     private String Product;
     private Integer Quantity;
@@ -26,6 +27,7 @@ public class Quote {
     private String Description;
     private Integer calls;
     private Integer meettings;
+    private boolean converted = false;
 
     public Quote() {}
 
@@ -208,5 +210,19 @@ public class Quote {
         this.meettings = meettings;
     }
 
+    public Integer getOpportunityID() {
+        return opportunityID;
+    }
 
+    public void setOpportunityID(Integer opportunityID) {
+        this.opportunityID = opportunityID;
+    }
+
+    public boolean isConverted() {
+        return converted;
+    }
+
+    public void setConverted(boolean converted) {
+        this.converted = converted;
+    }
 }

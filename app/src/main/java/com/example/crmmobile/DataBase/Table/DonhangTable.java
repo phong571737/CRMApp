@@ -20,7 +20,6 @@ public class DonhangTable {
                     "MOTA TEXT," +
                     "GIAOCHO INTEGER," +
 
-                    // ✅ NEW
                     "NGUOITAO INTEGER," +
                     "EXTRA_JSON TEXT," +
                     "PHUONG_THUC_THANH_TOAN TEXT"+

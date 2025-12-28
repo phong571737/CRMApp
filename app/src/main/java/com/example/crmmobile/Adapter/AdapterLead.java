@@ -55,7 +55,6 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
 
     public static class LeadViewHolder extends RecyclerView.ViewHolder{
         TextView tv_name, tv_Company, tv_day, tv_job, tv_number_calls, tv_meeting;
-        ImageView iv_created_by, iv_sendto;
         ImageButton ivDots;
         Chip chip_status;
 
@@ -67,8 +66,6 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
             ivDots = itemView.findViewById(R.id.iv_dots);
             chip_status = itemView.findViewById(R.id.chip_status);
             tv_job = itemView.findViewById(R.id.tv_job);
-            iv_sendto = itemView.findViewById(R.id.iv_sendto);
-            iv_created_by = itemView.findViewById(R.id.iv_created_by);
             tv_number_calls = itemView.findViewById(R.id.tv_number_calls);
             tv_meeting = itemView.findViewById(R.id.tv_meeting);
         }
@@ -103,10 +100,6 @@ public class AdapterLead extends RecyclerView.Adapter<AdapterLead.LeadViewHolder
         viewHolder.tv_Company.setText(lead.getCongty());
         viewHolder.tv_day.setText(lead.getNgayLienHe());
         viewHolder.tv_job.setText(lead.getNganhnghe());
-        int level = InitClass.getIconNhanVien(lead.getGiaochoID());
-        viewHolder.iv_sendto.setImageLevel(level);
-        int create_by_level = InitClass.getIconNhanVien(lead.getNguoitaoID());
-        viewHolder.iv_created_by.setImageLevel(create_by_level);
         Log.e(TAG, "ID Giao cho: " + lead.getGiaochoID());
         Log.e(TAG, "ID Người tạo: " + lead.getNguoitaoID());
 

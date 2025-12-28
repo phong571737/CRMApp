@@ -12,11 +12,15 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.crmmobile.Adapter.AdapterQuoteTab;
 import com.example.crmmobile.DataBase.CaNhanRepository;
+import com.example.crmmobile.DataBase.CompanyRepository;
 import com.example.crmmobile.DataBase.QuoteRepository;
 import com.example.crmmobile.IndividualDirectory.CaNhan;
+import com.example.crmmobile.OrganizationDirectory.ToChuc;
 import com.example.crmmobile.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.List;
 
 public class QuoteDetailActivity extends AppCompatActivity {
     private static final String TAG = "QUOTE_DETAIL";
@@ -27,6 +31,7 @@ public class QuoteDetailActivity extends AppCompatActivity {
     private CreateQuoteViewModel viewModel;
     private QuoteRepository quoteRepository;
     private CaNhanRepository caNhanRepository;
+    private CompanyRepository companyRepository;
     private Quote quote;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class QuoteDetailActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(CreateQuoteViewModel.class);
         caNhanRepository = new CaNhanRepository(this);
         quoteRepository = new QuoteRepository(this);
+        companyRepository = new CompanyRepository(this);
 
         initViews();
         int QuoteID = getIntent().getIntExtra("id", -1);
@@ -46,7 +52,7 @@ public class QuoteDetailActivity extends AppCompatActivity {
             int id = quote.getID();
             String code = String.format("BG-%04d", id);
             tv_user.setText(code);
-            tv_company.setText(quote.getCompany());
+            tv_company.setText(getCompanyByID(quote.getCompanyID()));
             int contactID = quote.getContactPersonID();
             CaNhan cn = caNhanRepository.getById(contactID);
             if (cn != null){
@@ -67,6 +73,14 @@ public class QuoteDetailActivity extends AppCompatActivity {
         iv_back.setOnClickListener(v -> {
             finish();
         });
+    }
+
+    private String getCompanyByID(Integer id) {
+        List<ToChuc> companies = companyRepository.getAllCompany();
+        for (ToChuc tc : companies){
+            if (tc.getId() == id) return tc.getCompanyName();
+        }
+        return "";
     }
 
     private void setupAdapter() {
@@ -90,9 +104,11 @@ public class QuoteDetailActivity extends AppCompatActivity {
     private void setValues() {
         viewModel.QuoteName.setValue(quote.getOrderCode());
         viewModel.CompanyName.setValue(quote.getCompany());
+        viewModel.companyID.setValue(quote.getCompanyID());
         viewModel.ContactPersonName.setValue(quote.getContactPersonName());
         viewModel.ContactPersonID.setValue(quote.getContactPersonID());
         viewModel.OpportunityName.setValue(quote.getOpportunityName());
+        viewModel.OpportunityID.setValue(quote.getOpportunityID());
         viewModel.State.setValue(quote.getState());
         viewModel.TotalAmount.setValue(quote.getTotalAmount());
         viewModel.address_Ship.setValue(quote.getAddress_Ship());

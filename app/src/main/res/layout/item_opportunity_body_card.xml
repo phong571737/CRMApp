@@ -220,14 +220,14 @@
         <!--                android:clipToOutline="true" />-->
         <!--        </LinearLayout>-->
 
-        <!-- ĐƯỜNG NGĂN + NÚT TRAO ĐỔI -->
-        <View
-            android:id="@+id/view_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="32dp"
-            android:background="@color/light_gray"
-            app:layout_constraintTop_toBottomOf="@id/layout_call_chat" />
+<!--        &lt;!&ndash; ĐƯỜNG NGĂN + NÚT TRAO ĐỔI &ndash;&gt;-->
+<!--        <View-->
+<!--            android:id="@+id/view_divider"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:background="@color/light_gray"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/layout_call_chat" />-->
 
         <!--        <TextView-->
         <!--            android:id="@+id/tv_opportunity_exchange"-->

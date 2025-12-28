@@ -217,6 +217,42 @@ public class DonHangRepository {
                 new String[]{ String.valueOf(id) }
         );
     }
+    public boolean updatePaymentInfo(int orderId, String method, String status) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        // ⚠️ ĐỔI đúng tên cột trong bảng DONHANG của bạn
+        cv.put("PHUONG_THUC_THANH_TOAN", method);
+        cv.put("TINH_TRANG_THANH_TOAN", status);
+
+        int rows = db.update("DONHANG", cv, "ID = ?", new String[]{String.valueOf(orderId)});
+        return rows > 0;
+    }
+
+    public String getPaymentStatus(int orderId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // ⚠️ ĐỔI đúng tên cột trong bảng DONHANG của bạn
+        Cursor c = db.rawQuery("SELECT TINH_TRANG_THANH_TOAN FROM DONHANG WHERE ID = ?",
+                new String[]{String.valueOf(orderId)});
+        String res = null;
+        if (c.moveToFirst()) res = c.getString(0);
+        c.close();
+        return res;
+    }
+
+    public String getPaymentMethod(int orderId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // ⚠️ ĐỔI đúng tên cột trong bảng DONHANG của bạn
+        Cursor c = db.rawQuery("SELECT PHUONG_THUC_THANH_TOAN FROM DONHANG WHERE ID = ?",
+                new String[]{String.valueOf(orderId)});
+        String res = null;
+        if (c.moveToFirst()) res = c.getString(0);
+        c.close();
+        return res;
+    }
+
 
     // ===== Map Cursor -> DonHang =====
     private DonHang fromCursor(Cursor c) {

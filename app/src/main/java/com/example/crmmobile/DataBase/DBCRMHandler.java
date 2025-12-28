@@ -26,7 +26,9 @@ import java.util.List;
 public class DBCRMHandler extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "crm.db";
-    private static final int DATABASE_VERSION = 6;
+
+    // ✅ tăng version để onUpgrade chạy
+    private static final int DATABASE_VERSION = 8;
 
     public DBCRMHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,10 +60,8 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         db.execSQL(RecentAccessTable.CREATE_TABLE);
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         try {
             // v6: thêm cột EXTRA_JSON cho DONHANG
             if (oldVersion < 6) {
@@ -70,11 +70,32 @@ public class DBCRMHandler extends SQLiteOpenHelper {
                 } catch (Exception ignored) {}
             }
 
-            // ... các upgrade khác về sau
+            // ✅ v8: thêm cột thanh toán cho DONHANG
+            if (oldVersion < 8) {
+                try {
+                    db.execSQL("ALTER TABLE DONHANG ADD COLUMN PHUONG_THUC_THANH_TOAN TEXT");
+                } catch (Exception ignored) {}
+
+                try {
+                    db.execSQL("ALTER TABLE DONHANG ADD COLUMN TINH_TRANG_THANH_TOAN TEXT");
+                } catch (Exception ignored) {}
+
+                // set default để tránh null
+                try {
+                    db.execSQL("UPDATE DONHANG SET PHUONG_THUC_THANH_TOAN='Thanh toán trực tiếp' " +
+                            "WHERE PHUONG_THUC_THANH_TOAN IS NULL OR PHUONG_THUC_THANH_TOAN=''");
+                } catch (Exception ignored) {}
+
+                try {
+                    db.execSQL("UPDATE DONHANG SET TINH_TRANG_THANH_TOAN='Chưa thanh toán' " +
+                            "WHERE TINH_TRANG_THANH_TOAN IS NULL OR TINH_TRANG_THANH_TOAN=''");
+                } catch (Exception ignored) {}
+            }
 
         } catch (Exception ex) {
-            // ⚠️ Chỉ dùng khi bạn chấp nhận mất dữ liệu (fallback)
-            String[] tables = {"NHANVIEN", "COMPANY", "LEAD", "CONTACT", "COHOI", "BAOGIA", "DONHANG", "HOATDONG", "GOPY", "SANPHAM", "RECENT"};
+            // ⚠️ fallback mất dữ liệu (chỉ khi thật sự lỗi nặng)
+            String[] tables = {"NHANVIEN", "COMPANY", "LEAD", "CONTACT", "COHOI", "BAOGIA",
+                    "DONHANG", "HOATDONG", "GOPY", "SANPHAM", "RECENT"};
             for (String table : tables) {
                 db.execSQL("DROP TABLE IF EXISTS " + table);
             }
@@ -82,11 +103,12 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         }
     }
 
+    // ====== PHẦN DƯỚI GIỮ NGUYÊN NỘI DUNG CŨ ======
+
     public void add(CaNhan cn) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        // Thay KEY_HOTEN bằng "HOTEN", KEY_DANHXUNG bằng "DANHXUNG"...
         values.put("HOTEN", cn.getHoVaTen());
         values.put("DANHXUNG", cn.getDanhXung());
         values.put("TEN", cn.getTen());
@@ -96,7 +118,6 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         values.put("EMAIL", cn.getEmail());
         values.put("NGAYSINH", cn.getNgaySinh());
         values.put("NGAYTAO", cn.getNgayTao());
-        // THÊM CÁI NÀY VÀO
         values.put("NGAYSUA", cn.getNgaySua());
 
         values.put("DIACHI", cn.getDiaChi());
@@ -109,10 +130,9 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         values.put("CUOCGOI", cn.getSoCuocGoi());
         values.put("CUOCHOP", cn.getSoCuocHop());
 
-        db.insert("CONTACT", null, values); // Dùng trực tiếp tên bảng "CONTACT"
+        db.insert("CONTACT", null, values);
         db.close();
     }
-
 
     public List<CaNhan> getAllCaNhan() {
         List<CaNhan> list = new ArrayList<>();
@@ -122,7 +142,6 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 CaNhan cn = new CaNhan();
-                // Dùng getColumnIndexOrThrow với chuỗi cứng
                 cn.setId(cursor.getInt(cursor.getColumnIndexOrThrow("ID")));
                 cn.setHoVaTen(cursor.getString(cursor.getColumnIndexOrThrow("HOTEN")));
                 cn.setDanhXung(cursor.getString(cursor.getColumnIndexOrThrow("DANHXUNG")));
@@ -133,7 +152,6 @@ public class DBCRMHandler extends SQLiteOpenHelper {
                 cn.setEmail(cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")));
                 cn.setNgaySinh(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSINH")));
                 cn.setNgayTao(cursor.getString(cursor.getColumnIndexOrThrow("NGAYTAO")));
-                // THÊM CÁI NÀY VÀO
                 cn.setNgaySua(cursor.getString(cursor.getColumnIndexOrThrow("NGAYSUA")));
 
                 cn.setDiaChi(cursor.getString(cursor.getColumnIndexOrThrow("DIACHI")));
@@ -155,7 +173,6 @@ public class DBCRMHandler extends SQLiteOpenHelper {
 
     public void deleteCaNhan(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        // Dùng "CONTACT" và "ID"
         db.delete("CONTACT", "ID=?", new String[]{String.valueOf(id)});
         db.close();
     }
@@ -173,7 +190,6 @@ public class DBCRMHandler extends SQLiteOpenHelper {
         values.put("EMAIL", cn.getEmail());
         values.put("NGAYSINH", cn.getNgaySinh());
         values.put("NGAYTAO", cn.getNgayTao());
-        // THÊM CÁI NÀY VÀO
         values.put("NGAYSUA", cn.getNgaySua());
 
         values.put("DIACHI", cn.getDiaChi());

@@ -75,6 +75,16 @@ public class TabActivity extends AppCompatActivity {
             setActiveTab(tabChiTiet);
         });
 
+        tabCoHoi.setOnClickListener(v -> {
+            CoHoiFragment fragment = new CoHoiFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("CANHAN_DATA", currentCaNhan);
+            fragment.setArguments(bundle);
+
+            setFragment(fragment);
+            setActiveTab(tabCoHoi);
+        });
+
         icBack.setOnClickListener(v -> {
             finish();
         });
@@ -108,6 +118,14 @@ public class TabActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
                     setFragment(fragment);
                     setActiveTab(tabTongQuan);
+                } else if (currentFragment instanceof CoHoiFragment) {
+                    // Reload CoHoiFragment với dữ liệu mới
+                    CoHoiFragment fragment = new CoHoiFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CANHAN_DATA", currentCaNhan);
+                    fragment.setArguments(bundle);
+                    setFragment(fragment);
+                    setActiveTab(tabCoHoi);
                 }
             }
         }

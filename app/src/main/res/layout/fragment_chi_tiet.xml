@@ -10,15 +10,23 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/blue"
-        app:tabSelectedTextColor="@color/blue"
-        app:tabTextColor="@color/gray" />
+        android:background="@color/card_bg"
+        app:tabIndicatorColor="@color/brand"
+        app:tabSelectedTextColor="@color/brand"
+        app:tabTextColor="@color/text_secondary"
+        app:tabMode="scrollable"
+        app:tabIndicatorFullWidth="false"
+        app:tabTextAppearance="@style/OrderDetailTabText" />
 
-    <!-- 🔹 Vùng chứa nội dung fragment -->
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:dividerColor="@color/stroke" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
 </LinearLayout>
+

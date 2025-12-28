@@ -26,29 +26,14 @@
                 android:orientation="vertical"
                 android:padding="12dp">
 
-                <!-- Header -->
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:text="Thông tin thanh toán"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Thông tin thanh toán"
-                        android:textStyle="bold"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/iconTogglePaymentInfo"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_expand_more" />
-                </LinearLayout>
-
-                <!-- Dòng: Phương thức thanh toán * -->
+                <!-- Phương thức thanh toán (cố định) -->
                 <LinearLayout
                     android:id="@+id/rowPaymentMethod"
                     android:layout_width="match_parent"
@@ -64,7 +49,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Phương thức thanh toán *"
+                        android:text="Thanh toán trực tiếp"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -73,7 +58,7 @@
                         android:src="@drawable/ic_chevron_down_24" />
                 </LinearLayout>
 
-                <!-- Dòng: Tình trạng thanh toán -->
+                <!-- Tình trạng thanh toán -->
                 <LinearLayout
                     android:id="@+id/rowPaymentStatus"
                     android:layout_width="match_parent"
@@ -89,7 +74,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tình trạng thanh toán"
+                        android:text="Chưa thanh toán"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -101,127 +86,12 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ========== THÔNG TIN THANH TOÁN ĐỊNH KỲ ========== -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardRecurringPayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardUseCompatPadding="false">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <!-- Header -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Thông tin thanh toán định kỳ"
-                        android:textStyle="bold"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/iconToggleRecurring"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_expand_more" />
-                </LinearLayout>
-
-                <!-- Thời gian bắt đầu -->
-                <LinearLayout
-                    android:id="@+id/rowStartDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/bg_input"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="12dp">
-
-                    <TextView
-                        android:id="@+id/tvStartDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Thời gian bắt đầu"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_calendar" />
-                </LinearLayout>
-
-                <!-- Thời gian kết thúc -->
-                <LinearLayout
-                    android:id="@+id/rowEndDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_input"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="12dp">
-
-                    <TextView
-                        android:id="@+id/tvEndDate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Thời gian kết thúc"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_calendar" />
-                </LinearLayout>
-
-                <!-- Thời hạn thanh toán (dropdown) -->
-                <LinearLayout
-                    android:id="@+id/rowPaymentDue"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_input"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="12dp">
-
-                    <TextView
-                        android:id="@+id/tvPaymentDue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Thời hạn thanh toán"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_chevron_down_24" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Nút + Thêm mới -->
+        <!-- Nút + Thêm mới -> sang SOCreate4Activity -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddRecurring"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginTop="12dp"
             android:text="+ Thêm mới"
             android:textAllCaps="false"
             android:textSize="14sp"
@@ -231,7 +101,6 @@
             app:strokeWidth="1dp"
             app:backgroundTint="@android:color/transparent" />
 
-        <!-- Chừa khoảng trống cuối cho bottom buttons Hủy / Lưu của Activity -->
         <View
             android:layout_width="match_parent"
             android:layout_height="56dp" />

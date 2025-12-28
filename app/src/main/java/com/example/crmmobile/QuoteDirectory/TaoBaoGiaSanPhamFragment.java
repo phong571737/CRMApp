@@ -62,10 +62,24 @@ public class TaoBaoGiaSanPhamFragment extends Fragment {
             long price  = line.getPrice();
             int qty     = line.getQty();
 
+            // ✅ discount hiện tại của dòng sản phẩm (nếu bạn chưa lưu discount thì để 0L)
+            long currentDiscount = 0L;
+
             EditProductBottomSheet sheet =
-                    EditProductBottomSheet.newInstance(name, price, qty);
+                    EditProductBottomSheet.newInstance(name, price, qty, currentDiscount);
+
+            sheet.setListener((newQty, discountAmount) -> {
+                line.setQty(newQty);
+
+                // nếu ProductLine của bạn có field discount:
+                // line.setDiscount(discountAmount);
+
+                adapter.notifyDataSetChanged();
+            });
+
             sheet.show(getParentFragmentManager(), "EditProductBottomSheet");
         });
+
 
         // Đăng ký launcher chọn sản phẩm
         pickProductLauncher = registerForActivityResult(

@@ -60,16 +60,8 @@ public class FragmentKhac extends Fragment {
 
         JSONObject extra = safeJson(dh.getExtraJson());
 
-        // Những field này DB chưa có => lấy từ extraJson nếu có, không thì “—”
-        setText(R.id.tvSoHopDong, extra.optString("soHopDong", "—"));
-        setText(R.id.tvNgayChotDuKy, extra.optString("ngayChotDuKy", "—"));
-        setText(R.id.tvNgayKhachHangKy, extra.optString("ngayKhachHangKy", "—"));
-        setText(R.id.tvTrangThaiHopDong, extra.optString("trangThaiHopDong", "—"));
-        setText(R.id.tvDaNhanLaiHD, extra.optString("daNhanLaiHD", "—"));
-
         setText(R.id.tvCoHoi, extra.optString("coHoi", "—"));
         setText(R.id.tvBaoGia, extra.optString("baoGia", "—"));
-        setText(R.id.tvTinhTrangHoaDon, extra.optString("tinhTrangHoaDon", "—"));
 
         // Giao cho = người phụ trách
         String giaoCho = "—";

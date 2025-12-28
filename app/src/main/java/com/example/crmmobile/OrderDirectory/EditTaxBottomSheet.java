@@ -1,6 +1,8 @@
 package com.example.crmmobile.OrderDirectory;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,13 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class EditTaxBottomSheet extends BottomSheetDialogFragment {
+
+    public interface Listener {
+        void onConfirmed(int vatPercent);
+    }
+
+    private Listener listener;
+    public void setListener(Listener listener) { this.listener = listener; }
 
     private static final String ARG_AMOUNT_BEFORE_TAX = "arg_amount_before_tax";
     private static final String ARG_VAT_PERCENT       = "arg_vat_percent";
@@ -51,38 +60,46 @@ public class EditTaxBottomSheet extends BottomSheetDialogFragment {
             vatPercent      = getArguments().getInt(ARG_VAT_PERCENT, 10);
         }
 
-        // set dữ liệu ban đầu
-        edtVatPercent.setText(String.valueOf(vatPercent));
-        updateTaxAmountText(tvTaxAmount, amountBeforeTax, vatPercent);
-
         long finalAmountBeforeTax = amountBeforeTax;
 
-        // đổi % → cập nhật tiền thuế
-        edtVatPercent.setOnFocusChangeListener((view, hasFocus) -> {
-            if (!hasFocus) {
-                int percent = 0;
-                try {
-                    percent = Integer.parseInt(edtVatPercent.getText().toString());
-                } catch (Exception ignored) {}
-                updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, percent);
+        edtVatPercent.setText(String.valueOf(vatPercent));
+        updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, vatPercent);
+
+        edtVatPercent.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int p = parsePercentSafe(s != null ? s.toString() : "0");
+                updateTaxAmountText(tvTaxAmount, finalAmountBeforeTax, p);
             }
+            @Override public void afterTextChanged(Editable s) {}
         });
 
         btnCancel.setOnClickListener(view -> dismiss());
 
-        // Hiện tại FE là chính → xác nhận chỉ đóng bottom sheet
         btnConfirm.setOnClickListener(view -> {
-            // TODO: sau này truyền kết quả ngược lại Fragment nếu cần
+            int percent = parsePercentSafe(edtVatPercent.getText().toString());
+            if (listener != null) listener.onConfirmed(percent);
             dismiss();
         });
 
         return v;
     }
 
+    private int parsePercentSafe(String s) {
+        try {
+            if (s == null) return 0;
+            s = s.trim();
+            if (s.isEmpty()) return 0;
+            int p = Integer.parseInt(s.replaceAll("[^0-9]", ""));
+            if (p < 0) p = 0;
+            if (p > 100) p = 100;
+            return p;
+        } catch (Exception e) { return 0; }
+    }
+
     private void updateTaxAmountText(TextView tv, long baseAmount, int percent) {
-        long tax = baseAmount * percent / 100;
+        long tax = Math.round(baseAmount * (percent / 100.0));
         NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
-        String text = nf.format(tax) + " đ";
-        tv.setText(text);
+        tv.setText(nf.format(tax) + " đ");
     }
 }

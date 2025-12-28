@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Tiêu đề -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,9 +26,7 @@
             android:divider="@drawable/divider_invisible"
             android:showDividers="middle">
 
-            <include
-                android:id="@+id/rowRegion"
-                layout="@layout/item_info_row_simple" />
+            <!-- ✅ đã xóa rowRegion -->
 
             <include
                 android:id="@+id/rowCurrency"
@@ -39,7 +36,6 @@
                 android:id="@+id/rowTaxType"
                 layout="@layout/item_info_row_simple" />
 
-            <!-- Phần sản phẩm -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +45,6 @@
                 android:textColor="#000"
                 android:layout_marginTop="16dp" />
 
-            <!-- ✅ THAY 2 include item_san_pham set cứng bằng RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvOrderProducts"
                 android:layout_width="match_parent"
@@ -66,7 +61,6 @@
                 android:padding="12dp"
                 android:visibility="gone" />
 
-            <!-- === Tổng kết (PHẢI NẰM Ở DƯỚI CÙNG) === -->
             <include
                 android:id="@+id/layoutTongKet"
                 layout="@layout/item_tong_ket_don_hang" />

@@ -87,6 +87,7 @@ public class DonHangRepository {
             if (parts.length >= 1) congTy = parts[0].trim();
             if (parts.length >= 2) lienHe = parts[1].trim();
         }
+        v.put("EXTRA_JSON", dh.getExtraJson());
 
         v.put("CONGTY", congTy);
         v.put("NGUOILIENHE", lienHe);
@@ -235,6 +236,8 @@ public class DonHangRepository {
         String coHoiName   = getStringSafe(c, "COHOI");
         String baoGiaName  = getStringSafe(c, "BAOGIA");
         String giaoChoName = getStringSafe(c, "GIAOCHO");
+        // ===== EXTRA_JSON: ưu tiên đọc từ cột EXTRA_JSON nếu có =====
+        String extraStr = getStringSafe(c, "EXTRA_JSON");
 
         // Bạn đang dùng MoTa kiểu "Công ty - Liên hệ" để hiển thị
         String mota = getStringSafe(c, "MOTA");
@@ -253,19 +256,37 @@ public class DonHangRepository {
         dh.setGiaoChoId(0);
         dh.setNguoiTaoId(0);
 
-        // EXTRA_JSON không có cột -> để "{}" hoặc nhét thông tin text vào JSON (tùy bạn)
-        // Nếu DonHang bạn có setExtraJson() thì dùng:
+
         try {
-            JSONObject extra = new JSONObject();
-            if (congTyName != null)  extra.put("company", congTyName);
-            if (lienHeName != null)  extra.put("contact", lienHeName);
-            if (coHoiName != null)   extra.put("coHoi", coHoiName);
-            if (baoGiaName != null)  extra.put("baoGia", baoGiaName);
-            if (giaoChoName != null) extra.put("giaoCho", giaoChoName);
+            JSONObject extra = (extraStr == null || extraStr.trim().isEmpty())
+                    ? new JSONObject()
+                    : new JSONObject(extraStr);
+
+            // fallback: nhét thêm text từ các cột nếu thiếu key
+            if (congTyName != null && !extra.has("company")) extra.put("company", congTyName);
+            if (lienHeName != null && !extra.has("contact")) extra.put("contact", lienHeName);
+            if (coHoiName != null && !extra.has("coHoi")) extra.put("coHoi", coHoiName);
+            if (baoGiaName != null && !extra.has("baoGia")) extra.put("baoGia", baoGiaName);
+            if (giaoChoName != null && !extra.has("giaoCho")) extra.put("giaoCho", giaoChoName);
+
             dh.setExtraJson(extra.toString());
-        } catch (Exception e) {
-            dh.setExtraJson("{}");
+        } catch (Exception ex) {
+            // nếu JSON hỏng -> fallback "{}" + vẫn nhét được company/contact
+            try {
+                JSONObject extra = new JSONObject();
+                if (congTyName != null) extra.put("company", congTyName);
+                if (lienHeName != null) extra.put("contact", lienHeName);
+                if (coHoiName != null) extra.put("coHoi", coHoiName);
+                if (baoGiaName != null) extra.put("baoGia", baoGiaName);
+                if (giaoChoName != null) extra.put("giaoCho", giaoChoName);
+                dh.setExtraJson(extra.toString());
+            } catch (Exception ex2) {
+                dh.setExtraJson("{}");
+            }
         }
+
+
+
 
         return dh;
     }
@@ -280,7 +301,9 @@ public class DonHangRepository {
             String orderCode = dh.getTenDonHang();
             //String company   = "Công ty #" + dh.getCongTyId(); // sau này map từ CompanyRepository
             String company   = dh.getMoTa();  // tạm dùng mô tả để show tên công ty
-            String price     = String.valueOf(dh.getTongTien()) + " đ";
+            java.text.NumberFormat nf = java.text.NumberFormat.getInstance(new java.util.Locale("vi", "VN"));
+            String price = nf.format(dh.getTongTien()) + " đ";
+
             String date      = dh.getNgayDatHang();
             String status    = dh.getTinhTrang();
             String orderType = ""; // có thể để trống hoặc suy ra từ TINHTRANG

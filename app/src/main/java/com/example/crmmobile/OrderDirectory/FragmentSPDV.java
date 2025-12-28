@@ -43,6 +43,8 @@ public class FragmentSPDV extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_spdv, container, false);
+        setupTopInfoRows(view);
+
 
         donHangRepo = new DonHangRepository(requireContext());
 
@@ -143,4 +145,22 @@ public class FragmentSPDV extends Fragment {
         }
         return list;
     }
+    private void setupTopInfoRows(View root) {
+        View rowCurrency = root.findViewById(R.id.rowCurrency);
+        if (rowCurrency != null) {
+            TextView lb = rowCurrency.findViewById(R.id.tvLabel);
+            TextView vl = rowCurrency.findViewById(R.id.tvValue);
+            if (lb != null) lb.setText("Tiền tệ");
+            if (vl != null) vl.setText("VND");
+        }
+
+        View rowTaxType = root.findViewById(R.id.rowTaxType);
+        if (rowTaxType != null) {
+            TextView lb = rowTaxType.findViewById(R.id.tvLabel);
+            TextView vl = rowTaxType.findViewById(R.id.tvValue);
+            if (lb != null) lb.setText("Loại thuế");
+            if (vl != null) vl.setText("Trong nước");
+        }
+    }
+
 }

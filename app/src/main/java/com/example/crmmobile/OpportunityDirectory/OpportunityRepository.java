@@ -71,6 +71,10 @@ public class OpportunityRepository {
         return dao.searchByKeyword(keyword);
     }
 
+    public List<Opportunity> getByContactId(int contactId) {
+        return dao.getByContactId(contactId);
+    }
+
 
     public interface Callback { void onComplete(boolean success); }
 

@@ -209,7 +209,8 @@ public class OpportunityFormFragment extends Fragment {
                 "Nhận diện người ra quyết định",
                 "Phân tích nhận thức",
                 "Đề xuất/ Báo giá",
-                "Thương lượng đàm phán"
+                "Thương lượng đàm phán",
+                "Thành công"
         };
         ArrayAdapter<String> ad = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_dropdown_item_1line, stages);

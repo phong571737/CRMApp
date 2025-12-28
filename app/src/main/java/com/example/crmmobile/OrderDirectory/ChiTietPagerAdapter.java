@@ -31,8 +31,6 @@ public class ChiTietPagerAdapter extends FragmentStateAdapter {
                 return new FragmentSPDV();
             case 2:
                 return new FragmentThanhToanVanChuyen();
-            case 3:
-                return new FragmentKhac();
             default:
                 return new EmptyFragment(); // fallback
         }

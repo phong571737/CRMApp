@@ -12,9 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.crmmobile.Adapter.AdapterHoatDong;
+import com.example.crmmobile.BottomSheet.BottomSheetChiTietHoatDongFragment;
+import com.example.crmmobile.DataBase.HoatDongRepository;
+import com.example.crmmobile.HoatDongDirectory.HoatDong;
 import com.example.crmmobile.OpportunityDirectory.Opportunity;
 import com.example.crmmobile.R;
+
+import java.util.ArrayList;
 
 public class OpportunityDetailTabOverviewFragment extends Fragment {
 
@@ -22,6 +30,12 @@ public class OpportunityDetailTabOverviewFragment extends Fragment {
     private OpportunityDetailViewModel detailVM;
 
     private TextView tvTitle, tvPrice, tvDate, tvStatus, tvCallCount, tvMessageCount, tvExchange;
+    private RecyclerView rvHoatDong;
+    private LinearLayout layoutEmptyActivities;
+    private LinearLayout layoutContentActivities;
+    private HoatDongRepository hoatDongRepository;
+    private AdapterHoatDong adapterHoatDong;
+    private ArrayList<HoatDong> hoatDongList;
 
     public static OpportunityDetailTabOverviewFragment newInstance(int opportunityId) {
         OpportunityDetailTabOverviewFragment fragment = new OpportunityDetailTabOverviewFragment();
@@ -55,11 +69,39 @@ public class OpportunityDetailTabOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Initialize views
+        rvHoatDong = view.findViewById(R.id.rvHoatDong);
+        layoutEmptyActivities = view.findViewById(R.id.layout_empty_activities);
+        hoatDongRepository = new HoatDongRepository(requireContext());
+        hoatDongList = new ArrayList<>();
+        
+        // Setup RecyclerView
+        adapterHoatDong = new AdapterHoatDong(requireContext(), hoatDongList);
+        rvHoatDong.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvHoatDong.setAdapter(adapterHoatDong);
+        
+        // Set click listener để hiển thị bottom sheet chi tiết
+        adapterHoatDong.setOnItemClickListener(new AdapterHoatDong.OnItemClickListener() {
+            @Override
+            public void onMoreClick(HoatDong hd) {
+                // Có thể xử lý menu more nếu cần
+            }
+
+            @Override
+            public void onItemClick(HoatDong hd) {
+                // Hiển thị bottom sheet chi tiết
+                BottomSheetChiTietHoatDongFragment bottomSheet = BottomSheetChiTietHoatDongFragment.newInstance(hd);
+                bottomSheet.show(getParentFragmentManager(), "chi_tiet_hoat_dong");
+            }
+        });
 
         // 🔹 Hoạt động đã lên lịch
         ImageView ivOpportunity = view.findViewById(R.id.iv_scheduled_activities_toggle);
-        LinearLayout layoutOpportunity = view.findViewById(R.id.layout_empty_activities);
-        setupToggle(ivOpportunity, layoutOpportunity);
+        layoutContentActivities = view.findViewById(R.id.layout_content_activities);
+        setupToggle(ivOpportunity, layoutContentActivities);
+
+        // Load hoạt động
+        loadHoatDong();
 
         // 🔹 Comment
 //        ImageView ivOpportunity2 = view.findViewById(R.id.iv_comment_toggle);
@@ -75,6 +117,26 @@ public class OpportunityDetailTabOverviewFragment extends Fragment {
                 }
         );
 
+    }
+    
+    private void loadHoatDong() {
+        if (opportunityId <= 0) {
+            return;
+        }
+        
+        hoatDongList.clear();
+        ArrayList<HoatDong> list = hoatDongRepository.getHoatDongByCoHoi(opportunityId);
+        hoatDongList.addAll(list);
+        adapterHoatDong.notifyDataSetChanged();
+        
+        // Hiển thị RecyclerView hoặc empty state
+        if (hoatDongList.isEmpty()) {
+            layoutEmptyActivities.setVisibility(View.VISIBLE);
+            rvHoatDong.setVisibility(View.GONE);
+        } else {
+            layoutEmptyActivities.setVisibility(View.GONE);
+            rvHoatDong.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupToggle(ImageView toggleIcon, LinearLayout contentLayout) {

@@ -37,7 +37,7 @@ public class FragmentChiTiet extends Fragment {
 
         // 🔹 Danh sách tên tab con
         List<String> tabTitles = Arrays.asList(
-                "Thông tin chung", "SP/DV", "Thanh toán & vận chuyển", "Khác"
+                "Thông tin chung", "SP/DV", "Thanh toán & vận chuyển"
         );
 
         // 🔹 Gắn adapter cho ViewPager2 (adapter riêng của tab Chi tiết)

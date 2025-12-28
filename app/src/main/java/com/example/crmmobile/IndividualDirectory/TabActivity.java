@@ -1,6 +1,7 @@
 package com.example.crmmobile.IndividualDirectory;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class TabActivity extends AppCompatActivity {
         initViews();
         SetRecentCanhan();
         fillHeaderData();
+        setupClickListeners();
 
         // --- Mặc định hiển thị tab Tổng quan ---
         TongQuanFragment tongQuanFragment = new TongQuanFragment();
@@ -185,6 +187,22 @@ public class TabActivity extends AppCompatActivity {
             }
             tvHeaderNguoiPhuTrach.setText(checkNull(tenNhanVien));
         }
+    }
+
+    private void setupClickListeners() {
+        // Click vào số điện thoại để mở app điện thoại
+        tvHeaderSdt.setOnClickListener(v -> {
+            String phoneNumber = tvHeaderSdt.getText().toString();
+            if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+                // Loại bỏ khoảng trắng và ký tự đặc biệt để chỉ giữ lại số
+                phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
+                if (!phoneNumber.isEmpty()) {
+                    Uri phoneUri = Uri.parse("tel:" + phoneNumber);
+                    Intent intent = new Intent(Intent.ACTION_DIAL, phoneUri);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setFragment(Fragment fragment) {

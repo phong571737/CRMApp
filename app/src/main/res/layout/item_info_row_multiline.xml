@@ -3,27 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp"
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="0dp"
+    android:paddingVertical="8dp">
 
+    <!-- Cột trái (Label) - phải giống item_info_row -->
     <TextView
         android:id="@+id/tvLabel"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingStart="0dp"
+        android:layout_marginStart="0dp"
         android:text="Tiêu đề"
-        android:textColor="#9CA3AF"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textColor="#6B7280" />
 
+    <!-- Cột phải (Value) - cho phép nhiều dòng -->
     <TextView
         android:id="@+id/tvValue"
         android:layout_width="0dp"
-        android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:text="Đơn hàng công ty TNHH Công nghệ CloudGO"
-        android:textStyle="bold"
-        android:textColor="#374151"
+        android:layout_weight="2"
+        android:gravity="end"
+        android:text="—"
         android:textSize="14sp"
-        android:maxLines="2"
-        android:ellipsize="end"/>
+        android:textStyle="bold"
+        android:textColor="#111827"
+        android:maxLines="3"
+        android:ellipsize="end" />
 
 </LinearLayout>
+
+

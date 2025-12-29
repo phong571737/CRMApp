@@ -37,7 +37,6 @@ public class TaiLieuAdapter extends RecyclerView.Adapter<TaiLieuAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TaiLieu taiLieu = danhSachTaiLieu.get(position);
 
-        // 🟦 Thiết lập icon tự động theo loại file
         int iconRes;
         if (taiLieu.getTenFile().endsWith(".pdf")) {
             iconRes = R.drawable.pdf;
@@ -54,7 +53,6 @@ public class TaiLieuAdapter extends RecyclerView.Adapter<TaiLieuAdapter.ViewHold
 
         holder.tvFileOwner.setText(taiLieu.getNguoiTao());
 
-        // 🟢 Xử lý click cho từng nút
         holder.btnDownload.setOnClickListener(v ->
                 Toast.makeText(context, "Tải xuống: " + taiLieu.getTenFile(), Toast.LENGTH_SHORT).show()
         );
@@ -73,7 +71,6 @@ public class TaiLieuAdapter extends RecyclerView.Adapter<TaiLieuAdapter.ViewHold
         return danhSachTaiLieu.size();
     }
 
-    // 🧩 ViewHolder ánh xạ đúng ID trong item_tai_lieu.xml
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFileType, btnDownload, btnShare, btnDelete;
         TextView tvFileName, tvFileTime, tvFileOwner;

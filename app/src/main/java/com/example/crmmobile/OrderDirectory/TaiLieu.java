@@ -16,11 +16,9 @@ public class TaiLieu {
         this.gio = gio;
         this.nguoiTao = nguoiTao;
 
-        //Tự động chọn icon theo phần mở rộng
         this.iconRes = getIconForFile(tenFile);
     }
 
-    //Lấy icon theo loại file
     private int getIconForFile(String fileName) {
         String lower = fileName.toLowerCase();
 
@@ -35,7 +33,6 @@ public class TaiLieu {
         }
     }
 
-    //Getter
     public String getTenFile() { return tenFile; }
     public String getNgay() { return ngay; }
     public String getGio() { return gio; }

@@ -30,8 +30,6 @@ public class OrderDetailActivity extends AppCompatActivity {
     private ImageView iv_back;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
-
-    // Header views
     private TextView tvOrderCode, tvCustomer, tvCompany, tvPrice, tvTag, tvStatus;
 
     // repos
@@ -41,7 +39,6 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
 
-    // để Fragment đọc đúng đơn hiện tại
     private DonHang currentDonHang;
 
     public DonHang getCurrentDonHang() {
@@ -63,7 +60,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         companyRepo = new CompanyRepository(this);
         caNhanRepo  = new CaNhanRepository(this);
 
-        // bind header
+        // bind
         tvOrderCode = findViewById(R.id.tvOrderCode);
         tvCustomer  = findViewById(R.id.tvCustomer);
         tvCompany   = findViewById(R.id.tvCompany);
@@ -93,7 +90,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bindHeaderFromDb(); // ✅ quay lại là refresh
+        bindHeaderFromDb(); // refresh
     }
 
     private void bindHeaderFromDb() {
@@ -102,7 +99,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         DonHang dh = donHangRepo.getById(orderId);
         if (dh == null) return;
 
-        currentDonHang = dh; // ✅ DÒNG QUAN TRỌNG: để Fragment đọc đúng tình trạng thanh toán
+        currentDonHang = dh; //
 
         safeSet(tvOrderCode, dh.getTenDonHang());
 
@@ -139,7 +136,6 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
         } catch (Exception ignored) {}
 
-        // fallback: bạn đang nhét "company - contact" trong MOTA
         String mota = dh.getMoTa();
         if (mota != null && mota.contains(" - ")) return mota.split(" - ")[0].trim();
         return (mota != null && !mota.trim().isEmpty()) ? mota.trim() : "—";

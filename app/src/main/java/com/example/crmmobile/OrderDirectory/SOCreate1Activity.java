@@ -44,7 +44,6 @@ import java.util.Locale;
 
 public class SOCreate1Activity extends AppCompatActivity {
 
-    // ===== Host Draft (để fragment có thể ghi vào Activity nếu bạn muốn mở rộng sau) =====
     public interface DraftOrderHost {
         ArrayList<ProductLine> getDraftProducts();
         JSONObject getDraftExtra();
@@ -55,24 +54,16 @@ public class SOCreate1Activity extends AppCompatActivity {
     private final ArrayList<ProductLine> draftProducts = new ArrayList<>();
     private final JSONObject draftExtra = new JSONObject();
 
-    // ===== Views =====
     private TextInputEditText edtOrderDate;
     private View generalContainer;
     private View otherTabContainer;
-
-    // ===== Repo =====
     private DonHangRepository donHangRepository;
 
-    // ===== Cache fragment instances (QUAN TRỌNG: không bị mất dữ liệu khi đổi tab) =====
     private final Fragment productsFragment = new SOProductsFragment();
     private final Fragment paymentFragment  = new ThanhToanFragment();
 
-    
-    // Danh sách công ty từ database và ID công ty được chọn
     private List<ToChuc> companyList = new ArrayList<>();
     private int selectedCongTyId = 0;
-    
-    // Danh sách người liên hệ từ database và ID người liên hệ được chọn
     private List<CaNhan> contactList = new ArrayList<>();
     private int selectedNguoiLienHeId = 0;
     @Override
@@ -82,7 +73,6 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         donHangRepository = new DonHangRepository(this);
 
-        // ----- Toolbar + nút back -----
         MaterialToolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
         if (getSupportActionBar() != null) {
@@ -90,11 +80,9 @@ public class SOCreate1Activity extends AppCompatActivity {
         }
         if (tb != null) tb.setNavigationOnClickListener(v -> goBack());
 
-        // ----- Containers -----
         generalContainer  = findViewById(R.id.generalContainer);
         otherTabContainer = findViewById(R.id.otherTabContainer);
 
-        // ----- TabLayout -----
         TabLayout tabs = findViewById(R.id.tabLayout);
         if (tabs != null) {
             tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -129,12 +117,10 @@ public class SOCreate1Activity extends AppCompatActivity {
             showGeneral();
         }
 
-        // ========== Logic "Thông tin chung" ==========
         AutoCompleteTextView actCompany  = findViewById(R.id.actCompany);
         AutoCompleteTextView actContact  = findViewById(R.id.actContact);
         AutoCompleteTextView actStatus   = findViewById(R.id.actStatus);
 
-        // ✅ Không set cứng: lấy danh sách từ DB (nếu DB có dữ liệu thì tự show)
         bindCompanyAutoComplete(actCompany);
         bindContactAutoComplete(actContact);
         // Load danh sách công ty từ database
@@ -210,7 +196,7 @@ public class SOCreate1Activity extends AppCompatActivity {
             });
         }
 
-        // Status: có thể để cứng vì là enum trạng thái đơn (không phải data DB)
+        // Status
         if (actStatus != null) {
             actStatus.setAdapter(new ArrayAdapter<>(
                     this, android.R.layout.simple_list_item_1,
@@ -233,8 +219,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         View btnSave = findViewById(R.id.btnSave);
         if (btnSave != null) btnSave.setOnClickListener(v -> saveOrder());
     }
-
-    // ===== AutoComplete from DB =====
     private void bindCompanyAutoComplete(AutoCompleteTextView actCompany) {
         if (actCompany == null) return;
         try {
@@ -251,7 +235,7 @@ public class SOCreate1Activity extends AppCompatActivity {
                         this, android.R.layout.simple_list_item_1, names));
             }
         } catch (Exception ignored) {
-            // nếu DB chưa có bảng/company repo lỗi -> không crash
+
         }
     }
 
@@ -271,7 +255,6 @@ public class SOCreate1Activity extends AppCompatActivity {
                         this, android.R.layout.simple_list_item_1, names));
             }
         } catch (Exception ignored) {
-            // nếu DB chưa có bảng/contact repo lỗi -> không crash
         }
     }
 
@@ -295,7 +278,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         return true;
     }
 
-    // ===== Hiển thị container =====
     private void showGeneral() {
         if (generalContainer != null) generalContainer.setVisibility(View.VISIBLE);
         if (otherTabContainer != null) otherTabContainer.setVisibility(View.GONE);
@@ -311,7 +293,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         }
     }
 
-    // ===== Lưu đơn hàng vào DB (FLOW 10) =====
     private void saveOrder() {
         TextInputEditText edtTitle = findViewById(R.id.edtTitle);
         TextInputEditText edtPhone = findViewById(R.id.edtPhone);
@@ -327,7 +308,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         String statusStr  = actStatus != null ? actStatus.getText().toString().trim() : "";
         String dateStr    = edtOrderDate != null ? edtOrderDate.getText().toString().trim() : "";
 
-        // Validate
         if (title.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập tiêu đề đơn hàng", Toast.LENGTH_SHORT).show();
             return;
@@ -338,7 +318,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         }
         if (statusStr.isEmpty()) statusStr = "Mới";
 
-        // ===== Lấy sản phẩm (ưu tiên draftProducts; nếu rỗng thì pull từ SOProductsFragment) =====
         List<ProductLine> productsForSave = getProductsForSave();
 
         int totalQty = calcTotalQty(productsForSave);
@@ -346,45 +325,32 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         String productsJson = encodeProductsJson(productsForSave);
 
-
-        // ===== Tạo DonHang để insert (không set cứng nữa) =====
         DonHang dh = new DonHang();
         dh.setTenDonHang(title);
         dh.setNgayDatHang(dateStr);
         dh.setTinhTrang(statusStr);
-
-        // ✅ Lưu extra (thanh toán + thông tin create4) xuống DB
         dh.setExtraJson(draftExtra.toString());
 
-
-        // Chưa có UI -> để trống
         dh.setNgayNhanHang("");
         // Lưu ID công ty và người liên hệ đã chọn
         dh.setCongTyId(selectedCongTyId);
         dh.setNguoiLienHeId(selectedNguoiLienHeId);
-        dh.setCoHoiId(0);         // sau này map từ Opportunity
-        dh.setBaoGiaId(0);        // sau này map từ Quote
+        dh.setCoHoiId(0);
+        dh.setBaoGiaId(0);
 
-        // ✅ Lưu JSON sản phẩm vào cột SANPHAM
         dh.setSanPham(productsJson);
-
-        // ✅ Lưu tổng
         dh.setSoLuong(totalQty);
 
-        long grandTotal = getGrandTotalFromProductsFragment(); // ✅ tổng cộng sau giảm giá + thuế
-        if (grandTotal <= 0) grandTotal = totalMoney;         // fallback nếu fragment chưa sẵn sàng
+        long grandTotal = getGrandTotalFromProductsFragment(); //tổng cộng sau giảm giá + thuế
+        if (grandTotal <= 0) grandTotal = totalMoney;
 
         dh.setTongTien(grandTotal);
 
 
-        // donGia bạn có thể để 0 (vì đã có chi tiết từng dòng trong JSON)
         dh.setDonGia(0);
 
-        // ✅ MoTa: giữ format "Công ty - Liên hệ" để các màn chi tiết bạn parse vẫn chạy
-        // (phoneStr bạn có thể dùng sau)
         dh.setMoTa(companyStr + " - " + contactStr);
 
-        // Các ID module khác: tạm 0 (không set cứng tên, chỉ là placeholder số)
         dh.setCongTyId(0);
         dh.setNguoiLienHeId(0);
         dh.setCoHoiId(0);
@@ -394,7 +360,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         long newId = donHangRepository.insert(dh);
 
         if (newId > 0) {
-            // ✅ Nếu bạn đã thêm cột EXTRA_JSON thì Activity tự update (không cần sửa DonHang.java)
             trySaveExtraJsonIfExists(newId);
 
             Toast.makeText(this, "Lưu đơn hàng thành công", Toast.LENGTH_SHORT).show();
@@ -404,17 +369,14 @@ public class SOCreate1Activity extends AppCompatActivity {
         }
     }
 
-    // ===== Pull products from fragment (để không cần sửa SOProductsFragment vẫn lưu được) =====
     private List<ProductLine> getProductsForSave() {
         ArrayList<ProductLine> out = new ArrayList<>();
 
-        // 1) nếu bạn đã sửa fragment theo host -> draftProducts có dữ liệu
         if (!draftProducts.isEmpty()) {
             out.addAll(draftProducts);
             return out;
         }
 
-        // 2) nếu chưa sửa fragment -> đọc từ field "data" của SOProductsFragment bằng reflection
         try {
             if (productsFragment instanceof SOProductsFragment) {
                 Field f = SOProductsFragment.class.getDeclaredField("data");
@@ -484,8 +446,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         return total;
     }
 
-    // ===== EXTRA_JSON (thanh toán/vận chuyển) =====
-    // ThanhToanFragment sau này chỉ cần gọi: ((DraftOrderHost) requireActivity()).putExtra("paymentMethod", "...");
     private void trySaveExtraJsonIfExists(long orderId) {
         try {
             if (draftExtra.length() == 0) return;
@@ -496,14 +456,13 @@ public class SOCreate1Activity extends AppCompatActivity {
             ContentValues cv = new ContentValues();
             cv.put("EXTRA_JSON", draftExtra.toString());
 
-            // Nếu DB chưa có cột EXTRA_JSON -> sẽ throw, mình bắt để không crash
             db.update("DONHANG", cv, "ID=?", new String[]{String.valueOf(orderId)});
             db.close();
         } catch (Exception ignored) {
         }
     }
 
-    // ===== Date picker =====
+    //Date
     private void openDatePicker() {
         Calendar c = Calendar.getInstance();
         new DatePickerDialog(this, (view, y, m, d) -> {
@@ -514,7 +473,6 @@ public class SOCreate1Activity extends AppCompatActivity {
                 c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    // ===== DraftOrderHost methods (để fragment dùng nếu bạn muốn) =====
     public ArrayList<ProductLine> getDraftProducts() {
         return draftProducts;
     }

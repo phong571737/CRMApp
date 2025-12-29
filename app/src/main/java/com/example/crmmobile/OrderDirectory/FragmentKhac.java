@@ -75,7 +75,6 @@ public class FragmentKhac extends Fragment {
         setText(R.id.tvNgayTao, extra.optString("ngayTao", "—"));
         setText(R.id.tvNgaySua, extra.optString("ngaySua", "—"));
 
-        // Điều khoản / mô tả: ưu tiên extraJson, fallback dùng dh.getMoTa()
         String dk = extra.optString("dieuKhoan", "");
         if (dk.isEmpty()) dk = "—";
         setText(R.id.tvDieuKhoan, dk);

@@ -11,17 +11,14 @@ public class ProductLine {
     private int qty;
     private long price;
 
-    // ===== Discount state (để mở lại bottomsheet đúng) =====
     private int discountType = DISCOUNT_NONE;
-    private int discountPercent = 0;   // 0..100
-    private long discountDirect = 0L;  // tiền nhập trực tiếp
+    private int discountPercent = 0;
+    private long discountDirect = 0L;
 
-    // tiền giảm thực tế dùng tính toán
     private long discountAmount = 0L;
 
-    // ===== Tax per line (VAT) =====
-    private int vatPercent = 0;   // 0 = không áp dụng, 10 = VAT 10%
-    private long taxAmount = 0L;  // tiền thuế dòng
+    private int vatPercent = 0;
+    private long taxAmount = 0L;
 
     public ProductLine(String name, String note, int qty, long price) {
         this.name = name;
@@ -40,13 +37,11 @@ public class ProductLine {
     public void setQty(int qty) { this.qty = Math.max(1, qty); recalc(); }
     public void setPrice(long price) { this.price = Math.max(0L, price); recalc(); }
 
-    // ===== Discount getters =====
     public int getDiscountType() { return discountType; }
     public int getDiscountPercent() { return discountPercent; }
     public long getDiscountDirect() { return discountDirect; }
-    public long getDiscountAmount() { return discountAmount; } // tiền giảm thực tế
+    public long getDiscountAmount() { return discountAmount; }
 
-    // ===== Tax getters =====
     public int getVatPercent() { return vatPercent; }
     public long getTaxAmount() { return taxAmount; }
 
@@ -54,19 +49,16 @@ public class ProductLine {
         return (long) Math.max(1, qty) * Math.max(0L, price);
     }
 
-    /** Sau giảm giá (chưa thuế) */
     public long getAfterDiscountAmount() {
         long base = getBaseAmount();
         long d = Math.min(Math.max(0L, discountAmount), base);
         return Math.max(0L, base - d);
     }
 
-    /** Thành tiền cuối của dòng (sau giảm + thuế dòng) */
     public long getFinalAmount() {
         return getAfterDiscountAmount() + Math.max(0L, taxAmount);
     }
 
-    // ===== Set discount (giữ state để reopen đúng) =====
     public void setNoDiscount() {
         this.discountType = DISCOUNT_NONE;
         this.discountPercent = 0;
@@ -88,13 +80,11 @@ public class ProductLine {
         recalc();
     }
 
-    /** giữ tương thích code cũ (nếu chỗ nào còn gọi setDiscountAmount) */
     public void setDiscountAmount(long discountAmount) {
         // nếu gọi setDiscountAmount thì xem như "direct"
         setDiscountDirect(discountAmount);
     }
 
-    // ===== Set VAT per line =====
     public void setVatPercent(int percent) {
         this.vatPercent = clamp(percent, 0, 100);
         recalc();
@@ -114,7 +104,6 @@ public class ProductLine {
         if (d > base) d = base;
         this.discountAmount = d;
 
-        // taxAmount tính trên sau giảm
         long afterDiscount = Math.max(0L, base - d);
         if (vatPercent > 0) {
             this.taxAmount = Math.round(afterDiscount * (vatPercent / 100.0));

@@ -46,14 +46,11 @@ public class OrderFragment extends Fragment {
     private List<Order> orderList;
     private OrderAdapter orderAdapter;
     private EditText edtSearch;
-
-    // giữ RecyclerView/FAB để onResume reload không cần find lại (không bắt buộc nhưng sạch)
     private RecyclerView recyclerView;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) { //phải public
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //  Fragment không dùng EdgeToEdge.enable(this) + setContentView(...)
     }
 
     @SuppressLint("MissingInflatedId")
@@ -83,9 +80,6 @@ public class OrderFragment extends Fragment {
         orderList = donHangRepository.getOrdersForList();
         //allOrders: toàn bộ dữ liệu
         allOrders = donHangRepository.getOrdersForList();
-
-        //adapter: nếu constructor của bạn đang là (List<Order>, Context) thì truyền ctx
-        // (tránh truyền this(Fragment) gây lỗi)
         orderAdapter = new OrderAdapter(orderList, ctx, this::showBottomSheet);
 
 
@@ -117,8 +111,6 @@ public class OrderFragment extends Fragment {
             });
         }
 
-        // ===== Xử lý insets (status/nav bar) cho root =====
-        //layout fragment_order không có id "main" -> dùng root view luôn
         ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
             Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(sys.left, sys.top, sys.right, 0);
@@ -145,8 +137,6 @@ public class OrderFragment extends Fragment {
         if (donHangRepository == null) return;
 
         List<Order> fresh = donHangRepository.getOrdersForList();
-
-        // Nếu bạn đang có allOrders / orderList / search thì làm đúng theo kiểu dưới:
         allOrders.clear();
         allOrders.addAll(fresh);
 
@@ -157,17 +147,15 @@ public class OrderFragment extends Fragment {
     }
 
 
-    // ===== BottomSheet hành động cho từng đơn =====
+    //BottomSheet hành động cho từng đơn
     public void showBottomSheet(Order order) {
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
 
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet_actions, null, false);
         LinearLayout layoutActions = view.findViewById(R.id.layoutActions);
 
-        //1) GHIM ĐƠN HÀNG
+        //GHIM ĐƠN HÀNG
         addActionItem(layoutActions, R.drawable.keep, "Ghim đơn hàng", () -> {
-            // TODO: nếu bạn có cột "pinned/starred" trong DB thì update tại đây
-            // Ví dụ: donHangRepository.setPinned(order.getId(), 1);
 
             Toast.makeText(requireContext(), "Đã ghim đơn hàng", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
@@ -175,7 +163,7 @@ public class OrderFragment extends Fragment {
 
 
 
-        // (Tuỳ bạn)3) HỦY ĐƠN HÀNG (nếu muốn giữ thì để lại, không muốn thì xóa block này)
+        // HỦY ĐƠN HÀNG
         addActionItem(layoutActions, R.drawable.ic_escape, "Hủy đơn hàng", () -> {
             new AlertDialog.Builder(requireContext())
                     .setTitle("Hủy đơn hàng")
@@ -210,7 +198,6 @@ public class OrderFragment extends Fragment {
 
         orderList.clear();
         if (key.isEmpty()) {
-            // Không nhập gì -> hiện lại tất cả
             orderList.addAll(allOrders);
         } else {
             for (Order o : allOrders) {
@@ -226,7 +213,6 @@ public class OrderFragment extends Fragment {
 
 
     private void addActionItem(LinearLayout parent, int iconRes, String text, Runnable onClick) {
-        //LayoutInflater cần Context (không dùng LayoutInflater.from(this))
         View itemView = LayoutInflater.from(requireContext()).inflate(R.layout.item_action, parent, false);
         ImageView icon = itemView.findViewById(R.id.actionIcon);
         TextView label = itemView.findViewById(R.id.actionText);

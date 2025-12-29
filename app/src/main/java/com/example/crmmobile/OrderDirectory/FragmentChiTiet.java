@@ -35,21 +35,17 @@ public class FragmentChiTiet extends Fragment {
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
 
-        // 🔹 Danh sách tên tab con
         List<String> tabTitles = Arrays.asList(
                 "Thông tin chung", "SP/DV", "Thanh toán & vận chuyển"
         );
 
-        // 🔹 Gắn adapter cho ViewPager2 (adapter riêng của tab Chi tiết)
         pagerAdapter = new ChiTietPagerAdapter(this, tabTitles);
         viewPager.setAdapter(pagerAdapter);
 
-        // 🔹 Liên kết TabLayout với ViewPager2
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(tabTitles.get(position))
         ).attach();
 
-        // 🔹 Mặc định mở tab đầu tiên
         viewPager.setCurrentItem(0);
 
         return view;

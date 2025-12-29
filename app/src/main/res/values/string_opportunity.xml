@@ -90,7 +90,7 @@
     <string name="hint_value">Giá trị cơ hội</string>
     <string name="hint_sales_stage">Bước bán hàng <font color='#FF0000'>*</font></string>
     <string name="hint_success_rate">Tỷ lệ thành công <font color='#FF0000'>*</font></string>
-    <string name="hint_expected_date">Ngày chốt dự kiến <font color='#FF0000'>*</font></string>
+    <string name="hint_expected_date">Ngày chốt thực tế <font color='#FF0000'>*</font></string>
     <string name="hint_expected_date_2">Ngày chốt dự kiến </string>
     <string name="hint_description">Mô tả</string>
     <string name="section_opportunity_management">Thông tin quản lý</string>

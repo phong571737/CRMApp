@@ -58,7 +58,7 @@ public class ProductPickActivity extends AppCompatActivity {
             Intent out = new Intent();
             out.putExtra(EXTRA_NAME,  p.name);
             out.putExtra(EXTRA_PRICE, p.price);
-            out.putExtra(EXTRA_NOTE,  p.badge); // tạm dùng badge làm note
+            out.putExtra(EXTRA_NOTE,  p.badge);
             setResult(RESULT_OK, out);
             finish();
         });

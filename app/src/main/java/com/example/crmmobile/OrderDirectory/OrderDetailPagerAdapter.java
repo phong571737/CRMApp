@@ -27,7 +27,7 @@ public class OrderDetailPagerAdapter extends FragmentStateAdapter {
             case "Tổng quan":
                 return new TongQuanFragment();
             case "Chi tiết":
-                return new FragmentChiTiet(); //tab "Chi tiết"
+                return new FragmentChiTiet();
             default:
                 return new EmptyFragment();
         }

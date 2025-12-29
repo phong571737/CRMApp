@@ -122,7 +122,6 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         tvName.setText(name);
         tvQty.setText(String.valueOf(Math.max(1, qty)));
 
-        // ✅ INIT đúng theo state (FIX lỗi reopen)
         if (discountType == ProductLine.DISCOUNT_PERCENT) {
             rbDiscountPercent.setChecked(true);
             edtPercent.setText(String.valueOf(Math.max(0, discountPercent)));
@@ -140,7 +139,6 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
             if (rbNoTax != null) rbNoTax.setChecked(true);
         }
 
-        // ✅ radio exclusive (tránh RadioGroup bị bọc layout gây lỗi)
         final boolean[] lock = {false};
         CompoundButton.OnCheckedChangeListener exclusive = (button, isChecked) -> {
             if (lock[0] || !isChecked) return;
@@ -161,7 +159,7 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         rbDiscountPercent.setOnCheckedChangeListener(exclusive);
         rbDiscountDirect.setOnCheckedChangeListener(exclusive);
 
-        // click vào ô nhập => tick đúng radio
+        // click vào ô nhập
         edtPercent.setOnClickListener(x -> rbDiscountPercent.setChecked(true));
         edtDirect.setOnClickListener(x -> rbDiscountDirect.setChecked(true));
         edtPercent.setOnFocusChangeListener((vv, hasFocus) -> { if (hasFocus) rbDiscountPercent.setChecked(true); });
@@ -204,7 +202,6 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         btnClose.setOnClickListener(view -> dismiss());
         btnCancel.setOnClickListener(view -> dismiss());
 
-        // ✅ CONFIRM: trả đúng kiểu + giá trị gốc (% hoặc direct) + VAT
         btnConfirm.setOnClickListener(view -> {
             int q = parseIntSafe(tvQty.getText().toString(), 1);
             if (q < 1) q = 1;
@@ -239,7 +236,6 @@ public class EditProductBottomSheet extends BottomSheetDialogFragment {
         boolean isDirect  = rbDirect.isChecked();
         etPercent.setEnabled(isPercent);
         etDirect.setEnabled(isDirect);
-        // ✅ KHÔNG reset text để tránh mất dữ liệu khi chuyển qua lại
     }
 
     private void recalc(long price,

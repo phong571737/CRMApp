@@ -39,10 +39,7 @@ public class SOProductsFragment extends Fragment {
 
     private ActivityResultLauncher<Intent> pickProductLauncher;
 
-    // ✅ Giảm giá chung (order-level) – KHÁC với giảm giá từng SP
     private long globalDiscountExtra = 0L;
-
-    // ✅ Thuế order-level (VAT %) – KHÁC với VAT từng SP
     private double taxRate = 0.0;
 
     private final NumberFormat nf = NumberFormat.getInstance(new Locale("vi", "VN"));
@@ -138,7 +135,6 @@ public class SOProductsFragment extends Fragment {
             });
         }
 
-        // ===== Icon THUẾ (order-level) =====
         ImageView iconThue = v.findViewById(R.id.iconTooltipThue);
         if (iconThue != null) {
             iconThue.setOnClickListener(view1 -> {
@@ -149,14 +145,12 @@ public class SOProductsFragment extends Fragment {
 
                 EditTaxBottomSheet sheet = EditTaxBottomSheet.newInstance(beforeTax, vatDefault, lineTaxSum);
 
-                // ✅ FIX: BẮT CALLBACK (trước đây bạn comment nên không cập nhật)
                 sheet.setListener(percent -> setTaxPercent(percent));
 
                 sheet.show(getParentFragmentManager(), "EditTax");
             });
         }
 
-        // ===== Icon GIẢM GIÁ CHUNG (order-level) =====
         ImageView iconGiamGia = v.findViewById(R.id.iconTooltipGiamGia);
         if (iconGiamGia != null) {
             iconGiamGia.setOnClickListener(clicked -> {
@@ -186,7 +180,6 @@ public class SOProductsFragment extends Fragment {
         updateVisibility();
     }
 
-    // ====== TÍNH TOÁN ======
     private long calcSubtotalBase() {
         long sum = 0L;
         for (ProductLine p : data) sum += p.getBaseAmount();
@@ -262,7 +255,6 @@ public class SOProductsFragment extends Fragment {
         if (tvTongCong != null)     tvTongCong.setText(nf.format(grandTotal) + " đ");
     }
 
-    // ✅ Tổng cộng hiện tại (bao gồm thuế dòng + thuế order)
     public long getCurrentTotal() {
         long beforeTax = calcBeforeTax();
         long totalTax = calcLineTaxSum() + calcOrderTax(beforeTax);

@@ -30,7 +30,6 @@ public class FragmentSPDV extends Fragment {
     private RecyclerView rv;
     private TextView tvEmpty;
 
-    // Tổng kết (include item_tong_ket_don_hang)
     private View layoutTongKet;
     private TextView tvTamTinh, tvGiamGiaChung, tvTongGiam, tvTruocThue, tvThue, tvTongThue, tvTongCong;
 
@@ -102,7 +101,6 @@ public class FragmentSPDV extends Fragment {
         tvTongThue     = layoutTongKet.findViewById(R.id.tvTongThue);
         tvTongCong     = layoutTongKet.findViewById(R.id.tvTongCong);
 
-        // Màn chi tiết chỉ đọc -> ẩn icon
         View icGiam = layoutTongKet.findViewById(R.id.iconTooltipGiamGia);
         if (icGiam != null) icGiam.setVisibility(View.GONE);
         View icThue = layoutTongKet.findViewById(R.id.iconTooltipThue);
@@ -199,7 +197,7 @@ public class FragmentSPDV extends Fragment {
             }
         }
 
-        // fallback: đơn chỉ có 1 SP
+        //đơn chỉ có 1 SP
         if (sp != null && !sp.trim().isEmpty()) {
             ProductLine pl = new ProductLine(
                     sp.trim(),

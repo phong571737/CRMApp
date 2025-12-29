@@ -55,7 +55,6 @@ public class ProductLineAdapter extends RecyclerView.Adapter<ProductLineAdapter.
         h.tvQty.setText(String.valueOf(p.getQty()));
         h.tvPrice.setText(nf.format(p.getPrice()) + " đ");
 
-        // ✅ thành tiền hiển thị là FINAL (sau giảm + thuế dòng)
         h.tvTotal.setText("Thành tiền: " + nf.format(p.getFinalAmount()) + " đ");
 
         h.itemView.setOnClickListener(v -> {

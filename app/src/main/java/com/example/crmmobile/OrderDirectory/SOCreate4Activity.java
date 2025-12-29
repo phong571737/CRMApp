@@ -32,7 +32,6 @@ public class SOCreate4Activity extends AppCompatActivity {
         edtDieuKhoan = findViewById(R.id.edtDieuKhoan);
         edtGiaoCho   = findViewById(R.id.edtGiaoCho);
 
-        // Prefill
         Intent in = getIntent();
         if (in != null) {
             setText(edtCoHoi, in.getStringExtra(EXTRA_COHoi));

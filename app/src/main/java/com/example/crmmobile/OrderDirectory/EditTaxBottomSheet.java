@@ -108,7 +108,6 @@ public class EditTaxBottomSheet extends BottomSheetDialogFragment {
         } catch (Exception e) { return 0; }
     }
 
-    // ✅ tvTaxAmount hiển thị TỔNG THUẾ = thuế order + thuế từ sản phẩm
     private void updateTaxAmountText(TextView tv, long baseAmount, int percent, long lineTaxSum) {
         long orderTax = Math.round(baseAmount * (percent / 100.0));
         long totalTax = Math.max(0L, lineTaxSum) + Math.max(0L, orderTax);

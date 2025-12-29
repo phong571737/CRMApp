@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_color_main_screen"
-    tools:context=".MainDirectory.main_screen">
+    tools:context=".MainDirectory.main_screen"
+    app:layout_constraintBottom_toBottomOf="parent">
 
     <!--header-->
     <LinearLayout
@@ -77,47 +78,29 @@
     <LinearLayout
         android:id="@+id/ll_current"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ll_module"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/top_padding"
-        android:paddingTop="@dimen/top_padding">
-        <LinearLayout
+        android:paddingTop="@dimen/top_padding"
+        app:layout_constraintTop_toBottomOf="@id/ll_module"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <TextView
+            android:id="@+id/tv_current"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <TextView
-                android:id="@+id/tv_current"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/current_visit"
-                android:textSize="@dimen/text18"
-                android:textStyle="bold"
-                android:paddingStart="@dimen/margin15"
-                android:paddingEnd="@dimen/margin15" />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-            <TextView
-                android:id="@+id/tv_seemore_recent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_more"
-                android:textSize="@dimen/text14"
-                android:textStyle="normal"
-                android:paddingEnd="@dimen/margin15"
-                android:textColor="@color/seemore_color" />
-        </LinearLayout>
+            android:text="@string/current_visit"
+            android:textSize="@dimen/text18"
+            android:textStyle="bold"
+            android:paddingStart="@dimen/margin15"
+            android:paddingEnd="@dimen/margin15" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_recent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:paddingTop="@dimen/top_padding"
-            android:paddingBottom="@dimen/bottom_padding"
             android:paddingStart="@dimen/margin15"
             android:paddingEnd="@dimen/margin15"/>
     </LinearLayout>

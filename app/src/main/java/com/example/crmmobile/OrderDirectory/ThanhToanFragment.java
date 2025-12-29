@@ -35,7 +35,6 @@ public class ThanhToanFragment extends Fragment {
                 String dieuKhoan = data.getStringExtra(SOCreate4Activity.EXTRA_DIEUKHOAN);
                 String giaoCho = data.getStringExtra(SOCreate4Activity.EXTRA_GIAOCHO);
 
-                // Lưu vào draftExtra để khi Save Order -> ghi xuống DB
                 putExtra("coHoi", coHoi);
                 putExtra("baoGia", baoGia);
                 putExtra("moTa", moTa);
@@ -64,28 +63,22 @@ public class ThanhToanFragment extends Fragment {
         rowPaymentStatus = view.findViewById(R.id.rowPaymentStatus);
         btnAddMore       = view.findViewById(R.id.btnAddRecurring);
 
-        // ====== Load draft nếu có ======
         JSONObject draft = getDraftExtra();
 
-        // Phương thức thanh toán: cố định
         String method = draft.optString("paymentMethod", "Thanh toán trực tiếp");
         tvPaymentMethod.setText(method);
         putExtra("paymentMethod", "Thanh toán trực tiếp"); // ép cố định
 
-        // Tình trạng thanh toán: default
         String status = draft.optString("paymentStatus", "Chưa thanh toán");
         tvPaymentStatus.setText(status);
         putExtra("paymentStatus", status);
 
-        // Click phương thức -> chỉ báo là cố định
         rowPaymentMethod.setOnClickListener(v ->
                 Toast.makeText(requireContext(), "Phương thức: Thanh toán trực tiếp", Toast.LENGTH_SHORT).show()
         );
 
-        // Click tình trạng -> dialog chọn 1
         rowPaymentStatus.setOnClickListener(v -> showPaymentStatusDialog());
 
-        // + Thêm mới -> mở SOCreate4Activity
         btnAddMore.setOnClickListener(v -> openSOCreate4());
     }
 

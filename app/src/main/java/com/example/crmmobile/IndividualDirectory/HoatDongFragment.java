@@ -58,13 +58,7 @@ public class HoatDongFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        edtTieuDe = view.findViewById(R.id.edttieude);
-        edtMoTa = view.findViewById(R.id.edtmota);
-        actNguoiDung = view.findViewById(R.id.actnguoidung);
-        actCongTy = view.findViewById(R.id.actcongty);
-        actCaNhan = view.findViewById(R.id.actcanhan);
-        actCoHoi = view.findViewById(R.id.actcohoi);
+        initViews(view);
 
         // Load danh sách công ty từ database
         CompanyRepository companyRepository = new CompanyRepository(requireContext());
@@ -144,6 +138,15 @@ public class HoatDongFragment extends Fragment {
                     false
             );
         }
+    }
+
+    private void initViews(View view) {
+        edtTieuDe = view.findViewById(R.id.edttieude);
+        edtMoTa = view.findViewById(R.id.edtmota);
+        actNguoiDung = view.findViewById(R.id.actnguoidung);
+        actCongTy = view.findViewById(R.id.actcongty);
+        actCaNhan = view.findViewById(R.id.actcanhan);
+        actCoHoi = view.findViewById(R.id.actcohoi);
     }
 
     // SET CaNhan + ID

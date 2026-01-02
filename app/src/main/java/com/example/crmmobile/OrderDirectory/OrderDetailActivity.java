@@ -61,16 +61,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         caNhanRepo  = new CaNhanRepository(this);
 
         // bind
-        tvOrderCode = findViewById(R.id.tvOrderCode);
-        tvCustomer  = findViewById(R.id.tvCustomer);
-        tvCompany   = findViewById(R.id.tvCompany);
-        tvPrice     = findViewById(R.id.tvPrice);
-        tvTag       = findViewById(R.id.tvTag);
-        tvStatus    = findViewById(R.id.tvStatus);
-
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
-        iv_back   = findViewById(R.id.btnBack);
+        initVariables();
 
         List<String> tabTitles = Arrays.asList("Tổng quan", "Chi tiết");
         OrderDetailPagerAdapter pagerAdapter = new OrderDetailPagerAdapter(this, tabTitles);
@@ -85,6 +76,19 @@ public class OrderDetailActivity extends AppCompatActivity {
         if (iv_back != null) iv_back.setOnClickListener(v -> finish());
 
         bindHeaderFromDb();
+    }
+
+    private void initVariables() {
+        tvOrderCode = findViewById(R.id.tvOrderCode);
+        tvCustomer  = findViewById(R.id.tvCustomer);
+        tvCompany   = findViewById(R.id.tvCompany);
+        tvPrice     = findViewById(R.id.tvPrice);
+        tvTag       = findViewById(R.id.tvTag);
+        tvStatus    = findViewById(R.id.tvStatus);
+
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        iv_back   = findViewById(R.id.btnBack);
     }
 
     @Override

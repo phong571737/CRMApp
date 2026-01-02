@@ -20,8 +20,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomActionFragment extends BottomSheetDialogFragment {
 
-    private LinearLayout  chinhsua, xoa, themHoatDong;
+    private LinearLayout  chinhsua, xoa, themHoatDong, goidien, ll_email;
     private CaNhan caNhan; // item đang thao tác
+    private ImageView icCancel;
     private OnActionListener listener; // callback về Activity
     private CaNhanRepository db;
     private static final String PREFS_NAME = "LoginPrefs";
@@ -38,6 +39,8 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
         void onDelete(CaNhan cn);
         void onEdit(CaNhan cn);
         void onAddHoatDong(CaNhan cn);
+        void onCall(CaNhan cn);
+        void onEmail(CaNhan cn);
     }
 
     @Nullable
@@ -46,19 +49,12 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.bottom_actions, container, false);
-
+        initViews(view);
         // --- Button đóng ---
-        ImageView icCancel = view.findViewById(R.id.ic_cancel);
         icCancel.setOnClickListener(v -> dismiss());
 
         // --- Khởi tạo repository ---
         db = new CaNhanRepository(requireContext());
-
-        // --- Bind các nút ---
-//        ghim = view.findViewById(R.id.ghim);
-        chinhsua = view.findViewById(R.id.chinhsua);
-        xoa = view.findViewById(R.id.xoa);
-        themHoatDong = view.findViewById(R.id.themhoatdong);
 
         // --- Check role và ẩn/hiện nút xóa ---
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -67,9 +63,6 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
             // Ẩn nút xóa nếu không phải admin
             xoa.setVisibility(View.GONE);
         }
-
-        // --- Nút ghim ---
-//        ghim.setOnClickListener(v -> dismiss()); // hiện tại chỉ đóng, có thể mở rộng
 
         // --- Nút chỉnh sửa ---
         chinhsua.setOnClickListener(v -> {
@@ -101,6 +94,32 @@ public class BottomActionFragment extends BottomSheetDialogFragment {
             dismiss();
         });
 
+        //Gọi điện
+        goidien.setOnClickListener(v -> {
+            if (caNhan != null && listener != null){
+                listener.onCall(caNhan);
+            }
+            dismiss();
+        });
+
+        //Email
+        ll_email.setOnClickListener(v -> {
+            if (caNhan != null && listener != null){
+                listener.onEmail(caNhan);
+            }
+            dismiss();
+        });
+
+
         return view;
+    }
+
+    private void initViews(View view) {
+        icCancel = view.findViewById(R.id.ic_cancel);
+        chinhsua = view.findViewById(R.id.chinhsua);
+        xoa = view.findViewById(R.id.xoa);
+        themHoatDong = view.findViewById(R.id.themhoatdong);
+        goidien = view.findViewById(R.id.goidien);
+        ll_email = view.findViewById(R.id.ll_email);
     }
 }

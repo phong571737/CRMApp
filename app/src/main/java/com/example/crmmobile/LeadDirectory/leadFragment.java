@@ -1,8 +1,10 @@
 package com.example.crmmobile.LeadDirectory;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,10 +85,6 @@ public class leadFragment extends Fragment {
         db = new LeadRepository(getContext());
         leadList = new ArrayList<>();
 
-        navFooter = requireActivity().findViewById(R.id.nav_footer);
-        contain = requireActivity().findViewById(R.id.main_container);
-        viewPager = requireActivity().findViewById(R.id.viewPager);
-
         text_search.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -149,6 +147,30 @@ public class leadFragment extends Fragment {
                         convertLeadLauncher.launch(intent);
                     }
 
+                    @Override
+                    public void onOpenCalls(Lead lead) {
+                        String phoneNumber = lead.getDienThoai();
+                        if (!TextUtils.isEmpty(phoneNumber)) {
+                            // Loại bỏ khoảng trắng và ký tự đặc biệt để chỉ giữ lại số
+                            phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
+                            if (!phoneNumber.isEmpty()) {
+                                Uri phoneUri = Uri.parse("tel:" + phoneNumber);
+                                Intent intent = new Intent(Intent.ACTION_DIAL, phoneUri);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onSendEmail(Lead lead) {
+                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                        String email = lead.getEmail();
+                        if (!TextUtils.isEmpty(email)){
+                            emailIntent.setData(Uri.parse("mailto:" + email));
+                            startActivity(emailIntent);
+                        }
+                    }
+
                 });
             }
 
@@ -169,6 +191,10 @@ public class leadFragment extends Fragment {
         lead_create_button = view.findViewById(R.id.btn_add_lead);
         serch_bar_Lead = view.findViewById(R.id.serch_bar_Lead);
         text_search = view.findViewById(R.id.text_search);
+
+        navFooter = requireActivity().findViewById(R.id.nav_footer);
+        contain = requireActivity().findViewById(R.id.main_container);
+        viewPager = requireActivity().findViewById(R.id.viewPager);
     }
 
     private void filterLead(String key) {

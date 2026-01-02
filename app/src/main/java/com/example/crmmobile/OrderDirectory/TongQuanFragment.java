@@ -31,10 +31,7 @@ public class TongQuanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_tong_quan, container, false);
-
-        recyclerTaiLieu = view.findViewById(R.id.recyclerTaiLieu);
-        btnChonTaiLieu = view.findViewById(R.id.btnChonTaiLieu);
-        btnThemTaiLieu = view.findViewById(R.id.btnThemTaiLieu);
+        initViews(view);
 
         recyclerTaiLieu.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -50,12 +47,18 @@ public class TongQuanFragment extends Fragment {
         btnChonTaiLieu.setOnClickListener(v ->
                 Toast.makeText(requireContext(), "Chọn tài liệu", Toast.LENGTH_SHORT).show()
         );
-        
+
         btnThemTaiLieu.setOnClickListener(v ->
                 Toast.makeText(requireContext(), "Thêm tài liệu", Toast.LENGTH_SHORT).show()
         );
 
         return view;
+    }
+
+    private void initViews(View view) {
+        recyclerTaiLieu = view.findViewById(R.id.recyclerTaiLieu);
+        btnChonTaiLieu = view.findViewById(R.id.btnChonTaiLieu);
+        btnThemTaiLieu = view.findViewById(R.id.btnThemTaiLieu);
     }
 }
 

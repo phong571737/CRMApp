@@ -1,13 +1,5 @@
 package com.example.crmmobile.OrderDirectory;
 
-/**
- * Entity map 1-1 với bảng DONHANG trong DB.
- * Cột trong DB:
- *  ID, TENDONHANG, CONGTY, NGUOILIENHE, COHOI, BAOGIA,
- *  TINHTRANG, NGAYDATHANG, NGAYNHANHANG,
- *  SANPHAM, SOLUONG, DONGIA, TONGTIEN,
- *  MOTA, GIAOCHO
- */
 public class DonHang {
 
     private int id;
@@ -19,7 +11,7 @@ public class DonHang {
     private String tinhTrang;
     private String ngayDatHang;
     private String ngayNhanHang;
-    private String sanPham;   // tạm: chuỗi mô tả danh sách SP
+    private String sanPham;   // chuỗi mô tả danh sách SP
     private int soLuong;      // tổng số lượng
     private long donGia;      // có thể dùng đơn giá trung bình hoặc 0
     private long tongTien;    // tổng tiền
@@ -27,7 +19,6 @@ public class DonHang {
     private int giaoChoId;
     private int nguoiTaoId;
     private String extraJson;
-
 
     public DonHang() {
     }

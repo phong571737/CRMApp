@@ -21,8 +21,6 @@ import java.util.Map;
 public class DonHangRepository {
 
     private final DBCRMHandler dbHelper;
-
-    // Tên bảng + cột đúng như trong DBCRMHandler
     private static final String TABLE_NAME       = "DONHANG";
     private static final String COL_ID           = "ID";
     private static final String COL_TENDONHANG   = "TENDONHANG";
@@ -70,20 +68,14 @@ public class DonHangRepository {
         }
     }
 
-
-
-    // ===== CREATE =====
+    // thêm đơn hàng
     public long insert(DonHang dh) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         long newId = -1;
 
         ContentValues v = new ContentValues();
 
-        //đúng schema
         v.put("TENDONHANG", dh.getTenDonHang());
-
-        // DB của bạn đang lưu TEXT cho các cột này, không phải ID
-        // Nếu bạn không có getter riêng thì lấy từ MoTa "Công ty - Liên hệ"
         String mota = dh.getMoTa() == null ? "" : dh.getMoTa();
         String congTy = "";
         String lienHe = "";
@@ -93,27 +85,18 @@ public class DonHangRepository {
             if (parts.length >= 2) lienHe = parts[1].trim();
         }
         v.put("EXTRA_JSON", dh.getExtraJson());
-
         v.put("CONGTY", congTy);
         v.put("NGUOILIENHE", lienHe);
-
-        // nếu chưa có thì để rỗng
         v.put("COHOI", "");
         v.put("BAOGIA", "");
-
         v.put("TINHTRANG", dh.getTinhTrang());
         v.put("NGAYDATHANG", dh.getNgayDatHang());
         v.put("NGAYNHANHANG", dh.getNgayNhanHang());
-
         v.put("SANPHAM", dh.getSanPham());
         v.put("SOLUONG", dh.getSoLuong());
         v.put("DONGIA", dh.getDonGia());
         v.put("TONGTIEN", dh.getTongTien());
-
         v.put("MOTA", dh.getMoTa());
-
-        // GIAOCHO của bạn cũng là TEXT theo schema
-        // nếu chưa có UI thì để rỗng
         v.put("GIAOCHO", "");
 
         try {
@@ -133,8 +116,7 @@ public class DonHangRepository {
         ContentValues v = new ContentValues();
 
         v.put("TENDONHANG", order.getOrderCode());
-        v.put("CONGTY", order.getCompany());
-
+        v.put("CONGTY", order.getCompanyID());
         v.put("TINHTRANG", order.getPaymentStatus());
         v.put("TONGTIEN", order.getPrice());
 
@@ -149,7 +131,7 @@ public class DonHangRepository {
     }
 
 
-    // ===== READ: tất cả đơn hàng =====
+    // lấy tất cả đơn hàng
     public List<DonHang> getAll() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<DonHang> result = new ArrayList<>();
@@ -176,7 +158,7 @@ public class DonHangRepository {
         return result;
     }
 
-    // ===== READ: 1 đơn theo ID =====
+    // Lấy 1 đơn theo ID
     public DonHang getById(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         DonHang donHang = null;
@@ -201,7 +183,7 @@ public class DonHangRepository {
         return donHang;
     }
 
-    // ===== UPDATE =====
+    // UPDATE
     public int update(DonHang donHang) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -230,7 +212,7 @@ public class DonHangRepository {
         );
     }
 
-    // ===== DELETE =====
+    // DELETE
     public int delete(int id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return db.delete(
@@ -243,7 +225,6 @@ public class DonHangRepository {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        // ⚠️ ĐỔI đúng tên cột trong bảng DONHANG của bạn
         cv.put("PHUONG_THUC_THANH_TOAN", method);
         cv.put("TINH_TRANG_THANH_TOAN", status);
 
@@ -254,7 +235,6 @@ public class DonHangRepository {
     public String getPaymentStatus(int orderId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // ⚠️ ĐỔI đúng tên cột trong bảng DONHANG của bạn
         Cursor c = db.rawQuery("SELECT TINH_TRANG_THANH_TOAN FROM DONHANG WHERE ID = ?",
                 new String[]{String.valueOf(orderId)});
         String res = null;
@@ -266,7 +246,6 @@ public class DonHangRepository {
     public String getPaymentMethod(int orderId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // ⚠️ ĐỔI đúng tên cột trong bảng DONHANG của bạn
         Cursor c = db.rawQuery("SELECT PHUONG_THUC_THANH_TOAN FROM DONHANG WHERE ID = ?",
                 new String[]{String.valueOf(orderId)});
         String res = null;
@@ -275,12 +254,10 @@ public class DonHangRepository {
         return res;
     }
 
-
-    // ===== Map Cursor -> DonHang =====
+    // Map Cursor -> DonHang
     private DonHang fromCursor(Cursor c) {
         DonHang dh = new DonHang();
 
-        // ===== Cột thật sự có trong bảng DONHANG =====
         dh.setId(getIntSafe(c, "ID", 0));
         dh.setTenDonHang(getStringSafe(c, "TENDONHANG"));
 
@@ -293,16 +270,13 @@ public class DonHangRepository {
         dh.setDonGia(getLongSafe(c, "DONGIA", 0L));
         dh.setTongTien(getLongSafe(c, "TONGTIEN", 0L));
 
-        // ===== Công ty / Người liên hệ đang là TEXT trong DB =====
         String congTyName  = getStringSafe(c, "CONGTY");
         String lienHeName  = getStringSafe(c, "NGUOILIENHE");
         String coHoiName   = getStringSafe(c, "COHOI");
         String baoGiaName  = getStringSafe(c, "BAOGIA");
         String giaoChoName = getStringSafe(c, "GIAOCHO");
-        // ===== EXTRA_JSON: ưu tiên đọc từ cột EXTRA_JSON nếu có =====
         String extraStr = getStringSafe(c, "EXTRA_JSON");
 
-        // Bạn đang dùng MoTa kiểu "Công ty - Liên hệ" để hiển thị
         String mota = getStringSafe(c, "MOTA");
         if ((mota == null || mota.trim().isEmpty())) {
             String ct = (congTyName == null) ? "" : congTyName.trim();
@@ -310,8 +284,6 @@ public class DonHangRepository {
             if (!ct.isEmpty() || !lh.isEmpty()) mota = ct + " - " + lh;
         }
         dh.setMoTa(mota);
-
-        // ===== Các field ...Id trong DonHang object: DB không có -> set 0 =====
         dh.setCongTyId(0);
         dh.setNguoiLienHeId(0);
         dh.setCoHoiId(0);
@@ -325,7 +297,6 @@ public class DonHangRepository {
                     ? new JSONObject()
                     : new JSONObject(extraStr);
 
-            // fallback: nhét thêm text từ các cột nếu thiếu key
             if (congTyName != null && !extra.has("company")) extra.put("company", congTyName);
             if (lienHeName != null && !extra.has("contact")) extra.put("contact", lienHeName);
             if (coHoiName != null && !extra.has("coHoi")) extra.put("coHoi", coHoiName);
@@ -334,7 +305,6 @@ public class DonHangRepository {
 
             dh.setExtraJson(extra.toString());
         } catch (Exception ex) {
-            // nếu JSON hỏng -> fallback "{}" + vẫn nhét được company/contact
             try {
                 JSONObject extra = new JSONObject();
                 if (congTyName != null) extra.put("company", congTyName);
@@ -348,40 +318,30 @@ public class DonHangRepository {
             }
         }
 
-
-
-
         return dh;
     }
 
-
-    // ===== Helper: convert sang List<Order> cho màn hình list =====
     public List<Order> getOrdersForList() {
         List<DonHang> donHangs = getAll();
         List<Order> orders = new ArrayList<>();
 
         for (DonHang dh : donHangs) {
             String orderCode = dh.getTenDonHang();
-            //String company   = "Công ty #" + dh.getCongTyId(); // sau này map từ CompanyRepository
-            String company   = dh.getMoTa();  // tạm dùng mô tả để show tên công ty
+            String company   = dh.getMoTa();
             java.text.NumberFormat nf = java.text.NumberFormat.getInstance(new java.util.Locale("vi", "VN"));
             String price = nf.format(dh.getTongTien()) + " đ";
 
             String date      = dh.getNgayDatHang();
             String status    = dh.getTinhTrang();
-            String orderType = ""; // có thể để trống hoặc suy ra từ TINHTRANG
+            String orderType = "";
 
-            // Order sẽ được chỉnh thêm field id ở bước dưới
             Order o = new Order(dh.getId(), orderCode, company, price, date, status, orderType);
             orders.add(o);
         }
         return orders;
     }
 
-    // ===== Thống kê doanh thu theo tháng =====
-    /**
-     * Trả về Map với key là "MM/yyyy" (ví dụ "01/2024") và value là tổng doanh thu của tháng đó
-     */
+    // Thống kê doanh thu theo tháng
     public Map<String, Long> getRevenueByMonth() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Map<String, Long> revenueMap = new LinkedHashMap<>();
@@ -423,12 +383,11 @@ public class DonHangRepository {
                                 parsed = true;
                                 break;
                             } catch (Exception e) {
-                                // Thử format tiếp
+
                             }
                         }
 
                         if (!parsed) {
-                            // Nếu không parse được, thử extract từ chuỗi dd/MM/yyyy hoặc dd-MM-yyyy
                             try {
                                 String[] parts = ngayDatHang.split("[/-]");
                                 if (parts.length >= 3) {
@@ -439,7 +398,6 @@ public class DonHangRepository {
                                     parsed = true;
                                 }
                             } catch (Exception e) {
-                                // Bỏ qua nếu không parse được
                             }
                         }
 

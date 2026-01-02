@@ -20,7 +20,10 @@ public class BottomSheetActionLead {
         void onEdit(Lead lead);
         void onDelete(Lead lead);
         void onConvertLead(Lead lead);
+        void onOpenCalls(Lead lead);
+        void onSendEmail(Lead lead);
     }
+
     private static void addActionItemLead(Context context, LinearLayout parent, int iconRes, String text, Runnable run){
         View view = LayoutInflater.from(context).inflate(R.layout.item_action, parent, false);
 
@@ -46,12 +49,14 @@ public class BottomSheetActionLead {
 
         btnClose.setOnClickListener(v -> dialog.dismiss());//exit
 
-//        addActionItemLead(context, layoutAction, R.drawable.ic_pin, "Ghim", null);
-//        addActionItemLead(context, layoutAction, R.drawable.ic_call, "Gọi điện", null);
-//        addActionItemLead(context, layoutAction, R.drawable.ic_comment_mess, "Chat", null);
-//        addActionItemLead(context, layoutAction, R.drawable.ic_sms, "Gửi tin nhắn SMS", null);
-//        addActionItemLead(context, layoutAction, R.drawable.ic_mail, "Gửi Email", null);
-//        addActionItemLead(context, layoutAction, R.drawable.ic_calendar, "Thêm hoạt động", null);
+        addActionItemLead(context, layoutAction, R.drawable.ic_call, "Gọi điện", ()->{
+            if (listener != null) listener.onOpenCalls(lead);
+            dialog.dismiss();
+        });
+        addActionItemLead(context, layoutAction, R.drawable.ic_mail, "Gửi Email", ()->{
+            if (listener != null) listener.onSendEmail(lead);
+            dialog.dismiss();
+        });
         addActionItemLead(context, layoutAction, R.drawable.ic_loop, "Chuyển đổi Lead", ()->{
             if (listener != null) listener.onConvertLead(lead);
             dialog.dismiss();

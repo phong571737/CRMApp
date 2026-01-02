@@ -33,33 +33,58 @@
             android:contentDescription="Cancel"/>
     </LinearLayout>
 
+    <!--     Email-->
+    <LinearLayout
+        android:id="@+id/ll_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
 
-    <!-- Ghim -->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/ghim"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center_vertical"-->
-<!--        android:padding="16dp">-->
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_input_box_small"
+            android:src="@drawable/ic_mail"
+            android:scaleType="centerInside"
+            android:layout_marginStart="10dp"/>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/ic_pin"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:background="@drawable/rounded_input_box_small"-->
-<!--        android:src="@drawable/ic_pin"-->
-<!--        android:scaleType="centerInside"-->
-<!--        android:layout_marginStart="10dp"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gửi email"
+            android:textSize="16sp"
+            android:padding="12dp" />
+    </LinearLayout>
 
-<!--    <TextView-->
-<!--        android:id="@+id/action_ghim"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Ghim"-->
-<!--        android:textSize="16sp"-->
-<!--        android:padding="12dp" />-->
-<!--    </LinearLayout>-->
+
+<!--     Gọi điện -->
+    <LinearLayout
+        android:id="@+id/goidien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ic_call"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_input_box_small"
+            android:src="@drawable/ic_call"
+            android:scaleType="centerInside"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/action_goidien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gọi điện"
+            android:textSize="16sp"
+            android:padding="12dp" />
+    </LinearLayout>
 
     <!-- Thêm hoạt động -->
     <LinearLayout

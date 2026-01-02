@@ -1,9 +1,11 @@
 package com.example.crmmobile.IndividualDirectory;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,11 +69,7 @@ public class DanhSachCaNhanFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_danhsachcanhan, container, false);
-
-        rvCaNhan = view.findViewById(R.id.rvCaNhan);
-        btnAdd = view.findViewById(R.id.btn_add_contact);
-        icBack = view.findViewById(R.id.ic_back);
-        searchInput = view.findViewById(R.id.edt_search);
+        initViews(view);
 
         // --- Khởi tạo DB ---
         db = new CaNhanRepository(requireContext());
@@ -167,6 +165,30 @@ public class DanhSachCaNhanFragment extends Fragment {
                         bottom.setCaNhan(cn);   // <<< gửi dữ liệu CaNhan
                         bottom.show(getParentFragmentManager(), "hoatdong");
                     }
+
+                    @Override
+                    public void onCall(CaNhan cn) {
+                        String phoneNumber = cn.getDiDong();
+                        if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+                            // Loại bỏ khoảng trắng và ký tự đặc biệt để chỉ giữ lại số
+                            phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
+                            if (!phoneNumber.isEmpty()) {
+                                Uri phoneUri = Uri.parse("tel:" + phoneNumber);
+                                Intent intent = new Intent(Intent.ACTION_DIAL, phoneUri);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onEmail(CaNhan cn) {
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        String email = cn.getEmail();
+                        if (!TextUtils.isEmpty(email)){
+                            intent.setData(Uri.parse("mailto:" + email));
+                            startActivity(intent);
+                        }
+                    }
                 });
                 bottomSheet.show(getParentFragmentManager(), "BottomAction");
             }
@@ -180,6 +202,13 @@ public class DanhSachCaNhanFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void initViews(View view) {
+        rvCaNhan = view.findViewById(R.id.rvCaNhan);
+        btnAdd = view.findViewById(R.id.btn_add_contact);
+        icBack = view.findViewById(R.id.ic_back);
+        searchInput = view.findViewById(R.id.edt_search);
     }
 
     @Override

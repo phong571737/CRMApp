@@ -3,9 +3,9 @@ package com.example.crmmobile.OrderDirectory;
 public class Order {
 
     private int id;
-
     private String orderCode;
     private String company;
+    private Integer companyID;
     private String price;
     private String date;
     private String paymentStatus;
@@ -93,5 +93,13 @@ public class Order {
 
     public void setOrderType(String orderType) {
         this.orderType = orderType;
+    }
+
+    public Integer getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(Integer companyID) {
+        this.companyID = companyID;
     }
 }

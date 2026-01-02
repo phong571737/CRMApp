@@ -43,47 +43,40 @@ import java.util.List;
 import java.util.Locale;
 
 public class SOCreate1Activity extends AppCompatActivity {
-
-    public interface DraftOrderHost {
-        ArrayList<ProductLine> getDraftProducts();
-        JSONObject getDraftExtra();
-        void putExtra(String key, String value);
-    }
-
-
     private final ArrayList<ProductLine> draftProducts = new ArrayList<>();
     private final JSONObject draftExtra = new JSONObject();
-
-    private TextInputEditText edtOrderDate;
-    private View generalContainer;
-    private View otherTabContainer;
+    private TextInputEditText edtOrderDate, edtTitle, edtPhone;
+    private TextInputLayout tilOrderDate, tilCompany, tilContact;
+    private View generalContainer, otherTabContainer, btnCancel, btnSave;
     private DonHangRepository donHangRepository;
-
+    private CompanyRepository companyRepository;
+    private CaNhanRepository caNhanRepository;
     private final Fragment productsFragment = new SOProductsFragment();
     private final Fragment paymentFragment  = new ThanhToanFragment();
-
     private List<ToChuc> companyList = new ArrayList<>();
     private int selectedCongTyId = 0;
     private List<CaNhan> contactList = new ArrayList<>();
     private int selectedNguoiLienHeId = 0;
+    private AutoCompleteTextView actCompany, actContact, actStatus;
+    private MaterialToolbar tb;
+    private TabLayout tabs;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socreate1);
 
+        companyRepository = new CompanyRepository(this);
         donHangRepository = new DonHangRepository(this);
+        caNhanRepository = new CaNhanRepository(this);
+        initVariables();
 
-        MaterialToolbar tb = findViewById(R.id.toolbar);
         setSupportActionBar(tb);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         if (tb != null) tb.setNavigationOnClickListener(v -> goBack());
 
-        generalContainer  = findViewById(R.id.generalContainer);
-        otherTabContainer = findViewById(R.id.otherTabContainer);
-
-        TabLayout tabs = findViewById(R.id.tabLayout);
         if (tabs != null) {
             tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
@@ -117,15 +110,10 @@ public class SOCreate1Activity extends AppCompatActivity {
             showGeneral();
         }
 
-        AutoCompleteTextView actCompany  = findViewById(R.id.actCompany);
-        AutoCompleteTextView actContact  = findViewById(R.id.actContact);
-        AutoCompleteTextView actStatus   = findViewById(R.id.actStatus);
-
         bindCompanyAutoComplete(actCompany);
         bindContactAutoComplete(actContact);
         // Load danh sách công ty từ database
         if (actCompany != null) {
-            CompanyRepository companyRepository = new CompanyRepository(this);
             companyList = companyRepository.getAllCompany();
             ArrayAdapter<ToChuc> companyAdapter = new ArrayAdapter<>(
                     this,
@@ -146,7 +134,6 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         // Load danh sách người liên hệ từ database
         if (actContact != null) {
-            CaNhanRepository caNhanRepository = new CaNhanRepository(this);
             contactList = caNhanRepository.getAllCaNhan();
             ArrayAdapter<CaNhan> contactAdapter = new ArrayAdapter<CaNhan>(
                     this,
@@ -203,27 +190,36 @@ public class SOCreate1Activity extends AppCompatActivity {
                     new String[]{"Mới", "Đang xử lý", "Hoàn tất"}));
         }
 
-        TextInputLayout tilCompany = findViewById(R.id.tilCompany);
-        TextInputLayout tilContact = findViewById(R.id.tilContact);
-        if (tilCompany != null) tilCompany.setEndIconOnClickListener(v -> { /* nếu muốn mở picker thì làm sau */ });
-        if (tilContact != null) tilContact.setEndIconOnClickListener(v -> { /* nếu muốn mở picker thì làm sau */ });
-
-        TextInputLayout tilOrderDate = findViewById(R.id.tilOrderDate);
-        edtOrderDate = findViewById(R.id.edtOrderDate);
+        if (tilCompany != null) tilCompany.setEndIconOnClickListener(v -> {});
+        if (tilContact != null) tilContact.setEndIconOnClickListener(v -> {});
         if (tilOrderDate != null) tilOrderDate.setEndIconOnClickListener(v -> openDatePicker());
         if (edtOrderDate != null) edtOrderDate.setOnClickListener(v -> openDatePicker());
-
-        View btnCancel = findViewById(R.id.btnCancel);
         if (btnCancel != null) btnCancel.setOnClickListener(v -> goBack());
-
-        View btnSave = findViewById(R.id.btnSave);
         if (btnSave != null) btnSave.setOnClickListener(v -> saveOrder());
     }
+
+    private void initVariables() {
+        generalContainer  = findViewById(R.id.generalContainer);
+        otherTabContainer = findViewById(R.id.otherTabContainer);
+        actCompany  = findViewById(R.id.actCompany);
+        actContact  = findViewById(R.id.actContact);
+        actStatus   = findViewById(R.id.actStatus);
+        tb = findViewById(R.id.toolbar);
+        tabs = findViewById(R.id.tabLayout);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnSave = findViewById(R.id.btnSave);
+        edtOrderDate = findViewById(R.id.edtOrderDate);
+        tilCompany = findViewById(R.id.tilCompany);
+        tilContact = findViewById(R.id.tilContact);
+        tilOrderDate = findViewById(R.id.tilOrderDate);
+        edtTitle = findViewById(R.id.edtTitle);
+        edtPhone = findViewById(R.id.edtPhone);
+    }
+
     private void bindCompanyAutoComplete(AutoCompleteTextView actCompany) {
         if (actCompany == null) return;
         try {
-            CompanyRepository companyRepo = new CompanyRepository(this);
-            List<ToChuc> companies = companyRepo.getAllCompany();
+            List<ToChuc> companies = companyRepository.getAllCompany();
             ArrayList<String> names = new ArrayList<>();
             for (ToChuc c : companies) {
                 if (c != null && c.getCompanyName() != null && !c.getCompanyName().trim().isEmpty()) {
@@ -242,8 +238,7 @@ public class SOCreate1Activity extends AppCompatActivity {
     private void bindContactAutoComplete(AutoCompleteTextView actContact) {
         if (actContact == null) return;
         try {
-            CaNhanRepository cnRepo = new CaNhanRepository(this);
-            List<CaNhan> contacts = cnRepo.getAllCaNhan();
+            List<CaNhan> contacts = caNhanRepository.getAllCaNhan();
             ArrayList<String> names = new ArrayList<>();
             for (CaNhan cn : contacts) {
                 if (cn != null && cn.getHoVaTen() != null && !cn.getHoVaTen().trim().isEmpty()) {
@@ -294,13 +289,6 @@ public class SOCreate1Activity extends AppCompatActivity {
     }
 
     private void saveOrder() {
-        TextInputEditText edtTitle = findViewById(R.id.edtTitle);
-        TextInputEditText edtPhone = findViewById(R.id.edtPhone);
-
-        AutoCompleteTextView actCompany = findViewById(R.id.actCompany);
-        AutoCompleteTextView actContact = findViewById(R.id.actContact);
-        AutoCompleteTextView actStatus  = findViewById(R.id.actStatus);
-
         String title      = edtTitle != null ? edtTitle.getText().toString().trim() : "";
         String phoneStr   = edtPhone != null ? edtPhone.getText().toString().trim() : "";
         String companyStr = actCompany != null ? actCompany.getText().toString().trim() : "";
@@ -322,7 +310,6 @@ public class SOCreate1Activity extends AppCompatActivity {
 
         int totalQty = calcTotalQty(productsForSave);
         long totalMoney = calcTotalMoney(productsForSave);
-
         String productsJson = encodeProductsJson(productsForSave);
 
         DonHang dh = new DonHang();
@@ -330,27 +317,18 @@ public class SOCreate1Activity extends AppCompatActivity {
         dh.setNgayDatHang(dateStr);
         dh.setTinhTrang(statusStr);
         dh.setExtraJson(draftExtra.toString());
-
         dh.setNgayNhanHang("");
-        // Lưu ID công ty và người liên hệ đã chọn
-        dh.setCongTyId(selectedCongTyId);
+        dh.setCongTyId(selectedCongTyId); // Lưu ID công ty và người liên hệ đã chọn
         dh.setNguoiLienHeId(selectedNguoiLienHeId);
         dh.setCoHoiId(0);
         dh.setBaoGiaId(0);
-
         dh.setSanPham(productsJson);
         dh.setSoLuong(totalQty);
-
         long grandTotal = getGrandTotalFromProductsFragment(); //tổng cộng sau giảm giá + thuế
         if (grandTotal <= 0) grandTotal = totalMoney;
-
         dh.setTongTien(grandTotal);
-
-
         dh.setDonGia(0);
-
         dh.setMoTa(companyStr + " - " + contactStr);
-
         dh.setCongTyId(0);
         dh.setNguoiLienHeId(0);
         dh.setCoHoiId(0);
@@ -401,8 +379,6 @@ public class SOCreate1Activity extends AppCompatActivity {
         } catch (Exception ignored) {}
         return 0L;
     }
-
-
 
     private String encodeProductsJson(List<ProductLine> list) {
         try {
@@ -471,10 +447,6 @@ public class SOCreate1Activity extends AppCompatActivity {
             if (edtOrderDate != null) edtOrderDate.setText(s);
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH),
                 c.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    public ArrayList<ProductLine> getDraftProducts() {
-        return draftProducts;
     }
 
     public JSONObject getDraftExtra() {

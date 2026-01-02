@@ -37,34 +37,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <!-- Action Icons -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_arrow_back_ios" />
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_next" />
-
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/btnMore"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_more" />
     </LinearLayout>
 
     <!-- ===== THÔNG TIN ĐƠN ===== -->
@@ -159,9 +131,6 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- ✅ ĐÃ XÓA: Người tạo + Người phụ trách + avatar -->
-
-    <!-- 🔹 Tab (Tổng quan / Chi tiết) - làm rõ chữ -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -181,7 +150,6 @@
         android:layout_height="1dp"
         app:dividerColor="@color/stroke" />
 
-    <!-- 🔹 Vùng chứa nội dung fragment -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

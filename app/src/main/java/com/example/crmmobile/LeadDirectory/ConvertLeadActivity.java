@@ -171,6 +171,7 @@ public class ConvertLeadActivity extends AppCompatActivity {
         viewModelLead.CreatedByID.setValue(lead.getNguoitaoID());
     }
 
+    // Chuyển đổi thành cơ hội
     private boolean ConvertLeadtoChance() {
         if (TextUtils.isEmpty(et_chance.getText().toString())){
             Toast.makeText(this, "Vui lòng nhập cơ hội", Toast.LENGTH_SHORT).show();
@@ -359,7 +360,7 @@ public class ConvertLeadActivity extends AppCompatActivity {
         til_job = findViewById(R.id.til_job);
     }
 
-    //List the companies in the database
+    //lấy tên các công ty có trong database
     private void getCompany() {
         List<ToChuc> companyList = companyRepository.getAllCompany();
         List<String> companyName = new ArrayList<>();

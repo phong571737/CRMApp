@@ -60,9 +60,7 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
 
     private void initViews(View view) {
         icClose = view.findViewById(R.id.ic_close);
-//        icMore = view.findViewById(R.id.ic_more);
         tvTenHoatDong = view.findViewById(R.id.tv_tenhoatdong);
-       // tvTieuDe = view.findViewById(R.id.tv_tieude);
         tvMoTa = view.findViewById(R.id.tv_mota);
         tvNguoiDungDuocMoi = view.findViewById(R.id.tv_nguoidungduocmoi);
         tvCongTy = view.findViewById(R.id.tv_congty);
@@ -74,13 +72,7 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
 
         icClose.setOnClickListener(v -> dismiss());
 
-        // TODO: Xử lý icMore click nếu cần
-//        icMore.setOnClickListener(v -> {
-//            // Có thể hiển thị menu thêm
-//        });
-
         btnHoanThanh.setOnClickListener(v -> {
-            // TODO: Xử lý logic hoàn thành hoạt động
             Toast.makeText(requireContext(), "Đã hoàn thành hoạt động", Toast.LENGTH_SHORT).show();
             dismiss();
         });
@@ -98,13 +90,6 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
             tvTenHoatDong.setText("Không xác định");
         }
 
-//        // Tiêu đề (cùng với tên hoạt động)
-//        if (hoatDong.getTenHoatDong() != null && !hoatDong.getTenHoatDong().isEmpty()) {
-//            tvTieuDe.setText(hoatDong.getTenHoatDong());
-//        } else {
-//            tvTieuDe.setText("Không xác định");
-//        }
-
         // Mô tả
         if (hoatDong.getMoTa() != null && !hoatDong.getMoTa().isEmpty()) {
             tvMoTa.setText(hoatDong.getMoTa());
@@ -112,7 +97,6 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
             tvMoTa.setText("Không xác định");
         }
 
-        // Người dùng được mời - query từ NhanVienRepository bằng giaoCho ID
         if (hoatDong.getGiaoCho() > 0) {
             NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
             String tenNguoiDuocMoi = nhanVienRepository.getNameByID(hoatDong.getGiaoCho());
@@ -125,7 +109,6 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
             tvNguoiDungDuocMoi.setText("Không xác định");
         }
 
-        // Công ty - query từ CompanyRepository bằng toChuc ID
         if (hoatDong.getToChuc() > 0) {
             CompanyRepository companyRepository = new CompanyRepository(requireContext());
             ToChuc toChuc = companyRepository.getCompanyByID(hoatDong.getToChuc());
@@ -138,7 +121,6 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
             tvCongTy.setText("Không xác định");
         }
 
-        // Cá nhân - query từ CaNhanRepository bằng nguoiLienHe ID
         if (hoatDong.getNguoiLienHe() > 0) {
             CaNhanRepository caNhanRepository = new CaNhanRepository(requireContext());
             CaNhan caNhan = caNhanRepository.getById(hoatDong.getNguoiLienHe());
@@ -166,7 +148,6 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
             tvCaNhan.setText("Không xác định");
         }
 
-        // Cơ hội - query từ OpportunityRepository bằng coHoi ID
         if (hoatDong.getCoHoi() > 0) {
             OpportunityRepository opportunityRepository = OpportunityRepository.getInstance(requireContext());
             Opportunity opportunity = opportunityRepository.getById(hoatDong.getCoHoi());
@@ -179,7 +160,6 @@ public class BottomSheetChiTietHoatDongFragment extends BottomSheetDialogFragmen
             tvCoHoi.setText("Không xác định");
         }
 
-        // Người phụ trách - query từ NhanVienRepository bằng nhanVien ID
         if (hoatDong.getNhanVien() > 0) {
             NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
             String tenNhanVien = nhanVienRepository.getNameByID(hoatDong.getNhanVien());

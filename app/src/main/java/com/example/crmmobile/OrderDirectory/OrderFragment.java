@@ -47,6 +47,7 @@ public class OrderFragment extends Fragment {
     private OrderAdapter orderAdapter;
     private EditText edtSearch;
     private RecyclerView recyclerView;
+    private FloatingActionButton fab;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,9 +71,7 @@ public class OrderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Context ctx = requireContext();
-
-        // ===== RecyclerView danh sách đơn =====
-        recyclerView = view.findViewById(R.id.recyclerOrders);
+        initViews(view);
         recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
 
         // Lấy dữ liệu từ DB qua DonHangRepository
@@ -82,10 +81,8 @@ public class OrderFragment extends Fragment {
         allOrders = donHangRepository.getOrdersForList();
         orderAdapter = new OrderAdapter(orderList, ctx, this::showBottomSheet);
 
-
         recyclerView.setAdapter(orderAdapter);
         // ===== Tìm kiếm đơn hàng =====
-        edtSearch = view.findViewById(R.id.editTextText);
         if (edtSearch != null) {
             edtSearch.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -102,7 +99,6 @@ public class OrderFragment extends Fragment {
         }
 
         // ===== FAB dấu cộng: mở SOCreate1Activity =====
-        FloatingActionButton fab = view.findViewById(R.id.fabAddOrder);
         if (fab != null) {
             fab.setOnClickListener(v -> {
                 //Intent cần Context (không dùng this(Fragment))
@@ -116,6 +112,12 @@ public class OrderFragment extends Fragment {
             v.setPadding(sys.left, sys.top, sys.right, 0);
             return insets;
         });
+    }
+
+    private void initViews(View view) {
+        recyclerView = view.findViewById(R.id.recyclerOrders);
+        fab = view.findViewById(R.id.fabAddOrder);
+        edtSearch = view.findViewById(R.id.editTextText);
     }
 
     @Override
@@ -146,7 +148,6 @@ public class OrderFragment extends Fragment {
         if (orderAdapter != null) orderAdapter.notifyDataSetChanged();
     }
 
-
     //BottomSheet hành động cho từng đơn
     public void showBottomSheet(Order order) {
         BottomSheetDialog dialog = new BottomSheetDialog(requireContext());
@@ -160,8 +161,6 @@ public class OrderFragment extends Fragment {
             Toast.makeText(requireContext(), "Đã ghim đơn hàng", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
-
-
 
         // HỦY ĐƠN HÀNG
         addActionItem(layoutActions, R.drawable.ic_escape, "Hủy đơn hàng", () -> {

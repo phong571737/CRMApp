@@ -47,7 +47,6 @@ public class TabActivity extends AppCompatActivity {
         initViews();
         SetRecentCanhan();
         fillHeaderData();
-        setupClickListeners();
 
         // --- Mặc định hiển thị tab Tổng quan ---
         TongQuanFragment tongQuanFragment = new TongQuanFragment();
@@ -149,9 +148,6 @@ public class TabActivity extends AppCompatActivity {
         Log.e("RECENT", "Saved Name: " + currentCaNhan.getTen());
     }
 
-    /**
-     * Hàm hiển thị fragment mới trong container
-     */
     private void initViews() {
         tabTongQuan = findViewById(R.id.tab_tongquan);
         tabChiTiet = findViewById(R.id.tab_chitiet);
@@ -189,31 +185,13 @@ public class TabActivity extends AppCompatActivity {
         }
     }
 
-    private void setupClickListeners() {
-        // Click vào số điện thoại để mở app điện thoại
-        tvHeaderSdt.setOnClickListener(v -> {
-            String phoneNumber = tvHeaderSdt.getText().toString();
-            if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
-                // Loại bỏ khoảng trắng và ký tự đặc biệt để chỉ giữ lại số
-                phoneNumber = phoneNumber.replaceAll("[^0-9+]", "");
-                if (!phoneNumber.isEmpty()) {
-                    Uri phoneUri = Uri.parse("tel:" + phoneNumber);
-                    Intent intent = new Intent(Intent.ACTION_DIAL, phoneUri);
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-
     private void setFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }
 
-    /**
-     * Hàm đổi màu tab được chọn + đổi viền
-     */
+    // Hàm đổi màu tab được chọn + đổi viền
     private void setActiveTab(TextView selectedTab) {
         // Reset màu và background tất cả tab về mặc định
         tabTongQuan.setTextColor(getResources().getColor(R.color.grey));
@@ -222,9 +200,6 @@ public class TabActivity extends AppCompatActivity {
         tabChiTiet.setTextColor(getResources().getColor(R.color.grey));
         tabChiTiet.setBackgroundResource(android.R.color.transparent);
 
-//        tabHoatDong.setTextColor(getResources().getColor(R.color.grey));
-//        tabHoatDong.setBackgroundResource(android.R.color.transparent);
-//
         tabCoHoi.setTextColor(getResources().getColor(R.color.grey));
         tabCoHoi.setBackgroundResource(android.R.color.transparent);
 

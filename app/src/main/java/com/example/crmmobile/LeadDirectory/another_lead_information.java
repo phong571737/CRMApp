@@ -106,8 +106,8 @@ public class another_lead_information extends Fragment {
     }
 
     private void initSendto() {
-        Executor executor = Executors.newSingleThreadExecutor();
-        Handler mainHandler = new Handler(Looper.getMainLooper());
+        Executor executor = Executors.newSingleThreadExecutor(); // tạo luồng phụ
+        Handler mainHandler = new Handler(Looper.getMainLooper()); //luồng UI
         executor.execute(()->{
             NhanVienRepository nhanVienRepository = new NhanVienRepository(requireContext());
             nhanVienRepository.AddNhanVien();
@@ -127,6 +127,7 @@ public class another_lead_information extends Fragment {
         });
     }
 
+    //Bind dữ liệu từ edittext -> viewmodel
     private void bindEditTexttoViewModel(EditText editText, lead_information.StringUpdater updater) {
         editText.addTextChangedListener(new TextWatcher() {
                 @Override
